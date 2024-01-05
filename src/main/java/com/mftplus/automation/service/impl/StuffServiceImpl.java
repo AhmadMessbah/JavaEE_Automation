@@ -1,7 +1,7 @@
-package com.mftplus.automation.service;
+package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.Stuff;
-import com.mftplus.automation.service.impl.StuffService;
+import com.mftplus.automation.service.StuffService;
 import com.mftplus.automation.common.JPA;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

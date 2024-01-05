@@ -1,8 +1,7 @@
-package com.mftplus.automation.service;
+package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.common.JPA;
-import com.mftplus.automation.model.Profile;
-import com.mftplus.automation.service.impl.ProfileService;
+import com.mftplus.automation.model.StuffStorage;
+import com.mftplus.automation.service.StuffStorageService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -10,33 +9,33 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-public class ProfileServiceImpl implements ProfileService {
+public class StuffStorageServiceImpl implements StuffStorageService {
     @Override
-    public void save(Profile profile) throws Exception {
+    public void save(StuffStorage stuffStorage) throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        entityManager.persist(profile);
+        entityManager.persist(stuffStorage);
         entityTransaction.commit();
         entityManager.close();
     }
 
     @Override
-    public void edit(Profile profile) throws Exception {
+    public void edit(StuffStorage stuffStorage) throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        entityManager.merge(profile);
+        entityManager.merge(stuffStorage);
         entityTransaction.commit();
         entityManager.close();
     }
 
     @Override
-    public void remove(Profile profile) throws Exception {
+    public void remove(StuffStorage stuffStorage) throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        entityManager.remove(profile);
+        entityManager.remove(stuffStorage);
         entityTransaction.commit();
         entityManager.close();
     }
@@ -46,29 +45,28 @@ public class ProfileServiceImpl implements ProfileService {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        Profile profile = entityManager.find(Profile.class, id);
-        entityManager.remove(profile);
+        StuffStorage stuffStorage = entityManager.find(StuffStorage.class, id);
+        entityManager.remove(stuffStorage);
         entityTransaction.commit();
         entityManager.close();
     }
 
     @Override
-    public List<Profile> findAll() throws Exception {
+    public List<StuffStorage> findAll() throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
 
-        TypedQuery<Profile> query = entityManager.createQuery("select p from profileEntity p", Profile.class);
-        List<Profile> profileList = query.getResultList();
+        TypedQuery<StuffStorage> query = entityManager.createQuery("select p from stuffStorageEntity p", StuffStorage.class);
+        List<StuffStorage> stuffStorageList = query.getResultList();
 
         entityManager.close();
-        return profileList;
+        return stuffStorageList;
     }
 
     @Override
-    public Optional<Profile> findById(Long id) throws Exception {
+    public Optional<StuffStorage> findById(Long id) throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
-        Optional<Profile> profile = Optional.ofNullable(entityManager.find(Profile.class, id));
+        Optional<StuffStorage> stuffStorage = Optional.ofNullable(entityManager.find(StuffStorage.class, id));
         entityManager.close();
-        return profile;
+        return stuffStorage;
     }
 }

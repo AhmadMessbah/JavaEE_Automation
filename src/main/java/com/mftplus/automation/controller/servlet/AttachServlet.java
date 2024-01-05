@@ -1,7 +1,7 @@
 package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.Attach;
-import com.mftplus.automation.service.AttachServiceImpl;
+import com.mftplus.automation.service.impl.AttachServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

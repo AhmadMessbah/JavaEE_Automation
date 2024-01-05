@@ -1,8 +1,9 @@
-package com.mftplus.automation.service;
+package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.Roles;
+import com.mftplus.automation.service.UserService;
 import com.mftplus.automation.service.impl.UserService;
 import jakarta.enterprise.context.SessionScoped;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,7 @@
-package com.mftplus.automation.service;
+package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.Attach;
-import com.mftplus.automation.service.impl.AttachService;
-import jakarta.enterprise.context.ApplicationScoped;
+import com.mftplus.automation.service.AttachService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

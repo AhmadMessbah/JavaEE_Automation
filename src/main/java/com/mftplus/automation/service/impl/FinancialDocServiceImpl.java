@@ -1,10 +1,11 @@
-package com.mftplus.automation.service;
+package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.FinancialDoc;
 import com.mftplus.automation.model.FinancialTransaction;
 import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.FinancialDocType;
+import com.mftplus.automation.service.FinancialDocService;
 import com.mftplus.automation.service.impl.FinancialDocService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;

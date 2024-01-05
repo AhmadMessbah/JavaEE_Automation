@@ -1,7 +1,7 @@
-package com.mftplus.automation.service;
+package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.model.LetterReference;
-import com.mftplus.automation.service.impl.LetterReferenceService;
+import com.mftplus.automation.model.Letter;
+import com.mftplus.automation.service.LetterService;
 import com.mftplus.automation.common.JPA;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -10,33 +10,33 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-public class LetterReferenceServiceImpl implements LetterReferenceService {
+public class LetterServiceImpl implements LetterService {
     @Override
-    public void save(LetterReference letterReference) throws Exception {
+    public void save(Letter letter) throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        entityManager.persist(letterReference);
+        entityManager.persist(letter);
         entityTransaction.commit();
         entityManager.close();
     }
 
     @Override
-    public void edit(LetterReference letterReference) throws Exception {
+    public void edit(Letter letter) throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        entityManager.merge(letterReference);
+        entityManager.merge(letter);
         entityTransaction.commit();
         entityManager.close();
     }
 
     @Override
-    public void remove(LetterReference letterReference) throws Exception {
+    public void remove(Letter letter) throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        entityManager.remove(letterReference);
+        entityManager.remove(letter);
         entityTransaction.commit();
         entityManager.close();
     }
@@ -46,28 +46,28 @@ public class LetterReferenceServiceImpl implements LetterReferenceService {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        LetterReference letterReference = entityManager.find(LetterReference.class, id);
-        entityManager.remove(letterReference);
+        Letter letter = entityManager.find(Letter.class, id);
+        entityManager.remove(letter);
         entityTransaction.commit();
         entityManager.close();
     }
 
     @Override
-    public List<LetterReference> findAll() throws Exception {
+    public List<Letter> findAll() throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
 
-        TypedQuery<LetterReference> query = entityManager.createQuery("select p from letterReferenceEntity p", LetterReference.class);
-        List<LetterReference> letterReferenceList = query.getResultList();
+        TypedQuery<Letter> query = entityManager.createQuery("select p from letterEntity p", Letter.class);
+        List<Letter> letterList = query.getResultList();
 
         entityManager.close();
-        return letterReferenceList;
+        return letterList;
     }
 
     @Override
-    public Optional<LetterReference> findById(Long id) throws Exception {
+    public Optional<Letter> findById(Long id) throws Exception {
         EntityManager entityManager = JPA.getJpa().getEntityManager();
-        Optional<LetterReference> letterReference = Optional.ofNullable(entityManager.find(LetterReference.class, id));
+        Optional<Letter> letter = Optional.ofNullable(entityManager.find(Letter.class, id));
         entityManager.close();
-        return letterReference;
+        return letter;
     }
 }
