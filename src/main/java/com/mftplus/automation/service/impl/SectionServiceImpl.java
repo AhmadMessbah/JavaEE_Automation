@@ -51,7 +51,16 @@ public class SectionServiceImpl implements SectionService, Serializable {
     public Optional<Section> findById(Long id) throws Exception {
         return Optional.ofNullable(entityManager.find(Section.class, id));
     }
-     public Optional<Section> findByTitle(String title)throws Exception{
-        return Optional.ofNullable(entityManager.find(Section.class,title));
-     }
+
+    public Optional<Section> findByTitle(String title) throws Exception {
+        TypedQuery<Section> query = (TypedQuery<Section>) entityManager.createQuery("select s from sectionEntity  s where s.title = :title");
+        query.setParameter("title", title);
+        List<Section> result = query.getResultList();
+        return Optional.ofNullable((result.isEmpty()) ? null : result.get(0));
+//        try{
+//            return Optional.of((Section) query.getResultList());
+//        }catch (){
+//            return Optional.empty();
+//        }
+    }
 }
