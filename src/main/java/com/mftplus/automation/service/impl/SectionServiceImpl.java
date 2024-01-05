@@ -1,7 +1,7 @@
 package com.mftplus.automation.service.impl;
 
-import com.example.javaeelast2.model.entity.Section;
-import com.example.javaeelast2.model.service.imp.SectionServiceImp;
+import com.mftplus.automation.model.Section;
+import com.mftplus.automation.service.SectionService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SessionScoped
-public class SectionServiceImpl implements SectionServiceImp, Serializable {
+public class SectionServiceImpl implements SectionService, Serializable {
     @PersistenceContext(unitName = "jk")
     private EntityManager entityManager;
 

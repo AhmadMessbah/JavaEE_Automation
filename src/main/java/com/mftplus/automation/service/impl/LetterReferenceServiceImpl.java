@@ -2,7 +2,6 @@ package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.LetterReference;
 import com.mftplus.automation.service.LetterReferenceService;
-import com.mftplus.automation.common.JPA;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;

@@ -6,7 +6,7 @@ import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.FinancialDocType;
 import com.mftplus.automation.service.FinancialDocService;
-import com.mftplus.automation.service.impl.FinancialDocService;
+import com.mftplus.automation.service.FinancialDocService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

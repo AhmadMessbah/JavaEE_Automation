@@ -3,7 +3,7 @@ package com.mftplus.automation.service.impl;
 import com.mftplus.automation.model.*;
 import com.mftplus.automation.model.enums.TransactionType;
 import com.mftplus.automation.service.FinancialTransactionService;
-import com.mftplus.automation.service.impl.FinancialTransactionService;
+import com.mftplus.automation.service.FinancialTransactionService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
