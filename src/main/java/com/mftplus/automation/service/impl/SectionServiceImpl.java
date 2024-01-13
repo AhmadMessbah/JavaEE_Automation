@@ -12,12 +12,13 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
+
 @SessionScoped
-public class SectionServiceImpl implements SectionService, Serializable {
-    @PersistenceContext(unitName = "jk")
+public class SectionService implements SectionServiceImp, Serializable {
+    @PersistenceContext(unitName = "")
     private EntityManager entityManager;
 
-    @Transient
+    @Transactional
     @Override
     public void save(Section section) throws Exception {
         entityManager.persist(section);
@@ -25,19 +26,26 @@ public class SectionServiceImpl implements SectionService, Serializable {
     }
 
     @Override
+    @Transactional
     public void edit(Section section) throws Exception {
         entityManager.merge(section);
 
     }
 
     @Override
+    @Transactional
     public void remove(Section section) throws Exception {
-        entityManager.remove(section);
+        section = entityManager.find(Section.class, section.getId());
+        section.setDeleted(true);
+        entityManager.merge(section);
 
     }
 
     @Override
     public void removeById(Long id) throws Exception {
+        Section section = entityManager.find(Section.class, id);
+        section.setDeleted(true);
+        entityManager.merge(section);
 
     }
 
@@ -51,16 +59,11 @@ public class SectionServiceImpl implements SectionService, Serializable {
     public Optional<Section> findById(Long id) throws Exception {
         return Optional.ofNullable(entityManager.find(Section.class, id));
     }
-
-    public Optional<Section> findByTitle(String title) throws Exception {
-        TypedQuery<Section> query = (TypedQuery<Section>) entityManager.createQuery("select s from sectionEntity  s where s.title = :title");
-        query.setParameter("title", title);
-        List<Section> result = query.getResultList();
-        return Optional.ofNullable((result.isEmpty()) ? null : result.get(0));
-//        try{
-//            return Optional.of((Section) query.getResultList());
-//        }catch (){
-//            return Optional.empty();
-//        }
-    }
+     public Optional<Section> findByTitle(String title)throws Exception{
+         TypedQuery<Section> query = (TypedQuery<Section>) entityManager.createQuery("select s from sectionEntity  s where s.title = :title");
+         query.setParameter("title", title);
+         List<Section> result = query.getResultList();
+         return Optional.ofNullable((result.isEmpty()) ? null : result.get(0));
+     }
 }
+
