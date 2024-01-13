@@ -5,7 +5,7 @@ import com.mftplus.automation.service.SectionService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 import jakarta.persistence.TypedQuery;
 
 import java.io.Serializable;
