@@ -26,6 +26,12 @@ public class Section {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(length = 1)
+    @JsonbTransient
+    private Boolean deleted;
+
+
+
     @Column(name = "s_title" , length = 40)
     @Pattern(regexp = "^[a-zA-Z\\s]{0,40}$", message = "Invalid Role")
     private String title;
@@ -43,20 +49,25 @@ public class Section {
     private List<User>users;
 
     @OneToMany
-    private List<Stuff>stuffs;
+    private List<Section>sectionsPart;
 
-    @OneToOne
-    private Attach attach;
-
-    public void addUser(User user){
-        if (users==null){
-            users=new ArrayList<>();
+    public List<Section> getSectionsPart() {
+        if (sectionsPart == null) {
+            sectionsPart = new ArrayList<>();
         }
-    }
-    public void addStuff(Stuff stuff){
-        if (stuffs==null){
-            stuffs=new ArrayList<>();
-        }
+        return sectionsPart;
     }
 
-}
+
+    public List<User> getUsers() {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        return users;
+    }
+
+        @OneToOne
+        private Attach attach;
+
+
+    }
