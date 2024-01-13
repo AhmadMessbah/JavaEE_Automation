@@ -25,8 +25,15 @@ public class Organisation {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(length = 1)
+    @JsonbTransient
+    private Boolean deleted;
+
     @Column(name = "o_title" , length = 40)
     private String title;
+
+    @Column(name = "o_name" , length = 30)
+    private String name;
 
     @OneToOne
     private Attach logo;
@@ -35,15 +42,15 @@ public class Organisation {
     private String address;
 
 
-    @Column(name = "o_phoneNnumber" , length = 11)
-    private String PhoneNumber;
+    @Column(name = "o_phoneNumber" , length = 11)
+    private String phoneNumber;
 
     @Column(name = "o_description")
     private String description;
 
 
     @OneToMany
-    private List<Section> sectionList;
+    private List<Section>sectionList;
 
     public void addSection(Section section){
         if (sectionList==null){
