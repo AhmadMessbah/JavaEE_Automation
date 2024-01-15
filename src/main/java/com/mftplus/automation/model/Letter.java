@@ -21,14 +21,10 @@ import java.util.List;
 @SuperBuilder
 @ToString
 
+
 @Entity (name = "letterEntity")
 @Table (name = "letter_tbl")
 
-@NamedQueries({
-        @NamedQuery(name = "Letter.FindByTitle",query = "select oo from letterEntity oo where oo.title=:title"),
-        @NamedQuery(name = "Letter.FindByContext",query = "select oo from letterEntity oo where oo.context=:context"),
-        @NamedQuery(name = "Letter.FindByDate",query = "select oo from letterEntity oo where oo.date=:date")
-})
 public class Letter implements Serializable {
     @Id
     @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
@@ -36,37 +32,12 @@ public class Letter implements Serializable {
     @Column (name = "l_Id")
     private long id;
 
-    @Column (name = "l_title")
+    @Column (name = "l_title" , length = 20)
     private String title;
-
-    @OneToOne
-    private GeneratedSequence registerNumber;
-
-    @Column (name = "l_register_date_and_time")
-    private LocalDateTime registerDateAndTime;
-
-    @Transient
-    private LocalDateTime faRegisterDateAndTime;
-
-    public String getFaRegisterDateAndTime() {
-        return PersianDate.fromGregorian(LocalDate.from(registerDateAndTime)).toString();
-    }
-
-    public void setFaRegisterDateAndTime(String faRegisterDateAndTime) {
-        this.registerDateAndTime = LocalDateTime.from(PersianDate.parse(faRegisterDateAndTime).toGregorian());
-    }
 
     @Column (name = "l_letter_number" , length = 30 , unique = true)
     private String letterNumber;
 
-    public void letterNumber(){
-        String faRegisterDateAndTime = getFaRegisterDateAndTime();
-        String registerNumber = String.valueOf(getRegisterNumber());
-
-        setLetterNumber(faRegisterDateAndTime + registerNumber);
-    }
-
-    //needs to be in persian
     @Column (name = "l_date")
     private LocalDate date;
 
@@ -86,20 +57,14 @@ public class Letter implements Serializable {
 
     @Column (name = "l_context")
     //for search
+    @Field(termVector = TermVector.YES)
     private String context;
-
-    //what is indicator code?
-    @Column (name = "l_indicator_code", length = 20)
-    private String indicatorCode;
 
     @Column (name = "l_receiver_name" , length = 25)
     private String receiverName;
 
     @Column (name = "l_receiver_title" , length = 25)
     private String receiverTitle;
-
-    @ManyToMany
-    private List<User> receivers;
 
     @Column (name = "l_sender_name" , length = 25)
     private String senderName;
@@ -111,30 +76,39 @@ public class Letter implements Serializable {
     private String image;
 
     @Enumerated (EnumType.ORDINAL)
-    private Classification classification;
+    private LetterAccessLevel accessLevel;
 
-    //???
-    @ManyToMany
+    //todo rethink
+    @ManyToMany (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
     private List<User> carbonCopies;
 
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
     private User user;
 
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
     private TransferMethod transferMethod;
 
-    //what is this?
-    @Column (name = "l_natural_or_legal")
-    private Boolean naturalOrLegal;
+    @Enumerated (EnumType.ORDINAL)
+    private LetterType letterType;
 
+    @OneToOne
+    private LetterRegister registerNumber;
 
+    @ManyToOne
+    private Secretariat indicatorCode;
 
+    @Column (name = "l_register_date_and_time")
+    private LocalDateTime registerDateAndTime;
 
+    @Transient
+    private LocalDateTime faRegisterDateAndTime;
 
+    public String getFaRegisterDateAndTime() {
+        return PersianDate.fromGregorian(LocalDate.from(registerDateAndTime)).toString();
+    }
 
-
-
-
-
+    public void setFaRegisterDateAndTime(String faRegisterDateAndTime) {
+        this.registerDateAndTime = LocalDateTime.from(PersianDate.parse(faRegisterDateAndTime).toGregorian());
+    }
 
 }
