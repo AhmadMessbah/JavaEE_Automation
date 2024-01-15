@@ -19,68 +19,18 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @ToString
 
-@Entity(name = "referenceEntity")
-@Table(name = "refrence_tbl")
-
-public class Reference implements Serializable {
+@Entity(name = "refReceiversEntity")
+@Table(name = "ref_receivers_tbl")
+public class RefReceivers implements Serializable {
     @Id
-    @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterSeq")
+    @SequenceGenerator(name = "refReceiversSeq", sequenceName = "ref_receivers_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "refReceiversSeq")
     @Column (name = "r_Id")
     private long id;
 
-    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
-    private Letter letterId;
+    @ManyToOne
+    private Letter letter;
 
-    @Enumerated (EnumType.ORDINAL)
-    private ReferenceType refType;
-
-    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
-    private User referenceSenderId;
-
-    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
-    private User referenceReceiverId;
-
-    @Column (name = "r_date_and_time")
-    private LocalDateTime refDateAndTime;
-
-    @Transient
-    private LocalDateTime faRefDateAndTime;
-
-    public String getFaRefDateAndTime() {
-        return PersianDate.fromGregorian(LocalDate.from(refDateAndTime)).toString();
-    }
-
-    public void setFaRefDateAndTime(String faRefDateAndTime) {
-        this.refDateAndTime = LocalDateTime.from(PersianDate.parse(faRefDateAndTime).toGregorian());
-    }
-
-    @Column (name = "r_expiration")
-    private LocalDateTime expiration;
-
-    @Transient
-    private LocalDateTime faExpiration;
-
-    public String getFaExpiration() {
-        return PersianDate.fromGregorian(LocalDate.from(expiration)).toString();
-    }
-
-    public void setFaExpiration(String faExpiration) {
-        this.expiration = LocalDateTime.from(PersianDate.parse(faExpiration).toGregorian());
-    }
-
-    @Column (name = "r_paraph" , length = 50)
-    private String paraph;
-
-    @Column (name = "r_comment" , length = 50)
-    private String comment;
-
-    @Column(name = "r_status")
-    private boolean status;
-
-    @Column(name = "r_validate")
-    private boolean validate;
-
-    @Enumerated (EnumType.ORDINAL)
-    private ReferencePriority priority;
+    @ManyToOne
+    private  User refReceiver;
 }
