@@ -19,29 +19,27 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @ToString
 
-@Entity(name = "letterRefEntity")
-@Table(name = "letter_ref_tbl")
+@Entity(name = "referenceEntity")
+@Table(name = "refrence_tbl")
 
-@NamedQueries({
-        @NamedQuery(name = "LetterRef.FindByLetter",query = "select oo from letterRefEntity  oo where oo.letterId=:letterId")
-})
-public class LetterRef implements Serializable {
+public class Reference implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterSeq")
     @Column (name = "r_Id")
     private long id;
 
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
     private Letter letterId;
 
     @Enumerated (EnumType.ORDINAL)
-    private RefType refType;
+    private ReferenceType refType;
 
-    @ManyToOne
-    private User refSender;
+    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    private User referenceSenderId;
 
-    @ManyToOne
-    private User refReceiver;
+    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    private User referenceReceiverId;
 
     @Column (name = "r_date_and_time")
     private LocalDateTime refDateAndTime;
@@ -76,4 +74,13 @@ public class LetterRef implements Serializable {
 
     @Column (name = "r_comment" , length = 50)
     private String comment;
+
+    @Column(name = "r_status")
+    private boolean status;
+
+    @Column(name = "r_validate")
+    private boolean validate;
+
+    @Enumerated (EnumType.ORDINAL)
+    private ReferencePriority priority;
 }
