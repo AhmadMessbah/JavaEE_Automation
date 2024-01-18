@@ -63,7 +63,6 @@ public class BankServiceImpl implements BankService, Serializable {
     @Override
     public List<Bank> findByName(String name) throws Exception {
         TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.name = :name", Bank.class);
-        query.setParameter("name", name);
         return query.getResultList();
     }
 
@@ -71,7 +70,6 @@ public class BankServiceImpl implements BankService, Serializable {
     @Override
     public List<Bank> findByBranchCode(int branchCode) throws Exception {
         TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.branchCode=:branchCode", Bank.class);
-        query.setParameter("branchCode", branchCode);
         return query.getResultList();
     }
 
@@ -79,7 +77,6 @@ public class BankServiceImpl implements BankService, Serializable {
     @Override
     public List<Bank> findByBranchName(String branchName) throws Exception {
         TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.branchName=:branchName", Bank.class);
-        query.setParameter(branchName, "branchName");
         return query.getResultList();
     }
 
@@ -87,16 +84,13 @@ public class BankServiceImpl implements BankService, Serializable {
     @Override
     public List<Bank> findByAccountType(String accountType) throws Exception {
         TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.accountType=:accountType", Bank.class);
-        query.setParameter(accountType, "accountType");
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<Bank>  findByAccountOwner(String username) throws Exception {
-        User accountOwner = entityManager.find(User.class, username);
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.accountOwner = :accountOwner", Bank.class);
-        query.setParameter("accountOwner", accountOwner);
+        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.accountOwner.username = :username", Bank.class);
         return query.getResultList();
     }
 

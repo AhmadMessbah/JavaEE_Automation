@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class StuffServiceImpl implements StuffService {
 
-    @PersistenceContext(unitName = "atomation")
+    @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
     @Override
     public void save(Stuff stuff) throws Exception {
@@ -46,7 +46,35 @@ public class StuffServiceImpl implements StuffService {
 
     @Override
     public Optional<Stuff> findById(Long id) throws Exception {
-        Optional<Stuff> stuff = Optional.ofNullable(entityManager.find(Stuff.class, id));
-        return stuff;
+        Optional<Stuff> stuffId = Optional.ofNullable(entityManager.find(Stuff.class, id));
+        return stuffId;
     }
+
+    public Optional<Stuff> findByName(String name) throws Exception{
+        Optional<Stuff> stuffName = Optional.ofNullable(entityManager.find(Stuff.class,name));
+        return stuffName;
+    }
+
+    public Optional<Stuff> findByModel(String model) throws Exception{
+        TypedQuery<Stuff> query = entityManager.createQuery("select oo from stuffEntity oo where oo.model=:model", Stuff.class);
+        query.setParameter("model",model);
+        List<Stuff> stuffModel = query.getResultList();
+
+//        return Optional.ofNullable(stuffModel.isEmpty())? null : stuffModel.get(0);
+        return Optional.ofNullable((Stuff) stuffModel);
+    }
+
+
+    public Optional<Stuff> findByStatus(String status) throws Exception{
+        Optional<Stuff> stuffStatus = Optional.ofNullable(entityManager.find(Stuff.class,status));
+        return stuffStatus;
+    }
+
+    public List<Stuff> findByPrice() throws Exception {
+        TypedQuery<Stuff> query = entityManager.createQuery("select p from stuffEntity p where p.price= :price", Stuff.class);
+        List<Stuff> stuffPriceList = query.getResultList();
+        return stuffPriceList;
+    }
+
+
 }

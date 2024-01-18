@@ -6,7 +6,6 @@ import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.FinancialDocType;
 import com.mftplus.automation.service.FinancialDocService;
-import com.mftplus.automation.service.FinancialDocService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -87,7 +86,6 @@ public class FinancialDocServiceImpl implements FinancialDocService, Serializabl
     @Override
     public List<FinancialDoc> findByDateTime(LocalDateTime dateTime) throws Exception {
         TypedQuery<FinancialDoc> query=entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.dateTime=:dateTime",FinancialDoc.class);
-        query.setParameter("dateTime",dateTime);
         return query.getResultList();
     }
 
@@ -95,34 +93,27 @@ public class FinancialDocServiceImpl implements FinancialDocService, Serializabl
     @Override
     public List<FinancialDoc> findByType(FinancialDocType type) throws Exception {
         TypedQuery<FinancialDoc> query=entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.type=:type",FinancialDoc.class);
-        query.setParameter("type",type);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<FinancialDoc> findBySection(Long id) throws Exception {
-        Section section=entityManager.find(Section.class,id);
-        TypedQuery<FinancialDoc> query=entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.section=:section",FinancialDoc.class);
-        query.setParameter("section",section);
+        TypedQuery<FinancialDoc> query=entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.section.id=:id",FinancialDoc.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<FinancialDoc> findBySender(String username) throws Exception {
-        User sender=entityManager.find(User.class,username);
-        TypedQuery<FinancialDoc> query=entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.sender=:sender",FinancialDoc.class);
-        query.setParameter("sender",sender);
+        TypedQuery<FinancialDoc> query=entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.sender.username=:username",FinancialDoc.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<FinancialDoc> findByReceiver(String username) throws Exception {
-        User receiver=entityManager.find(User.class,username);
-        TypedQuery<FinancialDoc> query=entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.receiver=:receiver",FinancialDoc.class);
-        query.setParameter("receiver",receiver);
+        TypedQuery<FinancialDoc> query=entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.receiver.username=:username",FinancialDoc.class);
         return query.getResultList();
     }
 }

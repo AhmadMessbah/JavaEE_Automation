@@ -3,7 +3,6 @@ package com.mftplus.automation.service.impl;
 import com.mftplus.automation.model.*;
 import com.mftplus.automation.model.enums.TransactionType;
 import com.mftplus.automation.service.FinancialTransactionService;
-import com.mftplus.automation.service.FinancialTransactionService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -57,7 +56,7 @@ public class FinancialTransactionServiceImpl implements FinancialTransactionServ
     @Transactional
     @Override
     public List<FinancialTransaction> findAll() throws Exception {
-        TypedQuery<FinancialTransaction> query = entityManager.createQuery("select p from financialTransactionEntity p", FinancialTransaction.class);
+        TypedQuery<FinancialTransaction> query = entityManager.createQuery("select oo from financialTransactionEntity oo", FinancialTransaction.class);
         return query.getResultList();
     }
 
@@ -76,9 +75,7 @@ public class FinancialTransactionServiceImpl implements FinancialTransactionServ
     @Transactional
     @Override
     public List<FinancialTransaction> findByBankInvolved(Long id) throws Exception {
-        Bank bank=entityManager.find(Bank.class,id);
-        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.bankInvolved=:bank",FinancialTransaction.class);
-        query.setParameter("bank",bank);
+        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.bankInvolved.id=:id",FinancialTransaction.class);
         return query.getResultList();
     }
 
@@ -86,7 +83,6 @@ public class FinancialTransactionServiceImpl implements FinancialTransactionServ
     @Override
     public List<FinancialTransaction> findByDateTime(LocalDateTime dateTime) throws Exception {
         TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.dateTime=:dateTime",FinancialTransaction.class);
-        query.setParameter("dateTime",dateTime);
         return query.getResultList();
     }
 
@@ -94,16 +90,13 @@ public class FinancialTransactionServiceImpl implements FinancialTransactionServ
     @Override
     public List<FinancialTransaction> findByType(TransactionType transactionType) throws Exception {
         TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.transactionType=:type",FinancialTransaction.class);
-        query.setParameter("type",transactionType);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<FinancialTransaction> findByUserId(Long id) throws Exception {
-        User user=entityManager.find(User.class,id);
-        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.user=:user",FinancialTransaction.class);
-        query.setParameter("user",id);
+        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.user.id=:id",FinancialTransaction.class);
         return query.getResultList();
     }
 

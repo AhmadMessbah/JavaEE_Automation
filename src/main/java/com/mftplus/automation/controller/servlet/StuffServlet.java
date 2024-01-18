@@ -13,16 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-@WebServlet(name = "stuf",urlPatterns = "/stuff.do")
-public class Stuffservlet extends HttpServlet {
+@WebServlet(name = "stuff",urlPatterns = "/stuff.do")
+public class StuffServlet extends HttpServlet {
 
     @Inject
     private StuffServiceImpl stuffService;
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/stuff.jsp").forward(req,resp);
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,8 +37,40 @@ public class Stuffservlet extends HttpServlet {
         }catch(Exception e){
             log.info("StuffServlet - Error Save Stuff");
             req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/attach.jsp").forward(req, resp);
+            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
 
         }
     }
+
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+
+        }catch (Exception e){
+
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getRequestDispatcher("/stuff.jsp").forward(req,resp);
+
+        }catch (Exception e){
+
+        }
+    }
+
+
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+
+        }catch (Exception e){
+
+        }
+    }
+
 }
