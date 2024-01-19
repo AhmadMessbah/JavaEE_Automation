@@ -1,8 +1,8 @@
 package com.mftplus.automation.service.impl;
 
 
-import com.mftplus.letter.model.entity.Letter;
-import com.mftplus.letter.model.service.interfaces.LetterService;
+import com.mftplus.automation.model.Letter;
+import com.mftplus.automation.service.LetterService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -20,6 +20,7 @@ import java.util.Optional;
 public class LetterServiceImpl implements LetterService, Serializable {
     @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
+
 
     @Transactional
     @Override
@@ -105,11 +106,15 @@ public class LetterServiceImpl implements LetterService, Serializable {
         return query.getResultList();
     }
 
+    //todo
     @Override
     public List<Letter> findBySectionId(Long sectionId) throws Exception {
-        TypedQuery<Letter> query = entityManager.createQuery("select oo from letterEntity oo where oo.user.sectionId=:sectionId", Letter.class);
-        query.setParameter(String.valueOf(sectionId),"sectionId");
-        return query.getResultList();
+//        TypedQuery<Letter> query = entityManager.createQuery("select oo from letterEntity oo where oo.user.sectionId=:sectionId", Letter.class);
+//        query.setParameter(String.valueOf(sectionId),"sectionId");
+//        return query.getResultList();
+        return null;
     }
+
+
 
 }

@@ -2,15 +2,15 @@ package com.mftplus.automation.model;
 
 
 import com.github.mfathi91.time.PersianDate;
-import com.mftplus.letter.model.entity.enums.ReferencePriority;
-import com.mftplus.letter.model.entity.enums.ReferenceType;
+import com.mftplus.automation.model.enums.ReferencePriority;
+import com.mftplus.automation.model.enums.ReferenceType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
-import java.io.Serializable;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 @NoArgsConstructor
@@ -19,9 +19,9 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @ToString
 
-@Entity(name = "letterReferenceEntity")
-@Table(name = "letter_reference_tbl")
-public class LetterReference {
+@Entity(name = "referenceEntity")
+@Table(name = "reference_tbl")
+public class Reference {
 
 @Id
     @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
@@ -85,24 +85,5 @@ public class LetterReference {
     private ReferencePriority priority;
 }
 
-
-
-    
-    // @Id
-    // @SequenceGenerator(name = "letterReferenceSeq", sequenceName = "letter_reference_seq")
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterReferenceSeq")
-    // private Long id;
-
-    // private String title;
-    
-    // @OneToOne(cascade = CascadeType.ALL)
-    // private User sender;
-
-    // @OneToOne(cascade = CascadeType.ALL)
-    // private User receiver;
-    
-    // @OneToOne(cascade = CascadeType.ALL)
-    // private Attach attach;
-}
 
 

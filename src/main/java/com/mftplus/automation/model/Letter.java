@@ -1,8 +1,8 @@
 package com.mftplus.automation.model;
 
 import com.github.mfathi91.time.PersianDate;
-import com.mftplus.automation.model.enums.Classification;
-import com.mftplus.automation.model.enums.TransferMethod;
+import com.mftplus.automation.model.enums.LetterAccessLevel;
+import com.mftplus.automation.model.enums.LetterType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -56,8 +56,6 @@ public class Letter implements Serializable {
     private String subject;
 
     @Column (name = "l_context")
-    //for search
-    @Field(termVector = TermVector.YES)
     private String context;
 
     @Column (name = "l_receiver_name" , length = 25)
@@ -91,11 +89,12 @@ public class Letter implements Serializable {
     @Enumerated (EnumType.ORDINAL)
     private LetterType letterType;
 
-    @OneToOne
-    private LetterRegister registerNumber;
-
-    @ManyToOne
-    private Secretariat indicatorCode;
+    //todo
+//    @OneToOne
+//    private LetterRegister registerNumber;
+//
+//    @ManyToOne
+//    private Secretariat indicatorCode;
 
     @Column (name = "l_register_date_and_time")
     private LocalDateTime registerDateAndTime;
