@@ -1,13 +1,9 @@
 package com.mftplus.automation.model.enums;
 
 public enum TransactionType {
-    buy("خرید"),
-    sale("فروش"),
-    receive("دریافت از"),
-    paying("پرداخت به"),
-    payingBill("پرداخت قبض"),
-    returnPurchase("برگشت از خرید"),
-    returnSales("برگشت از فروش");
+    cash("نقد"),
+    bankDeposit("واریز به بانک"),
+    check("چک");
 
     private String title;
 
