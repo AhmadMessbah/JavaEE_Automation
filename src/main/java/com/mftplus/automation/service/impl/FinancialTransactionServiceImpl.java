@@ -1,109 +1,36 @@
 package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.model.*;
+import com.mftplus.automation.model.FinancialTransaction;
 import com.mftplus.automation.model.enums.TransactionType;
-import com.mftplus.automation.service.FinancialTransactionService;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
-@SessionScoped
-public class FinancialTransactionServiceImpl implements FinancialTransactionService, Serializable {
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
+public interface  FinancialTransactionService {
+    void save(FinancialTransaction financialTransaction) throws Exception;
 
-    @Transactional
-    @Override
-    public void save(FinancialTransaction financialTransaction) throws Exception {
-        entityManager.persist(financialTransaction);
-    }
+    void edit(FinancialTransaction financialTransaction) throws Exception;
 
-    @Transactional
-    @Override
-    public void edit(FinancialTransaction financialTransaction) throws Exception {
-        entityManager.merge(financialTransaction);
-    }
+    void remove(FinancialTransaction financialTransaction) throws Exception;
 
-    @Transactional
-    @Override
-    public void remove(FinancialTransaction financialTransaction) throws Exception {
-        entityManager.remove(financialTransaction);
-    }
+    void removeById(Long id) throws Exception;
 
-    @Transactional
-    @Override
-    public void removeById(Long id) throws Exception {
-        FinancialTransaction financialTransaction = entityManager.find(FinancialTransaction.class, id);
-        entityManager.remove(financialTransaction);
-    }
+    void removeByTrackingCode (int trackingCode) throws Exception;
 
-    @Transactional
-    @Override
-    public void removeByTrackingCode(int trackingCode) throws Exception {
-        FinancialTransaction financialTransaction = entityManager.find(FinancialTransaction.class, trackingCode);
-        entityManager.remove(financialTransaction);
-    }
+    List<FinancialTransaction> findAll() throws Exception;
 
-    @Transactional
-    @Override
-    public List<FinancialTransaction> findAll() throws Exception {
-        TypedQuery<FinancialTransaction> query = entityManager.createQuery("select oo from financialTransactionEntity oo", FinancialTransaction.class);
-        return query.getResultList();
-    }
+    Optional<FinancialTransaction> findById(Long id) throws Exception;
 
-    @Transactional
-    @Override
-    public Optional<FinancialTransaction> findById(Long id) throws Exception {
-        return Optional.ofNullable(entityManager.find(FinancialTransaction.class, id));
-    }
+    Optional<FinancialTransaction> findByTrackingCode(int trackingCode) throws Exception;
 
-    @Transactional
-    @Override
-    public Optional<FinancialTransaction> findByTrackingCode(int trackingCode) throws Exception {
-        return Optional.ofNullable(entityManager.find(FinancialTransaction.class, trackingCode));
-    }
+    List<FinancialTransaction> findByBankInvolved(Long id) throws Exception;
 
-    @Transactional
-    @Override
-    public List<FinancialTransaction> findByBankInvolved(Long id) throws Exception {
-        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.bankInvolved.id=:id",FinancialTransaction.class);
-        return query.getResultList();
-    }
+    List<FinancialTransaction> findByDateTime(LocalDateTime dateTime) throws Exception;
 
-    @Transactional
-    @Override
-    public List<FinancialTransaction> findByDateTime(LocalDateTime dateTime) throws Exception {
-        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.dateTime=:dateTime",FinancialTransaction.class);
-        return query.getResultList();
-    }
+    List<FinancialTransaction> findByType(TransactionType transactionType) throws Exception;
 
-    @Transactional
-    @Override
-    public List<FinancialTransaction> findByType(TransactionType transactionType) throws Exception {
-        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.transactionType=:type",FinancialTransaction.class);
-        return query.getResultList();
-    }
+    List<FinancialTransaction> findByUserId(Long id) throws Exception;
 
-    @Transactional
-    @Override
-    public List<FinancialTransaction> findByUserId(Long id) throws Exception {
-        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.user.id=:id",FinancialTransaction.class);
-        return query.getResultList();
-    }
-
-    @Transactional
-    @Override
-    public Optional<FinancialTransaction> findByFinancialDoc(Long id) throws Exception {
-        FinancialDoc financialDoc=entityManager.find(FinancialDoc.class,id);
-        return Optional.ofNullable(entityManager.find(FinancialTransaction.class,financialDoc));
-    }
+    Optional<FinancialTransaction> findByFinancialDoc(Long id) throws Exception;
 }
