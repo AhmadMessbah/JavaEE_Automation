@@ -1,8 +1,12 @@
 package com.mftplus.automation.model;
-import com.mftplus.automation.model.enums.Roles;
+
+import com.mftplus.automation.model.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @Pattern(regexp = "^[a-zA-Z\\s]{5,15}$", message = "Invalid Username")
     @Column(name = "u_name", length = 15)
     private String username;
@@ -29,23 +34,34 @@ public class User {
     @Column(name = "u_pass", length = 20)
     private String password;
 
-//should it be list?
+// todo
+    @OneToMany
+    private List<User> userList;
+    public List<User> getUserList() {
+        if (userList == null) {
+            userList = new ArrayList<>();
+        }
+        return userList;
+    }
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Person person;
+
+    @ManyToOne
+    private Section section;
+
+    //todo
     @OneToOne(cascade = CascadeType.ALL)
     private Person personId;
-/*
-   // todo: error
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Section> sectionIdList;
-    public void addSectionId(Section section) {
-        if (sectionIdList == null) {
-            sectionIdList = new ArrayList<>();
-        }
-        sectionIdList.add(section);
-    }*/
+
+    //todo
+    @ManyToOne
+    private Section sectionId;
 
     @Column(name="u_active")
     private boolean active;
 
     @Enumerated(EnumType.ORDINAL)
-    private Roles role;
+    private Role role;
 }

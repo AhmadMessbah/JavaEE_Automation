@@ -2,7 +2,7 @@ package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.Organisation;
 import com.mftplus.automation.model.Section;
-import com.mftplus.automation.service.impl.OrganisationService;
+import com.mftplus.automation.service.impl.OrganisationServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -21,7 +21,7 @@ public class OrganisationServlet extends HttpServlet {
     private EntityManager entityManager;
 
     @Inject
-    private OrganisationService service;
+    private OrganisationServiceImpl service;
     @Inject
     private Section section;
     @Inject

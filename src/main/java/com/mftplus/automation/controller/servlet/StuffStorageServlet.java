@@ -1,8 +1,6 @@
 package com.mftplus.automation.controller.servlet;
 
-import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.StuffStorage;
-import com.mftplus.automation.model.User;
 import com.mftplus.automation.service.impl.StuffStorageServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -42,7 +40,6 @@ public class StuffStorageServlet extends HttpServlet {
         }
         catch (Exception e){
             log.error(e.getMessage());
-            return;
         }
     }
 

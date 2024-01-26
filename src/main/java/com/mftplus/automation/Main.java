@@ -1,7 +1,7 @@
 package com.mftplus.automation;
 
 import com.mftplus.automation.model.Organisation;
-import com.mftplus.automation.model.Profile;
+import com.mftplus.automation.model.Person;
 import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.User;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +35,8 @@ public class Main {
                         .builder()
                         .build();
 
-        Profile edariManagerProfile =
-                Profile
+        Person edariManagerProfile =
+                Person
                         .builder()
                         .nationalCode("EMP")
                         .build();
@@ -46,8 +46,8 @@ public class Main {
                         .builder()
                         .build();
 
-        Profile maliManagerProfile =
-                Profile
+        Person maliManagerProfile =
+                Person
                         .builder()
                         .nationalCode("MMP")
                         .build();
@@ -56,8 +56,8 @@ public class Main {
                 User
                         .builder()
                         .build();
-        Profile edariEmployeeProfile1 =
-                Profile
+        Person edariEmployeeProfile1 =
+                Person
                         .builder()
                         .nationalCode("EEP1")
                         .build();
@@ -68,8 +68,8 @@ public class Main {
                         .builder()
                         .build();
 
-        Profile edariEmployeeProfile2 =
-                Profile
+        Person edariEmployeeProfile2 =
+                Person
                         .builder()
                         .nationalCode("EEP2")
                         .build();
@@ -79,8 +79,8 @@ public class Main {
                         .builder()
                         .build();
 
-        Profile maliEmployeeProfile1 =
-                Profile
+        Person maliEmployeeProfile1 =
+                Person
                         .builder()
                         .nationalCode("MEP1")
                         .build();
@@ -90,8 +90,8 @@ public class Main {
                         .builder()
                         .build();
 
-        Profile maliEmployeeProfile2 =
-                Profile
+        Person maliEmployeeProfile2 =
+                Person
                         .builder()
                         .nationalCode("MEP2")
                         .build();
@@ -101,8 +101,8 @@ public class Main {
                         .builder()
                         .build();
 
-        Profile customerProfile =
-                Profile
+        Person customerProfile =
+                Person
                         .builder()
                         .nationalCode("Aghaye")
                         .build();

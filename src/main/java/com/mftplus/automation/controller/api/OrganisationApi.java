@@ -1,7 +1,7 @@
 package com.mftplus.automation.controller.api;
 
 import com.mftplus.automation.model.Organisation;
-import com.mftplus.automation.service.impl.OrganisationService;
+import com.mftplus.automation.service.impl.OrganisationServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.Response;
 @Path("/organisation")
 public class OrganisationApi {
     @Inject
-    private OrganisationService organisationService;
+    private OrganisationServiceImpl organisationService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

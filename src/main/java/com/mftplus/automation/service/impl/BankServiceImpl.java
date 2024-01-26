@@ -1,7 +1,6 @@
 package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.Bank;
-import com.mftplus.automation.model.User;
 import com.mftplus.automation.service.BankService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;

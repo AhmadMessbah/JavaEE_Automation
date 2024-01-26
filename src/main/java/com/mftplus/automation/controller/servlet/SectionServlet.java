@@ -3,9 +3,8 @@ package com.mftplus.automation.controller.servlet;
 import com.mftplus.automation.model.Organisation;
 import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.User;
-import com.mftplus.automation.service.impl.SectionService;
+import com.mftplus.automation.service.impl.SectionServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,7 +22,7 @@ public class SectionServlet extends HttpServlet {
 /*    private EntityManager entityManager;*/
 
     @Inject
-    private SectionService service;
+    private SectionServiceImpl service;
     @Inject
     private Section section;
 

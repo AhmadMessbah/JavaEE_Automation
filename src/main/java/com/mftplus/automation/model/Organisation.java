@@ -1,5 +1,6 @@
 package com.mftplus.automation.model;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

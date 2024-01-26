@@ -1,6 +1,5 @@
 package com.mftplus.automation.service.impl;
 
-
 import com.mftplus.automation.model.Letter;
 import com.mftplus.automation.service.LetterService;
 import jakarta.enterprise.context.SessionScoped;
@@ -9,6 +8,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,7 +20,6 @@ import java.util.Optional;
 public class LetterServiceImpl implements LetterService, Serializable {
     @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
-
 
     @Transactional
     @Override
@@ -98,6 +97,7 @@ public class LetterServiceImpl implements LetterService, Serializable {
         return query.getResultList();
     }
 
+    @Transactional
     @Override
     public List<Letter> findBySenderNameAndTitle(String senderName, String senderTitle) throws Exception {
         TypedQuery<Letter> query = entityManager.createQuery("select oo from letterEntity oo where oo.senderName=:senderName and oo.senderTitle=:senderTitle", Letter.class);
@@ -106,15 +106,12 @@ public class LetterServiceImpl implements LetterService, Serializable {
         return query.getResultList();
     }
 
-    //todo
+    @Transactional
     @Override
     public List<Letter> findBySectionId(Long sectionId) throws Exception {
-//        TypedQuery<Letter> query = entityManager.createQuery("select oo from letterEntity oo where oo.user.sectionId=:sectionId", Letter.class);
-//        query.setParameter(String.valueOf(sectionId),"sectionId");
-//        return query.getResultList();
-        return null;
+        TypedQuery<Letter> query = entityManager.createQuery("select oo from letterEntity oo where oo.user.sectionId=:sectionId", Letter.class);
+        query.setParameter(String.valueOf(sectionId),"sectionId");
+        return query.getResultList();
     }
-
-
 
 }

@@ -1,5 +1,6 @@
 package com.mftplus.automation.service;
 
+
 import com.mftplus.automation.model.Letter;
 
 import java.time.LocalDate;
@@ -22,4 +23,7 @@ public interface LetterService {
     List<Letter> findByRegisterDate(LocalDateTime dateTime) throws Exception;
     List<Letter> findBySenderNameAndTitle(String senderName,String senderTitle) throws Exception;
     List<Letter> findBySectionId(Long sectionId) throws Exception;
+
+
+
 }

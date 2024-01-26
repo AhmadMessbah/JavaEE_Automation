@@ -1,6 +1,5 @@
 package com.mftplus.automation.model;
 
-
 import com.github.mfathi91.time.PersianDate;
 import com.mftplus.automation.model.enums.ReferencePriority;
 import com.mftplus.automation.model.enums.ReferenceType;
@@ -9,28 +8,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-@NoArgsConstructor
+
 @Getter
 @Setter
+@NoArgsConstructor
 @SuperBuilder
 @ToString
 
 @Entity(name = "referenceEntity")
-@Table(name = "reference_tbl")
-public class Reference {
+@Table(name = "refrence_tbl")
 
-@Id
+public class Reference implements Serializable {
+    @Id
     @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterSeq")
     @Column (name = "r_Id")
     private long id;
 
     @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
-    private Letter letterId;
+    private Letter letter;
 
     @Enumerated (EnumType.ORDINAL)
     private ReferenceType refType;
@@ -73,7 +74,7 @@ public class Reference {
     private String paraph;
 
     @Column (name = "r_comment" , length = 50)
-    private String comment;
+    private String explanation;
 
     @Column(name = "r_status")
     private boolean status;
@@ -84,6 +85,3 @@ public class Reference {
     @Enumerated (EnumType.ORDINAL)
     private ReferencePriority priority;
 }
-
-
-

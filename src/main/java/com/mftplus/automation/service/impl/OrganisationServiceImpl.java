@@ -5,13 +5,14 @@ import com.mftplus.automation.service.OrganisationService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 @SessionScoped
-public class OrganisationService implements OrganisationServiceImp, Serializable {
+public class OrganisationServiceImpl implements OrganisationService, Serializable {
 
     @PersistenceContext(unitName = "jk")
     private EntityManager entityManager;

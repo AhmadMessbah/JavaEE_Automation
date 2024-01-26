@@ -38,7 +38,4 @@ public class Person {
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private User user;
-
 }

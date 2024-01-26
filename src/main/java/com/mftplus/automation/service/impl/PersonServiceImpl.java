@@ -1,13 +1,14 @@
 package com.mftplus.automation.service.impl;
+
 import com.mftplus.automation.model.Person;
 import com.mftplus.automation.service.PersonService;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;

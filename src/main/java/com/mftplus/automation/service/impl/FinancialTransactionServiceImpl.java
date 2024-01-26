@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface  FinancialTransactionService {
+public interface FinancialTransactionServiceImpl {
     void save(FinancialTransaction financialTransaction) throws Exception;
 
     void edit(FinancialTransaction financialTransaction) throws Exception;

@@ -1,16 +1,15 @@
 package com.mftplus.automation.model.enums;
 
 public enum Role {
-//    admin("ادمین"),
-//    manager("مدیر"),
-//    employee("کارمند"),
-//    customer("ارباب رجوع");
-//
-//    private String title;
-//
-//    Role(String title) {
-//        this.title = title;
-//    }
+    admin("ادمین"),
+    manager("مدیر"),
+    employee("کارمند"),
+    customer("ارباب رجوع");
 
-//    todo : parse
+    private final String title;
+
+    Role(String title) {
+        this.title = title;
+    }
+
 }

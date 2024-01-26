@@ -1,9 +1,6 @@
 package com.mftplus.automation.service;
 
 import com.mftplus.automation.model.FinancialDoc;
-import com.mftplus.automation.model.FinancialTransaction;
-import com.mftplus.automation.model.Section;
-import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.FinancialDocType;
 
 import java.time.LocalDateTime;

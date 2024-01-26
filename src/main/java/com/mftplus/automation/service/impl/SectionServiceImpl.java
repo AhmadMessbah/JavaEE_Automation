@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 @SessionScoped
-public class SectionService implements SectionServiceImp, Serializable {
+public class SectionServiceImpl implements SectionService, Serializable {
     @PersistenceContext(unitName = "")
     private EntityManager entityManager;
 

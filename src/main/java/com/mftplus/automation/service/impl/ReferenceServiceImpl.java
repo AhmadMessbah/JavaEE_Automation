@@ -1,7 +1,7 @@
 package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.model.Letter;
 import com.mftplus.automation.model.Reference;
+import com.mftplus.automation.model.enums.ReferencePriority;
 import com.mftplus.automation.service.ReferenceService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -70,8 +71,10 @@ public class ReferenceServiceImpl implements ReferenceService, Serializable {
     }
 
     @Override
-    public Optional<Reference> findByLetterId(Letter letterId) throws Exception {
-        return Optional.ofNullable(entityManager.find(Reference.class, letterId));
+    public List<Reference> findByLetterId(Long letterId) throws Exception {
+        TypedQuery<Reference> query = entityManager.createQuery("select oo from referenceEntity oo where oo.letter.id=:letterId", Reference.class);
+        query.setParameter(String.valueOf(letterId),"letterId");
+        return query.getResultList();
     }
 
     @Override
@@ -88,8 +91,9 @@ public class ReferenceServiceImpl implements ReferenceService, Serializable {
         return query.getResultList();
     }
 
+    //todo input needs to rethink
     @Override
-    public List<Reference> findByPriority(List<Reference> priority) throws Exception {
+    public List<Reference> findByPriority(ReferencePriority priority) throws Exception {
         TypedQuery<Reference> query = entityManager.createQuery("select oo from referenceEntity oo where oo.priority=:priority", Reference.class);
         query.setParameter(String.valueOf(priority),"priority");
         return query.getResultList();

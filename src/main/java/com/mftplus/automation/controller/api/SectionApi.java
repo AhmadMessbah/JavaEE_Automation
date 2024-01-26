@@ -1,7 +1,7 @@
 package com.mftplus.automation.controller.api;
 
 import com.mftplus.automation.model.Section;
-import com.mftplus.automation.service.impl.SectionService;
+import com.mftplus.automation.service.impl.SectionServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.Response;
 @Path("/section")
 public class SectionApi {
     @Inject
-    private SectionService sectionService;
+    private SectionServiceImpl sectionService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

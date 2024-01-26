@@ -3,6 +3,7 @@ package com.mftplus.automation.model;
 import com.github.mfathi91.time.PersianDate;
 import com.mftplus.automation.model.enums.LetterAccessLevel;
 import com.mftplus.automation.model.enums.LetterType;
+import com.mftplus.automation.model.enums.TransferMethod;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +21,6 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 @ToString
-
 
 @Entity (name = "letterEntity")
 @Table (name = "letter_tbl")
@@ -48,12 +48,10 @@ public class Letter implements Serializable {
         return PersianDate.fromGregorian(date).toString();
     }
 
-    public void setFaDate(String faDate) {
+    public LocalDate setFaDate(String faDate) {
         this.date = PersianDate.parse(faDate).toGregorian();
+        return null;
     }
-
-    @Column (name = "l_subject", length = 25)
-    private String subject;
 
     @Column (name = "l_context")
     private String context;
@@ -83,7 +81,7 @@ public class Letter implements Serializable {
     @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
     private User user;
 
-    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    @Enumerated (EnumType.ORDINAL)
     private TransferMethod transferMethod;
 
     @Enumerated (EnumType.ORDINAL)
@@ -109,5 +107,8 @@ public class Letter implements Serializable {
     public void setFaRegisterDateAndTime(String faRegisterDateAndTime) {
         this.registerDateAndTime = LocalDateTime.from(PersianDate.parse(faRegisterDateAndTime).toGregorian());
     }
+
+    @ManyToMany (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    private List<User> refReceivers;
 
 }
