@@ -4,6 +4,8 @@ import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.Stuff;
 import com.mftplus.automation.model.StuffTransaction;
 import com.mftplus.automation.model.User;
+import com.mftplus.automation.model.enums.StuffTransactionType;
+import com.mftplus.automation.model.enums.TransactionType;
 import com.mftplus.automation.service.impl.SectionServiceImpl;
 import com.mftplus.automation.service.impl.StuffServiceImpl;
 import com.mftplus.automation.service.impl.StuffTransactionServiceImpl;
@@ -51,7 +53,7 @@ public class StuffTransactionServlet extends HttpServlet {
                     .user(user.get())
                     .section(section.get())
                     .stuff(stuff.get())
-//                    .transactionType()
+                    .transactionType(StuffTransactionType.valueOf(req.getParameter("stuffTransactionType")))
                     .build();
             stuffTransactionService.save(stuffTransaction);
             log.info("Stuff Transaction Servlet-post");
