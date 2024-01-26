@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Person</title>
+    <link rel="stylesheet" href="../assets/css/kamadatepicker.min.css">
 
     <style>
         .error {
             color: red;
         }
     </style>
+
 </head>
 <body>
 <form action="person.do" method="post" enctype="multipart/form-data">
@@ -27,6 +29,35 @@
     </div>
     <input type="submit" value="Save">
 </form>
+
+<input type="text" id="birth-date">
+
+
+
+<div id="sample">
+    <input type="text">
+    <input type="file" name="file1">
+    <button onclick="add()">Add</button>
+</div>
+
+<script>
+    function add(){
+        let oldDiv = document.getElementById("sample");
+        let newDiv = oldDiv.cloneNode(true);
+         document.body.appendChild(newDiv);
+    }
+</script>
+
+
+<script src="../assets/js/jquery-3.7.1.min.js"></script>
+<script src="../assets/js/kamadatepicker.holidays.js"></script>
+<script src="../assets/js/kamadatepicker.min.js"></script>
+<script>
+    let myElement = document.querySelector('#birth-date');
+    kamaDatepicker(myElement);
+
+    kamaDatepicker('birth-date', { buttonsColor: "red", forceFarsiDigits: true });
+</script>
 
 </body>
 </html>
