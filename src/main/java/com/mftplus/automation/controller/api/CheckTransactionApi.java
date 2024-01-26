@@ -29,10 +29,9 @@ public class CheckTransactionApi {
                     .entity(checkTransactionService.findAll())
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -48,10 +47,9 @@ public class CheckTransactionApi {
                     .entity(checkTransactionService.findById(id))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -68,10 +66,9 @@ public class CheckTransactionApi {
                     .entity(checkTransaction)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -88,10 +85,9 @@ public class CheckTransactionApi {
                     .entity(checkTransaction)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -107,10 +103,9 @@ public class CheckTransactionApi {
                     .entity(id)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -126,10 +121,9 @@ public class CheckTransactionApi {
                     .entity(checkNumber)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -145,10 +139,9 @@ public class CheckTransactionApi {
                     .entity(checkTransactionService.findByCheckNumber(checkNumber))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -165,10 +158,9 @@ public class CheckTransactionApi {
                     .entity(checkTransactionService.findByCheckDueDate(dateTimePars))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -184,10 +176,9 @@ public class CheckTransactionApi {
                     .entity(checkTransactionService.findByCashDeskNumber(cashDeskNumber))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }

@@ -27,10 +27,9 @@ public class BankDepositTransactionApi {
                     .entity(bankDepositTransactionService.findAll())
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -46,10 +45,9 @@ public class BankDepositTransactionApi {
                     .entity(bankDepositTransactionService.findById(id))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -65,10 +63,9 @@ public class BankDepositTransactionApi {
                     .entity(bankDepositTransactionService.findByDepositCode(depositCode))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -84,10 +81,9 @@ public class BankDepositTransactionApi {
                     .entity(bankDepositTransactionService.findByBankInvolved(accountNumber))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -104,10 +100,9 @@ public class BankDepositTransactionApi {
                     .entity(bankDepositTransaction)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -124,10 +119,9 @@ public class BankDepositTransactionApi {
                     .entity(bankDepositTransaction)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -143,10 +137,9 @@ public class BankDepositTransactionApi {
                     .entity(id)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }

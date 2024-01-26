@@ -22,22 +22,36 @@ public class CashDeskServlet extends HttpServlet {
     @Inject
     private CashDeskServiceImp cashDeskService;
 
+    @Inject
+    private User user;
+
+    @Inject
+    private  CashDesk cashDesk;
+
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            User user=
-                    User
-                            .builder()
-                            .username(req.getParameter("username"))
-                            .password(req.getParameter("password"))
-                            .build();
-            CashDesk cashDesk=CashDesk
+            String username=req.getParameter("username");
+            String password=req.getParameter("password");
+
+            user= User
                     .builder()
-                    .name(req.getParameter("name"))
-                    .cashDeskNumber(Integer.parseInt(req.getParameter("cashDeskNumber")))
+                    .username(username)
+                    .password(password)
+                    .build();
+
+            String name=req.getParameter("name");
+            int cashDeskNumber=Integer.parseInt(req.getParameter("cashDeskNumber"));
+
+            cashDesk=CashDesk
+                    .builder()
+                    .name(name)
+                    .cashDeskNumber(cashDeskNumber)
                     .cashier(user)
                     .build();
+
             cashDeskService.save(cashDesk);
+
             log.info("CashDeskServlet - CashDesk Saved");
             req.getRequestDispatcher("/jsp/CashDesk.jsp").forward(req, resp);
         } catch (Exception e) {

@@ -29,10 +29,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransactionService.findAll())
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -48,10 +47,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransactionService.findById(id))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -67,10 +65,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransactionService.findByTrackingCode(trackingCode))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -86,10 +83,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransactionService.findByDescription(description))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -106,10 +102,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransactionService.findByDateTime(dateTimePars))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -125,10 +120,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransactionService.findByPayer(username))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -144,10 +138,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransactionService.findBySection(titel))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -163,10 +156,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransactionService.findByFinancialDoc(docNumber))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -183,10 +175,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransaction)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -203,10 +194,9 @@ public class FinancialTransactionApi {
                     .entity(financialTransaction)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -222,10 +212,9 @@ public class FinancialTransactionApi {
                     .entity(id)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -241,10 +230,9 @@ public class FinancialTransactionApi {
                     .entity(trackingCode)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }

@@ -22,26 +22,42 @@ public class BankServlet extends HttpServlet {
     @Inject
     private BankServiceImpl bankService;
 
+    @Inject
+    private User user;
+
+    @Inject
+    private Bank bank;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            User user=
-                    User
-                            .builder()
-                            .username(req.getParameter("username"))
-                            .password(req.getParameter("password"))
-                            .build();
-            Bank bank =
-                    Bank
-                            .builder()
-                            .name(req.getParameter("name"))
-                            .accountNumber(req.getParameter("accountNumber"))
-                            .branchCode(Integer.parseInt(req.getParameter("branchCode")))
-                            .branchName(req.getParameter("branchName"))
-                            .accountType(req.getParameter("accountType"))
-                            .accountOwner(user)
-                            .build();
+            String username=req.getParameter("username");
+            String password=req.getParameter("password");
+
+            user= User
+                    .builder()
+                    .username(username)
+                    .password(password)
+                    .build();
+
+            String name=req.getParameter("name");
+            String accountNumber=req.getParameter("accountNumber");
+            int branchCode=Integer.parseInt(req.getParameter("branchCode"));
+            String branchName=req.getParameter("branchName");
+            String accountType=req.getParameter("accountType");
+
+            bank = Bank
+                    .builder()
+                    .name(name)
+                    .accountNumber(accountNumber)
+                    .branchCode(branchCode)
+                    .branchName(branchName)
+                    .accountType(accountType)
+                    .accountOwner(user)
+                    .build();
+
             bankService.save(bank);
+
             log.info("BankServlet - Bank Saved");
             req.getRequestDispatcher("/jsp/bank.jsp").forward(req, resp);
         } catch (Exception e) {

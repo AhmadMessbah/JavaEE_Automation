@@ -31,10 +31,9 @@ public class FinancialDocServiceApi {
                     .entity(financialDoc)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -51,10 +50,9 @@ public class FinancialDocServiceApi {
                     .entity(financialDoc)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -70,10 +68,9 @@ public class FinancialDocServiceApi {
                     .entity(id)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -89,10 +86,9 @@ public class FinancialDocServiceApi {
                     .entity(docNumber)
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -108,10 +104,9 @@ public class FinancialDocServiceApi {
                     .entity(financialDocService.findById(id))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -127,10 +122,9 @@ public class FinancialDocServiceApi {
                     .entity(financialDocService.findByDocNumber(docNumber))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -145,10 +139,9 @@ public class FinancialDocServiceApi {
                     .entity(financialDocService.findAll())
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }
@@ -165,10 +158,9 @@ public class FinancialDocServiceApi {
                     .entity(financialDocService.findByDateTime(dateTimePars))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
             return Response
                     .serverError()
-                    .entity(e.getMessage())
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
                     .build();
         }
     }

@@ -22,15 +22,23 @@ public class FinancialDocServlet extends HttpServlet {
     @Inject
     private FinancialDocServiceImpl financialDocService;
 
+    @Inject
+    private FinancialDoc financialDoc;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            FinancialDoc financialDoc=FinancialDoc
+            long docNumber=Long.valueOf(req.getParameter("docNumber"));
+            String faDateTime=req.getParameter("faDateTime");
+
+            financialDoc=FinancialDoc
                     .builder()
-                    .docNumber(Long.valueOf(req.getParameter("docNumber")))
-                    .faDateTime(LocalDateTime.parse(req.getParameter("faDateTime")))
+                    .docNumber(docNumber)
+                    .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
+
             financialDocService.save(financialDoc);
+
             log.info("FinancialDocServlet - FinancialDoc Saved");
             req.getRequestDispatcher("/jsp/financialDoc.jsp").forward(req, resp);
         } catch (Exception e) {

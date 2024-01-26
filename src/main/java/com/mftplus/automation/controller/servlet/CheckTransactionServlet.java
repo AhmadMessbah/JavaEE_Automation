@@ -22,49 +22,71 @@ public class    CheckTransactionServlet extends HttpServlet {
     @Inject
     private CheckTransactionServiceImp checkTransactionService;
 
+    @Inject
+    private User user;
+
+    @Inject
+    private CashDesk cashDesk;
+
+    @Inject
+    private FinancialDoc financialDoc;
+
+    @Inject
+    private CheckTransaction checkTransaction;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            User user=
-                    User
-                            .builder()
-                            .username(req.getParameter("username"))
-                            .password(req.getParameter("password"))
-                            .build();
-            CashDesk cashDesk=CashDesk
+            String username=req.getParameter("username");
+            String password=req.getParameter("password");
+
+            user= User
                     .builder()
-                    .name(req.getParameter("name"))
-                    .cashDeskNumber(Integer.parseInt(req.getParameter("cashDeskNumber")))
+                    .username(username)
+                    .password(password)
+                    .build();
+
+            String name=req.getParameter("name");
+            int cashDeskNumber=Integer.parseInt(req.getParameter("cashDeskNumber"));
+
+            cashDesk=CashDesk
+                    .builder()
+                    .name(name)
+                    .cashDeskNumber(cashDeskNumber)
                     .cashier(user)
                     .build();
-            Bank bank =
-                    Bank
-                            .builder()
-                            .name(req.getParameter("name"))
-                            .accountNumber(req.getParameter("accountNumber"))
-                            .branchCode(Integer.parseInt(req.getParameter("branchCode")))
-                            .branchName(req.getParameter("branchName"))
-                            .accountType(req.getParameter("accountType"))
-                            .accountBalance(Long.valueOf(req.getParameter("accountBalance")))
-                            .accountOwner(user)
-                            .build();
-            FinancialDoc financialDoc=FinancialDoc
+
+            long docNumber=Long.valueOf(req.getParameter("docNumber"));
+            String faDateTime=req.getParameter("faDateTime");
+
+            financialDoc=FinancialDoc
                     .builder()
-                    .docNumber(Long.valueOf(req.getParameter("docNumber")))
-                    .faDateTime(LocalDateTime.parse(req.getParameter("faDateTime")))
+                    .docNumber(docNumber)
+                    .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
-            CheckTransaction checkTransaction=CheckTransaction
+
+            String checkNumber=req.getParameter("checkNumber");
+            String faCheckDueDate=req.getParameter("faCheckDueDate");
+            int trackingCode=Integer.parseInt(req.getParameter("trackingCode"));
+            long amount=Long.valueOf(req.getParameter("amount"));
+            String description=req.getParameter("description");
+            String faDateTime2=req.getParameter("faDateTime");
+
+            checkTransaction=CheckTransaction
                     .builder()
-                    .checkNumber(req.getParameter("checkNumber"))
-                    .faCheckDueDate(LocalDateTime.parse(req.getParameter("faCheckDueDate")))
+                    .checkNumber(checkNumber)
+                    .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
                     .cashDesk(cashDesk)
-                    .trackingCode(Integer.parseInt(req.getParameter("trackingCode")))
-                    .amount(Long.valueOf(req.getParameter("amount")))
-                    .description(req.getParameter("description"))
+                    .trackingCode(trackingCode)
+                    .amount(amount)
+                    .description(description)
                     .payer(user)
                     .financialDoc(financialDoc)
-                    .faDateTime(LocalDateTime.parse(req.getParameter("faDateTime")))
+                    .faDateTime(LocalDateTime.parse(faDateTime2))
                     .build();
+
+            checkTransactionService.save(checkTransaction);
+
             log.info("CheckTransactionServlet - CheckTransaction Saved");
             req.getRequestDispatcher("/jsp/checkTransaction.jsp").forward(req, resp);
         } catch (Exception e) {

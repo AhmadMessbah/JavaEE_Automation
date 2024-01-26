@@ -22,53 +22,67 @@ public class CashTransactionServlet extends HttpServlet {
     @Inject
     private CashTransactionServiceImp cashTransactionService;
 
+    @Inject
+    private User user;
+
+    @Inject
+    private FinancialDoc financialDoc;
+
+    @Inject
+    private CashDesk cashDesk;
+
+    @Inject
+    private CashTransaction cashTransaction;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            User user=
-                    User
-                            .builder()
-                            .username(req.getParameter("username"))
-                            .password(req.getParameter("password"))
-                            .build();
-            Bank bank =
-                    Bank
-                            .builder()
-                            .name(req.getParameter("name"))
-                            .accountNumber(req.getParameter("accountNumber"))
-                            .branchCode(Integer.parseInt(req.getParameter("branchCode")))
-                            .branchName(req.getParameter("branchName"))
-                            .accountType(req.getParameter("accountType"))
-                            .accountBalance(Long.valueOf(req.getParameter("accountBalance")))
-                            .accountOwner(user)
-                            .build();
-            FinancialDoc financialDoc=FinancialDoc
+            String username=req.getParameter("username");
+            String password=req.getParameter("password");
+
+            user= User
                     .builder()
-                    .docNumber(Long.valueOf(req.getParameter("docNumber")))
-                    .faDateTime(LocalDateTime.parse(req.getParameter("faDateTime")))
+                    .username(username)
+                    .password(password)
                     .build();
-            BankDepositTransaction bankDepositTransaction=BankDepositTransaction
+
+            long docNumber=Long.valueOf(req.getParameter("docNumber"));
+            String faDateTime=req.getParameter("faDateTime");
+
+            financialDoc=FinancialDoc
                     .builder()
-                    .depositCode(req.getParameter("depositCode"))
-                    .bankInvolved(bank)
+                    .docNumber(docNumber)
+                    .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
-            CashDesk cashDesk=CashDesk
+
+            String name2=req.getParameter("name");
+            int cashDeskNumber=Integer.parseInt(req.getParameter("cashDeskNumber"));
+
+            cashDesk=CashDesk
                     .builder()
-                    .name(req.getParameter("name"))
-                    .cashDeskNumber(Integer.parseInt(req.getParameter("cashDeskNumber")))
+                    .name(name2)
+                    .cashDeskNumber(cashDeskNumber)
                     .cashier(user)
                     .build();
-            CashTransaction cashTransaction=CashTransaction
+
+            int trackingCode=Integer.parseInt(req.getParameter("trackingCode"));
+            long amount=Long.valueOf(req.getParameter("amount"));
+            String description=req.getParameter("description");
+            String faDateTime2=req.getParameter("faDateTime");
+
+            cashTransaction=CashTransaction
                     .builder()
                     .cashDesk(cashDesk)
-                    .trackingCode(Integer.parseInt(req.getParameter("trackingCode")))
-                    .amount(Long.valueOf(req.getParameter("amount")))
-                    .description(req.getParameter("description"))
+                    .trackingCode(trackingCode)
+                    .amount(amount)
+                    .description(description)
                     .payer(user)
                     .financialDoc(financialDoc)
-                    .faDateTime(LocalDateTime.parse(req.getParameter("faDateTime")))
+                    .faDateTime(LocalDateTime.parse(faDateTime2))
                     .build();
+
             cashTransactionService.save(cashTransaction);
+
             log.info("CashTransactionServlet - CashTransaction Saved");
             req.getRequestDispatcher("/jsp/cashTransaction.jsp").forward(req, resp);
         } catch (Exception e) {

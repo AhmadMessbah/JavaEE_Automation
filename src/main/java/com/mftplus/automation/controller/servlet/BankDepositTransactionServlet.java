@@ -66,19 +66,19 @@ public class BankDepositTransactionServlet extends HttpServlet {
                             .build();
 
             long docNumber=Long.valueOf(req.getParameter("docNumber"));
-            LocalDateTime faDateTime=LocalDateTime.parse(req.getParameter("faDateTime"));
+            String faDateTime=req.getParameter("faDateTime");
 
             financialDoc=FinancialDoc
                     .builder()
                     .docNumber(docNumber)
-                    .faDateTime(faDateTime)
+                    .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
 
             String depositCode=req.getParameter("depositCode");
             int trackingCode=Integer.parseInt(req.getParameter("trackingCode"));
             long amount=Long.valueOf(req.getParameter("amount"));
             String description=req.getParameter("description");
-            LocalDateTime faDateTime2=LocalDateTime.parse(req.getParameter("faDateTime"));
+            String faDateTime2=req.getParameter("faDateTime");
 
             bankDepositTransaction=BankDepositTransaction
                     .builder()
@@ -89,10 +89,11 @@ public class BankDepositTransactionServlet extends HttpServlet {
                     .description(description)
                     .payer(user)
                     .financialDoc(financialDoc)
-                    .faDateTime(faDateTime2)
+                    .faDateTime(LocalDateTime.parse(faDateTime2))
                     .build();
 
             bankDepositTransactionService.save(bankDepositTransaction);
+
             log.info("BankDepositTransactionServlet - BankDepositTransaction Saved");
             req.getRequestDispatcher("/jsp/bankDepositTransaction.jsp").forward(req, resp);
         } catch (Exception e) {
