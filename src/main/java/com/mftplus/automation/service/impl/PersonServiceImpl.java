@@ -1,5 +1,6 @@
 package com.mftplus.automation.service.impl;
 
+import com.mftplus.automation.model.Organisation;
 import com.mftplus.automation.model.Person;
 import com.mftplus.automation.service.PersonService;
 import jakarta.enterprise.context.SessionScoped;
@@ -34,20 +35,23 @@ public class PersonServiceImpl implements PersonService, Serializable {
     @Transactional
     @Override
     public void remove(Person person) throws Exception {
-        entityManager.remove(person);
+        person = entityManager.find(Person.class, person.getId());
+        person.setDeleted(true);
+        entityManager.merge(person);
     }
 
     @Transactional
     @Override
     public void removeById(Long id) throws Exception {
         Person person = entityManager.find(Person.class, id);
-        entityManager.remove(person);
+        person.setDeleted(true);
+        entityManager.merge(person);
     }
 
     @Transactional
     @Override
     public List<Person> findAll() throws Exception {
-        TypedQuery<Person> query = entityManager.createQuery("select p from personEntity p", Person.class);
+        TypedQuery<Person> query = entityManager.createQuery("select p from personEntity p where p.deleted=false", Person.class);
         return query.getResultList();
     }
 
