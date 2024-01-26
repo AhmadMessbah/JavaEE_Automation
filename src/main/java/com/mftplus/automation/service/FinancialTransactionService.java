@@ -1,7 +1,6 @@
 package com.mftplus.automation.service;
 
 import com.mftplus.automation.model.FinancialTransaction;
-import com.mftplus.automation.model.enums.TransactionType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,13 +23,13 @@ public interface  FinancialTransactionService {
 
     Optional<FinancialTransaction> findByTrackingCode(int trackingCode) throws Exception;
 
-    List<FinancialTransaction> findByBankInvolved(Long id) throws Exception;
+    List<FinancialTransaction> findByDescription(String description) throws Exception;
 
     List<FinancialTransaction> findByDateTime(LocalDateTime dateTime) throws Exception;
 
-    List<FinancialTransaction> findByType(TransactionType transactionType) throws Exception;
+    List<FinancialTransaction> findByPayer(String username) throws Exception;
 
-    List<FinancialTransaction> findByUserId(Long id) throws Exception;
+    List<FinancialTransaction> findBySection(String title) throws Exception;
 
-    Optional<FinancialTransaction> findByFinancialDoc(Long id) throws Exception;
+    Optional<FinancialTransaction> findByFinancialDoc(Long docNumber) throws Exception;
 }

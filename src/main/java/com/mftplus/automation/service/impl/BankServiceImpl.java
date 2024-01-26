@@ -34,62 +34,65 @@ public class BankServiceImpl implements BankService, Serializable {
     @Transactional
     @Override
     public void remove(Bank bank) throws Exception {
-        entityManager.remove(bank);
+        bank.setDeleted(true);
+        entityManager.merge(bank);
     }
 
     @Transactional
     @Override
     public void removeById(Long id) throws Exception {
         Bank bank = entityManager.find(Bank.class, id);
-        entityManager.remove(bank);
+        bank.setDeleted(true);
+        entityManager.merge(bank);
     }
 
     @Transactional
     @Override
     public void removeByAccountNumber(String accountNumber) throws Exception {
         Bank bank = entityManager.find(Bank.class, accountNumber);
-        entityManager.remove(bank);
+        bank.setDeleted(true);
+        entityManager.merge(bank);
     }
 
     @Transactional
     @Override
     public List<Bank> findAll() throws Exception {
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo", Bank.class);
+        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.deleted=false ", Bank.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<Bank> findByName(String name) throws Exception {
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.name = :name", Bank.class);
+        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.name = :name AND oo.deleted=false", Bank.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<Bank> findByBranchCode(int branchCode) throws Exception {
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.branchCode=:branchCode", Bank.class);
+        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.branchCode=:branchCode AND oo.deleted=false ", Bank.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<Bank> findByBranchName(String branchName) throws Exception {
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.branchName=:branchName", Bank.class);
+        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.branchName=:branchName AND oo.deleted=false", Bank.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<Bank> findByAccountType(String accountType) throws Exception {
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.accountType=:accountType", Bank.class);
+        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.accountType=:accountType AND oo.deleted=false", Bank.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<Bank>  findByAccountOwner(String username) throws Exception {
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.accountOwner.username = :username", Bank.class);
+        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.accountOwner.username = :username AND oo.deleted=false", Bank.class);
         return query.getResultList();
     }
 
