@@ -44,7 +44,7 @@ public class Section {
     private String duty;
 
     @Column(name = "s_phoneNnumber" , length = 11)
-    private String PhoneNumber;
+    private String phoneNumber;
 
     @OneToMany
     private List<User>users;
