@@ -25,7 +25,7 @@ import java.util.List;
 @Entity (name = "letterEntity")
 @Table (name = "letter_tbl")
 
-public class Letter implements Serializable {
+public class Letter extends Base implements Serializable {
     @Id
     @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterSeq")

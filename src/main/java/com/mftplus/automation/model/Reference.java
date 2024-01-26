@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @Entity(name = "referenceEntity")
 @Table(name = "refrence_tbl")
 
-public class Reference implements Serializable {
+public class Reference extends Base implements Serializable {
     @Id
     @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterSeq")
