@@ -17,7 +17,7 @@
 
 <select name="docType" id="">
     <c:forEach var="docType" items="docTypes">
-        <option value="${docType}">${docType}</option>
+        <option value="${docType}"></option>
     </c:forEach>
 </select>
 
