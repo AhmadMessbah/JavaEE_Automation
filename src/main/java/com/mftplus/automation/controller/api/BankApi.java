@@ -15,7 +15,7 @@ public class BankApi {
     @PersistenceContext(unitName = "automation")
 
     @Inject
-    private BankServiceImpl bankService;
+    private BankServiceImpl  bankService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

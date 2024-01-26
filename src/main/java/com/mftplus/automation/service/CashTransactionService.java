@@ -5,7 +5,7 @@ import com.mftplus.automation.model.CashTransaction;
 import java.util.List;
 import java.util.Optional;
 
-public interface CashTransactionService {
+public interface   CashTransactionService {
     void save(CashTransaction cashTransaction) throws Exception;
 
     void edit(CashTransaction cashTransaction) throws Exception;

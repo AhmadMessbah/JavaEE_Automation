@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @WebServlet(name = "/checkTransactionServlet", urlPatterns = "/checkTransactio.do")
-public class CheckTransactionServlet extends HttpServlet {
+public class    CheckTransactionServlet extends HttpServlet {
     @PersistenceContext(unitName = "automation")
 
     @Inject

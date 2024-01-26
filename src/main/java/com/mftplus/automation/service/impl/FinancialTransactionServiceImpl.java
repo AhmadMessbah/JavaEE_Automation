@@ -1,4 +1,4 @@
-package com.mftplus.automation.service;
+package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.FinancialTransaction;
 import com.mftplus.automation.service.FinancialTransactionService;
