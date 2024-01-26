@@ -1,4 +1,4 @@
-package com.mftplus.automation.service.impl;
+package com.mftplus.automation.service;
 
 import com.mftplus.automation.model.FinancialTransaction;
 import com.mftplus.automation.model.enums.TransactionType;
