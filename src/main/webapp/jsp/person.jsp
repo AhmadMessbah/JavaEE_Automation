@@ -4,6 +4,8 @@
 <head>
     <title>Person</title>
     <jsp:include page=""
+
+
     <style>
         .error {
             display: none;
@@ -12,6 +14,13 @@
     </style>
 </head>
 <body>
+
+<select name="docType" id="">
+    <c:forEach var="docType" items="docTypes">
+        <option value="${docType}">${docType}</option>
+    </c:forEach>
+</select>
+
 <form action="person.do" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="name">Name</label>
