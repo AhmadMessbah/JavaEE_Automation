@@ -8,8 +8,6 @@ import com.mftplus.automation.model.enums.TransferMethod;
 import com.mftplus.automation.service.impl.LetterServiceImpl;
 import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -33,10 +31,6 @@ import java.util.Optional;
         maxRequestSize = 1024 * 1024 * 100   // 10 MB
 )
 public class LetterServlet extends HttpServlet {
-
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
-
     @Inject
     private LetterServiceImpl letterService;
 
@@ -47,10 +41,20 @@ public class LetterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("LetterServlet - GET");
 
+        //for select box
         req.getParameter("accessLevel");
         req.getSession().setAttribute("accessLevel", Arrays.asList(LetterAccessLevel.values()));
         req.getRequestDispatcher("/jsp/letter.jsp").forward(req,resp);
+
+        try {
+            req.getSession().setAttribute("letterList", letterService.findAll());
+            req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
+            letterService.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -114,6 +118,7 @@ public class LetterServlet extends HttpServlet {
                                     .transferMethod(TransferMethod.valueOf(transferMethod))
                                     .letterType(LetterType.valueOf(letterType))
                                     .registerDateAndTime(localDateTime)
+                                    .deleted(false)
                                     .build();
                     letterService.save(letter);
                     log.info("LetterServlet - Letter Saved");
@@ -121,28 +126,8 @@ public class LetterServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            log.info("LetterServlet - Error Save Letter");
-            req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
-        }
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String letterId = req.getParameter("id");
-
-        try {
-            letterService.removeById(Long.valueOf(letterId));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            log.info("LetterServlet - Error Delete Letter By Id");
-            req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

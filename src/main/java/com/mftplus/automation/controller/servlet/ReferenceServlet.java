@@ -7,8 +7,6 @@ import com.mftplus.automation.model.enums.ReferenceType;
 import com.mftplus.automation.service.impl.LetterServiceImpl;
 import com.mftplus.automation.service.impl.ReferenceServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,14 +21,22 @@ import java.util.Optional;
 @Slf4j
 @WebServlet (urlPatterns = "/reference.do")
 public class ReferenceServlet extends HttpServlet {
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
-
     @Inject
     private ReferenceServiceImpl referenceService;
 
     @Inject
     private LetterServiceImpl letterService;
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getSession().setAttribute("referenceList", referenceService.findAll());
+            req.getRequestDispatcher("/jsp/reference.jsp").forward(req, resp);
+            referenceService.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -64,6 +70,7 @@ public class ReferenceServlet extends HttpServlet {
                                     .status(Boolean.parseBoolean(status))
                                     .validate(Boolean.parseBoolean(validate))
                                     .priority(ReferencePriority.valueOf(priority))
+                                    .deleted(false)
                                     .build();
                     referenceService.save(reference);
                     log.info("ReferenceServlet - Reference Saved");
@@ -72,9 +79,8 @@ public class ReferenceServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            log.info("ReferenceServlet - Error Save Reference");
-            req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/reference.jsp").forward(req, resp);
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }
