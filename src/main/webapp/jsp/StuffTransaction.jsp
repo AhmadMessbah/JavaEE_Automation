@@ -20,6 +20,8 @@
 <input type="text"name="stuffTransactionSection"id="stufftransactionsection">
     <label for="stuffTransactionStuff">stuffTransactionStuff</label>
 <input type="text"name="stuffTransactionStuff"id="stufftransactionstuff">
+    <label for="stuffTransactionType">stuffTransactionType</label>
+    <input type="text"name="stuffTransactionType"id="stufftransactiontype">
 <input type="submit" value="save">
 </form>
 
