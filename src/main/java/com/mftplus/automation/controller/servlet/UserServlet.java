@@ -1,5 +1,6 @@
 package com.mftplus.automation.controller.servlet;
 import com.mftplus.automation.model.User;
+import com.mftplus.automation.model.enums.FinancialDocType;
 import com.mftplus.automation.model.enums.Role;
 import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Slf4j
 @WebServlet(name = "UserServlet" , urlPatterns = "/user.do")
@@ -48,8 +50,14 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            userService.findAll();
+        try {          req.getParameter("role");
+//            personService.findAll();
+            //todo : sample of enum to combo
+            req.getSession().setAttribute("roles", Arrays.asList(FinancialDocType.values()));
+
+            req.getRequestDispatcher("/jsp/user.jsp").forward(req,resp);
+
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

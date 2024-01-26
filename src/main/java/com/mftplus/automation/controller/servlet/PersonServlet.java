@@ -64,10 +64,10 @@ public class PersonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            req.getParameter("docType");
+            req.getParameter("gender");
 //            personService.findAll();
             //todo : sample of enum to combo
-            req.getSession().setAttribute("docTypes", Arrays.asList(FinancialDocType.values()));
+            req.getSession().setAttribute("genders", Arrays.asList(FinancialDocType.values()));
 
             req.getRequestDispatcher("/jsp/person.jsp").forward(req,resp);
 
