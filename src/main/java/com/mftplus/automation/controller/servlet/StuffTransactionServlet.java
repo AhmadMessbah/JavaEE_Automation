@@ -1,5 +1,6 @@
 package com.mftplus.automation.controller.servlet;
 
+import com.mftplus.automation.model.StuffTransaction;
 import com.mftplus.automation.service.impl.StuffTransactionServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -10,6 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.xml.registry.infomodel.User;
 import java.io.IOException;
 
 @Slf4j
@@ -28,8 +31,19 @@ public class StuffTransactionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Stuff Transaction Servlet-post");
         try {
+            StuffTransaction stuffTransaction=StuffTransaction
+                    .builder()
+//                    .user()
+//                    .section()
+//                    .stuff()
+//                    .transactionType()
+                    .build();
+            stuffTransactionService.save(stuffTransaction);
+            log.info("Stuff Transaction Servlet-post");
+            req.getRequestDispatcher("/StuffTransaction.jsp").forward(req, resp);
 
         }catch (Exception e){
+            log.error(e.getMessage());
 
         }
     }

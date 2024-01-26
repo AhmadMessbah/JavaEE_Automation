@@ -16,8 +16,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/organisation.do")
 public class OrganisationServlet extends HttpServlet {
-
-    @PersistenceContext(unitName = "jk")
+    @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
 
     @Inject
@@ -34,11 +33,11 @@ public class OrganisationServlet extends HttpServlet {
         try {
             List<Section> sectionPart=section.getSectionsPart();
 
-            String title=req.getParameter("o_title");
-            String name=req.getParameter("o_name");
-            String address=req.getParameter("o_address");
-            String phoneNumber=req.getParameter("o_phoneNumber");
-            String description=req.getParameter("o_description");
+            String title=req.getParameter("title");
+            String name=req.getParameter("name");
+            String address=req.getParameter("address");
+            String phoneNumber=req.getParameter("phoneNumber");
+            String description=req.getParameter("description");
 
             organisation=Organisation.builder().name(name)
                     .title(title).address(address).phoneNumber(phoneNumber)
@@ -47,6 +46,7 @@ public class OrganisationServlet extends HttpServlet {
 
             service.save(organisation);
 
+            req.getSession().setAttribute("organisationName",name);
             req.getSession().setAttribute("organisation",organisation);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -56,6 +56,7 @@ public class OrganisationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            req.getRequestDispatcher("/jsp/organisation.jsp").forward(req,resp);
             service.findAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
