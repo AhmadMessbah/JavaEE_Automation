@@ -1,6 +1,6 @@
 package com.mftplus.automation.controller.api;
 
-import com.mftplus.automation.model.BankDepositTransaction;
+import com.mftplus.automation.model.CardPayment;
 import com.mftplus.automation.service.impl.BankDepositTransactionServiceImp;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceContext;
@@ -91,13 +91,13 @@ public class BankDepositTransactionApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(BankDepositTransaction bankDepositTransaction) {
+    public Response save(CardPayment cardPayment) {
         try {
             log.info("Save Bank Deposit Transaction");
-            bankDepositTransactionService.save(bankDepositTransaction);
+            bankDepositTransactionService.save(cardPayment);
             return Response
                     .ok()
-                    .entity(bankDepositTransaction)
+                    .entity(cardPayment)
                     .build();
         } catch (Exception e) {
             return Response
@@ -110,13 +110,13 @@ public class BankDepositTransactionApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(BankDepositTransaction bankDepositTransaction) {
+    public Response edit(CardPayment cardPayment) {
         try {
             log.info("Edit Bank Deposit Transaction");
-            bankDepositTransactionService.edit(bankDepositTransaction);
+            bankDepositTransactionService.edit(cardPayment);
             return Response
                     .ok()
-                    .entity(bankDepositTransaction)
+                    .entity(cardPayment)
                     .build();
         } catch (Exception e) {
             return Response

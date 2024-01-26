@@ -1,6 +1,6 @@
 package com.mftplus.automation.controller.api;
 
-import com.mftplus.automation.model.CheckTransaction;
+import com.mftplus.automation.model.CheckPayment;
 import com.mftplus.automation.service.impl.CheckTransactionServiceImp;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceContext;
@@ -57,13 +57,13 @@ public class CheckTransactionApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(CheckTransaction checkTransaction) {
+    public Response save(CheckPayment checkPayment) {
         try {
             log.info("Save CheckTransaction");
-            checkTransactionService.save(checkTransaction);
+            checkTransactionService.save(checkPayment);
             return Response
                     .ok()
-                    .entity(checkTransaction)
+                    .entity(checkPayment)
                     .build();
         } catch (Exception e) {
             return Response
@@ -76,13 +76,13 @@ public class CheckTransactionApi {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(CheckTransaction checkTransaction) {
+    public Response edit(CheckPayment checkPayment) {
         try {
             log.info("Edit CheckTransaction");
-            checkTransactionService.edit(checkTransaction);
+            checkTransactionService.edit(checkPayment);
             return Response
                     .ok()
-                    .entity(checkTransaction)
+                    .entity(checkPayment)
                     .build();
         } catch (Exception e) {
             return Response

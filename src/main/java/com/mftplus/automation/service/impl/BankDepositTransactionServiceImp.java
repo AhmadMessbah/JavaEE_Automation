@@ -1,6 +1,6 @@
 package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.model.BankDepositTransaction;
+import com.mftplus.automation.model.CardPayment;
 import com.mftplus.automation.service.BankDepositTransactionService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
@@ -21,55 +21,55 @@ public class BankDepositTransactionServiceImp implements BankDepositTransactionS
 
     @Transactional
     @Override
-    public void save(BankDepositTransaction bankDepositTransaction) throws Exception {
-        entityManager.persist(bankDepositTransaction);
+    public void save(CardPayment cardPayment) throws Exception {
+        entityManager.persist(cardPayment);
     }
 
     @Transactional
     @Override
-    public void edit(BankDepositTransaction bankDepositTransaction) throws Exception {
-        entityManager.merge(bankDepositTransaction);
+    public void edit(CardPayment cardPayment) throws Exception {
+        entityManager.merge(cardPayment);
     }
 
     @Transactional
     @Override
-    public void remove(BankDepositTransaction bankDepositTransaction) throws Exception {
-        bankDepositTransaction.setDeleted(true);
-        entityManager.merge(bankDepositTransaction);
+    public void remove(CardPayment cardPayment) throws Exception {
+        cardPayment.setDeleted(true);
+        entityManager.merge(cardPayment);
     }
 
     @Transactional
     @Override
     public void removeById(Long id) throws Exception {
-        BankDepositTransaction bankDepositTransaction = entityManager.find(BankDepositTransaction.class, id);
-        bankDepositTransaction.setDeleted(true);
-        entityManager.merge(bankDepositTransaction);
+        CardPayment cardPayment = entityManager.find(CardPayment.class, id);
+        cardPayment.setDeleted(true);
+        entityManager.merge(cardPayment);
     }
 
     @Transactional
     @Override
-    public List<BankDepositTransaction> findAll() throws Exception {
-        TypedQuery<BankDepositTransaction> query = entityManager.createQuery("SELECT oo FROM bankDepositTransactionEntity oo WHERE oo.deleted=false ", BankDepositTransaction.class);
+    public List<CardPayment> findAll() throws Exception {
+        TypedQuery<CardPayment> query = entityManager.createQuery("SELECT oo FROM bankDepositTransactionEntity oo WHERE oo.deleted=false ", CardPayment.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
-    public List<BankDepositTransaction> findByDepositCode(String depositCode) throws Exception {
-        TypedQuery<BankDepositTransaction> query = entityManager.createQuery("SELECT oo FROM bankDepositTransactionEntity oo WHERE oo.depositCode=:depositCode AND oo.deleted=false ", BankDepositTransaction.class);
+    public List<CardPayment> findByDepositCode(String depositCode) throws Exception {
+        TypedQuery<CardPayment> query = entityManager.createQuery("SELECT oo FROM bankDepositTransactionEntity oo WHERE oo.depositCode=:depositCode AND oo.deleted=false ", CardPayment.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
-    public List<BankDepositTransaction> findByBankInvolved(String accountNumber) throws Exception {
-        TypedQuery<BankDepositTransaction> query = entityManager.createQuery("SELECT oo FROM bankDepositTransactionEntity oo WHERE oo.bankInvolved.accountNumber=:accountNumber AND oo.deleted=false ", BankDepositTransaction.class);
+    public List<CardPayment> findByBankInvolved(String accountNumber) throws Exception {
+        TypedQuery<CardPayment> query = entityManager.createQuery("SELECT oo FROM bankDepositTransactionEntity oo WHERE oo.bankInvolved.accountNumber=:accountNumber AND oo.deleted=false ", CardPayment.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
-    public Optional<BankDepositTransaction> findById(Long id) throws Exception {
-        return Optional.ofNullable(entityManager.find(BankDepositTransaction.class, id));
+    public Optional<CardPayment> findById(Long id) throws Exception {
+        return Optional.ofNullable(entityManager.find(CardPayment.class, id));
     }
 }

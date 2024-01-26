@@ -1,6 +1,5 @@
 package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.model.CashTransaction;
 import com.mftplus.automation.service.CashTransactionService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;

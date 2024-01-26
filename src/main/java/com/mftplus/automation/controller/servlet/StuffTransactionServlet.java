@@ -5,7 +5,6 @@ import com.mftplus.automation.model.Stuff;
 import com.mftplus.automation.model.StuffTransaction;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.StuffTransactionType;
-import com.mftplus.automation.model.enums.TransactionType;
 import com.mftplus.automation.service.impl.SectionServiceImpl;
 import com.mftplus.automation.service.impl.StuffServiceImpl;
 import com.mftplus.automation.service.impl.StuffTransactionServiceImpl;

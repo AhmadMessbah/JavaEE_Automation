@@ -1,6 +1,5 @@
 package com.mftplus.automation.controller.api;
 
-import com.mftplus.automation.model.CashTransaction;
 import com.mftplus.automation.service.impl.CashTransactionServiceImp;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceContext;

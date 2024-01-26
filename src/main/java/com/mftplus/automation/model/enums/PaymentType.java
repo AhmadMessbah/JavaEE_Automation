@@ -1,13 +1,13 @@
 package com.mftplus.automation.model.enums;
 
-public enum TransactionType {
+public enum PaymentType {
     cash("نقد"),
     bankDeposit("واریز به بانک"),
     check("چک");
 
     private String title;
 
-    TransactionType(String title) {
+    PaymentType(String title) {
         this.title = title;
     }
 }

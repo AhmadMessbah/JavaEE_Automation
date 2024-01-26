@@ -32,7 +32,7 @@ public class    CheckTransactionServlet extends HttpServlet {
     private FinancialDoc financialDoc;
 
     @Inject
-    private CheckTransaction checkTransaction;
+    private CheckPayment checkPayment;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -72,7 +72,7 @@ public class    CheckTransactionServlet extends HttpServlet {
             String description=req.getParameter("description");
             String faDateTime2=req.getParameter("faDateTime");
 
-            checkTransaction=CheckTransaction
+            checkPayment = CheckPayment
                     .builder()
                     .checkNumber(checkNumber)
                     .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
@@ -85,7 +85,7 @@ public class    CheckTransactionServlet extends HttpServlet {
                     .faDateTime(LocalDateTime.parse(faDateTime2))
                     .build();
 
-            checkTransactionService.save(checkTransaction);
+            checkTransactionService.save(checkPayment);
 
             log.info("CheckTransactionServlet - CheckTransaction Saved");
             req.getRequestDispatcher("/jsp/checkTransaction.jsp").forward(req, resp);

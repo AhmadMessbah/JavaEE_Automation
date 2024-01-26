@@ -1,6 +1,6 @@
 package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.model.CheckTransaction;
+import com.mftplus.automation.model.CheckPayment;
 import com.mftplus.automation.service.CheckTransactionService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
@@ -22,68 +22,68 @@ public class CheckTransactionServiceImp implements CheckTransactionService, Seri
 
     @Transactional
     @Override
-    public void save(CheckTransaction checkTransaction) throws Exception {
-        entityManager.persist(checkTransaction);
+    public void save(CheckPayment checkPayment) throws Exception {
+        entityManager.persist(checkPayment);
     }
 
     @Transactional
     @Override
-    public void edit(CheckTransaction checkTransaction) throws Exception {
-        entityManager.merge(checkTransaction);
+    public void edit(CheckPayment checkPayment) throws Exception {
+        entityManager.merge(checkPayment);
     }
 
     @Transactional
     @Override
-    public void remove(CheckTransaction checkTransaction) throws Exception {
-        checkTransaction.setDeleted(true);
-        entityManager.merge(checkTransaction);
+    public void remove(CheckPayment checkPayment) throws Exception {
+        checkPayment.setDeleted(true);
+        entityManager.merge(checkPayment);
     }
 
     @Transactional
     @Override
     public void removeById(Long id) throws Exception {
-        CheckTransaction checkTransaction=entityManager.find(CheckTransaction.class,id);
-        checkTransaction.setDeleted(true);
-        entityManager.merge(checkTransaction);
+        CheckPayment checkPayment =entityManager.find(CheckPayment.class,id);
+        checkPayment.setDeleted(true);
+        entityManager.merge(checkPayment);
     }
 
     @Transactional
     @Override
     public void removeByCheckNumber(String checkNumber) throws Exception {
-        CheckTransaction checkTransaction=entityManager.find(CheckTransaction.class,checkNumber);
-        checkTransaction.setDeleted(true);
-        entityManager.merge(checkTransaction);
+        CheckPayment checkPayment =entityManager.find(CheckPayment.class,checkNumber);
+        checkPayment.setDeleted(true);
+        entityManager.merge(checkPayment);
     }
 
     @Transactional
     @Override
-    public List<CheckTransaction> findAll() throws Exception {
-        TypedQuery<CheckTransaction> query = entityManager.createQuery("SELECT oo FROM checkTransactionEntity oo WHERE oo.deleted=false ", CheckTransaction.class);
+    public List<CheckPayment> findAll() throws Exception {
+        TypedQuery<CheckPayment> query = entityManager.createQuery("SELECT oo FROM checkTransactionEntity oo WHERE oo.deleted=false ", CheckPayment.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
-    public List<CheckTransaction> findByCheckDueDate(LocalDateTime checkDueDate) throws Exception {
-        TypedQuery<CheckTransaction> query = entityManager.createQuery("SELECT oo FROM checkTransactionEntity oo WHERE oo.checkDueDate=:checkDueDate AND oo.deleted=false ", CheckTransaction.class);
+    public List<CheckPayment> findByCheckDueDate(LocalDateTime checkDueDate) throws Exception {
+        TypedQuery<CheckPayment> query = entityManager.createQuery("SELECT oo FROM checkTransactionEntity oo WHERE oo.checkDueDate=:checkDueDate AND oo.deleted=false ", CheckPayment.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
-    public Optional<CheckTransaction> findByCashDeskNumber(int cashDeskNumber) throws Exception {
-        return Optional.ofNullable(entityManager.find(CheckTransaction.class, cashDeskNumber));
+    public Optional<CheckPayment> findByCashDeskNumber(int cashDeskNumber) throws Exception {
+        return Optional.ofNullable(entityManager.find(CheckPayment.class, cashDeskNumber));
     }
 
     @Transactional
     @Override
-    public Optional<CheckTransaction> findByCheckNumber(String checkNumber) throws Exception {
-        return Optional.ofNullable(entityManager.find(CheckTransaction.class, checkNumber));
+    public Optional<CheckPayment> findByCheckNumber(String checkNumber) throws Exception {
+        return Optional.ofNullable(entityManager.find(CheckPayment.class, checkNumber));
     }
 
     @Transactional
     @Override
-    public Optional<CheckTransaction> findById(Long id) throws Exception {
-        return Optional.ofNullable(entityManager.find(CheckTransaction.class, id));
+    public Optional<CheckPayment> findById(Long id) throws Exception {
+        return Optional.ofNullable(entityManager.find(CheckPayment.class, id));
     }
 }

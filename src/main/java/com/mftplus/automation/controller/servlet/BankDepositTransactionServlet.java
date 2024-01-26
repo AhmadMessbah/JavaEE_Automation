@@ -1,7 +1,7 @@
 package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.Bank;
-import com.mftplus.automation.model.BankDepositTransaction;
+import com.mftplus.automation.model.CardPayment;
 import com.mftplus.automation.model.FinancialDoc;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.service.impl.BankDepositTransactionServiceImp;
@@ -26,7 +26,7 @@ public class BankDepositTransactionServlet extends HttpServlet {
     private BankDepositTransactionServiceImp bankDepositTransactionService;
 
     @Inject
-    private BankDepositTransaction bankDepositTransaction;
+    private CardPayment cardPayment;
 
     @Inject
     private User user;
@@ -80,7 +80,7 @@ public class BankDepositTransactionServlet extends HttpServlet {
             String description=req.getParameter("description");
             String faDateTime2=req.getParameter("faDateTime");
 
-            bankDepositTransaction=BankDepositTransaction
+            cardPayment = CardPayment
                     .builder()
                     .depositCode(depositCode)
                     .bankInvolved(bank)
@@ -92,7 +92,7 @@ public class BankDepositTransactionServlet extends HttpServlet {
                     .faDateTime(LocalDateTime.parse(faDateTime2))
                     .build();
 
-            bankDepositTransactionService.save(bankDepositTransaction);
+            bankDepositTransactionService.save(cardPayment);
 
             log.info("BankDepositTransactionServlet - BankDepositTransaction Saved");
             req.getRequestDispatcher("/jsp/bankDepositTransaction.jsp").forward(req, resp);

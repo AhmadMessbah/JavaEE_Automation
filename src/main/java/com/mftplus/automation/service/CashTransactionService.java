@@ -1,7 +1,5 @@
 package com.mftplus.automation.service;
 
-import com.mftplus.automation.model.CashTransaction;
-
 import java.util.List;
 import java.util.Optional;
 

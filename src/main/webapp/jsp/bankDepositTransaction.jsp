@@ -18,7 +18,7 @@
     </c:forEach>
 </select>
 
-<form action="bankDepositTransaction.do" method="post" enctype="multipart/form-data">
+<form action="cardPayment.do" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="depositCode">Deposit Code</label>
         <input id="depositCode" type="text" name="depositCode">
@@ -40,11 +40,11 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="bankDepositTransaction" items="${sessionScope.bankDepositTransactionList}">
+    <c:forEach var="cardPayment" items="${sessionScope.bankDepositTransactionList}">
         <tr>
-            <td>${bankDepositTransaction.id}</td>
-            <td>${bankDepositTransaction.depositCode}</td>
-            <td>${bankDepositTransaction.bankInvolved}</td>
+            <td>${cardPayment.id}</td>
+            <td>${cardPayment.depositCode}</td>
+            <td>${cardPayment.bankInvolved}</td>
             <td>
                 <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
                 <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
@@ -62,7 +62,7 @@
     }
 
     function remove(id) {
-        fetch("/api/bankDepositTransaction/" + id, {
+        fetch("/api/cardPayment/" + id, {
             method: "DELETE"
         }).then(response => {
             JSON.parse(response)

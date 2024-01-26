@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>checkTransaction</title>
+    <title>checkPayment</title>
     <style>
         .error {
             display: none;
@@ -18,7 +18,7 @@
     </c:forEach>
 </select>
 
-<form action="checkTransaction.do" method="post" enctype="multipart/form-data">
+<form action="checkPayment.do" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="checkNumber">Check Number</label>
         <input id="checkNumber" type="text" name="checkNumber">
@@ -45,12 +45,12 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="checkTransaction" items="${sessionScope.checkTransactionList}">
+    <c:forEach var="checkPayment" items="${sessionScope.checkTransactionList}">
         <tr>
-            <td>${checkTransaction.id}</td>
-            <td>${checkTransaction.checkNumber}</td>
-            <td>${checkTransaction.faCheckDueDate}</td>
-            <td>${checkTransaction.cashDesk}</td>
+            <td>${checkPayment.id}</td>
+            <td>${checkPayment.checkNumber}</td>
+            <td>${checkPayment.faCheckDueDate}</td>
+            <td>${checkPayment.cashDesk}</td>
             <td>
                 <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
                 <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
@@ -68,7 +68,7 @@
     }
 
     function remove(id) {
-        fetch("/api/checkTransaction/" + id, {
+        fetch("/api/checkPayment/" + id, {
             method: "DELETE"
         }).then(response => {
             JSON.parse(response)
