@@ -31,26 +31,24 @@ public class Section {
     @JsonbTransient
     private Boolean deleted;
 
-
-
-    @Column(name = "s_title" , length = 40)
+    @Column(name = "s_title", length = 40)
     @Pattern(regexp = "^[a-zA-Z\\s]{0,40}$", message = "Invalid Role")
     private String title;
 
     @ManyToOne
     private Organisation organisation;
 
-    @Column(name = "s_duty",length = 100)
+    @Column(name = "s_duty", length = 100)
     private String duty;
 
-    @Column(name = "s_phoneNnumber" , length = 11)
+    @Column(name = "s_phoneNnumber", length = 11)
     private String phoneNumber;
 
     @OneToMany
-    private List<User>users;
+    private List<User> users;
 
     @OneToMany
-    private List<Section>sectionsPart;
+    private List<Section> sectionsPart;
 
     public List<Section> getSectionsPart() {
         if (sectionsPart == null) {
@@ -67,8 +65,8 @@ public class Section {
         return users;
     }
 
-        @OneToOne
-        private Attach attach;
+    @OneToOne
+    private Attach attach;
 
 
-    }
+}
