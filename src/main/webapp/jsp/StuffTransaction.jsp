@@ -22,6 +22,12 @@
 <input type="text"name="stuffTransactionStuff"id="stufftransactionstuff">
     <label for="stuffTransactionType">stuffTransactionType</label>
     <input type="text"name="stuffTransactionType"id="stufftransactiontype">
+    <select name="stuffTransactionType"
+    <option value="cash">cash</option>
+    <option value="bankDeposit">bankDeposit</option>
+    <option value="check">check</option>
+            id="stufftransactiontype">
+    </select>
 <input type="submit" value="save">
 </form>
 

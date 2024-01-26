@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity(name = "personEntity")
 @Table(name = "person_tbl")
-public class Person {
+public class Person extends Base{
     @Id
     @SequenceGenerator(name = "personSeq", sequenceName = "person_seq")
     @GeneratedValue(strategy = GenerationType.AUTO)

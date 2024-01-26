@@ -16,7 +16,6 @@ import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @Slf4j
 @WebServlet(urlPatterns = "/person.do")
@@ -31,47 +30,57 @@ public class PersonServlet extends HttpServlet {
     @Inject
     private PersonServiceImpl personService;
 
+    @Inject
+    private Person person;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-
         Part filePart = req.getPart("file");
         String fileName = filePart.getSubmittedFileName();  // todo : attach_id
         for (Part part : req.getParts()) {
             part.write("c:\\root\\"+fileName);  // todo : set server path
         }
 
-
-        String family = req.getParameter("family");
-        String gender = req.getParameter("gender");
         try {
-            Person person = Person.builder().
-                    name(name).
-                    family(family).
-                    gender(Gender.valueOf(gender)).
-                    build();
-            personService.save(person);
-            log.info("UserServlet - Person Saved");
-            req.getRequestDispatcher("/jsp/person.jsp").forward(req, resp);
+            String name = req.getParameter("name");
+            String family = req.getParameter("family");
+            String nationalCode = req.getParameter("nationalCode");
+            String gender = req.getParameter("gender");
 
+            person = Person
+                    .builder()
+                    .name(name)
+                    .family(family)
+                    .nationalCode(nationalCode)
+                    .gender(Gender.valueOf(gender))
+                    .deleted(false)
+                    .build();
+
+            personService.save(person);
+            log.info("Person Saved");
+            resp.sendRedirect("/person.do");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            log.info("PersonServlet - Error Save Person");
-            req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/person.jsp").forward(req, resp);
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
+  /*      try {
             req.getParameter("gender");
-//            personService.findAll();
             //todo : sample of enum to combo
             req.getSession().setAttribute("genders", Arrays.asList(FinancialDocType.values()));
 
             req.getRequestDispatcher("/jsp/person.jsp").forward(req,resp);
 
 
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }*/
+        try {
+            req.getSession().setAttribute("personList", personService.findAll());
+            req.getRequestDispatcher("/jsp/person.jsp").forward(req, resp);
+            personService.findAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

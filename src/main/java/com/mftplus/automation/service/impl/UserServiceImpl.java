@@ -1,5 +1,6 @@
 package com.mftplus.automation.service.impl;
 
+import com.mftplus.automation.model.Person;
 import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.Role;
@@ -37,20 +38,23 @@ public class UserServiceImpl implements UserService, Serializable {
     @Transactional
     @Override
     public void remove(User user) throws Exception {
-        entityManager.remove(user);
+        user = entityManager.find(User.class, user.getId());
+        user.setDeleted(true);
+        entityManager.merge(user);
     }
 
     @Transactional
     @Override
     public void removeById(Long id) throws Exception {
         User user = entityManager.find(User.class, id);
-        entityManager.remove(user);
+        user.setDeleted(true);
+        entityManager.merge(user);
     }
 
     @Transactional
     @Override
     public List<User> findAll() throws Exception {
-        TypedQuery<User> query = entityManager.createQuery("select u from userEntity u", User.class);
+        TypedQuery<User> query = entityManager.createQuery("select u from userEntity u where u.deleted=false", User.class);
         return query.getResultList();
     }
 

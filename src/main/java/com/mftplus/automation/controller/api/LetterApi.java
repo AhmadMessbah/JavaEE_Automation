@@ -3,8 +3,6 @@ package com.mftplus.automation.controller.api;
 import com.github.mfathi91.time.PersianDate;
 import com.mftplus.automation.model.Letter;
 import com.mftplus.automation.service.impl.LetterServiceImpl;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -17,53 +15,37 @@ import java.time.LocalDateTime;
 @Slf4j
 @Path("/letter")
 public class LetterApi {
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
-
     @Inject
     private LetterServiceImpl letterService;
 
     @GET
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            log.info("FindAllLetter");
-            return Response
-                    .ok()
-                    .entity(letterService.findAll())
-                    .build();
+            return Response.ok().entity(letterService.findAll()).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 
     @GET
     @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findById(@PathParam("id") Long id) {
+    public Response findById(@PathParam("id") Long id) throws Exception{
         try {
-            log.info("FindByIdLetter");
-            return Response
-                    .ok()
-                    .entity(letterService.findById(id))
-                    .build();
+            return Response.ok().entity(letterService.findById(id)).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 
     @GET
     @Path("/{title}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByTitle(@PathParam("title") String title) {
+    public Response findByTitle(@PathParam("title") String title) throws Exception{
         try {
             log.info("FindByTitleLetter");
             return Response
@@ -81,8 +63,9 @@ public class LetterApi {
 
     @GET
     @Path("/{context}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByContext(@PathParam("context") String context) {
+    public Response findByContext(@PathParam("context") String context) throws Exception{
         try {
             log.info("FindByContextLetter");
             return Response
@@ -100,8 +83,9 @@ public class LetterApi {
 
     @GET
     @Path("/{date}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByDate(@PathParam("date") String faDate) {
+    public Response findByDate(@PathParam("date") String faDate) throws Exception{
         try {
             LocalDate date = PersianDate.parse(faDate).toGregorian();
             log.info("FindByDateLetter");
@@ -120,8 +104,9 @@ public class LetterApi {
 
     @GET
     @Path("/{registerNumber}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByRegisterNumber(@PathParam("registerNumber") Long registerNumber) {
+    public Response findByRegisterNumber(@PathParam("registerNumber") Long registerNumber) throws Exception{
         try {
             log.info("FindByRegisterNumberLetter");
             return Response
@@ -139,8 +124,9 @@ public class LetterApi {
 
     @GET
     @Path("/{registerDate}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByRegisterDate(@PathParam("registerDate") String dateTime) {
+    public Response findByRegisterDate(@PathParam("registerDate") String dateTime) throws Exception{
         try {
             log.info("FindByRegisterDateLetter");
             return Response
@@ -158,8 +144,9 @@ public class LetterApi {
 
     @GET
     @Path("/{senderNameAndTitle}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findBySenderNameAndTitle(@PathParam("senderNameAndTitle") String senderName,String senderTitle) {
+    public Response findBySenderNameAndTitle(@PathParam("senderNameAndTitle") String senderName,String senderTitle) throws Exception{
         try {
             log.info("FindBySenderNameAndTitle");
             return Response
@@ -177,101 +164,51 @@ public class LetterApi {
 
     @GET
     @Path("/{sectionId}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findBySectionId(@PathParam("sectionId") Long sectionId) {
+    public Response findBySectionId(@PathParam("sectionId") Long sectionId) throws Exception{
         try {
-            log.info("FindBySectionId");
-            return Response
-                    .ok()
-                    .entity(letterService.findBySectionId(sectionId))
-                    .build();
+            return Response.ok().entity(letterService.findById(sectionId)).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(Letter letter) {
+    public Response save(Letter letter) throws Exception{
         try {
-            log.info("Save Letter");
             letterService.save(letter);
-            return Response
-                    .ok()
-                    .entity(letter)
-                    .build();
+            return Response.ok().entity(letter).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(Letter letter) {
+    public Response edit(Letter letter) throws Exception{
         try {
-            log.info("Edit Letter");
             letterService.edit(letter);
-            return Response
-                    .ok()
-                    .entity(letter)
-                    .build();
+            return Response.ok().entity(letter).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 
     @DELETE
     @Path("/{id}")
-    public Response removeById(@PathParam("id") Long id) {
-        try {
-            log.info("RemoveById Letter");
-            letterService.removeById(id);
-            return Response
-                    .ok()
-                    .entity(id)
-                    .build();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
-        }
-    }
-
-    @DELETE
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(Letter letter) {
+    public Response removeById(@PathParam("id") Long id) throws Exception{
+        log.info("Letter Delete api : " + id);
         try {
-            log.info("Remove Letter");
-            letterService.remove(letter);
-            return Response
-                    .ok()
-                    .entity(letter)
-                    .build();
+            letterService.removeById(id);
+            return Response.ok().entity(id).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
-
 
 }

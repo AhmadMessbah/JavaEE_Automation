@@ -8,7 +8,9 @@
 <h1>Home Page</h1>
 <br>
 <a href="/organisation.do">Organisation</a>
+<br><br>
 <a href="/section.do">Sections</a>
+<br><br>
 <a href="/user.do">Users</a>
 <br>
 </body>

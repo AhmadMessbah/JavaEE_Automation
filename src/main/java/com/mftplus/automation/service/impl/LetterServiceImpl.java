@@ -1,6 +1,7 @@
 package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.Letter;
+import com.mftplus.automation.model.Organisation;
 import com.mftplus.automation.service.LetterService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
@@ -24,6 +25,7 @@ public class LetterServiceImpl implements LetterService, Serializable {
     @Transactional
     @Override
     public void save(Letter letter) throws Exception {
+        System.out.println(letter);
         entityManager.persist(letter);
     }
 
@@ -36,14 +38,17 @@ public class LetterServiceImpl implements LetterService, Serializable {
     @Transactional
     @Override
     public void remove(Letter letter) throws Exception {
-        entityManager.remove(letter);
+        letter = entityManager.find(Letter.class, letter.getId());
+        letter.setDeleted(true);
+        entityManager.merge(letter);
     }
 
     @Transactional
     @Override
     public void removeById(Long id) throws Exception {
-        Letter letter = entityManager.find(Letter.class,id);
-        entityManager.remove(letter);
+        Letter letter = entityManager.find(Letter.class, id);
+        letter.setDeleted(true);
+        entityManager.merge(letter);
     }
 
     @Transactional
@@ -55,7 +60,7 @@ public class LetterServiceImpl implements LetterService, Serializable {
     @Transactional
     @Override
     public List<Letter> findAll() throws Exception {
-        TypedQuery<Letter> query = entityManager.createQuery("select oo from letterEntity oo", Letter.class);
+        TypedQuery<Letter> query = entityManager.createQuery("select oo from letterEntity oo where oo.deleted=false", Letter.class);
         return query.getResultList();
     }
 

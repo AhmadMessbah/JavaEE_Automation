@@ -1,5 +1,6 @@
 package com.mftplus.automation.service.impl;
 
+import com.mftplus.automation.model.Letter;
 import com.mftplus.automation.model.Reference;
 import com.mftplus.automation.model.enums.ReferencePriority;
 import com.mftplus.automation.service.ReferenceService;
@@ -25,6 +26,7 @@ public class ReferenceServiceImpl implements ReferenceService, Serializable {
     @Transactional
     @Override
     public void save(Reference reference) throws Exception {
+        System.out.println(reference);
         entityManager.persist(reference);
     }
 
@@ -37,14 +39,17 @@ public class ReferenceServiceImpl implements ReferenceService, Serializable {
     @Transactional
     @Override
     public void remove(Reference reference) throws Exception {
-        entityManager.remove(reference);
+        reference = entityManager.find(Reference.class, reference.getId());
+        reference.setDeleted(true);
+        entityManager.merge(reference);
     }
 
     @Transactional
     @Override
     public void removeById(Long id) throws Exception {
-        Reference reference = entityManager.find(Reference.class,id);
-        entityManager.remove(reference);
+        Reference reference = entityManager.find(Reference.class, id);
+        reference.setDeleted(true);
+        entityManager.merge(reference);
     }
 
     @Override
@@ -54,7 +59,7 @@ public class ReferenceServiceImpl implements ReferenceService, Serializable {
 
     @Override
     public List<Reference> findAll() throws Exception {
-        TypedQuery<Reference> query = entityManager.createQuery("select oo from referenceEntity oo", Reference.class);
+        TypedQuery<Reference> query = entityManager.createQuery("select oo from referenceEntity oo where oo.deleted=false", Reference.class);
         return query.getResultList();
     }
 

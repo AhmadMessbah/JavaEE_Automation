@@ -1,78 +1,77 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Section</title>
-    <jsp:include page=""></jsp:include>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <jsp:include page="css-import.jsp"></jsp:include>
+    <link rel="stylesheet" href="../assets/css/organisation.css">
 
-
-    <style>
-        .error {
-            display: none;
-            color: red;
-        }
-    </style>
 </head>
 <body>
 
-<form action="section.do" method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="name">Name</label>
-        <input id="name" type="text" name="name">
-        <label for="duty">Duty</label>
-        <input id="duty" type="text" name="duty">
-        <label for="title">Title</label>
-        <input id="title" type="text" name="title">
-        <label for="phoneNumber">PhoneNumber</label>
-        <input id="phoneNumber" type="text" name="phoneNumber">
+<div class="container-fluid">
+    <div id="sec-form">
+        <form action="section.do" method="post">
+
+            <div class="row mb-4">
+                <label class="col form-label" for="title">Title</label>
+                <input id="title" class="col form-control" type="text" name="title">
+            </div>
+
+            <div class="row mb-4">
+                <label class="col form-label" for="duty">Duty</label>
+                <input id="duty" class="col form-control" type="text" name="duty">
+            </div>
+
+            <div class="row mb-4">
+                <label class="col form-label" for="phoneNumber">PhoneNumber</label>
+                <input id="phoneNumber" class="col form-control" type="text" name="phoneNumber">
+            </div>
+
+            <div class="row mb-4">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </form>
     </div>
 
-</form>
-
-<table class="table table-hover table-dark">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>duty</th>
-        <th>title</th>
-        <th>phoneNumber</th>
-        <th>operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="section" items="${sessionScope.sectionsPart}">
-        <tr>
-            <td>${section.name}</td>
-            <td>${section.duty}</td>
-            <td>${section.title}</td>
-            <td>${section.phoneNumber}</td>
-            <td>
-                <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+    <div id="org-table">
+        <table class="table table-hover table-primary">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>duty</th>
+                <th>phoneNumber</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="section" items="${sessionScope.sectionList}">
+                <tr>
+                    <td>${section.id}</td>
+                    <td>${section.title}</td>
+                    <td>${section.duty}</td>
+                    <td>${section.phoneNumber}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="edit(${section.id})"><i class="fa fa-edit"></i>
+                            Edit
+                        </button>
+                        <button class="btn btn-danger" onclick="remove(${organisation.id})"><i class="fa fa-remove"></i>Remove
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    `
+</div>
 
 <jsp:include page="js-import.jsp"></jsp:include>
-
-<script>
-    function edit(id) {
-        alert(id);
-    }
-
-    function remove(id) {
-        fetch("/api/section/" + id, {
-            method: "DELETE"
-        }).then(response => {
-            JSON.parse(response)
-        })
-            .then(data => {
-                alert(data);
-            })
-    }
-</script>
+<script src="../assets/js/organisation.js"></script>
 </body>
 </html>

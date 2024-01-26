@@ -20,99 +20,70 @@ public class PersonApi {
     @Inject
     private PersonServiceImpl personService;
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response save(Person person) throws Exception{
+        try {
+            personService.save(person);
+            return Response.ok().entity(person).build();
+        } catch (Exception e) {
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAll() {
+    public Response findAll() throws Exception {
         try {
-            log.info("FindAllPerson");
-            return Response
-                    .ok()
-                    .entity(personService.findAll())
-                    .build();
+            return Response.ok().entity(personService.findAll()).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findById(@PathParam("id") Long id) {
+    public Response findById(@PathParam("id") Long id) throws Exception {
         try {
-            log.info("FindByIdPerson");
-            return Response
-                    .ok()
-                    .entity(personService.findById(id))
-                    .build();
+            return Response.ok().entity(personService.findById(id)).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
-
-    @POST
+    @GET
+    @Path("/findByName/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(@Valid Person person) {
+    public Response findByName(@PathParam("name") String name) throws Exception{
         try {
-            log.info("Save Person");
-            personService.save(person);
-            return Response
-                    .ok()
-                    .entity(person)
-                    .build();
+            return Response.ok().entity(personService.findByName(String.valueOf(name))).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(Person person) {
+    public Response edit(Person person) throws Exception {
         try {
-            log.info("Edit Person");
             personService.edit(person);
-            return Response
-                    .ok()
-                    .entity(person)
-                    .build();
+            return Response.ok().entity(person).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 
     @DELETE
     @Path("/{id}")
-    public Response remove(@PathParam("id") Long id) {
+    public Response remove(@PathParam("id") Long id) throws Exception {
+        log.info("Person Delete api : " + id);
         try {
-            log.info("Remove Person");
             personService.removeById(id);
-            return Response
-                    .ok()
-                    .entity(id)
-                    .build();
+            return Response.ok().entity(id).build();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return Response
-                    .serverError()
-                    .entity(e.getMessage())
-                    .build();
+            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 }
