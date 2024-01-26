@@ -14,8 +14,11 @@
 </head>
 <body>
 <form action="/stuffTransaction"method="post">
+    <label for="stuffTransactionUser">stuffTransactionUser</label>
 <input type="text"name="stuffTransactionUser"id="stufftransactionuser">
+    <label for="stuffTransactionSection">stuffTransactionSection</label>
 <input type="text"name="stuffTransactionSection"id="stufftransactionsection">
+    <label for="stuffTransactionStuff">stuffTransactionStuff</label>
 <input type="text"name="stuffTransactionStuff"id="stufftransactionstuff">
 <input type="submit" value="save">
 </form>
