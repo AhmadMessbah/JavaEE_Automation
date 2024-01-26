@@ -138,7 +138,11 @@
             <version>2.10.1</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>jakarta.faces</groupId>
+            <artifactId>jakarta.faces-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
         <dependency>
             <groupId>com.github.mfathi91</groupId>
             <artifactId>persian-date-time</artifactId>

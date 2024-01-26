@@ -29,7 +29,6 @@ public class StuffTransaction {
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @Column(name = "ss_section")
     private Section section;
 
     @OneToOne(cascade = CascadeType.ALL)
