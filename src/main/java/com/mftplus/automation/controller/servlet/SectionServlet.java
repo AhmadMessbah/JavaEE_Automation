@@ -1,16 +1,9 @@
 package com.mftplus.automation.controller.servlet;
 
-import com.mftplus.automation.model.Organisation;
 import com.mftplus.automation.model.Section;
-import com.mftplus.automation.model.User;
-import com.mftplus.automation.model.enums.FinancialDocType;
-import com.mftplus.automation.service.OrganisationService;
-import com.mftplus.automation.service.SectionService;
 import com.mftplus.automation.service.impl.OrganisationServiceImpl;
 import com.mftplus.automation.service.impl.SectionServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,8 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 @WebServlet(urlPatterns = "/section.do")
 @Slf4j
