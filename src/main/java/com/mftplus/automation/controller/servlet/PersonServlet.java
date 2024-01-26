@@ -6,16 +6,23 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
 @Slf4j
 @WebServlet(urlPatterns = "/person.do")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10,      // 10 MB
+        maxRequestSize = 1024 * 1024 * 100   // 100 MB
+)
 public class PersonServlet extends HttpServlet {
     @PersistenceContext(unitName="automation")
     private EntityManager entityManager;
@@ -25,6 +32,14 @@ public class PersonServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
+
+        Part filePart = req.getPart("file");
+        String fileName = filePart.getSubmittedFileName();  // todo : attach_id
+        for (Part part : req.getParts()) {
+            part.write("c:\\root\\"+fileName);  // todo : set server path
+        }
+
+
         String family = req.getParameter("family");
         String gender = req.getParameter("gender");
         try {

@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<form action="person.do" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name">
+        <div id="name-msg" class="error">نام وارد شده معتبر نیست</div>
+    </div>
+
+    <br><br>
+
+    <div class="mb-3">
+        <label class="form-label" for="file">File</label>
+        <input class="form-control" id="file" type="file" name="file">
+        <div id="file-msg" class="error">فرمت فایل معتبر نیست</div>
+    </div>
+    <input type="submit" value="Save">
+</form>
+
+</body>
+</html>

@@ -4,6 +4,7 @@ import com.mftplus.automation.service.impl.PersonServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -59,7 +60,7 @@ public class PersonApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(Person person) {
+    public Response save(@Valid Person person) {
         try {
             log.info("Save Person");
             personService.save(person);
