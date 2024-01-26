@@ -2,7 +2,6 @@ package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.Letter;
 import com.mftplus.automation.model.User;
-import com.mftplus.automation.model.enums.FinancialDocType;
 import com.mftplus.automation.model.enums.LetterAccessLevel;
 import com.mftplus.automation.model.enums.LetterType;
 import com.mftplus.automation.model.enums.TransferMethod;
@@ -153,3 +152,4 @@ public class LetterServlet extends HttpServlet {
 //todo refReceivers
 //todo register number
 //todo exception handling
+//todo test needed
