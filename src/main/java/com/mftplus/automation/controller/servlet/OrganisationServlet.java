@@ -16,9 +16,8 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/organisation.do")
 public class OrganisationServlet extends HttpServlet {
-
-    @PersistenceContext(unitName = "")
-
+    @PersistenceContext(unitName = "automation")
+    private EntityManager entityManager;
 
     @Inject
     private OrganisationServiceImpl service;

@@ -8,6 +8,7 @@ import com.mftplus.automation.service.OrganisationService;
 import com.mftplus.automation.service.SectionService;
 import com.mftplus.automation.service.impl.SectionServiceImpl;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,8 +22,8 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/section.do")
 public class SectionServlet extends HttpServlet {
-
-    @PersistenceContext(unitName = "")
+    @PersistenceContext(unitName = "automation")
+    private EntityManager entityManager;
 
     @Inject
     private SectionServiceImpl service;
