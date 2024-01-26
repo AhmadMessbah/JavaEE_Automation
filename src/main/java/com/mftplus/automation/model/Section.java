@@ -44,7 +44,7 @@ public class Section {
     @Column(name = "s_phoneNnumber", length = 11)
     private String phoneNumber;
 
-    @OneToMany
+    @OneToMany(mappedBy = "section")
     private List<User> users;
 
     @OneToMany
