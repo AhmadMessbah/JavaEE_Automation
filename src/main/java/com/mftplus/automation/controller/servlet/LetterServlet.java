@@ -2,6 +2,7 @@ package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.Letter;
 import com.mftplus.automation.model.User;
+import com.mftplus.automation.model.enums.FinancialDocType;
 import com.mftplus.automation.model.enums.LetterAccessLevel;
 import com.mftplus.automation.model.enums.LetterType;
 import com.mftplus.automation.model.enums.TransferMethod;
@@ -20,7 +21,9 @@ import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Slf4j
@@ -44,7 +47,10 @@ public class LetterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("LetterServlet - GET");
-        req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
+
+        req.getParameter("accessLevel");
+        req.getSession().setAttribute("accessLevel", Arrays.asList(LetterAccessLevel.values()));
+        req.getRequestDispatcher("/jsp/letter.jsp").forward(req,resp);
     }
 
     @Override
@@ -60,7 +66,8 @@ public class LetterServlet extends HttpServlet {
             String receiverTitle = req.getParameter("receiverTitle");
             String senderName = req.getParameter("senderName");
             String senderTitle = req.getParameter("senderTitle");
-            String accessLevel = req.getParameter("accessLevel");
+            //enum
+            String accessLevel = req.getSession().getAttribute("accessLevel").toString();
             String carbonCopies = req.getParameter("carbonCopies");
             //getting username from session
             String username = req.getSession().getAttribute("username").toString();
@@ -73,18 +80,15 @@ public class LetterServlet extends HttpServlet {
             //for uploading letter image
             Part filePart = req.getPart("file");
             String fileName = filePart.getSubmittedFileName();
-            System.out.println("File : "+ fileName);
             for (Part part : req.getParts()) {
-                //todo what should I set as this path
-                part.write("E:\\JavaFinalProject\\letter\\src\\main\\resources\\img"+fileName);
+                part.write("c:\\root\\"+fileName); //todo set server path
             }
             resp.getWriter().print("The file uploaded successfully.");
 
             //verify
-            if (letterNumber != null &&  faDate != null && context != null && receiverName != null &&
+            if (context != null && receiverName != null &&
                     receiverTitle != null && senderName != null && senderTitle != null &&
-                    accessLevel != null && username != null && letterType != null && registerNumber != null &&
-                    indicatorCode != null){
+                    accessLevel != null && username != null && letterType != null ){
                 //todo
 //                Secretariat indicator = new Secretariat();
 //                indicator.setIndicatorCode(indicatorCode);
@@ -94,13 +98,12 @@ public class LetterServlet extends HttpServlet {
                 if (user.isPresent()) {
                     //for register time
                     LocalDateTime localDateTime = LocalDateTime.now();
-                    Letter letter0 = new Letter();
                     Letter letter =
                             Letter
                                     .builder()
                                     .title(title)
                                     .letterNumber(letterNumber)
-                                    .date(letter0.setFaDate(faDate))
+                                    .date(LocalDate.parse(faDate))
                                     .context(context)
                                     .receiverName(receiverName)
                                     .receiverTitle(receiverTitle)
@@ -108,13 +111,9 @@ public class LetterServlet extends HttpServlet {
                                     .senderTitle(senderTitle)
                                     .image(fileName)
                                     .accessLevel(LetterAccessLevel.valueOf(accessLevel))
-//                                .carbonCopies(carbonCopies)
                                     .user(user.get())
                                     .transferMethod(TransferMethod.valueOf(transferMethod))
                                     .letterType(LetterType.valueOf(letterType))
-//                                .registerNumber(registerNumber)
-//                                    .indicatorCode(indicator)
-//                                .refReceivers(refReceivers)
                                     .registerDateAndTime(localDateTime)
                                     .build();
                     letterService.save(letter);
@@ -129,6 +128,24 @@ public class LetterServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String letterId = req.getParameter("id");
+
+        try {
+            letterService.removeById(Long.valueOf(letterId));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            log.info("LetterServlet - Error Delete Letter By Id");
+            req.getSession().setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
+        }
+    }
 }
 //todo indicator code
 //todo letter number format
