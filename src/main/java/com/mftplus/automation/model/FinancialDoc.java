@@ -1,7 +1,8 @@
 package com.mftplus.automation.model;
 
-import com.mftplus.automation.model.enums.FinancialDocType;
+import com.github.mfathi91.time.PersianDateTime;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +10,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -20,49 +19,28 @@ import java.util.List;
 
 @Entity(name = "financialDocEntity")
 @Table(name = "financial_doc_tbl")
-public class FinancialDoc {
+public class FinancialDoc extends Base{
     @Id
     @SequenceGenerator(name = "financialDocSeq", sequenceName = "financial_doc_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financialDocSeq")
-    private Long id;//شماره عطف
+    @Column(name = "financialDoc_id",length = 20)
+    private Long id;
 
-    private Long numberDoc;//شماره سند
+    @Pattern(regexp = "^{1,5}$",message = "Invalid Doc Number")
+    @Column(name ="financialDoc_docNumber" ,length =5, unique = true)
+    private Long docNumber;//شماره سند
 
+    @Column(name ="financialDoc_dateTime")
     private LocalDateTime dateTime;//تاریخ
 
-    private int creditor; //بستانکار
+    @Transient
+    private LocalDateTime faDateTime;
 
-    private int creditorSum;//جمع بستانکار
+    public String getFaDateTime() {
+        return PersianDateTime.fromGregorian(dateTime).toString();
+    }
 
-    private int debtor; // بدهکار
-
-    private int debtorSum;//جمع بدهکار
-
-    private int difference;//اختلاف
-
-    private String description;//توضیحات
-
-    @Enumerated(EnumType.ORDINAL)
-    private FinancialDocType type;//نوع
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Section section;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<FinancialTransaction> financialTransactionList;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private User sender;// فرستنده
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private User receiver;// گیرنده
-
-    public void addFinancialTransaction(FinancialTransaction financialTransaction){
-        if (financialTransactionList==null){
-            financialTransactionList=new ArrayList<>();
-        }
-        financialTransactionList.add(financialTransaction);
+    public void setFaDateTime(String faDateTime) {
+        this.dateTime = PersianDateTime.parse(faDateTime).toGregorian();
     }
 }
-
-
