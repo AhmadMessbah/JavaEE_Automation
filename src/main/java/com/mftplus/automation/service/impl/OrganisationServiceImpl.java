@@ -14,7 +14,7 @@ import java.util.Optional;
 @SessionScoped
 public class OrganisationServiceImpl implements OrganisationService, Serializable {
 
-    @PersistenceContext(unitName = "jk")
+    @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
 
     @Transactional
