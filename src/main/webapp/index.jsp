@@ -7,7 +7,9 @@
 <body>
 <h1>Home Page</h1>
 <br>
-<a href="/attach.do">Attachment</a>
+<a href="/organisation.do">Organisation</a>
+<a href="/section.do">Sections</a>
+<a href="/user.do">Users</a>
 <br>
 </body>
 </html>
