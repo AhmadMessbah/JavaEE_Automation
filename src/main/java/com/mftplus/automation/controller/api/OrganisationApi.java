@@ -6,8 +6,10 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lombok.extern.slf4j.Slf4j;
 
 @Path("/organisation")
+@Slf4j
 public class OrganisationApi {
     @Inject
     private OrganisationServiceImpl organisationService;
@@ -38,9 +40,9 @@ public class OrganisationApi {
 
     @DELETE
     @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response remove(@PathParam("id") Long id) throws Exception {
+        log.info("Organisation Delete api : " + id);
         try {
             organisationService.removeById(id);
             return Response.ok().entity(id).build();

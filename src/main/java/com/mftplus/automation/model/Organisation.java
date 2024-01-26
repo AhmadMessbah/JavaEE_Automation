@@ -1,6 +1,6 @@
 package com.mftplus.automation.model;
 
-import jakarta.json.bind.annotation.JsonbTransient;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,16 +19,14 @@ import java.util.List;
 
 @Entity(name = "organisationEntity")
 @Table(name = "organisation_tbl")
-public class Organisation {
+@ApplicationScoped
+public class Organisation extends Base {
     @Id
     @SequenceGenerator(name = "organisationSeq", sequenceName = "organisation_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organisationSeq")
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(length = 1)
-    @JsonbTransient
-    private Boolean deleted;
 
     @Column(name = "o_title" , length = 40)
     private String title;
@@ -57,6 +55,7 @@ public class Organisation {
         if (sectionList==null){
             sectionList=new ArrayList<>();
         }
+        sectionList.add(section);
     }
 
 }

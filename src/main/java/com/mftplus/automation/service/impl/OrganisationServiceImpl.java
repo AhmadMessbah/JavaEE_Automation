@@ -19,9 +19,8 @@ public class OrganisationServiceImpl implements OrganisationService, Serializabl
     @Transactional
     @Override
     public void save(Organisation organisation) throws Exception {
+        System.out.println(organisation);
         entityManager.persist(organisation);
-
-
     }
     @Override
     @Transactional
@@ -40,17 +39,16 @@ public class OrganisationServiceImpl implements OrganisationService, Serializabl
     }
 
     @Override
+    @Transactional
     public void removeById(Long id) throws Exception {
         Organisation organisation = entityManager.find(Organisation.class, id);
         organisation.setDeleted(true);
         entityManager.merge(organisation);
-
-
     }
 
     @Override
     public List<Organisation> findAll() throws Exception {
-        TypedQuery<Organisation> query = entityManager.createQuery("select oo from organisationEntity oo", Organisation.class);
+        TypedQuery<Organisation> query = entityManager.createQuery("select oo from organisationEntity oo where oo.deleted=false", Organisation.class);
         return query.getResultList();
     }
 

@@ -1,82 +1,85 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Section</title>
-    <jsp:include page=""></jsp:include>
+    <jsp:include page="css-import.jsp"></jsp:include>
+    <link rel="stylesheet" href="../assets/css/organisation.css">
 
-
-    <style>
-        .error {
-            display: none;
-            color: red;
-        }
-    </style>
 </head>
 <body>
 
-<form action="organisation.do" method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="name">Name</label>
-        <input id="name" type="text" name="name">
-        <label for="title">Title</label>
-        <input id="title" type="text" name="title">
-        <label for="address">Address</label>
-        <input id="address" type="text" name="address">
-        <label for="phoneNumber">PhoneNumber</label>
-        <input id="phoneNumber" type="text" name="phoneNumber">
-        <label for="description">Description</label>
-        <input id="description" type="text" name="description">
+<div class="container-fluid">
+    <div id="org-form">
+        <form action="organisation.do" method="post">
+            <div class="row  mb-4">
+                <label class="col form-label" for="name">Name</label>
+                <input id="name" class="col form-control" type="text" name="name">
+            </div>
+
+            <div class="row mb-4">
+                <label class="col form-label" for="title">Title</label>
+                <input id="title" class="col form-control" type="text" name="title">
+            </div>
+
+            <div class="row mb-4">
+                <label class="col form-label" for="address">Address</label>
+                <input id="address" class="col form-control" type="text" name="address">
+            </div>
+
+            <div class="row mb-4">
+                <label class="col form-label" for="phoneNumber">PhoneNumber</label>
+                <input id="phoneNumber" class="col form-control" type="text" name="phoneNumber">
+            </div>
+
+            <div class="row mb-4">
+                <label class="col form-label" for="description">Description</label>
+                <input id="description" class="col form-control" type="text" name="description">
+            </div>
+            <div class="row mb-4">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </form>
     </div>
 
-</form>
-
-<table class="table table-hover table-dark">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>title</th>
-        <th>address</th>
-        <th>phoneNumber</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="organisation" items="${sessionScope.organisation}">
-        <tr>
-            <td>${organisation.id}</td>
-            <td>${organisation.name}</td>
-            <td>${organisation.title}</td>
-            <td>${organisation.address}</td>
-            <td>${organisation.phoneNumber}</td>
-            <td>${organisation.description}</td>
-            <td>
-                <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+    <div id="org-table">
+        <table class="table table-hover table-primary">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>title</th>
+                <th>address</th>
+                <th>phoneNumber</th>
+                <th>description</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="organisation" items="${sessionScope.organisationList}">
+                <tr>
+                    <td>${organisation.id}</td>
+                    <td>${organisation.name}</td>
+                    <td>${organisation.title}</td>
+                    <td>${organisation.address}</td>
+                    <td>${organisation.phoneNumber}</td>
+                    <td>${organisation.description}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="edit(${organisation.id})"><i class="fa fa-edit"></i>
+                            Edit
+                        </button>
+                        <button class="btn btn-danger" onclick="remove(${organisation.id})"><i class="fa fa-remove"></i>Remove
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    `
+</div>
 
 <jsp:include page="js-import.jsp"></jsp:include>
-
-<script>
-    function edit(id) {
-        alert(id);
-    }
-
-    function remove(id) {
-        fetch("/api/organisation/" + id, {
-            method: "DELETE"
-        }).then(response => {
-            JSON.parse(response)
-        })
-            .then(data => {
-                alert(data);
-            })
-    }
-</script>
+<script src="../assets/js/organisation.js"></script>
 </body>
 </html>
