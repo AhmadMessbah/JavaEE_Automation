@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<form action="/stuffTransaction"method="post">
+<form action="/stuffTransaction.do"method="post">
     <label for="stuffTransactionUser">stuffTransactionUser</label>
 <input type="text"name="stuffTransactionUser"id="stufftransactionuser">
     <label for="stuffTransactionSection">stuffTransactionSection</label>
@@ -47,5 +47,10 @@
             })
     }
 </script>
+<h1>StuffTransaction</h1>
+<br>
+<form action="/servlet/StuffTransaction.do"method="get"></form>
+//to do method get stuff transaction.
+
 </body>
 </html>

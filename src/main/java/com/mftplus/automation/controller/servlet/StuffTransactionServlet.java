@@ -80,8 +80,10 @@ public class StuffTransactionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Stuff Transaction Servlet-get");
+        log.info("Stuff Transaction Servlet-Get");
         try {
+            req.getRequestDispatcher("/jsp/StuffTransaction.jsp").forward(req,resp);
+            // to do : chek shavad ke dorost ast ya kheir?;
 
         }catch (Exception e){
 
