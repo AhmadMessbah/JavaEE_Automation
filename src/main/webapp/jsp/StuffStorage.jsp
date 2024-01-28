@@ -14,9 +14,9 @@
 </style>
 </head>
 <body>
-<form action="/StuffStorage.do" method="post">
+<form action="stuffStorage.do" method="post">
     <label for="stuffName">stuffName</label>
-    <input type="text" name="stuffName" id="stuffname">
+    <input type="text" name="stuffName" id="stuffName">
     <label for="stuffCount">stuffCount</label>
     <input type="text" name="stuffCount" id="stuffCount">
     <input type="submit" value="save">

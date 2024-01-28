@@ -1,12 +1,11 @@
 package com.mftplus.automation.service.impl;
-
 import com.mftplus.automation.model.StuffTransaction;
-import com.mftplus.automation.model.User;
 import com.mftplus.automation.service.StuffTransactionService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,22 +39,27 @@ public class StuffTransactionServiceImpl implements StuffTransactionService {
     @Override
     public List<StuffTransaction> findAll() throws Exception {
         TypedQuery<StuffTransaction> query = entityManager.createQuery("select p from stuffTransactionEntity p", StuffTransaction.class);
-        List<StuffTransaction> stuffTransactionslist = query.getResultList();
-        return stuffTransactionslist;
+        return query.getResultList();
     }
 
     @Override
     public Optional<StuffTransaction> findById(Long id) throws Exception {
-        Optional<StuffTransaction> stuffTransactionId = Optional.ofNullable(entityManager.find(StuffTransaction.class, id));
-        return stuffTransactionId;
-    }
-    public Optional<User> findByEnteredBy(Long id){
-        Optional<User> userEnteredBy = Optional.ofNullable(entityManager.find(User.class,id));
-        return userEnteredBy;
+        return Optional.ofNullable(entityManager.find(StuffTransaction.class, id));
     }
 
-    public Optional<User> findByExitedBy(Long id){
-        Optional<User> userExitedBy = Optional.ofNullable(entityManager.find(User.class,id));
-        return userExitedBy;
+
+
+    public List<StuffTransaction> findByTransactionType(String transactionType ) throws Exception {
+        TypedQuery<StuffTransaction> query = entityManager
+                .createQuery("select oo from stuffTransactionEntity oo where  oo.transactionType=:transactionType",StuffTransaction.class);
+         return query.getResultList();
+
     }
+
+    public List<StuffTransaction> findByDate(LocalDate datetime) throws Exception {
+        TypedQuery<StuffTransaction> query = entityManager.createQuery("select oo from stuffTransactionEntity oo where oo.dateTime=:datetime", StuffTransaction.class);
+        query.setParameter(String.valueOf(datetime),"datetime");
+        return query.getResultList();
+    }
+
 }
