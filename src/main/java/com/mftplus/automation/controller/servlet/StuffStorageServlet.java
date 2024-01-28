@@ -17,18 +17,14 @@ import java.io.IOException;
 @Slf4j
 @WebServlet(name = "StuffStorageServlet", urlPatterns = "/StuffStorage.do")
 public class StuffStorageServlet extends HttpServlet {
-
     @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
-
     @Inject
     private StuffStorageServiceImpl stuffStorageService;
-
-
+    //--------------------------------------------------------------------------------------------------------------//
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-
             StuffStorage stuffStorage = StuffStorage
                     .builder()
                     .name(req.getParameter("name"))
@@ -37,36 +33,40 @@ public class StuffStorageServlet extends HttpServlet {
             stuffStorageService.save(stuffStorage);
             log.info("Stuff Storage Servlet - Post");
             req.getRequestDispatcher("/StuffStorage.jsp").forward(req, resp);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
     }
-
+    //--------------------------------------------------------------------------------------------------------------//
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Stuff Storage Servlet - Put");
-        super.doPut(req, resp);
+        try {
+
+            log.info("Stuff Storage Servlet - Put");
+        } catch (Exception e) {
+            log.error("Stuff In Storage Not Found");
+        }
     }
-
-
+    //--------------------------------------------------------------------------------------------------------------//
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Stuff Storage Servlet - Get");
         try {
-            req.getRequestDispatcher("/StuffStorage.jsp").forward(req,resp);
-        }
-        catch (Exception e){
-            log.error("Stuff In Storage Not Found");
-            System.out.println(e.getMessage());
-
+            req.getSession().setAttribute("StuffStorage",stuffStorageService.findAll());
+            req.getRequestDispatcher("/jsp/StuffStorage.jsp").forward(req, resp);
+            log.info("Stuff Storage - Servlet - Get");
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
     }
-
-
+//--------------------------------------------------------------------------------------------------------------//
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Stuff Storage Servlet - delete");
-        super.doDelete(req, resp);
+        try {
+
+            log.info("Stuff Storage Servlet - delete");
+        } catch (Exception e) {
+            log.error("Stuff In Storage Not Found");
+        }
     }
 }
+//--------------------------------------------------------------------------------------------------------------//
