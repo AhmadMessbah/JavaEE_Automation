@@ -40,19 +40,16 @@ public class StuffServiceImpl implements StuffService {
     public List<Stuff> findAll() throws Exception {
 
         TypedQuery<Stuff> query = entityManager.createQuery("select p from stuffEntity p", Stuff.class);
-        List<Stuff> stuffList = query.getResultList();
-        return stuffList;
+        return query.getResultList();
     }
 
     @Override
     public Optional<Stuff> findById(Long id) throws Exception {
-        Optional<Stuff> stuffId = Optional.ofNullable(entityManager.find(Stuff.class, id));
-        return stuffId;
+        return Optional.ofNullable(entityManager.find(Stuff.class, id));
     }
 
     public Optional<Stuff> findByName(String name) throws Exception{
-        Optional<Stuff> stuffName = Optional.ofNullable(entityManager.find(Stuff.class,name));
-        return stuffName;
+        return Optional.ofNullable(entityManager.find(Stuff.class,name));
     }
 
     public Optional<Stuff> findByModel(String model) throws Exception{
@@ -66,14 +63,12 @@ public class StuffServiceImpl implements StuffService {
 
 
     public Optional<Stuff> findByStatus(String status) throws Exception{
-        Optional<Stuff> stuffStatus = Optional.ofNullable(entityManager.find(Stuff.class,status));
-        return stuffStatus;
+        return Optional.ofNullable(entityManager.find(Stuff.class,status));
     }
 
     public List<Stuff> findByPrice() throws Exception {
         TypedQuery<Stuff> query = entityManager.createQuery("select p from stuffEntity p where p.price= :price", Stuff.class);
-        List<Stuff> stuffPriceList = query.getResultList();
-        return stuffPriceList;
+        return query.getResultList();
     }
 
 

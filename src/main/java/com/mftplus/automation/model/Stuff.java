@@ -46,12 +46,10 @@ public class Stuff implements Serializable {
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-//    @Column(name = "stuff_user", length = 20,nullable = false)
     private User user;
 
 
     @OneToOne(cascade = CascadeType.ALL)
-//    @Column(name = "stuff_attach", length = 20)
     private Attach attach;
 }
 

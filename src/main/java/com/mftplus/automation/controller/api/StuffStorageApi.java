@@ -67,7 +67,7 @@ public class StuffStorageApi {
                     .entity(stuffStorage)
                     .build();
         } catch (Exception e) {
-            log.error("Error Save stuffStorage");
+            log.error("Error Save StuffStorage");
             return Response
                     .status(200)
                     .entity(e.getMessage())
@@ -88,6 +88,27 @@ public class StuffStorageApi {
                     .build();
         } catch (Exception e) {
             log.error(e.getMessage());
+            return Response
+                    .status(200)
+                    .entity(e.getMessage())
+                    .build();
+        }
+    }
+
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response edit(StuffStorage stuffStorage) {
+        try {
+            log.info("Edit StuffStorage");
+            stuffStorageService.edit(stuffStorage);
+            return Response
+                    .accepted()
+                    .entity(stuffStorage)
+                    .build();
+        } catch (Exception e) {
+            log.error("Error Edit StuffStorage");
             return Response
                     .status(200)
                     .entity(e.getMessage())

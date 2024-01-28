@@ -18,12 +18,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.util.Optional;
 
 @Slf4j
 @WebServlet(name = "StuffTransactionServlet", urlPatterns = "/StuffTransaction.do")
 public class StuffTransactionServlet extends HttpServlet {
+
+
     @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
 
@@ -36,14 +39,15 @@ public class StuffTransactionServlet extends HttpServlet {
     @Inject
     private StuffServiceImpl stuffService;
 
-    //--------------------------------------------------------------------------------------------------------------//
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("Stuff Transaction Servlet-post");
         try {
-            Optional<User> user = userService.findByUsername(req.getParameter("stuffTransactionUser"));
-            Optional<Section> section = sectionService.findByTitle(req.getParameter("stuffTransactionSection"));
-            Optional<Stuff> stuff = stuffService.findByName(req.getParameter("stuffTransactionStuff"));
-            StuffTransaction stuffTransaction = StuffTransaction
+            Optional<User> user=userService.findByUsername(req.getParameter("stuffTransactionUser"));
+            Optional<Section>section=sectionService.findByTitle(req.getParameter("stuffTransactionSection"));
+            Optional<Stuff>stuff=stuffService.findByName(req.getParameter("stuffTransactionStuff"));
+            StuffTransaction stuffTransaction=StuffTransaction
                     .builder()
                     .user(user.get())
                     .section(section.get())
@@ -53,40 +57,48 @@ public class StuffTransactionServlet extends HttpServlet {
             stuffTransactionService.save(stuffTransaction);
             log.info("Stuff Transaction Servlet-post");
             req.getRequestDispatcher("/StuffTransaction.jsp").forward(req, resp);
-        } catch (Exception e) {
+
+        }catch (Exception e){
             log.error(e.getMessage());
+
         }
     }
-    //--------------------------------------------------------------------------------------------------------------//
+
+
+
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("Stuff Transaction Servlet-put");
         try {
 
-            log.info("Stuff Transaction Servlet-put");
-        } catch (Exception e) {
-            log.error(e.getMessage());
+        }catch (Exception e){
+
         }
     }
-//--------------------------------------------------------------------------------------------------------------//
+
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("Stuff Transaction Servlet-Get");
         try {
-            req.getSession().setAttribute("stuffTransactionList", stuffTransactionService.findAll());
-            req.getRequestDispatcher("/jsp/StuffTransaction.jsp").forward(req, resp);
-            log.info("Stuff Transaction - Servlet-Get");
-        } catch (Exception e) {
-            log.error(e.getMessage());
+            req.getRequestDispatcher("/jsp/StuffTransaction.jsp").forward(req,resp);
+            // to do : chek shavad ke dorost ast ya kheir?;
+
+        }catch (Exception e){
+
         }
     }
-    //--------------------------------------------------------------------------------------------------------------//
+
+
+
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("Stuff Transaction Servlet-delete");
         try {
 
-            log.info("Stuff Transaction Servlet-delete");
-        } catch (Exception e) {
-            log.error(e.getMessage());
+        }catch (Exception e){
+
         }
     }
 }
-//--------------------------------------------------------------------------------------------------------------//

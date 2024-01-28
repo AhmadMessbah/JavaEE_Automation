@@ -3,7 +3,9 @@
 <html>
 <head>
     <title>StuffStorage</title>
+    <meta charset="UTF-8">
     <jsp:include page="css-import.jsp"></jsp:include>
+    <link rel="stylesheet" href="../assets/css/stuffStorage.css">
 
 
     <style>
@@ -14,13 +16,22 @@
 </style>
 </head>
 <body>
-<form action="stuffStorage.do" method="post">
-    <label for="stuffName">stuffName</label>
-    <input type="text" name="stuffName" id="stuffName">
-    <label for="stuffCount">stuffCount</label>
-    <input type="text" name="stuffCount" id="stuffCount">
-    <input type="submit" value="save">
-</form>
+<div>
+    <form action="stuffStorage.do" method="post">
+        <div>
+            <label for="stuffName">stuffName</label>
+            <input type="text" name="stuffName" id="stuffName">
+        </div>
+        <div>
+            <label for="stuffCount">stuffCount</label>
+            <input type="text" name="stuffCount" id="stuffCount">
+        </div>
+        <div>
+            <input type="submit" value="save">
+        </div>
+    </form>
+</div>
+
 <script>
     function edit(id) {
         alert(id);

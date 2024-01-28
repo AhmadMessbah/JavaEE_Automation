@@ -94,4 +94,25 @@ public class StuffTransactionApi {
                     .build();
         }
     }
+
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response edit(StuffTransaction stuffTransaction){
+        try {
+            log.info("Edit StuffTransactionApi");
+            stuffTransactionService.edit(stuffTransaction);
+            return Response
+                    .accepted()
+                    .entity(stuffTransaction)
+                    .build();
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return Response
+                    .status(200)
+                    .entity(e.getMessage())
+                    .build();
+        }
+    }
 }

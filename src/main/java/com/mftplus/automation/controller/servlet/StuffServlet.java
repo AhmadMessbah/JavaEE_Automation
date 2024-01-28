@@ -9,7 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -40,9 +40,44 @@ public class StuffServlet extends HttpServlet {
         }
     }
     //--------------------------------------------------------------------------------------------------------------//
+//    @Override
+//    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String stuffId=req.getParameter("id");
+//        int id=Integer.parseInt(stuffId);
+//        try {
+//
+//            stuffService.findById((long) id);
+//             stuffService.edit(Stuff
+//                    .builder()
+//                    .name(req.getParameter("name"))
+//                    .brand(req.getParameter("brand"))
+//                    .model(req.getParameter("model"))
+//                    .price(Long.valueOf(req.getParameter("price")))
+//                    .build());
+//            stuffService.edit(stuff);
+//            log.info("StuffServlet - Stuff Edit");
+//            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
+//
+//            log.info("StuffServlet - Put");
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
+//    }
+    //--------------------------------------------------------------------------------------------------------------////--------------------------------------------------------------------------------------------------------------//
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+
+             Stuff stuff = Stuff
+                    .builder()
+                    .name(req.getParameter("name"))
+                    .brand(req.getParameter("brand"))
+                    .model(req.getParameter("model"))
+                    .price(Long.valueOf(req.getParameter("price")))
+                    .build();
+            stuffService.edit(stuff);
+            log.info("StuffServlet - Stuff Edit");
+            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
 
             log.info("StuffServlet - Put");
         } catch (Exception e) {
@@ -76,3 +111,4 @@ public class StuffServlet extends HttpServlet {
     }
 }
 //--------------------------------------------------------------------------------------------------------------//
+

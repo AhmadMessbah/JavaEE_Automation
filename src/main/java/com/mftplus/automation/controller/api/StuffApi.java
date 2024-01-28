@@ -97,4 +97,25 @@ public class StuffApi {
                     .build();
         }
     }
+
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response edit(Stuff stuff) {
+        try {
+            log.info("Edit Stuff");
+            stuffService.edit(stuff);
+            return Response
+                    .ok()
+                    .entity(stuff)
+                    .build();
+        } catch (Exception e) {
+            log.error("Edit Error");
+            return Response.
+                    serverError()
+                    .entity(e.getMessage())
+                    .build();
+        }
+    }
 }
