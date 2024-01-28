@@ -69,8 +69,7 @@ public class StuffServlet extends HttpServlet {
             stuffService.removeById((long) id);
             log.info("StuffServlet - Delete");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            log.info("StuffServlet - Error Delete Stuff By Id");
+            log.error(e.getMessage());
             req.getSession().setAttribute("error",e.getMessage());
             req.getRequestDispatcher("/jsp/stuff.jsp").forward(req,resp);
         }
