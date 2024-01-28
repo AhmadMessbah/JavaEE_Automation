@@ -9,12 +9,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @WebServlet(name = "stuff", urlPatterns = "/stuff.do")
 public class StuffServlet extends HttpServlet {
     @Inject
     private StuffServiceImpl stuffService;
+    @Inject
+    private Stuff stuff;
     //--------------------------------------------------------------------------------------------------------------//
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -59,11 +63,16 @@ public class StuffServlet extends HttpServlet {
     //--------------------------------------------------------------------------------------------------------------//
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String stuffId=req.getParameter("id");
+        int id=Integer.parseInt(stuffId);
         try {
-
+            stuffService.removeById((long) id);
             log.info("StuffServlet - Delete");
         } catch (Exception e) {
-            log.info(e.getMessage());
+            System.out.println(e.getMessage());
+            log.info("StuffServlet - Error Delete Stuff By Id");
+            req.getSession().setAttribute("error",e.getMessage());
+            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req,resp);
         }
     }
 }
