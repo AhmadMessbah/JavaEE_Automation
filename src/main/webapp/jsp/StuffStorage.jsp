@@ -17,14 +17,14 @@
 </head>
 <body>
 <div>
-    <form action="stuffStorage.do" method="post">
-        <div>
-            <label for="stuffName">stuffName</label>
-            <input type="text" name="stuffName" id="stuffName">
+    <form id="stuffStorage-form" action="stuffStorage.do" method="post" enctype="multipart/form-data">
+        <div class="row mb-5">
+            <label for="name">Stuff Storage Name</label>
+            <input  type="text" id="name" name="name" placeholder="Stuff Storage Name">
         </div>
-        <div>
-            <label for="stuffCount">stuffCount</label>
-            <input type="text" name="stuffCount" id="stuffCount">
+        <div class="row mb-5">
+            <label for="count">Stuff Storage Count</label>
+            <input type="text" id="count" name="count" placeholder="Stuff Storage Count ">
         </div>
         <div>
             <input type="submit" value="save">
@@ -32,22 +32,37 @@
     </form>
 </div>
 
-<script>
-    function edit(id) {
-        alert(id);
-    }
+<div id="org-table">
+    <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="stuffStorage" items="${sessionScope.stuffStorageList}">
 
-    function remove(id) {
-        fetch("/api/stuffstorage/" + id, {
-            method: "DELETE"
-        }).then(response => {
-            JSON.parse(response)
-        })
-            .then(data => {
-                alert(data);
-            })
-    }
-</script>
+            <tr>
+                <td>${stuffStorage.id}</td>
+                <td>${stuffStorage.name}</td>
+                <td>${stuffStorage.count}</td>
+
+                <td>
+                    <button class="btn btn-warning" onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
+                    <button  class="btn btn-danger" onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
+                </td>
+            </tr>
+
+        </c:forEach>
+
+        </tbody>
+    </table>
+</div>
+
+<<jsp:include page="js-import.jsp"></jsp:include>
+<script src="../assets/js/stuffStorage.js.js"></script>
 
 </body>
 </html>
