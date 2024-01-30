@@ -37,7 +37,7 @@
 
         <div class="row mb-5">
              <label for="stuff">stuffTransactionStuff</label>
-             <input type="text" name="stuff" id="stuff" placeholder="stuff">
+             <input type="text" name="stuff" id="stuff" placeholder="stuffTransactionStuff">
         </div>
 
         <div class="row mb-5">
