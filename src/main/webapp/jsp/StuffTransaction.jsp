@@ -79,40 +79,25 @@
             </tr>
         </c:forEach>
         </tbody>
-        </thead>
     </table>
 
 </div>
 
-<select name="Type">
-    <option value="cash">cash</option>
-    <option value="bankDeposit">bankDeposit</option>
-    <option value="check">check</option>
-    id="type">
-</select>
-
-<input type="submit" value="save">
+<div>
+    <div>
+        <select name="Type" >
+            <option value="cash">cash</option>
+            <option value="bankDeposit">bankDeposit</option>
+            <option value="check">check</option>
+            id="type">
+        </select>
+        <br><br>
+        <input type="submit" value="Save">
+    </div>
 </div>
 
+<script src="../assets/js/stuffTransaction.js"></script>
 
-<script>
-    function edit(id) {
-        alert(id);
-    }
-
-    function remove(id) {
-        fetch("/api/stuffTransaction/" + id, {
-            method: "DELETE"
-        }).then(response => {
-            JSON.parse(response)
-        })
-            .then(data => {
-                alert(data);
-            })
-    }
-</script>
-<h1>StuffTransaction</h1>
-<br>
 <form action="servlet/StuffTransaction.do" method="get"></form>
 //to do method get stuff transaction.
 </body>
