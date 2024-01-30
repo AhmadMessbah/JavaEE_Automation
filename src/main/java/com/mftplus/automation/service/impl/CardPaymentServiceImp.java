@@ -1,7 +1,7 @@
 package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.CardPayment;
-import com.mftplus.automation.service.BankDepositTransactionService;
+import com.mftplus.automation.service.CardPaymentService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Slf4j
 @SessionScoped
-public class BankDepositTransactionServiceImp implements BankDepositTransactionService, Serializable {
+public class CardPaymentServiceImp implements CardPaymentService, Serializable {
     @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
 
@@ -49,21 +49,21 @@ public class BankDepositTransactionServiceImp implements BankDepositTransactionS
     @Transactional
     @Override
     public List<CardPayment> findAll() throws Exception {
-        TypedQuery<CardPayment> query = entityManager.createQuery("SELECT oo FROM bankDepositTransactionEntity oo WHERE oo.deleted=false ", CardPayment.class);
+        TypedQuery<CardPayment> query = entityManager.createQuery("SELECT oo FROM cardPaymentEntity oo WHERE oo.deleted=false ", CardPayment.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<CardPayment> findByDepositCode(String depositCode) throws Exception {
-        TypedQuery<CardPayment> query = entityManager.createQuery("SELECT oo FROM bankDepositTransactionEntity oo WHERE oo.depositCode=:depositCode AND oo.deleted=false ", CardPayment.class);
+        TypedQuery<CardPayment> query = entityManager.createQuery("SELECT oo FROM cardPaymentEntity oo WHERE oo.depositCode=:depositCode AND oo.deleted=false ", CardPayment.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<CardPayment> findByBankInvolved(String accountNumber) throws Exception {
-        TypedQuery<CardPayment> query = entityManager.createQuery("SELECT oo FROM bankDepositTransactionEntity oo WHERE oo.bankInvolved.accountNumber=:accountNumber AND oo.deleted=false ", CardPayment.class);
+        TypedQuery<CardPayment> query = entityManager.createQuery("SELECT oo FROM cardPaymentEntity oo WHERE oo.bankInvolved.accountNumber=:accountNumber AND oo.deleted=false ", CardPayment.class);
         return query.getResultList();
     }
 

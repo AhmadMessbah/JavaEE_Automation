@@ -5,7 +5,7 @@ import com.mftplus.automation.model.CardPayment;
 import java.util.List;
 import java.util.Optional;
 
-public interface BankDepositTransactionService {
+public interface CardPaymentService {
     void save(CardPayment cardPayment) throws Exception;
 
     void edit(CardPayment cardPayment) throws Exception;

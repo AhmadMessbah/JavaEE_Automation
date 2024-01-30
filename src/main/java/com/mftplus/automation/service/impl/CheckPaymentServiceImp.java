@@ -1,7 +1,7 @@
 package com.mftplus.automation.service.impl;
 
 import com.mftplus.automation.model.CheckPayment;
-import com.mftplus.automation.service.CheckTransactionService;
+import com.mftplus.automation.service.CheckPaymentService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Slf4j
 @SessionScoped
-public class CheckTransactionServiceImp implements CheckTransactionService, Serializable {
+public class CheckPaymentServiceImp implements CheckPaymentService, Serializable {
     @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
 
@@ -58,14 +58,14 @@ public class CheckTransactionServiceImp implements CheckTransactionService, Seri
     @Transactional
     @Override
     public List<CheckPayment> findAll() throws Exception {
-        TypedQuery<CheckPayment> query = entityManager.createQuery("SELECT oo FROM checkTransactionEntity oo WHERE oo.deleted=false ", CheckPayment.class);
+        TypedQuery<CheckPayment> query = entityManager.createQuery("SELECT oo FROM checkPaymentEntity oo WHERE oo.deleted=false ", CheckPayment.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
     public List<CheckPayment> findByCheckDueDate(LocalDateTime checkDueDate) throws Exception {
-        TypedQuery<CheckPayment> query = entityManager.createQuery("SELECT oo FROM checkTransactionEntity oo WHERE oo.checkDueDate=:checkDueDate AND oo.deleted=false ", CheckPayment.class);
+        TypedQuery<CheckPayment> query = entityManager.createQuery("SELECT oo FROM checkPaymentEntity oo WHERE oo.checkDueDate=:checkDueDate AND oo.deleted=false ", CheckPayment.class);
         return query.getResultList();
     }
 

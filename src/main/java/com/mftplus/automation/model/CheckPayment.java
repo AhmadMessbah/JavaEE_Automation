@@ -3,6 +3,7 @@ package com.mftplus.automation.model;
 import com.github.mfathi91.time.PersianDateTime;
 import com.google.gson.Gson;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,25 +17,29 @@ import java.time.LocalDateTime;
 @Setter
 @SuperBuilder
 
-@Entity(name = "checkTransactionEntity")
-@Table(name = "check-transaction_tbl")
+@Entity(name = "checkPaymentEntity")
+@Table(name = "check-payment_tbl")
 
 public class CheckPayment extends Payment{
     @Id
-    @SequenceGenerator(name = "{name}Seq", sequenceName = "{name}_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "{name}Seq")
-    @Column(name = "checkTransaction_id",length = 20)
+    @SequenceGenerator(name = "checkPaymentSeq", sequenceName = "check_payment_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "checkPaymentSeq")
+    @Column(name = "checkPayment_id",length = 20)
     private Long id;
 
     @Pattern(regexp = "^{6}$",message = "Invalid Check Number")
-    @Column(name = "checkTransaction_checkNumber",length = 6,unique = true)
+    @Column(name = "checkPayment_checkNumber",length = 6,unique = true)
     private String checkNumber;// شماره چک
 
-    @Column(name ="checkTransaction_checkDueDate")
+    @Column(name ="checkPayment_checkDueDate")
+    @PastOrPresent(message = "Invalid Date")
     private LocalDateTime checkDueDate;//تاریخ سررسید چک
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private CashDesk cashDesk;// صندوق
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private  FinancialTransaction financialTransaction;
 
     @Transient
     private LocalDateTime faCheckDueDate;

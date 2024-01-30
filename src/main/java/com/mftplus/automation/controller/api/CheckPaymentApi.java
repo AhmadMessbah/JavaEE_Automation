@@ -1,7 +1,7 @@
 package com.mftplus.automation.controller.api;
 
 import com.mftplus.automation.model.CheckPayment;
-import com.mftplus.automation.service.impl.CheckTransactionServiceImp;
+import com.mftplus.automation.service.impl.CheckPaymentServiceImp;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
@@ -13,20 +13,20 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Path("/checkTransaction")
-public class CheckTransactionApi {
+public class CheckPaymentApi {
     @PersistenceContext(unitName = "automation")
 
     @Inject
-    private CheckTransactionServiceImp checkTransactionService;
+    private CheckPaymentServiceImp checkPaymentService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            log.info("Find All CheckTransaction");
+            log.info("Find All Check Paymen");
             return Response
                     .ok()
-                    .entity(checkTransactionService.findAll())
+                    .entity(checkPaymentService.findAll())
                     .build();
         } catch (Exception e) {
             return Response
@@ -41,10 +41,10 @@ public class CheckTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") Long id) {
         try {
-            log.info("Find By Id CheckTransaction");
+            log.info("Find By Id Check Paymen");
             return Response
                     .ok()
-                    .entity(checkTransactionService.findById(id))
+                    .entity(checkPaymentService.findById(id))
                     .build();
         } catch (Exception e) {
             return Response
@@ -59,8 +59,8 @@ public class CheckTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response save(CheckPayment checkPayment) {
         try {
-            log.info("Save CheckTransaction");
-            checkTransactionService.save(checkPayment);
+            log.info("Save Check Paymen");
+            checkPaymentService.save(checkPayment);
             return Response
                     .ok()
                     .entity(checkPayment)
@@ -78,8 +78,8 @@ public class CheckTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response edit(CheckPayment checkPayment) {
         try {
-            log.info("Edit CheckTransaction");
-            checkTransactionService.edit(checkPayment);
+            log.info("Edit Check Paymen");
+            checkPaymentService.edit(checkPayment);
             return Response
                     .ok()
                     .entity(checkPayment)
@@ -96,8 +96,8 @@ public class CheckTransactionApi {
     @Path("/{id}")
     public Response removeById(@PathParam("id") Long id) {
         try {
-            log.info("Remove By Id CheckTransaction");
-            checkTransactionService.removeById(id);
+            log.info("Remove By Id Check Paymen");
+            checkPaymentService.removeById(id);
             return Response
                     .ok()
                     .entity(id)
@@ -114,8 +114,8 @@ public class CheckTransactionApi {
     @Path("/{checkNumber}")
     public Response removeByCheckNumber(@PathParam("checkNumber") String checkNumber) {
         try {
-            log.info("Remove By CheckNumber CheckTransaction");
-            checkTransactionService.removeByCheckNumber(checkNumber);
+            log.info("Remove By CheckNumber Check Paymen");
+            checkPaymentService.removeByCheckNumber(checkNumber);
             return Response
                     .ok()
                     .entity(checkNumber)
@@ -133,10 +133,10 @@ public class CheckTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByCheckNumber(@PathParam("checkNumber") String checkNumber) {
         try {
-            log.info("Find By Check Number CheckTransaction");
+            log.info("Find By Check Number Check Paymen");
             return Response
                     .ok()
-                    .entity(checkTransactionService.findByCheckNumber(checkNumber))
+                    .entity(checkPaymentService.findByCheckNumber(checkNumber))
                     .build();
         } catch (Exception e) {
             return Response
@@ -152,10 +152,10 @@ public class CheckTransactionApi {
     public Response findByCheckDueDate(@PathParam("checkDueDate") String checkDueDate) {
         try {
             LocalDateTime dateTimePars = LocalDateTime.parse(checkDueDate);
-            log.info("Find By CheckDueDate CheckTransaction");
+            log.info("Find By CheckDueDate Check Paymen");
             return Response
                     .ok()
-                    .entity(checkTransactionService.findByCheckDueDate(dateTimePars))
+                    .entity(checkPaymentService.findByCheckDueDate(dateTimePars))
                     .build();
         } catch (Exception e) {
             return Response
@@ -170,10 +170,10 @@ public class CheckTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByCashDeskNumber(@PathParam("cashDeskNumber") int cashDeskNumber) {
         try {
-            log.info("Find By CashDeskNumber CheckTransaction");
+            log.info("Find By CashDeskNumber Check Paymen");
             return Response
                     .ok()
-                    .entity(checkTransactionService.findByCashDeskNumber(cashDeskNumber))
+                    .entity(checkPaymentService.findByCashDeskNumber(cashDeskNumber))
                     .build();
         } catch (Exception e) {
             return Response

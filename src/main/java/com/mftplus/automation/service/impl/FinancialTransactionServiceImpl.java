@@ -76,13 +76,6 @@ public class FinancialTransactionServiceImpl implements FinancialTransactionServ
 
     @Transactional
     @Override
-    public List<FinancialTransaction> findByDescription(String description) throws Exception {
-        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.description=:description AND oo.deleted=false",FinancialTransaction.class);
-        return query.getResultList();
-    }
-
-    @Transactional
-    @Override
     public List<FinancialTransaction> findByDateTime(LocalDateTime dateTime) throws Exception {
         TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.dateTime=:dateTime AND oo.deleted=false",FinancialTransaction.class);
         return query.getResultList();
@@ -90,8 +83,8 @@ public class FinancialTransactionServiceImpl implements FinancialTransactionServ
 
     @Transactional
     @Override
-    public List<FinancialTransaction> findByPayer(String username) throws Exception {
-        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.payer.username=:username AND oo.deleted=false",FinancialTransaction.class);
+    public List<FinancialTransaction> findByUser(String username) throws Exception {
+        TypedQuery<FinancialTransaction> query=entityManager.createQuery("SELECT oo FROM financialTransactionEntity oo WHERE oo.user.username=:username AND oo.deleted=false",FinancialTransaction.class);
         return query.getResultList();
     }
 

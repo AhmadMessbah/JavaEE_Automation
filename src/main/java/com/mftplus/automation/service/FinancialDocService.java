@@ -21,6 +21,8 @@ public interface FinancialDocService {
 
     Optional<FinancialDoc> findByDocNumber(Long docNumber) throws Exception;
 
+    List<FinancialDoc> findByDescription(String description) throws Exception;
+
     List<FinancialDoc> findAll() throws Exception;
 
     List<FinancialDoc> findByDateTime(LocalDateTime dateTime) throws Exception;

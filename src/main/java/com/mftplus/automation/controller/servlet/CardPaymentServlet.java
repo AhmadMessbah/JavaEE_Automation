@@ -1,10 +1,9 @@
 package com.mftplus.automation.controller.servlet;
 
-import com.mftplus.automation.model.Bank;
-import com.mftplus.automation.model.CardPayment;
-import com.mftplus.automation.model.FinancialDoc;
-import com.mftplus.automation.model.User;
-import com.mftplus.automation.service.impl.BankDepositTransactionServiceImp;
+import com.mftplus.automation.model.*;
+import com.mftplus.automation.model.enums.FinancialTransactionType;
+import com.mftplus.automation.model.enums.PaymentType;
+import com.mftplus.automation.service.impl.CardPaymentServiceImp;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
@@ -18,12 +17,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Slf4j
-@WebServlet(name = "bankDepositTransactionServlet", urlPatterns = "/bankDepositTransaction.do")
-public class BankDepositTransactionServlet extends HttpServlet {
+@WebServlet(name = "cardPaymentServlet", urlPatterns = "/cardPayment.do")
+public class CardPaymentServlet extends HttpServlet {
     @PersistenceContext(unitName = "automation")
 
     @Inject
-    private BankDepositTransactionServiceImp bankDepositTransactionService;
+    private CardPaymentServiceImp cardPaymentService;
 
     @Inject
     private CardPayment cardPayment;
@@ -35,7 +34,16 @@ public class BankDepositTransactionServlet extends HttpServlet {
     private Bank bank;
 
     @Inject
-    private FinancialDoc financialDoc;
+    private Section section;
+
+    @Inject
+    private PaymentType paymentType;
+
+    @Inject
+    private FinancialTransactionType financialTransactionType;
+
+    @Inject
+    private FinancialTransaction financialTransaction;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,41 +73,53 @@ public class BankDepositTransactionServlet extends HttpServlet {
                             .accountOwner(user)
                             .build();
 
-            long docNumber=Long.valueOf(req.getParameter("docNumber"));
-            String faDateTime=req.getParameter("faDateTime");
+            String title=req.getParameter("title");
+            String duty=req.getParameter("duty");
+            String phoneNumber=req.getParameter("phoneNumber");
 
-            financialDoc=FinancialDoc
+            section=Section
                     .builder()
-                    .docNumber(docNumber)
+                    .duty(duty)
+                    .title(title)
+                    .phoneNumber(phoneNumber)
+                    .build();
+
+            String faDateTime=req.getParameter("faDateTime");
+            Long amount= Long.valueOf(req.getParameter("amount"));
+            int trackingCode= Integer.parseInt(req.getParameter("trackingCode"));
+
+            financialTransaction=FinancialTransaction
+                    .builder()
+                    .user(user)
+                    .referringSection(section)
+                    .paymentType(paymentType)
+                    .amount(amount)
+                    .trackingCode(trackingCode)
+                    .transactionType(financialTransactionType)
                     .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
 
             String depositCode=req.getParameter("depositCode");
-            int trackingCode=Integer.parseInt(req.getParameter("trackingCode"));
-            long amount=Long.valueOf(req.getParameter("amount"));
-            String description=req.getParameter("description");
+            long amount2=Long.valueOf(req.getParameter("amount"));
             String faDateTime2=req.getParameter("faDateTime");
 
             cardPayment = CardPayment
                     .builder()
                     .depositCode(depositCode)
                     .bankInvolved(bank)
-                    .trackingCode(trackingCode)
-                    .amount(amount)
-                    .description(description)
-                    .payer(user)
-                    .financialDoc(financialDoc)
+                    .amount(amount2)
                     .faDateTime(LocalDateTime.parse(faDateTime2))
+                    .financialTransaction(financialTransaction)
                     .build();
 
-            bankDepositTransactionService.save(cardPayment);
+            cardPaymentService.save(cardPayment);
 
-            log.info("BankDepositTransactionServlet - BankDepositTransaction Saved");
-            req.getRequestDispatcher("/jsp/bankDepositTransaction.jsp").forward(req, resp);
+            log.info("CardPaymentServlet - CardPayment Saved");
+            req.getRequestDispatcher("/jsp/cardPayment.jsp").forward(req, resp);
         } catch (Exception e) {
-            log.info("BankDepositTransactionServlet - Error Save BankDepositTransaction");
+            log.info("CardPaymentServlet - Error Save CardPayment");
             req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/bankDepositTransaction.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/CardPayment.jsp").forward(req, resp);
         }
     }
 }

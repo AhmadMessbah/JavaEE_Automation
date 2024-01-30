@@ -13,21 +13,24 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 
-@Entity(name = "bankDepositTransactionEntity")
-@Table(name = "bank-deposit_transaction_tbl")
+@Entity(name = "cardPaymentEntity")
+@Table(name = "card_payment_tbl")
 public class CardPayment extends Payment{
     @Id
-    @SequenceGenerator(name = "bankDepositTransactionSeq", sequenceName = "bank-deposit_transaction_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bankDepositTransactionSeq")
-    @Column(name = "bankDepositTransaction_id",length = 20)
+    @SequenceGenerator(name = "cardPaymentSeq", sequenceName = "card_payment_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cardPaymentSeq")
+    @Column(name = "cardPayment_id",length = 20)
     private Long id;
 
     @Pattern(regexp = "^{1,20}$",message = "Invalid Deposit Code")
-    @Column(name = "bankDepositTransaction_depositCode",length = 20)
+    @Column(name = "cardPayment_depositCode",length = 20)
     private String depositCode; // کد واریز
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Bank bankInvolved; //  حساب بانک درگیر
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private  FinancialTransaction financialTransaction;
 
     @Override
     public String toString() {

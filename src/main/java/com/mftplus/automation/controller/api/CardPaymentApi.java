@@ -1,7 +1,7 @@
 package com.mftplus.automation.controller.api;
 
 import com.mftplus.automation.model.CardPayment;
-import com.mftplus.automation.service.impl.BankDepositTransactionServiceImp;
+import com.mftplus.automation.service.impl.CardPaymentServiceImp;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
@@ -10,21 +10,21 @@ import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Path("/bankDepositTransaction")
-public class BankDepositTransactionApi {
+@Path("/cardPayment")
+public class CardPaymentApi {
     @PersistenceContext(unitName = "automation")
 
     @Inject
-    private BankDepositTransactionServiceImp bankDepositTransactionService;
+    private CardPaymentServiceImp cardPaymentService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            log.info("Find All Bank Deposit Transaction Deposit Transaction");
+            log.info("Find All Card Payment");
             return Response
                     .ok()
-                    .entity(bankDepositTransactionService.findAll())
+                    .entity(cardPaymentService.findAll())
                     .build();
         } catch (Exception e) {
             return Response
@@ -39,10 +39,10 @@ public class BankDepositTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") Long id) {
         try {
-            log.info("Find By Id Bank Deposit Transaction Deposit Transaction");
+            log.info("Find By Id Card Payment");
             return Response
                     .ok()
-                    .entity(bankDepositTransactionService.findById(id))
+                    .entity(cardPaymentService.findById(id))
                     .build();
         } catch (Exception e) {
             return Response
@@ -57,10 +57,10 @@ public class BankDepositTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByDepositCode(@PathParam("depositCode") String depositCode) {
         try {
-            log.info("Find By Id Bank Deposit Transaction Deposit Code");
+            log.info("Find By Id Card Payment Deposit Code");
             return Response
                     .ok()
-                    .entity(bankDepositTransactionService.findByDepositCode(depositCode))
+                    .entity(cardPaymentService.findByDepositCode(depositCode))
                     .build();
         } catch (Exception e) {
             return Response
@@ -75,10 +75,10 @@ public class BankDepositTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByBankInvolved(@PathParam("accountNumber") String accountNumber) {
         try {
-            log.info("Find By Id Bank Deposit Transaction Bank Involved");
+            log.info("Find By Id Card Payment Bank Involved");
             return Response
                     .ok()
-                    .entity(bankDepositTransactionService.findByBankInvolved(accountNumber))
+                    .entity(cardPaymentService.findByBankInvolved(accountNumber))
                     .build();
         } catch (Exception e) {
             return Response
@@ -93,8 +93,8 @@ public class BankDepositTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response save(CardPayment cardPayment) {
         try {
-            log.info("Save Bank Deposit Transaction");
-            bankDepositTransactionService.save(cardPayment);
+            log.info("Save Card Payment");
+            cardPaymentService.save(cardPayment);
             return Response
                     .ok()
                     .entity(cardPayment)
@@ -112,8 +112,8 @@ public class BankDepositTransactionApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response edit(CardPayment cardPayment) {
         try {
-            log.info("Edit Bank Deposit Transaction");
-            bankDepositTransactionService.edit(cardPayment);
+            log.info("Edit Card Payment");
+            cardPaymentService.edit(cardPayment);
             return Response
                     .ok()
                     .entity(cardPayment)
@@ -130,8 +130,8 @@ public class BankDepositTransactionApi {
     @Path("/{id}")
     public Response removeById(@PathParam("id") Long id) {
         try {
-            log.info("Remove By Id Bank Deposit Transaction");
-            bankDepositTransactionService.removeById(id);
+            log.info("Remove By Id Card Payment");
+            cardPaymentService.removeById(id);
             return Response
                     .ok()
                     .entity(id)

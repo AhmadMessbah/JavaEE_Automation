@@ -23,11 +23,9 @@ public interface  FinancialTransactionService {
 
     Optional<FinancialTransaction> findByTrackingCode(int trackingCode) throws Exception;
 
-    List<FinancialTransaction> findByDescription(String description) throws Exception;
-
     List<FinancialTransaction> findByDateTime(LocalDateTime dateTime) throws Exception;
 
-    List<FinancialTransaction> findByPayer(String username) throws Exception;
+    List<FinancialTransaction> findByUser(String username) throws Exception;
 
     List<FinancialTransaction> findBySection(String title) throws Exception;
 

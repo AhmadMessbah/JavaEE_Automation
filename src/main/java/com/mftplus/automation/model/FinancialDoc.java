@@ -2,7 +2,6 @@ package com.mftplus.automation.model;
 
 import com.github.mfathi91.time.PersianDateTime;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -33,18 +32,15 @@ public class FinancialDoc extends Base{
     private Long docNumber;//شماره سند
 
     @Column(name ="financialDoc_dateTime")
-    @PastOrPresent(message = "تاریخ معتبر نیست")
+    @PastOrPresent(message = "Invalid Date")
     private LocalDateTime dateTime;//تاریخ
 
-
-    @Pattern(regexp = "^{1,15}$",message = "Invalid Amount")
-    @Column(name ="financialTransaction_amount" ,length =15)
-    private Long amount; // مقدار پول معامله شده
-
     @Pattern(regexp = "^[a-zA-Z\\s]{3,20}$",message = "Invalid Description")
-    @Column(name ="financialTransaction_description" ,length =20 )
+    @Column(name ="financialDoc_description" ,length =20 )
     private String description; //بابت
 
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private FinancialTransaction financialTransaction;
 
     @Transient
     private LocalDateTime faDateTime;

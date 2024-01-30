@@ -133,10 +133,28 @@ public class FinancialDocServiceApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            log.info("Find All Financial Dod");
+            log.info("Find All Financial Doc");
             return Response
                     .ok()
                     .entity(financialDocService.findAll())
+                    .build();
+        } catch (Exception e) {
+            return Response
+                    .serverError()
+                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("/{description}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findById(@PathParam("description") String description) {
+        try {
+            log.info("Find By Description Financial Doc");
+            return Response
+                    .ok()
+                    .entity(financialDocService.findByDescription(description))
                     .build();
         } catch (Exception e) {
             return Response

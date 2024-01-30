@@ -1,12 +1,9 @@
 package com.mftplus.automation.controller.servlet;
 
-import com.mftplus.automation.model.FinancialDoc;
-import com.mftplus.automation.model.FinancialTransaction;
-import com.mftplus.automation.model.Section;
-import com.mftplus.automation.model.User;
+import com.mftplus.automation.model.*;
 import com.mftplus.automation.model.enums.FinancialTransactionType;
 import com.mftplus.automation.model.enums.PaymentType;
-import com.mftplus.automation.service.impl.FinancialDocServiceImpl;
+import com.mftplus.automation.service.impl.FinancialTransactionServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
@@ -20,24 +17,21 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Slf4j
-@WebServlet(name = "financialDocServlet", urlPatterns = "/financialDoc.do")
-public class FinancialDocServlet extends HttpServlet {
+@WebServlet(name = "/financialTransactionServlet", urlPatterns = "/FinancialTransaction.do")
+public class FinancialTransactionServlet extends HttpServlet {
     @PersistenceContext(unitName = "automation")
 
     @Inject
-    private FinancialDocServiceImpl financialDocService;
-
-    @Inject
-    private FinancialDoc financialDoc;
-
-    @Inject
-    private  FinancialTransaction financialTransaction;
-
-    @Inject
-    private Section section;
+    private FinancialTransactionServiceImpl financialTransactionService;
 
     @Inject
     private User user;
+
+    @Inject
+    private FinancialTransaction financialTransaction;
+
+    @Inject
+    private Section section;
 
     @Inject
     private PaymentType paymentType;
@@ -61,7 +55,7 @@ public class FinancialDocServlet extends HttpServlet {
             String duty=req.getParameter("duty");
             String phoneNumber=req.getParameter("phoneNumber");
 
-            section= Section
+            section=Section
                     .builder()
                     .duty(duty)
                     .title(title)
@@ -72,7 +66,7 @@ public class FinancialDocServlet extends HttpServlet {
             Long amount= Long.valueOf(req.getParameter("amount"));
             int trackingCode= Integer.parseInt(req.getParameter("trackingCode"));
 
-            financialTransaction= FinancialTransaction
+            financialTransaction=FinancialTransaction
                     .builder()
                     .user(user)
                     .referringSection(section)
@@ -83,26 +77,14 @@ public class FinancialDocServlet extends HttpServlet {
                     .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
 
-            long docNumber=Long.valueOf(req.getParameter("docNumber"));
-            String faDateTime2=req.getParameter("faDateTime");
-            String description=req.getParameter("description");
+            financialTransactionService.save(financialTransaction);
 
-            financialDoc=FinancialDoc
-                    .builder()
-                    .docNumber(docNumber)
-                    .faDateTime(LocalDateTime.parse(faDateTime2))
-                    .description(description)
-                    .financialTransaction(financialTransaction)
-                    .build();
-
-            financialDocService.save(financialDoc);
-
-            log.info("FinancialDocServlet - FinancialDoc Saved");
-            req.getRequestDispatcher("/jsp/financialDoc.jsp").forward(req, resp);
+            log.info("FinancialTransactionServlet - FinancialTransaction Saved");
+            req.getRequestDispatcher("/jsp/financialTransaction.jsp").forward(req, resp);
         } catch (Exception e) {
-            log.info("FinancialDocServlet - Error Save FinancialDoc");
+            log.info("FinancialTransactionServlet - Error Save FinancialTransaction");
             req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/financialDoc.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/financialTransaction.jsp").forward(req, resp);
         }
     }
 }

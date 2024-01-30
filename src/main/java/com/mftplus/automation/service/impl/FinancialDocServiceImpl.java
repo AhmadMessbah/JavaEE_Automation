@@ -67,6 +67,13 @@ public class FinancialDocServiceImpl implements FinancialDocService, Serializabl
 
     @Transactional
     @Override
+    public List<FinancialDoc> findByDescription(String description) throws Exception {
+        TypedQuery<FinancialDoc> query=entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.description=:description AND oo.deleted=false",FinancialDoc.class);
+        return query.getResultList();
+    }
+
+    @Transactional
+    @Override
     public List<FinancialDoc> findAll() throws Exception {
         TypedQuery<FinancialDoc> query= entityManager.createQuery("SELECT oo FROM financialDocEntity oo WHERE oo.deleted=false",FinancialDoc.class);
         return query.getResultList();

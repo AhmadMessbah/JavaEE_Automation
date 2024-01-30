@@ -1,9 +1,9 @@
 package com.mftplus.automation.model.enums;
 
 public enum PaymentType {
-    cash("نقد"),
-    bankDeposit("واریز به بانک"),
-    check("چک");
+    cashPayment("نقد"),
+    cardPayment("واریز به بانک"),
+    checkPayment("چک");
 
     private String title;
 

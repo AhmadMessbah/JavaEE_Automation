@@ -1,7 +1,9 @@
 package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.*;
-import com.mftplus.automation.service.impl.CheckTransactionServiceImp;
+import com.mftplus.automation.model.enums.FinancialTransactionType;
+import com.mftplus.automation.model.enums.PaymentType;
+import com.mftplus.automation.service.impl.CheckPaymentServiceImp;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
@@ -15,12 +17,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Slf4j
-@WebServlet(name = "/checkTransactionServlet", urlPatterns = "/checkTransactio.do")
-public class    CheckTransactionServlet extends HttpServlet {
+@WebServlet(name = "/checkPaymentServlet", urlPatterns = "/checkPayment.do")
+public class CheckPaymentServlet extends HttpServlet {
     @PersistenceContext(unitName = "automation")
 
     @Inject
-    private CheckTransactionServiceImp checkTransactionService;
+    private CheckPaymentServiceImp checkPaymentService;
 
     @Inject
     private User user;
@@ -29,7 +31,16 @@ public class    CheckTransactionServlet extends HttpServlet {
     private CashDesk cashDesk;
 
     @Inject
-    private FinancialDoc financialDoc;
+    private FinancialTransaction financialTransaction;
+
+    @Inject
+    private Section section;
+
+    @Inject
+    private PaymentType paymentType;
+
+    @Inject
+    private FinancialTransactionType financialTransactionType;
 
     @Inject
     private CheckPayment checkPayment;
@@ -56,20 +67,35 @@ public class    CheckTransactionServlet extends HttpServlet {
                     .cashier(user)
                     .build();
 
-            long docNumber=Long.valueOf(req.getParameter("docNumber"));
-            String faDateTime=req.getParameter("faDateTime");
+            String title=req.getParameter("title");
+            String duty=req.getParameter("duty");
+            String phoneNumber=req.getParameter("phoneNumber");
 
-            financialDoc=FinancialDoc
+            section=Section
                     .builder()
-                    .docNumber(docNumber)
+                    .duty(duty)
+                    .title(title)
+                    .phoneNumber(phoneNumber)
+                    .build();
+
+            String faDateTime=req.getParameter("faDateTime");
+            Long amount= Long.valueOf(req.getParameter("amount"));
+            int trackingCode= Integer.parseInt(req.getParameter("trackingCode"));
+
+            financialTransaction=FinancialTransaction
+                    .builder()
+                    .user(user)
+                    .referringSection(section)
+                    .paymentType(paymentType)
+                    .amount(amount)
+                    .trackingCode(trackingCode)
+                    .transactionType(financialTransactionType)
                     .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
 
             String checkNumber=req.getParameter("checkNumber");
             String faCheckDueDate=req.getParameter("faCheckDueDate");
-            int trackingCode=Integer.parseInt(req.getParameter("trackingCode"));
-            long amount=Long.valueOf(req.getParameter("amount"));
-            String description=req.getParameter("description");
+            long amount2=Long.valueOf(req.getParameter("amount"));
             String faDateTime2=req.getParameter("faDateTime");
 
             checkPayment = CheckPayment
@@ -77,22 +103,19 @@ public class    CheckTransactionServlet extends HttpServlet {
                     .checkNumber(checkNumber)
                     .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
                     .cashDesk(cashDesk)
-                    .trackingCode(trackingCode)
-                    .amount(amount)
-                    .description(description)
-                    .payer(user)
-                    .financialDoc(financialDoc)
+                    .amount(amount2)
+                    .financialTransaction(financialTransaction)
                     .faDateTime(LocalDateTime.parse(faDateTime2))
                     .build();
 
-            checkTransactionService.save(checkPayment);
+            checkPaymentService.save(checkPayment);
 
-            log.info("CheckTransactionServlet - CheckTransaction Saved");
-            req.getRequestDispatcher("/jsp/checkTransaction.jsp").forward(req, resp);
+            log.info("CheckPaymentServlet - CheckPayment Saved");
+            req.getRequestDispatcher("/jsp/checkPayment.jsp").forward(req, resp);
         } catch (Exception e) {
-            log.info("CheckTransactionServlet - Error Save CheckTransaction");
+            log.info("CheckPaymentServlet - Error Save CheckPayment");
             req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/checkTransaction.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/checkPayment.jsp").forward(req, resp);
         }
     }
 }

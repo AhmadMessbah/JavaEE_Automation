@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface CheckTransactionService {
+public interface CheckPaymentService {
     void save(CheckPayment checkPayment) throws Exception;
 
     void edit(CheckPayment checkPayment) throws Exception;

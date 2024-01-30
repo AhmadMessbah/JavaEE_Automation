@@ -73,24 +73,6 @@ public class FinancialTransactionApi {
     }
 
     @GET
-    @Path("/{description}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findById(@PathParam("description") String description) {
-        try {
-            log.info("FindByDescriptionFinancialTransaction");
-            return Response
-                    .ok()
-                    .entity(financialTransactionService.findByDescription(description))
-                    .build();
-        } catch (Exception e) {
-            return Response
-                    .serverError()
-                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
-                    .build();
-        }
-    }
-
-    @GET
     @Path("/{dateTime}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByDateTime(@PathParam("dateTime") String dateTime) {
@@ -112,12 +94,12 @@ public class FinancialTransactionApi {
     @GET
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByPayer(@PathParam("username") String username) {
+    public Response findByUser(@PathParam("username") String username) {
         try {
             log.info("FindByPayerFinancialTransaction");
             return Response
                     .ok()
-                    .entity(financialTransactionService.findByPayer(username))
+                    .entity(financialTransactionService.findByUser(username))
                     .build();
         } catch (Exception e) {
             return Response
