@@ -113,7 +113,7 @@
 </script>
 <h1>StuffTransaction</h1>
 <br>
-<form action="../servlet/StuffTransaction.do" method="get"></form>
+<form action="servlet/StuffTransaction.do" method="get"></form>
 //to do method get stuff transaction.
 </body>
 </html>
