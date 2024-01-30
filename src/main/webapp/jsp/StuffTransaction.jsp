@@ -3,6 +3,10 @@
 <html>
 <head>
     <title>StuffTransaction</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <jsp:include page="css-import.jsp"></jsp:include>
 
     <style>
@@ -13,44 +17,103 @@
     </style>
 </head>
 <body>
-<form action="/stuffTransaction.do"method="post">
-    <label for="stuffTransactionUser">stuffTransactionUser</label>
-<input type="text"name="stuffTransactionUser"id="stufftransactionuser">
-    <label for="stuffTransactionSection">stuffTransactionSection</label>
-<input type="text"name="stuffTransactionSection"id="stufftransactionsection">
-    <label for="stuffTransactionStuff">stuffTransactionStuff</label>
-<input type="text"name="stuffTransactionStuff"id="stufftransactionstuff">
-    <label for="stuffTransactionType">stuffTransactionType</label>
-    <input type="text"name="stuffTransactionType"id="stufftransactiontype">
-    <select name="stuffTransactionType"
+<div>
+    <form action="/stuffTransaction.do" method="post">
+
+        <div class="row mb-5">
+            <lable for="id">StuffTransactionId</lable>
+            <input type="text" id="id" name="id" placeholder="StuffTransactionId">
+        </div>
+
+        <div class="row mb-5">
+             <label for="user">stuffTransactionUser</label>
+             <input type="text" name="user" id="user" placeholder="StuffTransactionUser">
+        </div>
+
+        <div class="row mb-5">
+             <label for="section">stuffTransactionSection</label>
+             <input type="text" name="section" id="section" placeholder="stuffTransactionSection">
+        </div>
+
+        <div class="row mb-5">
+             <label for="stuff">stuffTransactionStuff</label>
+             <input type="text" name="stuff" id="stuff" placeholder="stuff">
+        </div>
+
+        <div class="row mb-5">
+             <label for="type">stuffTransactionType</label>
+             <input type="text" name="type" id="type" placeholder="stuffTransactionType">
+        <div id="file-msg error">${sessionScope.error}</div>
+        </div>
+        <div>
+             <input type="submit" value="Save">
+        </div>
+    </form>
+</div>
+
+<div id="org-table">
+     <table class="table table-hover table-dark">
+     <tr>
+         <th>id</th>
+         <th>user</th>
+         <th>section</th>
+         <th>stuff</th>
+         <th>dateTime</th>
+         <th>type</th>
+     </tr>
+     <thead>
+     <tbody>
+     <c:forEach var="stuffTransaction" items="${sessionScope.stuffTransactionList}">
+
+         <tr>
+             <td>${stuffTransaction.id}</td>
+             <td>${stuffTransaction.user}</td>
+             <td>${stuffTransaction.section}</td>
+             <td>${stuffTransaction.stuf}</td>
+             <td>${stuffTransaction.type}</td>
+
+              <td>
+                 <button class="btn btn-warning" onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
+                 <button class="btn btn-danger" onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
+              </td>
+         </tr>
+     </c:forEach>
+     </tbody>
+     </thead>
+     </table>
+
+    </div>
+
+    <select name="Type">
     <option value="cash">cash</option>
     <option value="bankDeposit">bankDeposit</option>
     <option value="check">check</option>
-            id="stufftransactiontype">
+    id="type">
     </select>
-<input type="submit" value="save">
-</form>
 
-<script>
+    <input type="submit" value="save">
+    </div>
+
+
+    <script>
     function edit(id) {
-        alert(id);
+    alert(id);
     }
 
     function remove(id) {
-        fetch("/api/stuffTransaction/" + id, {
-            method: "DELETE"
-        }).then(response => {
-            JSON.parse(response)
-        })
-            .then(data => {
-                alert(data);
-            })
+    fetch("/api/stuffTransaction/" + id, {
+    method: "DELETE"
+    }).then(response => {
+    JSON.parse(response)
+    })
+    .then(data => {
+    alert(data);
+    })
     }
-</script>
-<h1>StuffTransaction</h1>
-<br>
-<form action="/servlet/StuffTransaction.do"method="get"></form>
-//to do method get stuff transaction.
-
-</body>
-</html>
+    </script>
+    <h1>StuffTransaction</h1>
+    <br>
+    <form action="/servlet/StuffTransaction.do" method="get"></form>
+    //to do method get stuff transaction.
+    </body>
+    </html>

@@ -3,15 +3,19 @@
 <html>
 <head>
     <title>stuff</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <jsp:include page="css-import.jsp"></jsp:include>
 
 
     <style>
-    .error {
-        display: none;
-        color: red;
-    }
-</style>
+        .error {
+            display: none;
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div>
@@ -20,23 +24,23 @@
             <label for="name">Stuff Name</label>
             <input type="text" id="name" name="name" placeholder="StuffName">
         </div>
-        <div class="row mb-5" >
+        <div class="row mb-5">
             <label for="brand">Stuff Brand</label>
-            <input type="text"  id="brand" name="brand" placeholder="StuffBrand" >
+            <input type="text" id="brand" name="brand" placeholder="StuffBrand">
         </div>
-        <div class="row mb-5" >
+        <div class="row mb-5">
             <label for="price">Stuff Price</label>
-            <input type="text"  id="price" name="price" placeholder="StuffPrice" >
+            <input type="text" id="price" name="price" placeholder="StuffPrice">
         </div>
-        <div class="row mb-5" >
+        <div class="row mb-5">
             <label for="model">Stuff Model</label>
-            <input type="text"  id="model" name="model" placeholder="StuffModel" >
+            <input type="text" id="model" name="model" placeholder="StuffModel">
         </div>
-        <div class="row mb-5" >
+        <div class="row mb-5">
             <label for="status">Stuff Status</label>
-            <input type="text"  id="status" name="status" placeholder="StuffStatus" >
+            <input type="text" id="status" name="status" placeholder="StuffStatus">
         </div>
-        <div class="mb-md-5">
+        <div class="row md-5">
             <label class="form-label" for="file">File</label>
             <input class="form-control" id="file" type="file" name="file">
             <div id="file-msg error">${sessionScope.error}</div>
@@ -72,7 +76,7 @@
 
                 <td>
                     <button class="btn btn-warning" onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                    <button  class="btn btn-danger" onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
+                    <button class="btn btn-danger" onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
                 </td>
             </tr>
 
