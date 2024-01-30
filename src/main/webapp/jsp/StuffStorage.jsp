@@ -65,7 +65,7 @@
 </div>
 
 <<jsp:include page="js-import.jsp"></jsp:include>
-<script src="../assets/js/stuffStorage.js.js"></script>
+<script src="../assets/js/stuffStorage.js"></script>
 
 </body>
 </html>
