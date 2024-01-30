@@ -73,8 +73,8 @@
                 <td>${stuffTransaction.type}</td>
 
                 <td>
-                    <button class="btn btn-warning" onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                    <button class="btn btn-danger" onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
+                    <button class="btn btn-warning" onclick="edit(stuffTransaction.id)"><i class="fa fa-edit"></i> Edit</button>
+                    <button class="btn btn-danger" onclick="remove(stufftransaction.id)"><i class="fa fa-delete"></i>Remove</button>
                 </td>
             </tr>
         </c:forEach>
