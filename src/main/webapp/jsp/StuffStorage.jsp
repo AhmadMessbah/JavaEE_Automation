@@ -53,8 +53,8 @@
                 <td>${stuffStorage.count}</td>
 
                 <td>
-                    <button class="btn btn-warning" onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                    <button  class="btn btn-danger" onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
+                    <button class="btn btn-warning" onclick="edit(stuffStorage.id)"><i class="fa fa-edit"></i> Edit</button>
+                    <button  class="btn btn-danger" onclick="remove(stuffStorage.id)"><i class="fa fa-delete"></i>Remove</button>
                 </td>
             </tr>
 
