@@ -26,94 +26,94 @@
         </div>
 
         <div class="row mb-5">
-             <label for="user">stuffTransactionUser</label>
-             <input type="text" name="user" id="user" placeholder="StuffTransactionUser">
+            <label for="user">stuffTransactionUser</label>
+            <input type="text" name="user" id="user" placeholder="StuffTransactionUser">
         </div>
 
         <div class="row mb-5">
-             <label for="section">stuffTransactionSection</label>
-             <input type="text" name="section" id="section" placeholder="stuffTransactionSection">
+            <label for="section">stuffTransactionSection</label>
+            <input type="text" name="section" id="section" placeholder="stuffTransactionSection">
         </div>
 
         <div class="row mb-5">
-             <label for="stuff">stuffTransactionStuff</label>
-             <input type="text" name="stuff" id="stuff" placeholder="stuffTransactionStuff">
+            <label for="stuff">stuffTransactionStuff</label>
+            <input type="text" name="stuff" id="stuff" placeholder="stuffTransactionStuff">
         </div>
 
         <div class="row mb-5">
-             <label for="type">stuffTransactionType</label>
-             <input type="text" name="type" id="type" placeholder="stuffTransactionType">
-        <div id="file-msg error">${sessionScope.error}</div>
+            <label for="type">stuffTransactionType</label>
+            <input type="text" name="type" id="type" placeholder="stuffTransactionType">
+            <div id="file-msg error">${sessionScope.error}</div>
         </div>
         <div>
-             <input type="submit" value="Save">
+            <input type="submit" value="Save">
         </div>
     </form>
 </div>
 
 <div id="org-table">
-     <table class="table table-hover table-dark">
-     <tr>
-         <th>id</th>
-         <th>user</th>
-         <th>section</th>
-         <th>stuff</th>
-         <th>dateTime</th>
-         <th>type</th>
-     </tr>
-     <thead>
-     <tbody>
-     <c:forEach var="stuffTransaction" items="${sessionScope.stuffTransactionList}">
+    <table class="table table-hover table-dark">
+        <tr>
+            <th>id</th>
+            <th>user</th>
+            <th>section</th>
+            <th>stuff</th>
+            <th>dateTime</th>
+            <th>type</th>
+        </tr>
+        <thead>
+        <tbody>
+        <c:forEach var="stuffTransaction" items="${sessionScope.stuffTransactionList}">
 
-         <tr>
-             <td>${stuffTransaction.id}</td>
-             <td>${stuffTransaction.user}</td>
-             <td>${stuffTransaction.section}</td>
-             <td>${stuffTransaction.stuf}</td>
-             <td>${stuffTransaction.type}</td>
+            <tr>
+                <td>${stuffTransaction.id}</td>
+                <td>${stuffTransaction.user}</td>
+                <td>${stuffTransaction.section}</td>
+                <td>${stuffTransaction.stuf}</td>
+                <td>${stuffTransaction.type}</td>
 
-              <td>
-                 <button class="btn btn-warning" onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                 <button class="btn btn-danger" onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
-              </td>
-         </tr>
-     </c:forEach>
-     </tbody>
-     </thead>
-     </table>
+                <td>
+                    <button class="btn btn-warning" onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
+                    <button class="btn btn-danger" onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+        </thead>
+    </table>
 
-    </div>
+</div>
 
-    <select name="Type">
+<select name="Type">
     <option value="cash">cash</option>
     <option value="bankDeposit">bankDeposit</option>
     <option value="check">check</option>
     id="type">
-    </select>
+</select>
 
-    <input type="submit" value="save">
-    </div>
+<input type="submit" value="save">
+</div>
 
 
-    <script>
+<script>
     function edit(id) {
-    alert(id);
+        alert(id);
     }
 
     function remove(id) {
-    fetch("/api/stuffTransaction/" + id, {
-    method: "DELETE"
-    }).then(response => {
-    JSON.parse(response)
-    })
-    .then(data => {
-    alert(data);
-    })
+        fetch("/api/stuffTransaction/" + id, {
+            method: "DELETE"
+        }).then(response => {
+            JSON.parse(response)
+        })
+            .then(data => {
+                alert(data);
+            })
     }
-    </script>
-    <h1>StuffTransaction</h1>
-    <br>
-    <form action="/servlet/StuffTransaction.do" method="get"></form>
-    //to do method get stuff transaction.
-    </body>
-    </html>
+</script>
+<h1>StuffTransaction</h1>
+<br>
+<form action="../servlet/StuffTransaction.do" method="get"></form>
+//to do method get stuff transaction.
+</body>
+</html>
