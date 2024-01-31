@@ -20,32 +20,32 @@
 
 <form action="financialTransaction.do" method="post" enctype="multipart/form-data">
     <div class="mb-3">
-        <label for="trackingCode">Tracking Code</label>
-        <input id="trackingCode" type="number" name="trackingCode">
-    </div>
-    <div class="mb-3">
-        <label for="amount">Amount</label>
-        <input id="amount" type="number" name="amount">
-    </div>
-    <div class="mb-3">
-        <label for="description">Description</label>
-        <input id="description" type="number" name="description">
-    </div>
-    <div class="mb-3">
         <label for="faDateTime">Fa Date Time</label>
         <input id="faDateTime" type="text" name="faDateTime">
     </div>
     <div class="mb-3">
-        <label for="payer">Payer</label>
-        <input id="payer" type="text" name="payer">
+        <label for="user">User</label>
+        <input id="user" type="text" name="user">
     </div>
     <div class="mb-3">
         <label for="referringSection">Referring Section</label>
         <input id="referringSection" type="text" name="referringSection">
     </div>
     <div class="mb-3">
-        <label for="financialDoc">Financial Doc</label>
-        <input id="financialDoc" type="text" name="financialDoc">
+        <label for="paymentType">Payment Type</label>
+        <input id="paymentType" type="text" name="paymentType">
+    </div>
+    <div class="mb-3">
+        <label for="amount">Amount</label>
+        <input id="amount" type="text" name="amount">
+    </div>
+    <div class="mb-3">
+        <label for="trackingCode">Tracking Code</label>
+        <input id="trackingCode" type="text" name="trackingCode">
+    </div>
+    <div class="mb-3">
+        <label for="transactionType">Transaction Type</label>
+        <input id="transactionType" type="text" name="transactionType">
     </div>
     <input type="submit" value="Save">
 </form>
@@ -54,13 +54,13 @@
     <thead>
     <tr>
         <th>id</th>
-        <th>trackingCode</th>
-        <th>amount</th>
-        <th>description</th>
         <th>faDateTime</th>
-        <th>payer</th>
+        <th>user</th>
         <th>referringSection</th>
-        <th>financialDoc</th>
+        <th>paymentType</th>
+        <th>amount</th>
+        <th>trackingCode</th>
+        <th>transactionType</th>
         <th>operation</th>
     </tr>
     </thead>
@@ -68,13 +68,13 @@
     <c:forEach var="financialTransaction" items="${sessionScope.financialTransactionList}">
         <tr>
             <td>${financialTransaction.id}</td>
-            <td>${financialTransaction.trackingCode}</td>
-            <td>${financialTransaction.amount}</td>
-            <td>${financialTransaction.description}</td>
             <td>${financialTransaction.faDateTime}</td>
-            <td>${financialTransaction.payer}</td>
+            <td>${financialTransaction.user}</td>
             <td>${financialTransaction.referringSection}</td>
-            <td>${financialTransaction.financialDoc}</td>
+            <td>${financialTransaction.paymentType}</td>
+            <td>${financialTransaction.amount}</td>
+            <td>${financialTransaction.trackingCode}</td>
+            <td>${financialTransaction.operation}</td>
             <td>
                 <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
                 <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>

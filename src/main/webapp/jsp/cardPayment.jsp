@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>checkPayment</title>
+    <title>Card Payment</title>
     <style>
         .error {
             display: none;
@@ -18,18 +18,18 @@
     </c:forEach>
 </select>
 
-<form action="checkPayment.do" method="post" enctype="multipart/form-data">
+<form action="cardPayment.do" method="post" enctype="multipart/form-data">
     <div class="mb-3">
-        <label for="checkNumber">Check Number</label>
-        <input id="checkNumber" type="text" name="checkNumber">
+        <label for="depositCode">Deposit Code</label>
+        <input id="depositCode" type="text" name="depositCode">
     </div>
     <div class="mb-3">
-        <label for="faCheckDueDate">Fa Check Due Date</label>
-        <input id="faCheckDueDate" type="text" name="faCheckDueDate">
+        <label for="bankInvolved">Bank Involved</label>
+        <input id="bankInvolved" type="text" name="bankInvolved">
     </div>
     <div class="mb-3">
-        <label for="cashDesk">Cash Desk</label>
-        <input id="cashDesk" type="text" name="cashDesk">
+        <label for="financialTransaction">Financial Transaction</label>
+        <input id="financialTransaction" type="text" name="financialTransaction">
     </div>
     <input type="submit" value="Save">
 </form>
@@ -38,19 +38,19 @@
     <thead>
     <tr>
         <th>id</th>
-        <th>checkNumber</th>
-        <th>faCheckDueDate</th>
-        <th>cashDesk</th>
+        <th>depositCode</th>
+        <th>bankInvolved</th>
+        <th>financialTransaction</th>
         <th>operation</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="checkPayment" items="${sessionScope.checkTransactionList}">
+    <c:forEach var="cardPayment" items="${sessionScope.bankDepositTransactionList}">
         <tr>
-            <td>${checkPayment.id}</td>
-            <td>${checkPayment.checkNumber}</td>
-            <td>${checkPayment.faCheckDueDate}</td>
-            <td>${checkPayment.cashDesk}</td>
+            <td>${cardPayment.id}</td>
+            <td>${cardPayment.depositCode}</td>
+            <td>${cardPayment.bankInvolved}</td>
+            <td>${cardPayment.financialTransaction}</td>
             <td>
                 <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
                 <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
@@ -68,7 +68,7 @@
     }
 
     function remove(id) {
-        fetch("/api/checkPayment/" + id, {
+        fetch("/api/cardPayment/" + id, {
             method: "DELETE"
         }).then(response => {
             JSON.parse(response)

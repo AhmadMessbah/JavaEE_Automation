@@ -27,6 +27,14 @@
         <label for="faDateTime">Fa Date Time</label>
         <input id="faDateTime" type="text" name="faDateTime">
     </div>
+    <div class="mb-3">
+        <label for="description">description</label>
+        <input id="description" type="text" name="description">
+    </div>
+    <div class="mb-3">
+        <label for="financialTransaction">Financial Transaction</label>
+        <input id="financialTransaction" type="text" name="financialTransaction">
+    </div>
     <input type="submit" value="Save">
 </form>
 
@@ -36,6 +44,8 @@
         <th>id</th>
         <th>docNumber</th>
         <th>faDateTime</th>
+        <th>description</th>
+        <th>financialTransaction</th>
         <th>operation</th>
     </tr>
     </thead>
@@ -45,6 +55,8 @@
             <td>${financialDoc.id}</td>
             <td>${financialDoc.docNumber}</td>
             <td>${financialDoc.faDateTime}</td>
+            <td>${financialDoc.description}</td>
+            <td>${financialDoc.financialTransaction}</td>
             <td>
                 <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
                 <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
