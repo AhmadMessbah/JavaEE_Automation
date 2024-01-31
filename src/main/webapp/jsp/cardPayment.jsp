@@ -45,7 +45,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="cardPayment" items="${sessionScope.bankDepositTransactionList}">
+    <c:forEach var="cardPayment" items="${requestScope.cardPaymentList}">
         <tr>
             <td>${cardPayment.id}</td>
             <td>${cardPayment.depositCode}</td>

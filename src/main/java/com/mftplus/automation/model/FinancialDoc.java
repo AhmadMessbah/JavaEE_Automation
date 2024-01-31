@@ -1,6 +1,7 @@
 package com.mftplus.automation.model;
 
 import com.github.mfathi91.time.PersianDateTime;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @SuperBuilder
 @ToString
-
+@RequestScoped
 @Entity(name = "financialDocEntity")
 @Table(name = "financial_doc_tbl")
 public class FinancialDoc extends Base{

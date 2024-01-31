@@ -3,6 +3,7 @@ package com.mftplus.automation.model;
 import com.github.mfathi91.time.PersianDateTime;
 import com.mftplus.automation.model.enums.FinancialTransactionType;
 import com.mftplus.automation.model.enums.PaymentType;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @SuperBuilder
 @ToString
-
+@RequestScoped
 @Entity(name = "financialTransactionEntity")
 @Table(name = "financial_transaction_tbl")
 public class FinancialTransaction extends Base{

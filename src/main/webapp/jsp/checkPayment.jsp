@@ -50,7 +50,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="checkPayment" items="${sessionScope.checkPaymentList}">
+    <c:forEach var="checkPayment" items="${requestScope.checkPaymentList}">
         <tr>
             <td>${checkPayment.id}</td>
             <td>${checkPayment.checkNumber}</td>

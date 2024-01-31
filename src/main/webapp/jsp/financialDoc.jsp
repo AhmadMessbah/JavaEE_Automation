@@ -50,7 +50,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="financialDoc" items="${sessionScope.financialDocList}">
+    <c:forEach var="financialDoc" items="${requestScope.financialDocList}">
         <tr>
             <td>${financialDoc.id}</td>
             <td>${financialDoc.docNumber}</td>

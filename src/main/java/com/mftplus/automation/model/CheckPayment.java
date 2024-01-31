@@ -2,6 +2,7 @@ package com.mftplus.automation.model;
 
 import com.github.mfathi91.time.PersianDateTime;
 import com.google.gson.Gson;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @SuperBuilder
-
+@RequestScoped
 @Entity(name = "checkPaymentEntity")
 @Table(name = "check-payment_tbl")
 

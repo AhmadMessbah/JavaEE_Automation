@@ -1,6 +1,7 @@
 package com.mftplus.automation.model;
 
 import com.google.gson.Gson;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-
+@RequestScoped
 @Entity(name = "cardPaymentEntity")
 @Table(name = "card_payment_tbl")
 public class CardPayment extends Payment{

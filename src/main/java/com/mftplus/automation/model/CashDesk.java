@@ -1,5 +1,6 @@
 package com.mftplus.automation.model;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @ToString
-
+@ApplicationScoped
 @Entity(name = "cashDeskEntity")
 @Table(name = "cash-desk_tbl")
 public class CashDesk extends Base{

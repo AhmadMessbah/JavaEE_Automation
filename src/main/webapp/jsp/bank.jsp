@@ -65,7 +65,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="bank" items="${sessionScope.bankList}">
+    <c:forEach var="bank" items="${applicationScope.bankList}">
         <tr>
             <td>${bank.id}</td>
             <td>${bank.name}</td>

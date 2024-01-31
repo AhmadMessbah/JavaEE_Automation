@@ -65,7 +65,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="financialTransaction" items="${sessionScope.financialTransactionList}">
+    <c:forEach var="financialTransaction" items="${requestScope.financialTransactionList}">
         <tr>
             <td>${financialTransaction.id}</td>
             <td>${financialTransaction.faDateTime}</td>
