@@ -1,6 +1,5 @@
 package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.model.Person;
 import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.Role;

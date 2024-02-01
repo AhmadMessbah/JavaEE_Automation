@@ -1,6 +1,5 @@
 package com.mftplus.automation.controller.servlet;
 import com.mftplus.automation.model.User;
-import com.mftplus.automation.model.enums.FinancialDocType;
 import com.mftplus.automation.model.enums.Role;
 import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
@@ -14,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @Slf4j
 @WebServlet(name = "UserServlet" , urlPatterns = "/user.do")

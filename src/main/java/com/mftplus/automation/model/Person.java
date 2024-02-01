@@ -35,7 +35,11 @@ public class Person extends Base{
     @Column(name = "p_nationalCode", length = 10)
     private String nationalCode;
 
+
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
+
+    @OneToOne(mappedBy = "person")
+    private User user;
 
 }

@@ -1,6 +1,5 @@
 package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.model.Organisation;
 import com.mftplus.automation.model.Person;
 import com.mftplus.automation.service.PersonService;
 import jakarta.enterprise.context.SessionScoped;

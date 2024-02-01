@@ -1,6 +1,5 @@
 package com.mftplus.automation.controller.servlet;
 import com.mftplus.automation.model.Person;
-import com.mftplus.automation.model.enums.FinancialDocType;
 import com.mftplus.automation.model.enums.Gender;
 import com.mftplus.automation.service.impl.PersonServiceImpl;
 import jakarta.inject.Inject;

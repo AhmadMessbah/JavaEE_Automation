@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,15 +21,20 @@
     </c:forEach>
 </select>
 
-<form action="person.do" method="post" enctype="multipart/form-data">
+<form id="person_form"  method="post" action="/person.do" enctype="multipart/form-data">
     <div class="mb-3">
-        <label for="name">Name</label>
+        <label for="name">Name : </label>
         <input id="name" type="text" name="name">
     </div>
 
     <div class="mb-3">
-        <label for="family">Family</label>
+        <label for="family">Family : </label>
         <input id="family" type="text" name="family">
+    </div>
+
+    <div class="mb-3">
+        <label for="nationalCode">NationalCode : </label>
+        <input id="nationalCode" type="text" name="nationalCode">
     </div>
 
     <div class="mb-3">
@@ -46,6 +51,7 @@
         <th>id</th>
         <th>name</th>
         <th>family</th>
+        <th>nationalCode</th>
         <th>operation</th>
     </tr>
     </thead>
@@ -55,6 +61,8 @@
             <td>${person.id}</td>
             <td>${person.name}</td>
             <td>${person.family}</td>
+            <td>${person.nationalCode}</td>
+
             <td>
                 <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
                 <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>

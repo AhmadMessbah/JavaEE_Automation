@@ -4,8 +4,8 @@ function edit(id) {
 
 async function remove(id) {
     alert(id);
-    const response = await fetch("/api/person/" + id, {
+    const response = await fetch("/api/user/" + id, {
         method: "DELETE"
     });
-    document.location.replace("/person.do")
+    document.location.replace("/user.do")
 }

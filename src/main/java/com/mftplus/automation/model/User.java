@@ -9,9 +9,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 @NoArgsConstructor
 @Getter
@@ -34,16 +31,6 @@ public class User extends Base{
     @Column(name = "u_pass", length = 20)
     private String password;
 
-// todo
-    @OneToMany
-    private List<User> userList;
-    public List<User> getUserList() {
-        if (userList == null) {
-            userList = new ArrayList<>();
-        }
-        return userList;
-    }
-
 
     @OneToOne(cascade = CascadeType.ALL)
     private Person person;
@@ -51,13 +38,6 @@ public class User extends Base{
     @ManyToOne
     private Section section;
 
-    //todo
-    @OneToOne(cascade = CascadeType.ALL)
-    private Person personId;
-
-    //todo
-    @ManyToOne
-    private Section sectionId;
 
     @Column(name="u_active")
     private boolean active;
