@@ -42,11 +42,11 @@
             <label for="status">Stuff Status</label>
             <input type="text" id="status" name="status" placeholder="StuffStatus">
         </div>
-<%--        <div class="row md-5">--%>
-<%--            <label class="form-label" for="file">File</label>--%>
-<%--            <input class="form-control" id="file" type="file" name="file">--%>
-<%--            <div id="file-msg error">${sessionScope.error}</div>--%>
-<%--        </div>--%>
+        <div class="row md-5">
+            <label class="form-label" for="file">File</label>
+            <input class="form-control" id="file" type="file" name="file">
+            <div id="file-msg error">${sessionScope.error}</div>
+        </div>
         <br><br>
         <div class="row mb-4">
             <input type="submit" class="btn btn-primary" value="Save">
