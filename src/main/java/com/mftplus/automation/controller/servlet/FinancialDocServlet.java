@@ -29,7 +29,7 @@ public class FinancialDocServlet extends HttpServlet {
     private FinancialDoc financialDoc;
 
     @Inject
-    private  FinancialTransaction financialTransaction;
+    private FinancialTransaction financialTransaction;
 
     @Inject
     private Section section;
@@ -40,33 +40,33 @@ public class FinancialDocServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username=req.getParameter("username");
-            String password=req.getParameter("password");
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
             String paymentType = req.getParameter("paymentType");
             String transactionType = req.getParameter("transactionType");
 
-            user= User
+            user = User
                     .builder()
                     .username(username)
                     .password(password)
                     .build();
 
-            String title=req.getParameter("title");
-            String duty=req.getParameter("duty");
-            String phoneNumber=req.getParameter("phoneNumber");
+            String title = req.getParameter("title");
+            String duty = req.getParameter("duty");
+            String phoneNumber = req.getParameter("phoneNumber");
 
-            section= Section
+            section = Section
                     .builder()
                     .duty(duty)
                     .title(title)
                     .phoneNumber(phoneNumber)
                     .build();
 
-            String faDateTime=req.getParameter("faDateTime");
-            Long amount= Long.valueOf(req.getParameter("amount"));
-            int trackingCode= Integer.parseInt(req.getParameter("trackingCode"));
+            String faDateTime = req.getParameter("faDateTime");
+            Long amount = Long.valueOf(req.getParameter("amount"));
+            int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
 
-            financialTransaction= FinancialTransaction
+            financialTransaction = FinancialTransaction
                     .builder()
                     .user(user)
                     .referringSection(section)
@@ -77,11 +77,11 @@ public class FinancialDocServlet extends HttpServlet {
                     .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
 
-            long docNumber=Long.valueOf(req.getParameter("docNumber"));
-            String faDateTime2=req.getParameter("faDateTime");
-            String description=req.getParameter("description");
+            long docNumber = Long.valueOf(req.getParameter("docNumber"));
+            String faDateTime2 = req.getParameter("faDateTime");
+            String description = req.getParameter("description");
 
-            financialDoc=FinancialDoc
+            financialDoc = FinancialDoc
                     .builder()
                     .docNumber(docNumber)
                     .faDateTime(LocalDateTime.parse(faDateTime2))

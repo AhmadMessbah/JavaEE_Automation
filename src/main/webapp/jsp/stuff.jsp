@@ -23,6 +23,15 @@
     <div id="org-form">
     <form id="stuff-form" action="stuff.do" method="post" enctype="multipart/form-data">
         <div class="row mb-5">
+            <label for="name">Section Name</label>
+            <select name="section-title" id="section-title">
+                <c:forEach var="section" items="${sessionScope.sectionList}">
+                    <option value="${section}">${section}</option>
+                </c:forEach>
+            </select>
+        </div>
+
+        <div class="row mb-5">
             <label for="name">Stuff Name</label>
             <input type="text" id="name" name="name" placeholder="StuffName">
         </div>

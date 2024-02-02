@@ -33,7 +33,7 @@ public class Section {
     @JsonbTransient
     private Boolean deleted;
 
-    @Column(name = "s_title", length = 40)
+    @Column(name = "s_title", length = 40, unique = true)
     @Pattern(regexp = "^[a-zA-Z\\s]{0,40}$", message = "Invalid Role")
     private String title;
 

@@ -1,6 +1,8 @@
 package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.Stuff;
+import com.mftplus.automation.service.SectionService;
+import com.mftplus.automation.service.impl.SectionServiceImpl;
 import com.mftplus.automation.service.impl.StuffServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
@@ -20,10 +22,15 @@ public class StuffServlet extends HttpServlet {
     @Inject
     private Stuff stuff;
 
+    @Inject
+    private SectionServiceImpl sectionService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             req.getSession().setAttribute("StuffList",stuffService.findAll());
+            req.getSession().setAttribute("sectionList",sectionService.findAll());
+
             req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
             log.info("Stuff - Servlet-Get");
         } catch (Exception e) {
@@ -40,6 +47,7 @@ public class StuffServlet extends HttpServlet {
                     .brand(req.getParameter("brand"))
                     .model(req.getParameter("model"))
                     .price(Long.valueOf(req.getParameter("price")))
+                    .section(sectionService.findByTitle(req.getParameter("section-title")).get())
                     .build();
             System.out.println("rrrr");
             stuffService.save(stuff);
