@@ -79,7 +79,7 @@ public class PersonServlet extends HttpServlet {
             req.getRequestDispatcher("/jsp/person.jsp").forward(req, resp);
             personService.findAll();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage());
         }
     }
 

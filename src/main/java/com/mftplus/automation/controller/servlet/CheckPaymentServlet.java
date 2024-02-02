@@ -35,12 +35,6 @@ public class CheckPaymentServlet extends HttpServlet {
     private Section section;
 
     @Inject
-    private PaymentType paymentType;
-
-    @Inject
-    private FinancialTransactionType financialTransactionType;
-
-    @Inject
     private CheckPayment checkPayment;
 
     @Override
@@ -48,6 +42,8 @@ public class CheckPaymentServlet extends HttpServlet {
         try {
             String username=req.getParameter("username");
             String password=req.getParameter("password");
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
 
             user= User
                     .builder()
@@ -84,10 +80,10 @@ public class CheckPaymentServlet extends HttpServlet {
                     .builder()
                     .user(user)
                     .referringSection(section)
-                    .paymentType(paymentType)
+                    .paymentType(PaymentType.valueOf(paymentType))
                     .amount(amount)
                     .trackingCode(trackingCode)
-                    .transactionType(financialTransactionType)
+                    .transactionType(FinancialTransactionType.valueOf(transactionType))
                     .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
 

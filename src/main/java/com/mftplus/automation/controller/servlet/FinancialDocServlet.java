@@ -37,17 +37,13 @@ public class FinancialDocServlet extends HttpServlet {
     @Inject
     private User user;
 
-    @Inject
-    private PaymentType paymentType;
-
-    @Inject
-    private FinancialTransactionType financialTransactionType;
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String username=req.getParameter("username");
             String password=req.getParameter("password");
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
 
             user= User
                     .builder()
@@ -74,10 +70,10 @@ public class FinancialDocServlet extends HttpServlet {
                     .builder()
                     .user(user)
                     .referringSection(section)
-                    .paymentType(paymentType)
+                    .paymentType(PaymentType.valueOf(paymentType))
                     .amount(amount)
                     .trackingCode(trackingCode)
-                    .transactionType(financialTransactionType)
+                    .transactionType(FinancialTransactionType.valueOf(transactionType))
                     .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
 

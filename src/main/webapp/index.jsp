@@ -18,8 +18,6 @@
 <br><br>
 <a href="checkPayment.do">CheckPayment</a>
 <br><br>
-<a href="fileUpload.do">FileUpload</a>
-<br><br>
 <a href="financialDoc.do">FinancialDoc</a>
 <br><br>
 <a href="FinancialTransaction.do">FinancialTransaction</a>
@@ -27,10 +25,8 @@
 <a href="letter.do">Letter</a>
 <br><br>
 <a href="organisation.do">Organisation</a>
-<br><br>
-<a href="person.do">person</a>
-<br><br>
-<a href="reference.do">reference</a>
+<%--<br><br>--%>
+<%--<a href="reference.do">reference</a>--%> todo :
 <br><br>
 <a href="section.do">Sections</a>
 <br><br>
