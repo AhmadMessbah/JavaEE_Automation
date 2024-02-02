@@ -1,5 +1,6 @@
 package com.mftplus.automation.model;
 
+import com.github.mfathi91.time.PersianDate;
 import com.mftplus.automation.model.enums.LetterAccessLevel;
 import com.mftplus.automation.model.enums.LetterType;
 import com.mftplus.automation.model.enums.TransferMethod;
@@ -43,14 +44,14 @@ public class Letter extends Base implements Serializable {
 
     @Transient
     private String faDate;
-//
-//    public String getFaDate() {
-//        return String.valueOf(PersianDate.fromGregorian(date));
-//    }
-//
-//    public void setFaDate(String faDate) {
-//        this.date =PersianDate.parse(faDate).toGregorian();
-//    }
+
+    public String getFaDate() {
+        return String.valueOf(PersianDate.fromGregorian(date));
+    }
+
+    public void setFaDate(String faDate) {
+        this.date =PersianDate.parse(faDate).toGregorian();
+    }
 
     @Column (name = "l_context")
     private String context;
