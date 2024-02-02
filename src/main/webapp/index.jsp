@@ -38,7 +38,7 @@
 <br><br>
 <a href="stuffStorage.do">StuffStorage</a>
 <br><br>
-<a href="StuffTransaction.do">StuffTransaction</a>
+<a href="stuffTransaction.do">StuffTransaction</a>
 <br><br>
 <a href="user.do">Users</a>
 <br><br>
