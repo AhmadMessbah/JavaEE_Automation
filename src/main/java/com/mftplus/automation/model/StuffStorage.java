@@ -1,6 +1,7 @@
 package com.mftplus.automation.model;
 
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @Entity(name = "StuffStorageEntity")
 @Table(name = "stuffStorage_tbl")
-
+@RequestScoped
 
 public class StuffStorage {
     @Id

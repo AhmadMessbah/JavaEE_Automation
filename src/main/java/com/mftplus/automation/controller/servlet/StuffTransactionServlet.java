@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @Slf4j
-@WebServlet(name = "StuffTransactionServlet", urlPatterns = "/StuffTransaction.do")
+@WebServlet(name = "StuffTransactionServlet", urlPatterns = "/stuffTransaction.do")
 public class StuffTransactionServlet extends HttpServlet {
 
 
@@ -54,7 +54,7 @@ public class StuffTransactionServlet extends HttpServlet {
                 log.info("Stuff Transaction Servlet-post");
             }
 
-            req.getRequestDispatcher("/StuffTransaction.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/stuffTransaction.jsp").forward(req, resp);
 
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -66,11 +66,12 @@ public class StuffTransactionServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Stuff Transaction Servlet-put");
-//        try {
-//
-//        } catch (Exception e) {
-//
-//        }
+        try {
+
+        }
+        catch (Exception e) {
+
+        }
     }
 
 
@@ -78,11 +79,12 @@ public class StuffTransactionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Stuff Transaction Servlet-Get");
         try {
-            req.getRequestDispatcher("/jsp/StuffTransaction.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/stuffTransaction.jsp").forward(req, resp);
 
 
-        } catch (Exception e) {
-
+        }
+        catch (Exception e) {
+            log.error(e.getMessage());
         }
     }
 
@@ -93,7 +95,7 @@ public class StuffTransactionServlet extends HttpServlet {
         try {
 
         } catch (Exception e) {
-
+            log.error(e.getMessage());
         }
 
         }

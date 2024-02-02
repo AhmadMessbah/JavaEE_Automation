@@ -31,7 +31,7 @@ public class StuffStorageServlet extends HttpServlet {
                     .build();
             stuffStorageService.save(stuffStorage);
             log.info("Stuff Storage Servlet - Post");
-            req.getRequestDispatcher("/StuffStorage.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/stuffStorage.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
@@ -51,7 +51,7 @@ public class StuffStorageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             req.getSession().setAttribute("StuffStorage",stuffStorageService.findAll());
-            req.getRequestDispatcher("/jsp/StuffStorage.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/stuffStorage.jsp").forward(req, resp);
             log.info("Stuff Storage - Servlet - Get");
         } catch (Exception e) {
             log.error(e.getMessage());

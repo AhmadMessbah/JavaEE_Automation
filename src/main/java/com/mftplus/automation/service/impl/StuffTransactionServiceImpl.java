@@ -1,16 +1,18 @@
 package com.mftplus.automation.service.impl;
 import com.mftplus.automation.model.StuffTransaction;
 import com.mftplus.automation.service.StuffTransactionService;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-
-public class StuffTransactionServiceImpl implements StuffTransactionService {
+@SessionScoped
+public class StuffTransactionServiceImpl implements StuffTransactionService, Serializable {
     @PersistenceContext(name = "automation")
     private EntityManager entityManager;
 

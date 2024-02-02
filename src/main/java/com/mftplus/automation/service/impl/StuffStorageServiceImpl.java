@@ -3,16 +3,18 @@ package com.mftplus.automation.service.impl;
 import com.mftplus.automation.model.StuffStorage;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.service.StuffStorageService;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-
-public class StuffStorageServiceImpl implements StuffStorageService {
+@SessionScoped
+public class StuffStorageServiceImpl implements StuffStorageService, Serializable {
     @PersistenceContext(name = "automation")
     private  EntityManager entityManager;
 

@@ -1,6 +1,7 @@
 package com.mftplus.automation.model;
 
 import com.mftplus.automation.model.enums.StuffTransactionType;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 
 @Entity(name = "stuffTransactionEntity")
 @Table(name = "stuff_transaction_tbl")
+@RequestScoped
 public class StuffTransaction {
     @Id
     @SequenceGenerator(name = "stuffTransactionSeq", sequenceName = "stuff_transaction_seq")
