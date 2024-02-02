@@ -11,3 +11,5 @@ Automation System
         - user mft/java123 in oracle database
 
         - copy docs/tomee.xml and server.xml to {tomee}/conf folder
+
+        - copy WEB-INF/lib/ojdbc and logback to {tomee}/lib folder

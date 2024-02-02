@@ -27,4 +27,5 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsp</url-pattern>
     </servlet-mapping>
+
 </web-app>
