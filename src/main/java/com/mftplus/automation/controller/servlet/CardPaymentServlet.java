@@ -60,16 +60,18 @@ public class CardPaymentServlet extends HttpServlet {
             int branchCode=Integer.parseInt(req.getParameter("branchCode"));
             String branchName=req.getParameter("branchName");
             String accountType=req.getParameter("accountType");
+            long accountBalance= Long.parseLong(req.getParameter("accountBalance"));
 
             bank = Bank
-                            .builder()
-                            .name(name)
-                            .accountNumber(accountNumber)
-                            .branchCode(branchCode)
-                            .branchName(branchName)
-                            .accountType(accountType)
-                            .accountOwner(user)
-                            .build();
+                    .builder()
+                    .name(name)
+                    .accountNumber(accountNumber)
+                    .branchCode(branchCode)
+                    .branchName(branchName)
+                    .accountType(accountType)
+                    .accountBalance(accountBalance)
+                    .deleted(false)
+                    .build();
 
             String title=req.getParameter("title");
             String duty=req.getParameter("duty");

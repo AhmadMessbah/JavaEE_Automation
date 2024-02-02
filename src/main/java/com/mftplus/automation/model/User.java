@@ -1,6 +1,7 @@
 package com.mftplus.automation.model;
 
 import com.mftplus.automation.model.enums.Role;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -18,6 +19,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity(name = "userEntity")
 @Table(name = "user_tbl")
+@RequestScoped
 public class User extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

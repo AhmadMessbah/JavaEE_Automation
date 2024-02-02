@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Bank</title>
+    <link rel="stylesheet" href="../assets/css/kamadatepicker.min.css">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -43,10 +44,6 @@
         <label for="accountBalance">Account Balance</label>
         <input id="accountBalance" type="number" name="accountBalance">
     </div>
-    <div class="mb-3">
-        <label for="accountOwner">Account Owner</label>
-        <input id="accountOwner" type="text" name="accountOwner">
-    </div>
     <input type="submit" value="Save">
 </form>
 
@@ -60,12 +57,11 @@
         <th>branchName</th>
         <th>accountType</th>
         <th>accountBalance</th>
-        <th>accountOwner</th>
         <th>operation</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="bank" items="${applicationScope.bankList}">
+    <c:forEach var="bank" items="${requestScope.bankList}">
         <tr>
             <td>${bank.id}</td>
             <td>${bank.name}</td>
@@ -74,10 +70,12 @@
             <td>${bank.branchName}</td>
             <td>${bank.accountType}</td>
             <td>${bank.accountBalance}</td>
-            <td>${bank.accountOwner}</td>
             <td>
-                <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
+                <button class="btn btn-warning" onclick="edit(${bank.id})"><i class="fa fa-edit"></i>
+                    Edit
+                </button>
+                <button class="btn btn-danger" onclick="remove(${bank.id})"><i class="fa fa-remove"></i>Remove
+                </button>
             </td>
         </tr>
     </c:forEach>
