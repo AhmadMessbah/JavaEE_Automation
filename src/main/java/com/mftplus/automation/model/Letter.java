@@ -1,6 +1,5 @@
 package com.mftplus.automation.model;
 
-import com.github.mfathi91.time.PersianDate;
 import com.mftplus.automation.model.enums.LetterAccessLevel;
 import com.mftplus.automation.model.enums.LetterType;
 import com.mftplus.automation.model.enums.TransferMethod;
@@ -11,6 +10,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,23 +35,22 @@ public class Letter extends Base implements Serializable {
     @Column (name = "l_title" , length = 20)
     private String title;
 
-    @Column (name = "l_letter_number" , length = 30 , unique = true)
+    @Column (name = "l_letter_number" , length = 30)
     private String letterNumber;
 
     @Column (name = "l_date")
     private LocalDate date;
 
     @Transient
-    private LocalDate faDate;
-
-    public String getFaDate() {
-        return PersianDate.fromGregorian(date).toString();
-    }
-
-    public LocalDate setFaDate(String faDate) {
-        this.date = PersianDate.parse(faDate).toGregorian();
-        return null;
-    }
+    private String faDate;
+//
+//    public String getFaDate() {
+//        return String.valueOf(PersianDate.fromGregorian(date));
+//    }
+//
+//    public void setFaDate(String faDate) {
+//        this.date =PersianDate.parse(faDate).toGregorian();
+//    }
 
     @Column (name = "l_context")
     private String context;
@@ -68,13 +67,13 @@ public class Letter extends Base implements Serializable {
     @Column (name = "l_sender_title", length = 25)
     private String senderTitle;
 
-    @Column (name = "l_image")
+    @Column (name = "l_file")
     private String image;
 
     @Enumerated (EnumType.ORDINAL)
     private LetterAccessLevel accessLevel;
 
-    //todo rethink
+  //todo rethink
     @ManyToMany (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
     private List<User> carbonCopies;
 
@@ -97,17 +96,17 @@ public class Letter extends Base implements Serializable {
     @Column (name = "l_register_date_and_time")
     private LocalDateTime registerDateAndTime;
 
-    @Transient
-    private LocalDateTime faRegisterDateAndTime;
-
-    public String getFaRegisterDateAndTime() {
-        return PersianDate.fromGregorian(LocalDate.from(registerDateAndTime)).toString();
-    }
-
-    public void setFaRegisterDateAndTime(String faRegisterDateAndTime) {
-        this.registerDateAndTime = LocalDateTime.from(PersianDate.parse(faRegisterDateAndTime).toGregorian());
-    }
-
+//    @Transient
+//    private LocalDateTime faRegisterDateAndTime;
+//
+//    public String getFaRegisterDateAndTime() {
+//        return PersianDate.fromGregorian(LocalDate.from(registerDateAndTime)).toString();
+//    }
+//
+//    public void setFaRegisterDateAndTime(String faRegisterDateAndTime) {
+//        this.registerDateAndTime = LocalDateTime.from(PersianDate.parse(faRegisterDateAndTime).toGregorian());
+//    }
+//
     @ManyToMany (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
     private List<User> refReceivers;
 
