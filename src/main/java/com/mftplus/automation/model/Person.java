@@ -1,6 +1,7 @@
 package com.mftplus.automation.model;
 
 import com.mftplus.automation.model.enums.Gender;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity(name = "personEntity")
 @Table(name = "person_tbl")
+@RequestScoped
 public class Person extends Base{
     @Id
     @SequenceGenerator(name = "personSeq", sequenceName = "person_seq")
