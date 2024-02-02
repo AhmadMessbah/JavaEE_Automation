@@ -65,7 +65,7 @@ public class LetterServlet extends HttpServlet {
             //inputs
             String title = req.getParameter("l_title");
             String letterNumber = req.getParameter("l_letter_number");
-//            String faDate = req.getParameter("l_date");
+            String faDate = req.getParameter("l_date");
             String context = req.getParameter("l_context");
             String receiverName = req.getParameter("l_receiver_name");
             String receiverTitle = req.getParameter("l_receiver_title");
@@ -107,7 +107,7 @@ public class LetterServlet extends HttpServlet {
                                     .senderTitle(senderTitle)
                                     .image(fileName)
                                     .deleted(false)
-//                                    .faDate(faDate)
+                                    .faDate(faDate)
                                     .accessLevel(LetterAccessLevel.valueOf(accessLevel))
                                     .transferMethod(TransferMethod.valueOf(transferMethod))
                                     .letterType(LetterType.valueOf(letterType))

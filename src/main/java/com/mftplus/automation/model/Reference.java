@@ -3,6 +3,7 @@ package com.mftplus.automation.model;
 import com.github.mfathi91.time.PersianDate;
 import com.mftplus.automation.model.enums.ReferencePriority;
 import com.mftplus.automation.model.enums.ReferenceType;
+import jakarta.enterprise.context.RequestScoped;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,8 +23,8 @@ import java.time.LocalDateTime;
 
 @Entity(name = "referenceEntity")
 @Table(name = "refrence_tbl")
-
-public class Reference extends Base implements Serializable {
+@RequestScoped
+public class Reference extends Base {
     @Id
     @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterSeq")
