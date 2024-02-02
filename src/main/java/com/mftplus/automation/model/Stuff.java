@@ -25,13 +25,13 @@ public class Stuff implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stuffSeq")
     private Long id;
 
-    @Column(name = "stuff_name", length = 20,nullable = false)
+    @Column(name = "stuff_name", length = 20)
     private String name;
 
     @Column(name = "stuff_brand", length = 20)
     private String brand;
 
-    @Column(name = "stuff_price", length = 20,nullable = false)
+    @Column(name = "stuff_price", length = 20)
     private Long price;
 
     @Column(name = "stuff_model", length = 20)

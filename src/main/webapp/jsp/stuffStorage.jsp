@@ -19,7 +19,8 @@
 </style>
 </head>
 <body>
-<div>
+<div class="container-fluid">
+    <div id="org-form">
     <form id="stuffStorage-form" action="stuffStorage.do" method="post" enctype="multipart/form-data">
         <div class="row mb-5">
             <label for="name">Stuff Storage Name</label>

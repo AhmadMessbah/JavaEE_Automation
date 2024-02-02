@@ -90,7 +90,7 @@
     </div>
 
     <div id="org-table">
-        <table class="table table-hover table-dark">
+        <table class="table table-hover table-primary">
             <thead>
             <tr>
                 <th>id</th>

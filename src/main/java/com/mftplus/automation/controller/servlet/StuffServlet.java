@@ -41,6 +41,7 @@ public class StuffServlet extends HttpServlet {
                     .model(req.getParameter("model"))
                     .price(Long.valueOf(req.getParameter("price")))
                     .build();
+            System.out.println("rrrr");
             stuffService.save(stuff);
             log.info("StuffServlet - Stuff Saved");
             req.getRequestDispatcher("/stuff.jsp").forward(req, resp);

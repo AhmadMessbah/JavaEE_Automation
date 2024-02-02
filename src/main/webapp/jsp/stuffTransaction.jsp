@@ -18,8 +18,9 @@
     </style>
 </head>
 <body>
-<div>
-    <form action="/stuffTransaction.do" method="post">
+<div class="container-fluid">
+    <div id="org-form">
+    <form action="stuffTransaction.do" method="post">
 
         <div class="row mb-5">
             <lable for="id">StuffTransactionId</lable>
@@ -100,6 +101,6 @@
 <script src="../assets/js/stuffTransaction.js"></script>
 
 <form action="servlet/StuffTransaction.do" method="get"></form>
-//to do method get stuff transaction.
+<%--//todo: method get stuff transaction.--%>
 </body>
 </html>

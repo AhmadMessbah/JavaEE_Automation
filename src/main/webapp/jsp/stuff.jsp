@@ -4,10 +4,6 @@
 <head>
     <title>stuff</title>
     <meta charset="UTF-8">
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -24,6 +20,7 @@
 </head>
 <body>
 <div class="container-fluid">
+    <div id="org-form">
     <form id="stuff-form" action="stuff.do" method="post" enctype="multipart/form-data">
         <div class="row mb-5">
             <label for="name">Stuff Name</label>
@@ -45,19 +42,20 @@
             <label for="status">Stuff Status</label>
             <input type="text" id="status" name="status" placeholder="StuffStatus">
         </div>
-        <div class="row md-5">
-            <label class="form-label" for="file">File</label>
-            <input class="form-control" id="file" type="file" name="file">
-            <div id="file-msg error">${sessionScope.error}</div>
-        </div>
-        <div>
-            <input type="submit" value="save">
+<%--        <div class="row md-5">--%>
+<%--            <label class="form-label" for="file">File</label>--%>
+<%--            <input class="form-control" id="file" type="file" name="file">--%>
+<%--            <div id="file-msg error">${sessionScope.error}</div>--%>
+<%--        </div>--%>
+        <br><br>
+        <div class="row mb-4">
+            <input type="submit" class="btn btn-primary" value="Save">
         </div>
     </form>
 </div>
 
 <div id="org-table">
-    <table class="table table-hover table-dark">
+    <table class="table table-hover table-primary">
         <thead>
         <tr>
             <th>id</th>
@@ -78,10 +76,13 @@
                 <td>${stuff.price}</td>
                 <td>${stuff.model}</td>
                 <td>${stuff.status}</td>
-
                 <td>
-                    <button class="btn btn-warning" onclick="edit(stuff.id)"><i class="fa fa-edit"></i> Edit</button>
-                    <button class="btn btn-danger" onclick="remove(stuff.id)"><i class="fa fa-delete"></i>Remove</button>
+                    <button class="btn btn-warning" onclick="edit(${stuff.id})"><i class="fa fa-edit"></i>
+                        Edit
+                    </button>
+                    <button class="btn btn-danger" onclick="remove(${stuff.id})"><i class="fa fa-remove"></i>
+                        Remove
+                    </button>
                 </td>
             </tr>
 

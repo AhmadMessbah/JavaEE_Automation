@@ -65,7 +65,7 @@ public class LetterServlet extends HttpServlet {
             //inputs
             String title = req.getParameter("l_title");
             String letterNumber = req.getParameter("l_letter_number");
-            String faDate = req.getParameter("l_date");
+            String faDate = req.getParameter("l_date").replace("/", "-");
             String context = req.getParameter("l_context");
             String receiverName = req.getParameter("l_receiver_name");
             String receiverTitle = req.getParameter("l_receiver_title");
@@ -79,12 +79,15 @@ public class LetterServlet extends HttpServlet {
 //            String username = req.getSession().getAttribute("username").toString();
 
             //for uploading letter image
+            String fileName = null;
             Part filePart = req.getPart("file");
-            String fileName = filePart.getSubmittedFileName();
-            for (Part part : req.getParts()) {
-                part.write("E:\\JavaFinalProject\\letter\\src\\main\\resources\\img\\"+fileName); //todo set server path
+            if (filePart.getSize()>0) {
+                fileName = filePart.getSubmittedFileName();
+                for (Part part : req.getParts()) {
+                    part.write(fileName);
+                }
+                resp.getWriter().print("The file uploaded successfully.");
             }
-            resp.getWriter().print("The file uploaded successfully.");
 
             //verify
 //            if (context != null){
@@ -112,8 +115,7 @@ public class LetterServlet extends HttpServlet {
                                     .transferMethod(TransferMethod.valueOf(transferMethod))
                                     .letterType(LetterType.valueOf(letterType))
                                     .build();
-
-            System.out.println(letter);
+            letter.setFaDate(faDate);
                     letterService.save(letter);
                     log.info("LetterServlet - Letter Saved");
 //                }
