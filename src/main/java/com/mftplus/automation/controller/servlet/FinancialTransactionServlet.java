@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @Slf4j
 @WebServlet(name = "/financialTransactionServlet", urlPatterns = "/FinancialTransaction.do")
 public class FinancialTransactionServlet extends HttpServlet {
-
     @Inject
     private FinancialTransactionServiceImpl financialTransactionService;
 
@@ -31,47 +30,44 @@ public class FinancialTransactionServlet extends HttpServlet {
     @Inject
     private Section section;
 
-    @Inject
-    private PaymentType paymentType;
-
-    @Inject
-    private FinancialTransactionType financialTransactionType;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username=req.getParameter("username");
-            String password=req.getParameter("password");
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
 
-            user= User
+            user = User
                     .builder()
                     .username(username)
                     .password(password)
                     .build();
 
-            String title=req.getParameter("title");
-            String duty=req.getParameter("duty");
-            String phoneNumber=req.getParameter("phoneNumber");
+            String title = req.getParameter("title");
+            String duty = req.getParameter("duty");
+            String phoneNumber = req.getParameter("phoneNumber");
 
-            section=Section
+            section = Section
                     .builder()
                     .duty(duty)
                     .title(title)
                     .phoneNumber(phoneNumber)
                     .build();
 
-            String faDateTime=req.getParameter("faDateTime");
-            Long amount= Long.valueOf(req.getParameter("amount"));
-            int trackingCode= Integer.parseInt(req.getParameter("trackingCode"));
+            String faDateTime = req.getParameter("faDateTime");
+            Long amount = Long.valueOf(req.getParameter("amount"));
+            int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
 
-            financialTransaction=FinancialTransaction
+            financialTransaction = FinancialTransaction
                     .builder()
                     .user(user)
                     .referringSection(section)
-                    .paymentType(paymentType)
+                    .paymentType(PaymentType.valueOf(paymentType))
                     .amount(amount)
                     .trackingCode(trackingCode)
-                    .transactionType(financialTransactionType)
+                    .transactionType(FinancialTransactionType.valueOf(transactionType))
                     .faDateTime(LocalDateTime.parse(faDateTime))
                     .build();
 

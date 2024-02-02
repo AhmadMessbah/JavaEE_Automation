@@ -1,5 +1,6 @@
 package com.mftplus.automation.model;
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Entity(name = "sectionEntity")
 @Table(name = "section_tbl")
+@RequestScoped
 public class Section {
     @Id
     @SequenceGenerator(name = "sectionSeq", sequenceName = "section_seq")

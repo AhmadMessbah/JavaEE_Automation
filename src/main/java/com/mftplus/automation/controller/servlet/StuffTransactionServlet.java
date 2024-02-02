@@ -23,8 +23,6 @@ import java.util.Optional;
 @Slf4j
 @WebServlet(name = "StuffTransactionServlet", urlPatterns = "/stuffTransaction.do")
 public class StuffTransactionServlet extends HttpServlet {
-
-
     @Inject
     private StuffTransactionServiceImpl stuffTransactionService;
     @Inject
@@ -33,7 +31,6 @@ public class StuffTransactionServlet extends HttpServlet {
     private SectionServiceImpl sectionService;
     @Inject
     private StuffServiceImpl stuffService;
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
