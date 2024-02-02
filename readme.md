@@ -8,4 +8,6 @@ Automation System
 
     - Requirement :
         
-        - user mft/java123 in database
+        - user mft/java123 in oracle database
+
+        - copy docs/tomee.xml and server.xml to {tomee}/conf folder
