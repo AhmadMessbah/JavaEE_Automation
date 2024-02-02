@@ -4,6 +4,10 @@
 <head>
     <title>stuff</title>
     <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -19,7 +23,7 @@
     </style>
 </head>
 <body>
-<div>
+<div class="container-fluid">
     <form id="stuff-form" action="stuff.do" method="post" enctype="multipart/form-data">
         <div class="row mb-5">
             <label for="name">Stuff Name</label>

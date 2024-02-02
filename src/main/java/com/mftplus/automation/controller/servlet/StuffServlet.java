@@ -45,7 +45,7 @@ public class StuffServlet extends HttpServlet {
             log.info("StuffServlet - Stuff Saved");
             req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
         } catch (Exception e) {
-            log.info("StuffServlet - Error Save Stuff");
+            log.info("StuffServlet - Error Save Stuff : " + e.getMessage());
             req.getSession().setAttribute("error", e.getMessage());
             req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
         }

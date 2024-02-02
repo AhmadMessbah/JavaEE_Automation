@@ -64,7 +64,12 @@
     -->
     <Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
-               redirectPort="8443"  maxParameterCount="1000" xpoweredBy="false" server="Apache TomEE" />
+               maxHttpHeaderSize="65536"
+               URIEncoding="UTF-8"
+               redirectPort="8443"  
+               maxParameterCount="1000" 
+               xpoweredBy="false" 
+               server="Apache TomEE" />
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
