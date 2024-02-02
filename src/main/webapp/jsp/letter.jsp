@@ -4,31 +4,53 @@
 <head>
     <title>letter</title>
     <link rel="stylesheet" href="../assets/css/kamadatepicker.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <jsp:include page="css-import.jsp"></jsp:include>
+    <link rel="stylesheet" href="../assets/css/letter.css">
 </head>
 <body>
 
+<div class="container-fluid">
+    <div id="org-form">
     <form id="letter_form" method="post" action="letter.do" enctype="multipart/form-data">
-        <label for="l_title">Title : </label>
-        <input type="text" id="l_title" name="l_title" placeholder="Title">
-        <br><br>
-        <label for="l_letter_number">Letter Number : </label>
-        <input type="text" id="l_letter_number" name="l_letter_number" placeholder="LetterNumber">
-        <br><br>
-        <label for="l_context">Context : </label>
-        <textarea id="l_context" name="l_context" placeholder="Context"></textarea>
-        <br><br>
-        <label for="l_receiver_name">Receiver Name : </label>
-        <input type="text" id="l_receiver_name" name="l_receiver_name" placeholder="ReceiverName">
-        <br><br>
-        <label for="l_receiver_title">Receiver Title : </label>
-        <input type="text" id="l_receiver_title" name="l_receiver_title" placeholder="ReceiverTitle">
-        <br><br>
-        <label for="l_sender_name">Sender Name : </label>
-        <input type="text" id="l_sender_name" name="l_sender_name" placeholder="SenderName">
-        <br><br>
-        <label for="l_sender_title">Sender Title : </label>
-        <input type="text" id="l_sender_title" name="l_sender_title" placeholder="SenderTitle">
-        <br><br>
+        <div class="row  mb-4">
+            <label class="col form-label" for="l_title">Title</label>
+            <input id="l_title" class="col form-control" type="text" name="l_title">
+        </div>
+
+        <div class="row  mb-4">
+            <label class="col form-label" for="l_letter_number">Letter Number</label>
+            <input id="l_letter_number" class="col form-control" type="text" name="l_letter_number">
+        </div>
+
+        <div class="row  mb-4">
+            <label class="col form-label" for="l_context">Context</label>
+            <input id="l_context" class="col form-control" type="text" name="l_context">
+        </div>
+
+        <div class="row  mb-4">
+            <label class="col form-label" for="l_receiver_name">Receiver Name</label>
+            <input id="l_receiver_name" class="col form-control" type="text" name="l_receiver_name">
+        </div>
+
+        <div class="row  mb-4">
+            <label class="col form-label" for="l_receiver_title">Receiver Title</label>
+            <input id="l_receiver_title" class="col form-control" type="text" name="l_receiver_title">
+        </div>
+
+        <div class="row  mb-4">
+            <label class="col form-label" for="l_sender_name">Sender Name</label>
+            <input id="l_sender_name" class="col form-control" type="text" name="l_sender_name">
+        </div>
+
+        <div class="row  mb-4">
+            <label class="col form-label" for="l_sender_title">Sender Title</label>
+            <input id="l_sender_title" class="col form-control" type="text" name="l_sender_title">
+        </div>
+
         <div class="mb-3">
             <label class="form-label" for="file">File</label>
             <input class="form-control" id="file" type="file" name="file">
@@ -36,56 +58,60 @@
         </div>
 
         <br><br><br>
-        <label for="">Select AccessLevel: </label>
-        <select name="accessLevel" id="">
+        <label for="accessLevel">Select AccessLevel: </label>
+        <select name="accessLevel" id="accessLevel">
             <c:forEach var="accessLevel" items="${sessionScope.accessLevels}">
                 <option value="${accessLevel}">${accessLevel}</option>
             </c:forEach>
         </select>
         <br><br><br>
-        <label for="">Select Transfer Method: </label>
-        <select name="transferMethod" id="">
+        <label for="transferMethod">Select Transfer Method: </label>
+        <select name="transferMethod" id="transferMethod">
             <c:forEach var="transferMethod" items="${sessionScope.transferMethods}">
                 <option value="${transferMethod}">${transferMethod}</option>
             </c:forEach>
         </select>
         <br><br><br>
-        <label for="">Select Letter Type: </label>
-        <select name="letterType" id="">
+        <label for="letterType">Select Letter Type: </label>
+        <select name="letterType" id="letterType">
             <c:forEach var="letterType" items="${sessionScope.letterTypes}">
                 <option value="${letterType}">${letterType}</option>
             </c:forEach>
         </select>
         <br><br><br>
 
-<%--        <label for="l_date">Date : </label>--%>
-<%--        <input type="text" id="l_date" name="l_date" placeholder="Date">--%>
-<%--        <br><br>--%>
-        <input type="submit" value="Save">
+        <label for="l_date">Date : </label>
+        <input type="text" id="l_date" name="l_date" placeholder="Date">
+        <br><br><br>
+        <div class="row mb-4">
+            <input type="submit" class="btn btn-primary" value="Save">
+        </div>
     </form>
-<br><br>
-<table class="table table-hover table-dark">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>title</th>
-<%--        <th>date</th>--%>
-        <th>receiverName</th>
-        <th>receiverTitle</th>
-        <th>senderName</th>
-        <th>senderTitle</th>
-        <th>context</th>
-        <th>file</th>
-<%--        <th>user</th>--%>
-        <th>operation</th>
-    </tr>
-    </thead>
+    </div>
+
+    <div id="org-table">
+        <table class="table table-hover table-dark">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>date</th>
+                <th>receiverName</th>
+                <th>receiverTitle</th>
+                <th>senderName</th>
+                <th>senderTitle</th>
+                <th>context</th>
+                <th>file</th>
+        <%--        <th>user</th>--%>
+                <th>operation</th>
+            </tr>
+        </thead>
     <tbody>
     <c:forEach var="letter" items="${sessionScope.letterList}">
         <tr>
             <td>${letter.id}</td>
             <td>${letter.title}</td>
-<%--            <td>${letter.date}</td>--%>
+            <td>${letter.date}</td>
             <td>${letter.receiverName}</td>
             <td>${letter.receiverTitle}</td>
             <td>${letter.senderName}</td>
@@ -94,43 +120,32 @@
             <td>${letter.image}</td>
 <%--            <td>${letter.user}</td>--%>
             <td>
-                <button onclick="edit(${letter.id})"><i class="fa fa-edit"></i> Edit</button>
-                <button onclick="remove(${letter.id})"><i class="fa fa-delete"></i>Remove</button>
+                <button class="btn btn-warning" onclick="edit(${letter.id})"><i class="fa fa-edit"></i>
+                    Edit
+                </button>
+                <button class="btn btn-danger" onclick="remove(${letter.id})"><i class="fa fa-remove"></i>
+                    Remove
+                </button>
             </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-
-
+    </div>
+</div>
 <jsp:include page="js-import.jsp"></jsp:include>
 
+    <script src="../assets/js/letter.js"></script>
+
+<script src="../assets/js/jquery-3.7.1.min.js"></script>
+<script src="../assets/js/kamadatepicker.holidays.js"></script>
+<script src="../assets/js/kamadatepicker.min.js"></script>
 <script>
-    function edit(id) {
-        alert(id);
-    }
+    let myElement = document.querySelector('#l_date');
+    kamaDatepicker(myElement);
 
-    function remove(id) {
-        fetch("/api/letter/" + id, {
-            method: "DELETE"
-        }).then(response => {
-            JSON.parse(response)
-        })
-            .then(data => {
-                alert(data);
-            })
-    }
+    kamaDatepicker('l_date', { buttonsColor: "red", forceFarsiDigits: true });
 </script>
-<%--<br><br><br>--%>
-<%--<script src="../assets/js/jquery-3.7.1.min.js"></script>--%>
-<%--<script src="../assets/js/kamadatepicker.holidays.js"></script>--%>
-<%--<script src="../assets/js/kamadatepicker.min.js"></script>--%>
-<%--<script>--%>
-<%--    let myElement = document.querySelector('#l_date');--%>
-<%--    kamaDatepicker(myElement);--%>
-
-<%--    kamaDatepicker('l_date', { buttonsColor: "red", forceFarsiDigits: true });--%>
-<%--</script>--%>
 
 </body>
 </html>
