@@ -13,9 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Path("stuffstorage")
 public class StuffStorageApi {
 
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
-
     @Inject
     private StuffStorageServiceImpl stuffStorageService;
     @GET

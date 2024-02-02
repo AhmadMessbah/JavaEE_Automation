@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Slf4j
 @Path("/financialDoc")
 public class FinancialDocServiceApi {
-    @PersistenceContext(unitName = "automation")
 
     @Inject
     private FinancialDocServiceImpl financialDocService;

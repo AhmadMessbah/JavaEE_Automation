@@ -10,8 +10,6 @@ import com.mftplus.automation.service.impl.StuffServiceImpl;
 import com.mftplus.automation.service.impl.StuffTransactionServiceImpl;
 import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -27,9 +25,6 @@ import java.util.Optional;
 public class StuffTransactionServlet extends HttpServlet {
 
 
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
-
     @Inject
     private StuffTransactionServiceImpl stuffTransactionService;
     @Inject
@@ -44,26 +39,28 @@ public class StuffTransactionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Stuff Transaction Servlet-post");
         try {
-            Optional<User> user=userService.findByUsername(req.getParameter("stuffTransactionUser"));
-            Optional<Section>section=sectionService.findByTitle(req.getParameter("stuffTransactionSection"));
-            Optional<Stuff>stuff=stuffService.findByName(req.getParameter("stuffTransactionStuff"));
-            StuffTransaction stuffTransaction=StuffTransaction
-                    .builder()
-                    .user(user.get())
-                    .section(section.get())
-                    .stuff(stuff.get())
-                    .transactionType(StuffTransactionType.valueOf(req.getParameter("stuffTransactionType")))
-                    .build();
-            stuffTransactionService.save(stuffTransaction);
-            log.info("Stuff Transaction Servlet-post");
+            Optional<User> user = userService.findByUsername(req.getParameter("stuffTransactionUser"));
+            Optional<Section> section = sectionService.findByTitle(req.getParameter("stuffTransactionSection"));
+            Optional<Stuff> stuff = stuffService.findByName(req.getParameter("stuffTransactionStuff"));
+            if (user.isPresent() && section.isPresent() && stuff.isPresent()) {
+                StuffTransaction stuffTransaction = StuffTransaction
+                        .builder()
+                        .user(user.get())
+                        .section(section.get())
+                        .stuff(stuff.get())
+                        .transactionType(StuffTransactionType.valueOf(req.getParameter("stuffTransactionType")))
+                        .build();
+                stuffTransactionService.save(stuffTransaction);
+                log.info("Stuff Transaction Servlet-post");
+            }
+
             req.getRequestDispatcher("/StuffTransaction.jsp").forward(req, resp);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
 
         }
     }
-
 
 
     @Override
@@ -71,34 +68,32 @@ public class StuffTransactionServlet extends HttpServlet {
         log.info("Stuff Transaction Servlet-put");
         try {
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
-
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Stuff Transaction Servlet-Get");
         try {
-            req.getRequestDispatcher("/jsp/StuffTransaction.jsp").forward(req,resp);
+            req.getRequestDispatcher("/jsp/StuffTransaction.jsp").forward(req, resp);
             // to do : chek shavad ke dorost ast ya kheir?;
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
 
-
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Stuff Transaction Servlet-delete");
-        try {
-
-        }catch (Exception e){
-
-        }
+//        try {
+//
+//        } catch (Exception e) {
+//
+//        }
     }
 }

@@ -17,8 +17,6 @@ import java.io.IOException;
 @Slf4j
 @WebServlet(name = "/bankServlet", urlPatterns = "/bank.do")
 public class BankServlet extends HttpServlet {
-    @PersistenceContext(unitName = "automation")
-
     @Inject
     private BankServiceImpl bankService;
 

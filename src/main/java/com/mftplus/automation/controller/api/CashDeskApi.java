@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Path("/cashDesk")
 public class CashDeskApi {
-    @PersistenceContext(unitName = "automation")
 
     @Inject
     private CashDeskServiceImp cashDeskService;

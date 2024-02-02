@@ -15,7 +15,6 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/organisation.do")
 @Slf4j
 public class OrganisationServlet extends HttpServlet {
-
     @Inject
     private OrganisationServiceImpl service;
 

@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 @Slf4j
 @WebServlet(name = "financialDocServlet", urlPatterns = "/financialDoc.do")
 public class FinancialDocServlet extends HttpServlet {
-    @PersistenceContext(unitName = "automation")
 
     @Inject
     private FinancialDocServiceImpl financialDocService;

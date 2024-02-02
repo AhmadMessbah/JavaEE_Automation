@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 @Slf4j
 @WebServlet(name = "/checkPaymentServlet", urlPatterns = "/checkPayment.do")
 public class CheckPaymentServlet extends HttpServlet {
-    @PersistenceContext(unitName = "automation")
 
     @Inject
     private CheckPaymentServiceImp checkPaymentService;

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Slf4j
 @Path("/checkTransaction")
 public class CheckPaymentApi {
-    @PersistenceContext(unitName = "automation")
 
     @Inject
     private CheckPaymentServiceImp checkPaymentService;

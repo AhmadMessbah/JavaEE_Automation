@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Path("/attach")
 public class AttachApi {
-    @PersistenceContext(unitName = "automation")
-    private EntityManager  entityManager;
 
     @Inject
     private AttachServiceImpl attachService;

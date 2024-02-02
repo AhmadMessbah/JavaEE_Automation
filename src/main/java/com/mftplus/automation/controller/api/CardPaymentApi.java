@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Path("/cardPayment")
 public class CardPaymentApi {
-    @PersistenceContext(unitName = "automation")
 
     @Inject
     private CardPaymentServiceImp cardPaymentService;

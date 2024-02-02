@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 @Slf4j
 @WebServlet(name = "cardPaymentServlet", urlPatterns = "/cardPayment.do")
 public class CardPaymentServlet extends HttpServlet {
-    @PersistenceContext(unitName = "automation")
 
     @Inject
     private CardPaymentServiceImp cardPaymentService;

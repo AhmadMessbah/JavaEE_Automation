@@ -2,8 +2,6 @@ package com.mftplus.automation.controller.api;
 import com.mftplus.automation.model.Stuff;
 import com.mftplus.automation.service.impl.StuffServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -12,10 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Path("/stuff")
 public class StuffApi {
-
-
-    @PersistenceContext(unitName ="automation")
-    private EntityManager entityManager;
 
     @Inject
     private StuffServiceImpl stuffService;

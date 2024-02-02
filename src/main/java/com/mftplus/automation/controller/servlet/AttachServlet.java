@@ -17,9 +17,6 @@ import java.io.IOException;
 @Slf4j
 @WebServlet(name = "attachServlet", urlPatterns = "/attach.do")
 public class AttachServlet extends HttpServlet {
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
-
     @Inject
     private AttachServiceImpl attachService;
 

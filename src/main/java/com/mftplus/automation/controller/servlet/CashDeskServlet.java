@@ -4,6 +4,7 @@ import com.mftplus.automation.model.CashDesk;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.service.impl.CashDeskServiceImp;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,8 +18,6 @@ import java.io.IOException;
 @Slf4j
 @WebServlet(name = "/CashDeskServlet", urlPatterns = "/CashDesk.do")
 public class CashDeskServlet extends HttpServlet {
-    @PersistenceContext(unitName = "automation")
-
     @Inject
     private CashDeskServiceImp cashDeskService;
 

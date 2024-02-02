@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Path("/person")
 public class PersonApi {
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
 
     @Inject
     private PersonServiceImpl personService;

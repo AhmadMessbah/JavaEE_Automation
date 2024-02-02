@@ -1,21 +1,17 @@
 package com.mftplus.automation.controller.api;
+
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
-import jakarta.persistence.PersistenceContext;
 
 
 @Slf4j
 @Path("/user")
 public class UserApi {
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
-
     @Inject
     private UserServiceImpl userService;
 
@@ -31,9 +27,10 @@ public class UserApi {
             return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAll() throws Exception{
+    public Response findAll() throws Exception {
         try {
             return Response.ok().entity(userService.findAll()).build();
         } catch (Exception e) {
@@ -44,18 +41,19 @@ public class UserApi {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findById(@PathParam("id") Long id) throws Exception{
+    public Response findById(@PathParam("id") Long id) throws Exception {
         try {
             return Response.ok().entity(userService.findById(id)).build();
         } catch (Exception e) {
             return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
+
     @GET
     @Path("/findByUsername/{username}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByUsername(@PathParam("username") String name){
+    public Response findByUsername(@PathParam("username") String name) {
         try {
             return Response.ok().entity(userService.findByUsername(String.valueOf(name))).build();
         } catch (Exception e) {
@@ -63,11 +61,10 @@ public class UserApi {
         }
     }
 
-
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(User user) throws Exception{
+    public Response edit(User user) throws Exception {
         try {
             userService.edit(user);
             return Response.ok().entity(user).build();

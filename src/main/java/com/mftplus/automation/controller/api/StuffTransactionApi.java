@@ -15,9 +15,6 @@ import java.util.Map;
 @Path("stuffTransaction")
 public class StuffTransactionApi {
 
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
-
     @Inject
     private StuffTransactionServiceImpl stuffTransactionService;
 

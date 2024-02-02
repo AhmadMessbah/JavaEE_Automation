@@ -17,8 +17,7 @@ import java.io.IOException;
 @Slf4j
 @WebServlet(name = "StuffStorageServlet", urlPatterns = "/stuffStorage.do")
 public class StuffStorageServlet extends HttpServlet {
-    @PersistenceContext(unitName = "automation")
-    private EntityManager entityManager;
+
     @Inject
     private StuffStorageServiceImpl stuffStorageService;
     //--------------------------------------------------------------------------------------------------------------//

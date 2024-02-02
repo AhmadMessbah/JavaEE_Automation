@@ -24,8 +24,6 @@ import java.io.IOException;
         maxRequestSize = 1024 * 1024 * 100   // 100 MB
 )
 public class PersonServlet extends HttpServlet {
-    @PersistenceContext(unitName="automation")
-    private EntityManager entityManager;
     @Inject
     private PersonServiceImpl personService;
 
