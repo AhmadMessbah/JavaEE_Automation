@@ -25,7 +25,7 @@ public class LetterServiceImpl implements LetterService, Serializable {
     @Transactional
     @Override
     public void save(Letter letter) throws Exception {
-        System.out.println(letter);
+        log.info(letter.toString());
         entityManager.persist(letter);
     }
 

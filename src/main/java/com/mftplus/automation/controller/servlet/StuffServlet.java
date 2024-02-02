@@ -19,7 +19,18 @@ public class StuffServlet extends HttpServlet {
     private StuffServiceImpl stuffService;
     @Inject
     private Stuff stuff;
-    //--------------------------------------------------------------------------------------------------------------//
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getSession().setAttribute("StuffList",stuffService.findAll());
+            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
+            log.info("Stuff - Servlet-Get");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -39,7 +50,7 @@ public class StuffServlet extends HttpServlet {
             req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
         }
     }
-    //--------------------------------------------------------------------------------------------------------------//
+
 //    @Override
 //    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        String stuffId=req.getParameter("id");
@@ -84,18 +95,7 @@ public class StuffServlet extends HttpServlet {
             log.error(e.getMessage());
         }
     }
-    //--------------------------------------------------------------------------------------------------------------//
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            req.getSession().setAttribute("StuffList",stuffService.findAll());
-            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
-            log.info("Stuff - Servlet-Get");
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-    }
-    //--------------------------------------------------------------------------------------------------------------//
+
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String stuffId=req.getParameter("id");
@@ -110,5 +110,5 @@ public class StuffServlet extends HttpServlet {
         }
     }
 }
-//--------------------------------------------------------------------------------------------------------------//
+
 

@@ -14,11 +14,6 @@
 <br><br>
 <a href="user.do">Users</a>
 
-<h1>Salam</h1>
-
-<c:forEach var="i" begin="1" end="5">
-  <h1>${i}</h1>
-</c:forEach>
 <br>
 </body>
 </html>

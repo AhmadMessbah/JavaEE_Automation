@@ -1,9 +1,7 @@
 package com.mftplus.automation;
 
-import com.mftplus.automation.model.Organisation;
-import com.mftplus.automation.model.Person;
-import com.mftplus.automation.model.Section;
-import com.mftplus.automation.model.User;
+import com.mftplus.automation.model.*;
+import com.mftplus.automation.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -121,5 +119,9 @@ public class Main {
 //        profileService.save(edariManagerProfile);
 //        profileService.save(maliManagerProfile);
 
+
+//        UserServiceImpl userService;
+//        FinancialTransaction transaction = FinancialTransaction.builder()
+//                .user(userService.findById(700))
     }
 }

@@ -3,7 +3,8 @@
 <html>
 <head>
     <title>Person</title>
-    <jsp:include page=""></jsp:include>
+    <jsp:include page="css-import.jsp"></jsp:include>
+    <link rel="stylesheet" href="../assets/css/person.css">
 
 
     <style>
@@ -73,21 +74,30 @@
 </table>
 
 <jsp:include page="js-import.jsp"></jsp:include>
+<script src="../assets/js/person.js"></script>
 
 <script>
     function edit(id) {
         alert(id);
     }
 
+    async function findAll(){
+        await fetch()
+            .then()
+            .then()
+
+
+       const response =  await fetch();
+
+       const json = await JSON.parse(response.json());
+
+
+    }
+
     function remove(id) {
         fetch("/api/person/" + id, {
             method: "DELETE"
-        }).then(response => {
-            JSON.parse(response)
-        })
-            .then(data => {
-                alert(data);
-            })
+        });
     }
 </script>
 </body>
