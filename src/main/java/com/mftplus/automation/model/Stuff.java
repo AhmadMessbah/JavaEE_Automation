@@ -1,5 +1,6 @@
 package com.mftplus.automation.model;
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.io.Serializable;
 
 @Entity(name = "stuffEntity")
 @Table(name = "stuff_tbl")
+@RequestScoped
 public class Stuff implements Serializable {
     @Id
     @SequenceGenerator(name = "stuffSeq", sequenceName = "stuff_seq")

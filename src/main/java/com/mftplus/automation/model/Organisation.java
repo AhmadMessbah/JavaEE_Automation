@@ -1,6 +1,7 @@
 package com.mftplus.automation.model;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Entity(name = "organisationEntity")
 @Table(name = "organisation_tbl")
-@ApplicationScoped
+@RequestScoped
 public class Organisation extends Base {
     @Id
     @SequenceGenerator(name = "organisationSeq", sequenceName = "organisation_seq")

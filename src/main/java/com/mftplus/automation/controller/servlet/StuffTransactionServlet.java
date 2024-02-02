@@ -66,11 +66,11 @@ public class StuffTransactionServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Stuff Transaction Servlet-put");
-        try {
-
-        } catch (Exception e) {
-
-        }
+//        try {
+//
+//        } catch (Exception e) {
+//
+//        }
     }
 
 
@@ -79,7 +79,7 @@ public class StuffTransactionServlet extends HttpServlet {
         log.info("Stuff Transaction Servlet-Get");
         try {
             req.getRequestDispatcher("/jsp/StuffTransaction.jsp").forward(req, resp);
-            // to do : chek shavad ke dorost ast ya kheir?;
+
 
         } catch (Exception e) {
 
@@ -90,10 +90,12 @@ public class StuffTransactionServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Stuff Transaction Servlet-delete");
-//        try {
-//
-//        } catch (Exception e) {
-//
-//        }
-    }
+        try {
+
+        } catch (Exception e) {
+
+        }
+
+        }
+
 }

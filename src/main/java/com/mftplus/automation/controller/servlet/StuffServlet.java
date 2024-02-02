@@ -47,7 +47,7 @@ public class StuffServlet extends HttpServlet {
         } catch (Exception e) {
             log.info("StuffServlet - Error Save Stuff");
             req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
         }
     }
 
@@ -88,7 +88,7 @@ public class StuffServlet extends HttpServlet {
                     .build();
             stuffService.edit(stuff);
             log.info("StuffServlet - Stuff Edit");
-            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
 
             log.info("StuffServlet - Put");
         } catch (Exception e) {

@@ -10,7 +10,7 @@ import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 
-@WebServlet(name = "FileUploadServlet", urlPatterns = { "/fileuploadservlet" })
+@WebServlet(name = "FileUploadServlet", urlPatterns = { "/fileUpload.do" })
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
         maxFileSize = 1024 * 1024 * 10,      // 10 MB
