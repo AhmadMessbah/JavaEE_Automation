@@ -1,14 +1,14 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Bank</title>
-    <style>
-        .error {
-            display: none;
-            color: red;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <jsp:include page="css-import.jsp"></jsp:include>
+    <link rel="stylesheet" href="../assets/css/bank.css">
 </head>
 <body>
 
@@ -85,22 +85,6 @@
 </table>
 
 <jsp:include page="js-import.jsp"></jsp:include>
-
-<script>
-    function edit(id) {
-        alert(id);
-    }
-
-    function remove(id) {
-        fetch("/api/bank/" + id, {
-            method: "DELETE"
-        }).then(response => {
-            JSON.parse(response)
-        })
-            .then(data => {
-                alert(data);
-            })
-    }
-</script>
+<script src="../assets/js/bank.js"></script>
 </body>
 </html>

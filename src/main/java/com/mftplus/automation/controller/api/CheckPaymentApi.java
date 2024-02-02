@@ -3,7 +3,6 @@ package com.mftplus.automation.controller.api;
 import com.mftplus.automation.model.CheckPayment;
 import com.mftplus.automation.service.impl.CheckPaymentServiceImp;
 import jakarta.inject.Inject;
-import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

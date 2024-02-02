@@ -8,7 +8,6 @@ import com.mftplus.automation.model.enums.FinancialTransactionType;
 import com.mftplus.automation.model.enums.PaymentType;
 import com.mftplus.automation.service.impl.FinancialDocServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -102,6 +101,17 @@ public class FinancialDocServlet extends HttpServlet {
             log.info("FinancialDocServlet - Error Save FinancialDoc");
             req.getSession().setAttribute("error", e.getMessage());
             req.getRequestDispatcher("/jsp/financialDoc.jsp").forward(req, resp);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getSession().setAttribute("financialDocList", financialDocService.findAll());
+            req.getRequestDispatcher("/jsp/financialDoc.jsp").forward(req, resp);
+            financialDocService.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

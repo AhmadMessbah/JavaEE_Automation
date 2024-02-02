@@ -5,7 +5,6 @@ import com.mftplus.automation.model.enums.FinancialTransactionType;
 import com.mftplus.automation.model.enums.PaymentType;
 import com.mftplus.automation.service.impl.CheckPaymentServiceImp;
 import jakarta.inject.Inject;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -115,6 +114,17 @@ public class CheckPaymentServlet extends HttpServlet {
             log.info("CheckPaymentServlet - Error Save CheckPayment");
             req.getSession().setAttribute("error", e.getMessage());
             req.getRequestDispatcher("/jsp/checkPayment.jsp").forward(req, resp);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getSession().setAttribute("checkPaymentList", checkPaymentService.findAll());
+            req.getRequestDispatcher("/jsp/checkPayment.jsp").forward(req, resp);
+            checkPaymentService.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -5,7 +5,6 @@ import com.mftplus.automation.model.enums.FinancialTransactionType;
 import com.mftplus.automation.model.enums.PaymentType;
 import com.mftplus.automation.service.impl.CardPaymentServiceImp;
 import jakarta.inject.Inject;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -119,6 +118,18 @@ public class CardPaymentServlet extends HttpServlet {
             log.info("CardPaymentServlet - Error Save CardPayment");
             req.getSession().setAttribute("error", e.getMessage());
             req.getRequestDispatcher("/jsp/CardPayment.jsp").forward(req, resp);
+        }
+    }
+
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getSession().setAttribute("cardPaymentList", cardPaymentService.findAll());
+            req.getRequestDispatcher("/jsp/cardPayment.jsp").forward(req, resp);
+            cardPaymentService.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

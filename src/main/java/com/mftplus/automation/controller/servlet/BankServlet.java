@@ -4,7 +4,6 @@ import com.mftplus.automation.model.Bank;
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.service.impl.BankServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -62,6 +61,17 @@ public class BankServlet extends HttpServlet {
             log.info("BankServlet - Error Save Bank");
             req.getSession().setAttribute("error", e.getMessage());
             req.getRequestDispatcher("/jsp/bank.jsp").forward(req, resp);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getSession().setAttribute("bankList", bankService.findAll());
+            req.getRequestDispatcher("/jsp/bank.jsp").forward(req, resp);
+            bankService.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
