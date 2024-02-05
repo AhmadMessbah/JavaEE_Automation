@@ -37,27 +37,8 @@ public class StuffServlet extends HttpServlet {
         }
     }
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        try {
-//            Stuff stuff = Stuff
-//                    .builder()
-//                    .name(req.getParameter("name"))
-//                    .brand(req.getParameter("brand"))
-//                    .model(req.getParameter("model"))
-//                    .price(Long.valueOf(req.getParameter("price")))
-////                    .section(sectionService.findByTitle(req.getParameter("section-title")).get())
-//                    .build();
-//            System.out.println("Stuff Post");
-//            stuffService.save(stuff);
-//            log.info("StuffServlet - Stuff Saved");
-//            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
-//        } catch (Exception e) {
-//            log.info("StuffServlet - Error Save Stuff : " + e.getMessage());
-//            req.getSession().setAttribute("error", e.getMessage());
-//            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
-//        }
-//    }
+
+
 
 //    @Override
 //    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -83,31 +64,31 @@ public class StuffServlet extends HttpServlet {
 //        }
 //    }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name=req.getParameter("name");
-        String brand=req.getParameter("brand");
-        String model=req.getParameter("model");
-        long price= Long.parseLong(req.getParameter("price"));
-        try {
-            Stuff stuff = Stuff
-                    .builder()
-                    .name(name)
-                    .brand(brand)
-                    .model(model)
-                    .price(price)
-                    .section(sectionService.findByTitle(req.getParameter("section-title")).get())
-                    .build();
-            System.out.println("Stuff Post");
-            stuffService.save(stuff);
-            log.info("StuffServlet - Stuff Saved");
-            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
-        } catch (Exception e) {
-            log.info("StuffServlet - Error Save Stuff : " + e.getMessage());
-            req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
-        }
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String name=req.getParameter("name");
+//        String brand=req.getParameter("brand");
+//        String model=req.getParameter("model");
+//        long price= Long.parseLong(req.getParameter("price"));
+//        try {
+//            Stuff stuff = Stuff
+//                    .builder()
+//                    .name(name)
+//                    .brand(brand)
+//                    .model(model)
+//                    .price(price)
+//                    .section(sectionService.findByTitle(req.getParameter("section")).get(   ))
+//                    .build();
+//            System.out.println("Stuff Post");
+//            stuffService.save(stuff);
+//            log.info("StuffServlet - Stuff Saved");
+//            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
+//        } catch (Exception e) {
+//            log.info("StuffServlet - Error Save Stuff : " + e.getMessage());
+//            req.getSession().setAttribute("error", e.getMessage());
+//            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
+//        }
+//    }
 
 
 

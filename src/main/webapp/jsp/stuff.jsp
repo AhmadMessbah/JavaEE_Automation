@@ -22,11 +22,11 @@
 <div class="container-fluid">
     <div id="org-form">
     <form id="stuff-form" action="stuff.do" method="post" enctype="multipart/form-data">
-        <div class="row mb-5">
-            <label for="name">Section Name</label>
-            <select name="section-title" id="section-title">
+        <div class="row mb-3">
+            <label for="section">Section Name</label>
+            <select name="section" id="section">
                 <c:forEach var="section" items="${sessionScope.sectionList}">
-                    <option value="${section}">${section}</option>
+                    <option value="${section.title}">${section.title}</option>
                 </c:forEach>
             </select>
         </div>
