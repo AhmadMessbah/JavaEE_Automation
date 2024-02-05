@@ -3,44 +3,53 @@
 <html>
 <head>
     <title>User</title>
-    <jsp:include page=""></jsp:include>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <jsp:include page="css-import.jsp"></jsp:include>
+    <link rel="stylesheet" href="../assets/css/user.css">
+
 </head>
 <body>
+<div class="container-fluid">
+    <div id="org-form">
+<%--    <label for="">select role: </label><select name="role" id="">--%>
+<%--    <c:forEach var="role" items="role">--%>
+<%--    <option value="${role}"></option>--%>
+<%--        </c:forEach>--%>
+<%--</select> --%>
+<form id="user_form" action="user.do" method="post">
+    <div class="row  mb-4">
+        <label class="col form-label" for="username">Username : </label>
+        <input id="username" class="col form-label" type="text" name="username">
+    </div>
 
-<label for="">select role: </label><select name="role" id="">
-    <c:forEach var="role" items="role">
-        <option value="${role}"></option>
-    </c:forEach>
-</select>
+    <div class="row  mb-4">
+        <label class="col form-label" for="password">Password : </label>
+        <input id="password" class="col form-label" type="password" name="password">
+    </div>
 
-<form action="user.do" method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="username">Username</label>
-        <input id="username" type="text" name="username">
+<%--    <div class="row  mb-4">--%>
+<%--        <label class="col form-label" for="file">File</label>--%>
+<%--        <input class="col form-label" id="file" type="file" name="file">--%>
+<%--        <div id="file-msg error">${sessionScope.error}</div>--%>
+<%--    </div>--%>
+
+    <div class="row mb-4">
+        <input type="submit" class="btn btn-primary" value="Save">
     </div>
-    <div class="mb-3">
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password">
-    </div>
-    <div class="mb-3">
-        <label for="nationalCode">NationalCode</label>
-        <input id="nationalCode" type="text" name="nationalCode">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="file">File</label>
-        <input class="form-control" id="file" type="file" name="file">
-        <div id="file-msg error">${sessionScope.error}</div>
-    </div>
-    <input type="submit" value="Save">
 </form>
+</div>
 
-<table class="table table-hover table-dark">
+<div id="org-table">
+    <table class="table table-hover table-primary">
     <thead>
     <tr>
         <th>id</th>
         <th>username</th>
         <th>password</th>
-        <th>nationalCode</th>
+        <th>operation</th>
     </tr>
     </thead>
     <tbody>
@@ -49,34 +58,17 @@
             <td>${user.id}</td>
             <td>${user.username}</td>
             <td>${user.password}</td>
-            <td>${user.nationalCode}</td>
-
             <td>
-                <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
+                <button class="btn btn-warning" onclick="edit(${user.id})"><i class="fa fa-edit"></i>Edit</button>
+                <button class="btn btn-danger" onclick="remove(${user.id})"><i class="fa fa-remove"></i>Remove</button>
             </td>
         </tr>
     </c:forEach>
     </tbody>
-</table>
+ </table>
+</div>
 
 <jsp:include page="js-import.jsp"></jsp:include>
-
-<script>
-    function edit(id) {
-        alert(id);
-    }
-
-    function remove(id) {
-        fetch("/api/person/" + id, {
-            method: "DELETE"
-        }).then(response => {
-            JSON.parse(response)
-        })
-            .then(data => {
-                alert(data);
-            })
-    }
-</script>
+<script src="../assets/js/user.js"></script>
 </body>
 </html>
