@@ -22,27 +22,27 @@
     <div id="org-form">
     <form action="stuffTransaction.do" method="post">
 
-        <div class="row mb-5">
+        <div class="row mb-3">
             <lable for="id">StuffTransactionId</lable>
             <input type="text" id="id" name="id" placeholder="StuffTransactionId">
         </div>
 
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="user">stuffTransactionUser</label>
             <input type="text" name="user" id="user" placeholder="StuffTransactionUser">
         </div>
 
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="section">stuffTransactionSection</label>
             <input type="text" name="section" id="section" placeholder="stuffTransactionSection">
         </div>
 
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="stuff">stuffTransactionStuff</label>
             <input type="text" name="stuff" id="stuff" placeholder="stuffTransactionStuff">
         </div>
 
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="type">stuffTransactionType</label>
             <input type="text" name="type" id="type" placeholder="stuffTransactionType">
             <div id="file-msg error">${sessionScope.error}</div>

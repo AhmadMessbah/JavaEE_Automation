@@ -22,11 +22,11 @@
 <div class="container-fluid">
     <div id="org-form">
     <form id="stuffStorage-form" action="stuffStorage.do" method="post" enctype="multipart/form-data">
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="name">Stuff Storage Name</label>
             <input  type="text" id="name" name="name" placeholder="Stuff Storage Name">
         </div>
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="count">Stuff Storage Count</label>
             <input type="text" id="count" name="count" placeholder="Stuff Storage Count ">
         </div>

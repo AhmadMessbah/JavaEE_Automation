@@ -31,33 +31,33 @@
             </select>
         </div>
 
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="name">Stuff Name</label>
             <input type="text" id="name" name="name" placeholder="StuffName">
         </div>
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="brand">Stuff Brand</label>
             <input type="text" id="brand" name="brand" placeholder="StuffBrand">
         </div>
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="price">Stuff Price</label>
             <input type="text" id="price" name="price" placeholder="StuffPrice">
         </div>
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="model">Stuff Model</label>
             <input type="text" id="model" name="model" placeholder="StuffModel">
         </div>
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="status">Stuff Status</label>
             <input type="text" id="status" name="status" placeholder="StuffStatus">
         </div>
-        <div class="row md-5">
+        <div class="row md-3">
             <label class="form-label" for="file">File</label>
             <input class="form-control" id="file" type="file" name="file">
             <div id="file-msg error">${sessionScope.error}</div>
         </div>
         <br><br>
-        <div class="row mb-4">
+        <div class="row mb-3">
             <input type="submit" class="btn btn-primary" value="Save">
         </div>
     </form>
