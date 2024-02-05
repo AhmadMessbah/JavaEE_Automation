@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -59,42 +58,37 @@ public class StuffTransactionServlet extends HttpServlet {
         }
     }
 
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Stuff Transaction Servlet-put");
-        try {
-
-        }
-        catch (Exception e) {
-
-        }
-    }
-
+//    @Override
+//    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        log.info("Stuff Transaction Servlet-put");
+//        try {
+//
+//        }
+//        catch (Exception e) {
+//
+//        }
+//    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Stuff Transaction Servlet-Get");
         try {
             req.getRequestDispatcher("/jsp/stuffTransaction.jsp").forward(req, resp);
-
-
         }
         catch (Exception e) {
             log.error(e.getMessage());
         }
     }
 
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Stuff Transaction Servlet-delete");
-        try {
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-
-        }
+//    @Override
+//    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        log.info("Stuff Transaction Servlet-delete");
+//        try {
+//
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
+//
+//        }
 
 }

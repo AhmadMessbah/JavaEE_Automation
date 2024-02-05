@@ -1,7 +1,6 @@
 package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.Stuff;
-import com.mftplus.automation.service.SectionService;
 import com.mftplus.automation.service.impl.SectionServiceImpl;
 import com.mftplus.automation.service.impl.StuffServiceImpl;
 import jakarta.inject.Inject;
@@ -49,7 +48,7 @@ public class StuffServlet extends HttpServlet {
                     .price(Long.valueOf(req.getParameter("price")))
                     .section(sectionService.findByTitle(req.getParameter("section-title")).get())
                     .build();
-            System.out.println("rrrr");
+            System.out.println("Stuff Post");
             stuffService.save(stuff);
             log.info("StuffServlet - Stuff Saved");
             req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
@@ -83,7 +82,7 @@ public class StuffServlet extends HttpServlet {
 //            log.error(e.getMessage());
 //        }
 //    }
-    //--------------------------------------------------------------------------------------------------------------////--------------------------------------------------------------------------------------------------------------//
+
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
