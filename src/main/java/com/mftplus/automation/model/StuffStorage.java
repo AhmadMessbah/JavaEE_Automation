@@ -1,6 +1,4 @@
 package com.mftplus.automation.model;
-
-
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,11 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
-
 
 @NoArgsConstructor
 @Getter
@@ -37,9 +30,7 @@ public class StuffStorage {
 
     @Column(name = "ss_count", length = 20, nullable = false)
     private int count;
-
-
-
+    
 
 }
 

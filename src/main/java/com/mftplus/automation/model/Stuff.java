@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-
 import java.io.Serializable;
 
 @NoArgsConstructor
@@ -40,7 +39,6 @@ public class Stuff implements Serializable {
 
     @Column(name = "stuff_status", length = 20)
     private String status;
-
 
 
     @ManyToOne(cascade = CascadeType.ALL)

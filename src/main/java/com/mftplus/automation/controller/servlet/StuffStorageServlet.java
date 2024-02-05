@@ -1,5 +1,4 @@
 package com.mftplus.automation.controller.servlet;
-
 import com.mftplus.automation.model.StuffStorage;
 import com.mftplus.automation.service.impl.StuffStorageServiceImpl;
 import jakarta.inject.Inject;

@@ -1,5 +1,4 @@
 package com.mftplus.automation.model;
-
 import com.mftplus.automation.model.enums.StuffTransactionType;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
@@ -8,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor

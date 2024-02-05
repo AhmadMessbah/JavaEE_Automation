@@ -1,5 +1,4 @@
 package com.mftplus.automation.controller.servlet;
-
 import com.mftplus.automation.model.Section;
 import com.mftplus.automation.model.Stuff;
 import com.mftplus.automation.model.StuffTransaction;
