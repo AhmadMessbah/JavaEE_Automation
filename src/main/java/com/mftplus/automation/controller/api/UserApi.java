@@ -29,6 +29,7 @@ public class UserApi {
     }
 
     @GET
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() throws Exception {
         try {
@@ -40,6 +41,7 @@ public class UserApi {
 
     @GET
     @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") Long id) throws Exception {
         try {

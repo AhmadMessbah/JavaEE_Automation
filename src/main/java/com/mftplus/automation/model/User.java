@@ -22,7 +22,9 @@ import lombok.experimental.SuperBuilder;
 @RequestScoped
 public class User extends Base{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "userSeq", sequenceName = "user_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
+    @Column(name = "id", nullable = false)
     private long id;
 
     @Pattern(regexp = "^[a-zA-Z\\s]{5,15}$", message = "Invalid Username")
@@ -33,13 +35,11 @@ public class User extends Base{
     @Column(name = "u_pass", length = 20)
     private String password;
 
-
     @OneToOne(cascade = CascadeType.ALL)
     private Person person;
 
     @ManyToOne
     private Section section;
-
 
     @Column(name="u_active")
     private boolean active;

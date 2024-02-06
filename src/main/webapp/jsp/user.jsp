@@ -14,27 +14,24 @@
 <body>
 <div class="container-fluid">
     <div id="org-form">
-<%--    <label for="">select role: </label><select name="role" id="">--%>
-<%--    <c:forEach var="role" items="role">--%>
-<%--    <option value="${role}"></option>--%>
-<%--        </c:forEach>--%>
-<%--</select> --%>
-<form id="user_form" action="user.do" method="post">
+<form id="user_form" action="user.do" method="post" enctype="multipart/form-data">
     <div class="row  mb-4">
-        <label class="col form-label" for="username">Username : </label>
+        <label class="col form-label" for="username">Username: </label>
         <input id="username" class="col form-label" type="text" name="username">
     </div>
 
     <div class="row  mb-4">
-        <label class="col form-label" for="password">Password : </label>
+        <label class="col form-label" for="password">Password: </label>
         <input id="password" class="col form-label" type="password" name="password">
     </div>
 
-<%--    <div class="row  mb-4">--%>
-<%--        <label class="col form-label" for="file">File</label>--%>
-<%--        <input class="col form-label" id="file" type="file" name="file">--%>
-<%--        <div id="file-msg error">${sessionScope.error}</div>--%>
-<%--    </div>--%>
+    <label for="role">Select Role: </label>
+    <select name="role" id="role">
+        <c:forEach var="role" items="${sessionScope.roles}">
+            <option value="${role}">${role}</option>
+        </c:forEach>
+    </select>
+    <br><br>
 
     <div class="row mb-4">
         <input type="submit" class="btn btn-primary" value="Save">
@@ -49,6 +46,7 @@
         <th>id</th>
         <th>username</th>
         <th>password</th>
+        <th>role</th>
         <th>operation</th>
     </tr>
     </thead>
@@ -58,6 +56,7 @@
             <td>${user.id}</td>
             <td>${user.username}</td>
             <td>${user.password}</td>
+            <td>${user.role}</td>
             <td>
                 <button class="btn btn-warning" onclick="edit(${user.id})"><i class="fa fa-edit"></i>Edit</button>
                 <button class="btn btn-danger" onclick="remove(${user.id})"><i class="fa fa-remove"></i>Remove</button>
