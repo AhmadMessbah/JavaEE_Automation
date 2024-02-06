@@ -3,8 +3,6 @@ import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.Role;
 import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,13 +11,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Slf4j
 @WebServlet(name = "UserServlet" , urlPatterns = "/user.do")
 
 public class UserServlet extends HttpServlet {
-    @PersistenceContext(unitName="automation")
-    private EntityManager entityManager;
+
     @Inject
     private UserServiceImpl userService;
     @Inject
@@ -32,13 +30,13 @@ public class UserServlet extends HttpServlet {
             String password = req.getParameter("password");
             String role = req.getParameter("role");
 
-           user = User.
-                builder().
-                username(username).
-                password(password).
-                role(Role.valueOf(role)).
-                deleted(false).
-                build();
+           user = User
+                   .builder()
+                   .username(username)
+                   .password(password)
+                   .role(Role.valueOf(role))
+                   .deleted(false)
+                   .build();
 
 
             userService.save(user);
@@ -52,16 +50,13 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
- /*       try {          req.getParameter("role");
-            //todo : sample of enum to combo
-            req.getSession().setAttribute("roles", Arrays.asList(FinancialDocType.values()));
-
+        try {
+            req.getSession().setAttribute("roles", Arrays.asList(Role.values()));
             req.getRequestDispatcher("/jsp/user.jsp").forward(req,resp);
-
-
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }*/
+        }
+
         try {
             req.getSession().setAttribute("userList", userService.findAll());
             req.getRequestDispatcher("/jsp/user.jsp").forward(req, resp);
@@ -70,7 +65,6 @@ public class UserServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

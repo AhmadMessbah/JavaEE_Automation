@@ -88,12 +88,14 @@ public class UserServiceImpl implements UserService, Serializable {
         TypedQuery<User> query = entityManager.createQuery("select u from userEntity u", User.class);
         return query.getResultList();
     }
+
     @Transactional
     @Override
     public List<User> findBySection(Section section) throws Exception {
         TypedQuery<User> query = entityManager.createQuery("select u from userEntity u", User.class);
         return query.getResultList();
     }
+
     @Transactional
     @Override
     public List<User> findByActive(Boolean section) throws Exception {
