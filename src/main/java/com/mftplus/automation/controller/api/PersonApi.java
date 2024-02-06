@@ -2,8 +2,6 @@ package com.mftplus.automation.controller.api;
 import com.mftplus.automation.model.Person;
 import com.mftplus.automation.service.impl.PersonServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -27,7 +25,9 @@ public class PersonApi {
             return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
+
     @GET
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() throws Exception {
         try {
@@ -39,6 +39,7 @@ public class PersonApi {
 
     @GET
     @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") Long id) throws Exception {
         try {
@@ -47,6 +48,7 @@ public class PersonApi {
             return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
+
     @GET
     @Path("/findByName/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -73,6 +75,7 @@ public class PersonApi {
 
     @DELETE
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response remove(@PathParam("id") Long id) throws Exception {
         log.info("Person Delete api : " + id);
         try {

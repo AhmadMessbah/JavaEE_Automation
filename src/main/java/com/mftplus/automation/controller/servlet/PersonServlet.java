@@ -1,6 +1,7 @@
 package com.mftplus.automation.controller.servlet;
 import com.mftplus.automation.model.Person;
 import com.mftplus.automation.model.enums.Gender;
+import com.mftplus.automation.model.enums.Role;
 import com.mftplus.automation.service.impl.PersonServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -15,14 +16,15 @@ import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Slf4j
 @WebServlet(urlPatterns = "/person.do")
-@MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-        maxFileSize = 1024 * 1024 * 10,      // 10 MB
-        maxRequestSize = 1024 * 1024 * 100   // 100 MB
-)
+//@MultipartConfig(
+//        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+//        maxFileSize = 1024 * 1024 * 10,      // 10 MB
+//        maxRequestSize = 1024 * 1024 * 100   // 100 MB
+//)
 public class PersonServlet extends HttpServlet {
     @Inject
     private PersonServiceImpl personService;
@@ -61,19 +63,16 @@ public class PersonServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-  /*      try {
-            req.getParameter("gender");
-            //todo : sample of enum to combo
-            req.getSession().setAttribute("genders", Arrays.asList(FinancialDocType.values()));
-
+        try {
+            req.getSession().setAttribute("genders", Arrays.asList(Role.values()));
             req.getRequestDispatcher("/jsp/person.jsp").forward(req,resp);
-
-
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }*/
+        }
+
         try {
             req.getSession().setAttribute("personList", personService.findAll());
             req.getRequestDispatcher("/jsp/person.jsp").forward(req, resp);
@@ -82,7 +81,6 @@ public class PersonServlet extends HttpServlet {
             log.error(e.getMessage());
         }
     }
-
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

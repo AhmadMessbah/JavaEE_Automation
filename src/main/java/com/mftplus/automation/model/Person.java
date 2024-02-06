@@ -22,7 +22,8 @@ import lombok.experimental.SuperBuilder;
 public class Person extends Base{
     @Id
     @SequenceGenerator(name = "personSeq", sequenceName = "person_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personSeq")
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$", message = "Invalid Name")
@@ -33,10 +34,8 @@ public class Person extends Base{
     @Column(name = "p_family", length = 30)
     private String family;
 
-
     @Column(name = "p_nationalCode", length = 10)
     private String nationalCode;
-
 
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
