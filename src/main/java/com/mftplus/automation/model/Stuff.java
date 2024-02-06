@@ -31,7 +31,7 @@ public class Stuff implements Serializable {
     private String brand;
 
     @Column(name = "stuff_price", length = 20)
-    private Long price;
+    private String price;
 
     @Column(name = "stuff_model", length = 20)
     private String model;

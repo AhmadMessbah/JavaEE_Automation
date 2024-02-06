@@ -9,10 +9,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 
+import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @WebServlet(name = "stuff", urlPatterns = "/stuff.do")
 public class StuffServlet extends HttpServlet {
@@ -24,11 +27,12 @@ public class StuffServlet extends HttpServlet {
     @Inject
     private SectionServiceImpl sectionService;
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            req.getSession().setAttribute("StuffList",stuffService.findAll());
-            req.getSession().setAttribute("sectionList",sectionService.findAll());
+            req.getSession().setAttribute("StuffList", stuffService.findAll());
+            req.getSession().setAttribute("sectionList", sectionService.findAll());
 
             req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
             log.info("Stuff - Servlet-Get");
@@ -37,7 +41,42 @@ public class StuffServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
+        String brand = req.getParameter("brand");
+        String model = req.getParameter("model");
+        String price = req.getParameter("price");
 
+
+//        String fileName = null;
+//        Part filePart = req.getPart("file");
+//        if (filePart.getSize()>0) {
+//            fileName = filePart.getSubmittedFileName();
+//            for (Part part : req.getParts()) {
+//                part.write(fileName);
+//            }
+//            resp.getWriter().print("The file uploaded successfully.");
+//        }
+        try {
+            Stuff stuff = Stuff
+                    .builder()
+                    .name(name)
+                    .brand(brand)
+                    .model(model)
+                    .price(price)
+                    .section(sectionService.findByTitle(req.getParameter("section")).get())
+                    .build();
+            System.out.println("Stuff Post");
+            stuffService.save(stuff);
+            log.info("StuffServlet - Stuff Saved");
+            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
+        } catch (Exception e) {
+            log.info("StuffServlet - Error Save Stuff : " + e.getMessage());
+            req.getSession().setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
+        }
+    }
 
 
 //    @Override
@@ -64,44 +103,17 @@ public class StuffServlet extends HttpServlet {
 //        }
 //    }
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String name=req.getParameter("name");
-//        String brand=req.getParameter("brand");
-//        String model=req.getParameter("model");
-//        long price= Long.parseLong(req.getParameter("price"));
-//        try {
-//            Stuff stuff = Stuff
-//                    .builder()
-//                    .name(name)
-//                    .brand(brand)
-//                    .model(model)
-//                    .price(price)
-//                    .section(sectionService.findByTitle(req.getParameter("section")).get(   ))
-//                    .build();
-//            System.out.println("Stuff Post");
-//            stuffService.save(stuff);
-//            log.info("StuffServlet - Stuff Saved");
-//            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
-//        } catch (Exception e) {
-//            log.info("StuffServlet - Error Save Stuff : " + e.getMessage());
-//            req.getSession().setAttribute("error", e.getMessage());
-//            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
-//        }
-//    }
-
-
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
 
-             Stuff stuff = Stuff
+            Stuff stuff = Stuff
                     .builder()
                     .name(req.getParameter("name"))
                     .brand(req.getParameter("brand"))
                     .model(req.getParameter("model"))
-                    .price(Long.valueOf(req.getParameter("price")))
+                    .price(req.getParameter("price"))
                     .build();
             stuffService.edit(stuff);
             log.info("StuffServlet - Stuff Edit");
@@ -115,15 +127,15 @@ public class StuffServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String stuffId=req.getParameter("id");
-        int id=Integer.parseInt(stuffId);
+        String stuffId = req.getParameter("id");
+        int id = Integer.parseInt(stuffId);
         try {
             stuffService.removeById((long) id);
             log.info("StuffServlet - Delete");
         } catch (Exception e) {
             log.error(e.getMessage());
-            req.getSession().setAttribute("error",e.getMessage());
-            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req,resp);
+            req.getSession().setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/jsp/stuff.jsp").forward(req, resp);
         }
     }
 }
