@@ -54,12 +54,59 @@ public class BankServlet extends HttpServlet {
     }
 
     @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+
+            String name=req.getParameter("name");
+            String accountNumber=req.getParameter("accountNumber");
+            int branchCode=Integer.parseInt(req.getParameter("branchCode"));
+            String branchName=req.getParameter("branchName");
+            String accountType=req.getParameter("accountType");
+            long accountBalance= Long.parseLong(req.getParameter("accountBalance"));
+
+            bank = Bank
+                    .builder()
+                    .name(name)
+                    .accountNumber(accountNumber)
+                    .branchCode(branchCode)
+                    .branchName(branchName)
+                    .accountType(accountType)
+                    .accountBalance(accountBalance)
+                    .deleted(false)
+                    .build();
+
+            bankService.edit(bank);
+
+            log.info("BankServlet - Bank Edited");
+            resp.sendRedirect("/bank.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             req.getSession().setAttribute("bankList", bankService.findAll());
             req.getRequestDispatcher("/jsp/bank.jsp").forward(req, resp);
             bankService.findAll();
         } catch (Exception e) {
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            long id= Long.parseLong(req.getParameter("id"));
+            bankService.removeById(id);
+
+            log.info("BankServlet - Bank Removed");
+            resp.sendRedirect("/bank.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
             throw new RuntimeException(e);
         }
     }

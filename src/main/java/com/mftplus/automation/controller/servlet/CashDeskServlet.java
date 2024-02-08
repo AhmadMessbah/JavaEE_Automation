@@ -50,11 +50,42 @@ public class CashDeskServlet extends HttpServlet {
             cashDeskService.save(cashDesk);
 
             log.info("CashDeskServlet - CashDesk Saved");
-            req.getRequestDispatcher("/jsp/CashDesk.jsp").forward(req, resp);
+            resp.sendRedirect("/cashDesk.do");
         } catch (Exception e) {
-            log.info("CashDeskServlet - Error Save CashDesk");
-            req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/CashDesk.jsp").forward(req, resp);
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String username=req.getParameter("username");
+            String password=req.getParameter("password");
+
+            user= User
+                    .builder()
+                    .username(username)
+                    .password(password)
+                    .build();
+
+            String name=req.getParameter("name");
+            int cashDeskNumber=Integer.parseInt(req.getParameter("cashDeskNumber"));
+
+            cashDesk=CashDesk
+                    .builder()
+                    .name(name)
+                    .cashDeskNumber(cashDeskNumber)
+                    .cashier(user)
+                    .build();
+
+            cashDeskService.edit(cashDesk);
+
+            log.info("CashDeskServlet - CashDesk Edited");
+            resp.sendRedirect("/cashDesk.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -65,6 +96,20 @@ public class CashDeskServlet extends HttpServlet {
             req.getRequestDispatcher("/jsp/cashDesk.jsp").forward(req, resp);
             cashDeskService.findAll();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            long id= Long.parseLong(req.getParameter("id"));
+            cashDeskService.removeById(id);
+
+            log.info("CashDeskServlet - CashDesk Removed");
+            resp.sendRedirect("/cashDesk.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
             throw new RuntimeException(e);
         }
     }

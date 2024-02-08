@@ -41,6 +41,66 @@ public class FinancialDocServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String username = req.getParameter("username");
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
+
+            user = User
+                    .builder()
+                    .username(username)
+                    .build();
+
+            String title = req.getParameter("title");
+            String duty = req.getParameter("duty");
+            String phoneNumber = req.getParameter("phoneNumber");
+
+            section = Section
+                    .builder()
+                    .duty(duty)
+                    .title(title)
+                    .phoneNumber(phoneNumber)
+                    .build();
+
+            String faDateTime = req.getParameter("faDateTime");
+            Long amount = Long.valueOf(req.getParameter("amount"));
+            int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
+
+            financialTransaction = FinancialTransaction
+                    .builder()
+                    .user(user)
+                    .referringSection(section)
+                    .paymentType(PaymentType.valueOf(paymentType))
+                    .amount(amount)
+                    .trackingCode(trackingCode)
+                    .transactionType(FinancialTransactionType.valueOf(transactionType))
+                    .faDateTime(LocalDateTime.parse(faDateTime))
+                    .build();
+
+            long docNumber = Long.valueOf(req.getParameter("docNumber"));
+            String faDateTime2 = req.getParameter("faDateTime");
+            String description = req.getParameter("description");
+
+            financialDoc = FinancialDoc
+                    .builder()
+                    .docNumber(docNumber)
+                    .faDateTime(LocalDateTime.parse(faDateTime2))
+                    .description(description)
+                    .financialTransaction(financialTransaction)
+                    .build();
+
+            financialDocService.save(financialDoc);
+
+            log.info("FinancialDocServlet - FinancialDoc Saved");
+            resp.sendRedirect("/financialDoc.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String username = req.getParameter("username");
             String password = req.getParameter("password");
             String paymentType = req.getParameter("paymentType");
             String transactionType = req.getParameter("transactionType");
@@ -89,14 +149,13 @@ public class FinancialDocServlet extends HttpServlet {
                     .financialTransaction(financialTransaction)
                     .build();
 
-            financialDocService.save(financialDoc);
+            financialDocService.edit(financialDoc);
 
-            log.info("FinancialDocServlet - FinancialDoc Saved");
-            req.getRequestDispatcher("/jsp/financialDoc.jsp").forward(req, resp);
+            log.info("FinancialDocServlet - FinancialDoc Edited");
+            resp.sendRedirect("/financialDoc.do");
         } catch (Exception e) {
-            log.info("FinancialDocServlet - Error Save FinancialDoc");
-            req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/financialDoc.jsp").forward(req, resp);
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -107,6 +166,20 @@ public class FinancialDocServlet extends HttpServlet {
             req.getRequestDispatcher("/jsp/financialDoc.jsp").forward(req, resp);
             financialDocService.findAll();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            long id= Long.parseLong(req.getParameter("id"));
+            financialDocService.removeById(id);
+
+            log.info("FinancialDocServlet - FinancialDoc Removed");
+            resp.sendRedirect("/financialDoc.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
             throw new RuntimeException(e);
         }
     }

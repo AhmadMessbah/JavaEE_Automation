@@ -41,14 +41,10 @@ public class CardPaymentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String username=req.getParameter("username");
-            String password=req.getParameter("password");
-            String paymentType = req.getParameter("paymentType");
-            String transactionType = req.getParameter("transactionType");
 
             user= User
                             .builder()
                             .username(username)
-                            .password(password)
                             .build();
 
             String name=req.getParameter("name");
@@ -83,6 +79,8 @@ public class CardPaymentServlet extends HttpServlet {
             String faDateTime=req.getParameter("faDateTime");
             Long amount= Long.valueOf(req.getParameter("amount"));
             int trackingCode= Integer.parseInt(req.getParameter("trackingCode"));
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
 
             financialTransaction=FinancialTransaction
                     .builder()
@@ -111,14 +109,91 @@ public class CardPaymentServlet extends HttpServlet {
             cardPaymentService.save(cardPayment);
 
             log.info("CardPaymentServlet - CardPayment Saved");
-            req.getRequestDispatcher("/jsp/cardPayment.jsp").forward(req, resp);
+            resp.sendRedirect("/cardPayment.do");
         } catch (Exception e) {
-            log.info("CardPaymentServlet - Error Save CardPayment");
-            req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/CardPayment.jsp").forward(req, resp);
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String username=req.getParameter("username");
+
+            user= User
+                    .builder()
+                    .username(username)
+                    .build();
+
+            String name=req.getParameter("name");
+            String accountNumber=req.getParameter("accountNumber");
+            int branchCode=Integer.parseInt(req.getParameter("branchCode"));
+            String branchName=req.getParameter("branchName");
+            String accountType=req.getParameter("accountType");
+            long accountBalance= Long.parseLong(req.getParameter("accountBalance"));
+
+            bank = Bank
+                    .builder()
+                    .name(name)
+                    .accountNumber(accountNumber)
+                    .branchCode(branchCode)
+                    .branchName(branchName)
+                    .accountType(accountType)
+                    .accountBalance(accountBalance)
+                    .deleted(false)
+                    .build();
+
+            String title=req.getParameter("title");
+            String duty=req.getParameter("duty");
+            String phoneNumber=req.getParameter("phoneNumber");
+
+            section=Section
+                    .builder()
+                    .duty(duty)
+                    .title(title)
+                    .phoneNumber(phoneNumber)
+                    .build();
+
+            String faDateTime=req.getParameter("faDateTime");
+            Long amount= Long.valueOf(req.getParameter("amount"));
+            int trackingCode= Integer.parseInt(req.getParameter("trackingCode"));
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
+
+            financialTransaction=FinancialTransaction
+                    .builder()
+                    .user(user)
+                    .referringSection(section)
+                    .paymentType(PaymentType.valueOf(paymentType))
+                    .amount(amount)
+                    .trackingCode(trackingCode)
+                    .transactionType(FinancialTransactionType.valueOf(transactionType))
+                    .faDateTime(LocalDateTime.parse(faDateTime))
+                    .build();
+
+            String depositCode=req.getParameter("depositCode");
+            long amount2=Long.valueOf(req.getParameter("amount"));
+            String faDateTime2=req.getParameter("faDateTime");
+
+            cardPayment = CardPayment
+                    .builder()
+                    .depositCode(depositCode)
+                    .bankInvolved(bank)
+                    .amount(amount2)
+                    .faDateTime(LocalDateTime.parse(faDateTime2))
+                    .financialTransaction(financialTransaction)
+                    .build();
+
+            cardPaymentService.edit(cardPayment);
+
+            log.info("CardPaymentServlet - CardPayment Edited");
+            resp.sendRedirect("/cardPayment.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -127,6 +202,21 @@ public class CardPaymentServlet extends HttpServlet {
             req.getRequestDispatcher("/jsp/cardPayment.jsp").forward(req, resp);
             cardPaymentService.findAll();
         } catch (Exception e) {
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            long id= Long.parseLong(req.getParameter("id"));
+            cardPaymentService.removeById(id);
+
+            log.info("CardPaymentServlet - Card Payment Removed");
+            resp.sendRedirect("/cardPayment.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
             throw new RuntimeException(e);
         }
     }

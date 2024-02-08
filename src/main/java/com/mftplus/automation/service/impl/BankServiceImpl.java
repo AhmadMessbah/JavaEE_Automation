@@ -89,6 +89,7 @@ public class BankServiceImpl implements BankService, Serializable {
         return query.getResultList();
     }
 
+
     @Transactional
     @Override
     public Optional<Bank> findById(Long id) throws Exception {
