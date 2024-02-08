@@ -1,9 +1,9 @@
 package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.*;
-import com.mftplus.automation.model.enums.FinancialTransactionType;
-import com.mftplus.automation.model.enums.PaymentType;
+import com.mftplus.automation.service.impl.BankServiceImpl;
 import com.mftplus.automation.service.impl.CardPaymentServiceImp;
+import com.mftplus.automation.service.impl.FinancialTransactionServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,84 +26,25 @@ public class CardPaymentServlet extends HttpServlet {
     private CardPayment cardPayment;
 
     @Inject
-    private User user;
+    private BankServiceImpl bankService;
 
     @Inject
-    private Bank bank;
-
-    @Inject
-    private Section section;
-
-    @Inject
-    private FinancialTransaction financialTransaction;
+    private FinancialTransactionServiceImpl financialTransactionService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username=req.getParameter("username");
-
-            user= User
-                            .builder()
-                            .username(username)
-                            .build();
-
-            String name=req.getParameter("name");
-            String accountNumber=req.getParameter("accountNumber");
-            int branchCode=Integer.parseInt(req.getParameter("branchCode"));
-            String branchName=req.getParameter("branchName");
-            String accountType=req.getParameter("accountType");
-            long accountBalance= Long.parseLong(req.getParameter("accountBalance"));
-
-            bank = Bank
-                    .builder()
-                    .name(name)
-                    .accountNumber(accountNumber)
-                    .branchCode(branchCode)
-                    .branchName(branchName)
-                    .accountType(accountType)
-                    .accountBalance(accountBalance)
-                    .deleted(false)
-                    .build();
-
-            String title=req.getParameter("title");
-            String duty=req.getParameter("duty");
-            String phoneNumber=req.getParameter("phoneNumber");
-
-            section=Section
-                    .builder()
-                    .duty(duty)
-                    .title(title)
-                    .phoneNumber(phoneNumber)
-                    .build();
-
-            String faDateTime=req.getParameter("faDateTime");
-            Long amount= Long.valueOf(req.getParameter("amount"));
-            int trackingCode= Integer.parseInt(req.getParameter("trackingCode"));
-            String paymentType = req.getParameter("paymentType");
-            String transactionType = req.getParameter("transactionType");
-
-            financialTransaction=FinancialTransaction
-                    .builder()
-                    .user(user)
-                    .referringSection(section)
-                    .paymentType(PaymentType.valueOf(paymentType))
-                    .amount(amount)
-                    .trackingCode(trackingCode)
-                    .transactionType(FinancialTransactionType.valueOf(transactionType))
-                    .faDateTime(LocalDateTime.parse(faDateTime))
-                    .build();
-
             String depositCode=req.getParameter("depositCode");
-            long amount2=Long.valueOf(req.getParameter("amount"));
+            long amount= Long.parseLong((req.getParameter("amount")));
             String faDateTime2=req.getParameter("faDateTime");
 
             cardPayment = CardPayment
                     .builder()
                     .depositCode(depositCode)
-                    .bankInvolved(bank)
-                    .amount(amount2)
+                    .bankInvolved(bankService.findByAccountNumber(req.getParameter("bank")).get())
+                    .amount(amount)
                     .faDateTime(LocalDateTime.parse(faDateTime2))
-                    .financialTransaction(financialTransaction)
+                    .financialTransaction(financialTransactionService.findById(Long.valueOf(req.getParameter("financialTransaction"))).get())
                     .build();
 
             cardPaymentService.save(cardPayment);
@@ -119,70 +60,18 @@ public class CardPaymentServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username=req.getParameter("username");
-
-            user= User
-                    .builder()
-                    .username(username)
-                    .build();
-
-            String name=req.getParameter("name");
-            String accountNumber=req.getParameter("accountNumber");
-            int branchCode=Integer.parseInt(req.getParameter("branchCode"));
-            String branchName=req.getParameter("branchName");
-            String accountType=req.getParameter("accountType");
-            long accountBalance= Long.parseLong(req.getParameter("accountBalance"));
-
-            bank = Bank
-                    .builder()
-                    .name(name)
-                    .accountNumber(accountNumber)
-                    .branchCode(branchCode)
-                    .branchName(branchName)
-                    .accountType(accountType)
-                    .accountBalance(accountBalance)
-                    .deleted(false)
-                    .build();
-
-            String title=req.getParameter("title");
-            String duty=req.getParameter("duty");
-            String phoneNumber=req.getParameter("phoneNumber");
-
-            section=Section
-                    .builder()
-                    .duty(duty)
-                    .title(title)
-                    .phoneNumber(phoneNumber)
-                    .build();
-
-            String faDateTime=req.getParameter("faDateTime");
-            Long amount= Long.valueOf(req.getParameter("amount"));
-            int trackingCode= Integer.parseInt(req.getParameter("trackingCode"));
-            String paymentType = req.getParameter("paymentType");
-            String transactionType = req.getParameter("transactionType");
-
-            financialTransaction=FinancialTransaction
-                    .builder()
-                    .user(user)
-                    .referringSection(section)
-                    .paymentType(PaymentType.valueOf(paymentType))
-                    .amount(amount)
-                    .trackingCode(trackingCode)
-                    .transactionType(FinancialTransactionType.valueOf(transactionType))
-                    .faDateTime(LocalDateTime.parse(faDateTime))
-                    .build();
 
             String depositCode=req.getParameter("depositCode");
-            long amount2=Long.valueOf(req.getParameter("amount"));
+            long amount= Long.parseLong((req.getParameter("amount")));
             String faDateTime2=req.getParameter("faDateTime");
 
             cardPayment = CardPayment
                     .builder()
                     .depositCode(depositCode)
-                    .bankInvolved(bank)
-                    .amount(amount2)
+                    .bankInvolved(bankService.findByAccountNumber(req.getParameter("bank")).get())
+                    .amount(amount)
                     .faDateTime(LocalDateTime.parse(faDateTime2))
-                    .financialTransaction(financialTransaction)
+                    .financialTransaction(financialTransactionService.findById(Long.valueOf(req.getParameter("financial"))).get())
                     .build();
 
             cardPaymentService.edit(cardPayment);

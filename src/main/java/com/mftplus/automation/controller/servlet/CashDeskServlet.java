@@ -1,8 +1,8 @@
 package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.CashDesk;
-import com.mftplus.automation.model.User;
 import com.mftplus.automation.service.impl.CashDeskServiceImp;
+import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,7 +20,7 @@ public class CashDeskServlet extends HttpServlet {
     private CashDeskServiceImp cashDeskService;
 
     @Inject
-    private User user;
+    private UserServiceImpl userService;
 
     @Inject
     private  CashDesk cashDesk;
@@ -28,15 +28,6 @@ public class CashDeskServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username=req.getParameter("username");
-            String password=req.getParameter("password");
-
-            user= User
-                    .builder()
-                    .username(username)
-                    .password(password)
-                    .build();
-
             String name=req.getParameter("name");
             int cashDeskNumber=Integer.parseInt(req.getParameter("cashDeskNumber"));
 
@@ -44,7 +35,7 @@ public class CashDeskServlet extends HttpServlet {
                     .builder()
                     .name(name)
                     .cashDeskNumber(cashDeskNumber)
-                    .cashier(user)
+                    .cashier(userService.findByUsername(req.getParameter("cashier")).get())
                     .build();
 
             cashDeskService.save(cashDesk);
@@ -60,15 +51,6 @@ public class CashDeskServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username=req.getParameter("username");
-            String password=req.getParameter("password");
-
-            user= User
-                    .builder()
-                    .username(username)
-                    .password(password)
-                    .build();
-
             String name=req.getParameter("name");
             int cashDeskNumber=Integer.parseInt(req.getParameter("cashDeskNumber"));
 
@@ -76,7 +58,7 @@ public class CashDeskServlet extends HttpServlet {
                     .builder()
                     .name(name)
                     .cashDeskNumber(cashDeskNumber)
-                    .cashier(user)
+                    .cashier(userService.findByUsername(req.getParameter("cashier")).get())
                     .build();
 
             cashDeskService.edit(cashDesk);

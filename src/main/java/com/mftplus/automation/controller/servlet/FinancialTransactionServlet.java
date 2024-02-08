@@ -4,6 +4,8 @@ import com.mftplus.automation.model.*;
 import com.mftplus.automation.model.enums.FinancialTransactionType;
 import com.mftplus.automation.model.enums.PaymentType;
 import com.mftplus.automation.service.impl.FinancialTransactionServiceImpl;
+import com.mftplus.automation.service.impl.SectionServiceImpl;
+import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,46 +24,28 @@ public class FinancialTransactionServlet extends HttpServlet {
     private FinancialTransactionServiceImpl financialTransactionService;
 
     @Inject
-    private User user;
+    private UserServiceImpl userService;
 
     @Inject
     private FinancialTransaction financialTransaction;
 
     @Inject
-    private Section section;
+    private SectionServiceImpl sectionService;
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username = req.getParameter("username");
-            String paymentType = req.getParameter("paymentType");
-            String transactionType = req.getParameter("transactionType");
-
-            user = User
-                    .builder()
-                    .username(username)
-                    .build();
-
-            String title = req.getParameter("title");
-            String duty = req.getParameter("duty");
-            String phoneNumber = req.getParameter("phoneNumber");
-
-            section = Section
-                    .builder()
-                    .duty(duty)
-                    .title(title)
-                    .phoneNumber(phoneNumber)
-                    .build();
-
             String faDateTime = req.getParameter("faDateTime");
             Long amount = Long.valueOf(req.getParameter("amount"));
             int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
 
             financialTransaction = FinancialTransaction
                     .builder()
-                    .user(user)
-                    .referringSection(section)
+                    .user(userService.findByUsername(req.getParameter("cashier")).get())
+                    .referringSection(sectionService.findByTitle(req.getParameter("section")).get())
                     .paymentType(PaymentType.valueOf(paymentType))
                     .amount(amount)
                     .trackingCode(trackingCode)
@@ -82,36 +66,16 @@ public class FinancialTransactionServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username = req.getParameter("username");
-            String password = req.getParameter("password");
-            String paymentType = req.getParameter("paymentType");
-            String transactionType = req.getParameter("transactionType");
-
-            user = User
-                    .builder()
-                    .username(username)
-                    .password(password)
-                    .build();
-
-            String title = req.getParameter("title");
-            String duty = req.getParameter("duty");
-            String phoneNumber = req.getParameter("phoneNumber");
-
-            section = Section
-                    .builder()
-                    .duty(duty)
-                    .title(title)
-                    .phoneNumber(phoneNumber)
-                    .build();
-
             String faDateTime = req.getParameter("faDateTime");
             Long amount = Long.valueOf(req.getParameter("amount"));
             int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
 
             financialTransaction = FinancialTransaction
                     .builder()
-                    .user(user)
-                    .referringSection(section)
+                    .user(userService.findByUsername(req.getParameter("cashier")).get())
+                    .referringSection(sectionService.findByTitle(req.getParameter("section")).get())
                     .paymentType(PaymentType.valueOf(paymentType))
                     .amount(amount)
                     .trackingCode(trackingCode)
