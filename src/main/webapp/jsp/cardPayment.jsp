@@ -11,54 +11,55 @@
     <link rel="stylesheet" href="../assets/css/cardPayment.css">
 </head>
 <body>
-
-<select name="docType" id="">
-    <c:forEach var="docType" items="docTypes">
-        <option value="${docType}"></option>
-    </c:forEach>
-</select>
-
-<form action="cardPayment.do" method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="depositCode">Deposit Code</label>
-        <input id="depositCode" type="text" name="depositCode">
+<div class="container-fluid">
+    <div id="card-form">
+        <form action="cardPayment.do" method="post">
+            <div class="row mb-4">
+                <label class="col form-label" for="depositCode">Deposit Code</label>
+                <input id="depositCode" class="col form-control" type="text" name="depositCode">
+            </div>
+            <div class="row mb-4">
+                <label class="col form-label" for="bankInvolved">Bank Involved</label>
+                <input id="bankInvolved" class="col form-control" type="text" name="bankInvolved">
+            </div>
+            <div class="row mb-4">
+                <label class="col form-label" for="financialTransaction">Financial Transaction</label>
+                <input id="financialTransaction" class="col form-control" type="text" name="financialTransaction">
+            </div>
+            <div class="row mb-4">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        <label for="bankInvolved">Bank Involved</label>
-        <input id="bankInvolved" type="text" name="bankInvolved">
-    </div>
-    <div class="mb-3">
-        <label for="financialTransaction">Financial Transaction</label>
-        <input id="financialTransaction" type="text" name="financialTransaction">
-    </div>
-    <input type="submit" value="Save">
-</form>
 
-<table class="table table-hover table-dark">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>depositCode</th>
-        <th>bankInvolved</th>
-        <th>financialTransaction</th>
-        <th>operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="cardPayment" items="${requestScope.cardPaymentList}">
-        <tr>
-            <td>${cardPayment.id}</td>
-            <td>${cardPayment.depositCode}</td>
-            <td>${cardPayment.bankInvolved}</td>
-            <td>${cardPayment.financialTransaction}</td>
-            <td>
-                <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+    <div id="card-table">
+        <table class="table table-hover table-primary">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>depositCode</th>
+                <th>bankInvolved</th>
+                <th>financialTransaction</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="cardPayment" items="${sessionScope.cardPaymentList}">
+                <tr>
+                    <td>${cardPayment.id}</td>
+                    <td>${cardPayment.depositCode}</td>
+                    <td>${cardPayment.bankInvolved}</td>
+                    <td>${cardPayment.financialTransaction}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="edit(${cardPayment.id})"></i class="fa fa-edit"> Edit</button>
+                        <button class="btn btn-danger" onclick="remove(${cardPayment.id})"><i class="fa fa-remove"></i>Remove</button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <jsp:include page="js-import.jsp"></jsp:include>
 <script src="../assets/js/cardPayment.js"></script>

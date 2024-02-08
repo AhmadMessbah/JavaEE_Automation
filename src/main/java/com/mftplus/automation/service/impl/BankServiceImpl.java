@@ -91,13 +91,6 @@ public class BankServiceImpl implements BankService, Serializable {
 
     @Transactional
     @Override
-    public List<Bank>  findByAccountOwner(String username) throws Exception {
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.accountOwner.username = :username AND oo.deleted=false", Bank.class);
-        return query.getResultList();
-    }
-
-    @Transactional
-    @Override
     public Optional<Bank> findById(Long id) throws Exception {
         return Optional.ofNullable(entityManager.find(Bank.class, id));
     }

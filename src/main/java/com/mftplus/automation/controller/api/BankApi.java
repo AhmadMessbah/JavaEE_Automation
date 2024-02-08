@@ -197,24 +197,6 @@ public class BankApi {
     }
 
     @GET
-    @Path("/{username}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findByAccountOwner(@PathParam("username") String username) {
-        try {
-            log.info("Find By Account Owner Bank");
-            return Response
-                    .ok()
-                    .entity(bankService.findByAccountOwner(username))
-                    .build();
-        } catch (Exception e) {
-            return Response
-                    .serverError()
-                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
-                    .build();
-        }
-    }
-
-    @GET
     @Path("/{accountNumber}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByAccountNumber(@PathParam("accountNumber") String accountNumber) {

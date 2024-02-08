@@ -30,5 +30,4 @@ public interface BankService {
 
     Optional<Bank>  findByAccountNumber(String accountNumber) throws Exception;
 
-    List<Bank> findByAccountOwner(String username) throws Exception;
 }
