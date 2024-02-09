@@ -14,7 +14,7 @@
 <body>
 <div class="container-fluid">
     <div id="org-form">
-<form id="user_form" action="user.do" method="post" enctype="multipart/form-data">
+<form id="user_form" action="/user.do" method="post">
     <div class="row  mb-4">
         <label class="col form-label" for="username">Username: </label>
         <input id="username" class="col form-label" type="text" name="username">

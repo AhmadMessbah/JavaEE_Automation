@@ -27,11 +27,11 @@ public class User extends Base{
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Pattern(regexp = "^[a-zA-Z\\s]{5,15}$", message = "Invalid Username")
+    //@Pattern(regexp = "^[a-zA-Z\\s]{5,15}$", message = "Invalid Username")
     @Column(name = "u_name", length = 15)
     private String username;
 
-    @Pattern(regexp = "^[a-zA-Z\\s]{8,20}$", message = "Invalid Password")
+    //@Pattern(regexp = "^[a-zA-Z\\s]{8,20}$", message = "Invalid Password")
     @Column(name = "u_pass", length = 20)
     private String password;
 
