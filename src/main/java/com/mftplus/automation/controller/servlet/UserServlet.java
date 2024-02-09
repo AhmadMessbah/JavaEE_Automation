@@ -43,8 +43,7 @@ public class UserServlet extends HttpServlet {
             log.info("User Saved");
             resp.sendRedirect("/user.do");
         }catch (Exception e){
-            log.info(e.getMessage());
-            throw new RuntimeException(e);
+            log.info("User - POST : " + e.getMessage());
         }
     }
 
@@ -52,17 +51,10 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             req.getSession().setAttribute("roles", Arrays.asList(Role.values()));
-            req.getRequestDispatcher("/jsp/user.jsp").forward(req,resp);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
             req.getSession().setAttribute("userList", userService.findAll());
             req.getRequestDispatcher("/jsp/user.jsp").forward(req, resp);
-            userService.findAll();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.info("User - Get : " + e.getMessage());
         }
     }
 

@@ -4,8 +4,6 @@ import com.mftplus.automation.model.enums.Gender;
 import com.mftplus.automation.model.enums.Role;
 import com.mftplus.automation.service.impl.PersonServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -34,11 +31,11 @@ public class PersonServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Part filePart = req.getPart("file");
-        String fileName = filePart.getSubmittedFileName();  // todo : attach_id
-        for (Part part : req.getParts()) {
-            part.write("c:\\root\\"+fileName);  // todo : set server path
-        }
+//        Part filePart = req.getPart("file");
+//        String fileName = filePart.getSubmittedFileName();  // todo : attach_id
+//        for (Part part : req.getParts()) {
+//            part.write("c:\\root\\"+fileName);  // todo : set server path
+//        }
 
         try {
             String name = req.getParameter("name");
@@ -57,28 +54,20 @@ public class PersonServlet extends HttpServlet {
 
             personService.save(person);
             log.info("Person Saved");
-            resp.sendRedirect("/person.do");
+            resp.sendRedirect("person.do");
         } catch (Exception e) {
-            log.info(e.getMessage());
-            throw new RuntimeException(e);
+            log.info("Person - POST : " + e.getMessage());
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            req.getSession().setAttribute("genders", Arrays.asList(Role.values()));
-            req.getRequestDispatcher("/jsp/person.jsp").forward(req,resp);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
+            req.getSession().setAttribute("genders", Arrays.asList(Gender.values()));
             req.getSession().setAttribute("personList", personService.findAll());
             req.getRequestDispatcher("/jsp/person.jsp").forward(req, resp);
-            personService.findAll();
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.info("Person - GET : " + e.getMessage());
         }
     }
 
