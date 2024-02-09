@@ -14,6 +14,9 @@
 <div class="container-fluid">
     <div id="financialTransaction-form">
         <form action="financialTransaction.do" method="post" enctype="multipart/form-data">
+            <input type="text" name="checkNumber">
+            <input type="text" name="cardNumber">
+
             <div class="row mb-4">
                 <label class="col form-label" for="faDateTime">Fa Date Time</label>
                 <input id="faDateTime" class="col form-control" type="text" name="faDateTime">

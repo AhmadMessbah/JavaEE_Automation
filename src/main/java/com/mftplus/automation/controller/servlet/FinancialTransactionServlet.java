@@ -36,6 +36,14 @@ public class FinancialTransactionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            CardPayment cardPayment = CardPayment.builder()
+                    .depositCode(req.getParameter("cardNumber")).build();
+
+            CheckPayment checkPayment = CheckPayment.builder().checkNumber(
+                    req.getParameter("checkNumber")
+            ).build();
+
+
             String faDateTime = req.getParameter("faDateTime");
             Long amount = Long.valueOf(req.getParameter("amount"));
             int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
@@ -47,6 +55,8 @@ public class FinancialTransactionServlet extends HttpServlet {
                     .user(userService.findByUsername(req.getParameter("cashier")).get())
                     .referringSection(sectionService.findByTitle(req.getParameter("section")).get())
                     .paymentType(PaymentType.valueOf(paymentType))
+                    .cardPayment(cardPayment)
+                    .checkPayment(checkPayment)
                     .amount(amount)
                     .trackingCode(trackingCode)
                     .transactionType(FinancialTransactionType.valueOf(transactionType))

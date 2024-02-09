@@ -44,7 +44,6 @@ public class CardPaymentServlet extends HttpServlet {
                     .bankInvolved(bankService.findByAccountNumber(req.getParameter("bank")).get())
                     .amount(amount)
                     .faDateTime(LocalDateTime.parse(faDateTime2))
-                    .financialTransaction(financialTransactionService.findById(Long.valueOf(req.getParameter("financialTransaction"))).get())
                     .deleted(false)
                     .build();
 
@@ -72,7 +71,6 @@ public class CardPaymentServlet extends HttpServlet {
                     .bankInvolved(bankService.findByAccountNumber(req.getParameter("bank")).get())
                     .amount(amount)
                     .faDateTime(LocalDateTime.parse(faDateTime2))
-                    .financialTransaction(financialTransactionService.findById(Long.valueOf(req.getParameter("financial"))).get())
                     .deleted(false)
                     .build();
 

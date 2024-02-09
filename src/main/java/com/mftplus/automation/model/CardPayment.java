@@ -3,7 +3,6 @@ package com.mftplus.automation.model;
 import com.google.gson.Gson;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,9 +28,6 @@ public class CardPayment extends Payment{
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Bank bankInvolved; //  حساب بانک درگیر
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private  FinancialTransaction financialTransaction;
 
     @Override
     public String toString() {

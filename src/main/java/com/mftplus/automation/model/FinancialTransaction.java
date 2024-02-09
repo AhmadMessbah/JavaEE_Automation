@@ -42,6 +42,12 @@ public class FinancialTransaction extends Base{
     @Enumerated(EnumType.ORDINAL)
     private PaymentType paymentType;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private CardPayment cardPayment;
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private CheckPayment checkPayment;
+
 //    @Pattern(regexp = "^{1,15}$",message = "Invalid Amount")
     @Column(name ="financialTransaction_amount" ,length =15)
     private Long amount; // مقدار پول معامله شده
