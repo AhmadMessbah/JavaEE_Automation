@@ -40,6 +40,7 @@ public class FinancialDocServlet extends HttpServlet {
                     .faDateTime(LocalDateTime.parse(faDateTime2))
                     .description(description)
                     .financialTransaction(financialTransactionService.findByTrackingCode(Integer.parseInt(req.getParameter("financialTransaction"))).get())
+                    .deleted(false)
                     .build();
 
             financialDocService.save(financialDoc);
@@ -65,6 +66,7 @@ public class FinancialDocServlet extends HttpServlet {
                     .faDateTime(LocalDateTime.parse(faDateTime2))
                     .description(description)
                     .financialTransaction(financialTransactionService.findByTrackingCode(Integer.parseInt(req.getParameter("financialTransaction"))).get())
+                    .deleted(false)
                     .build();
             financialDocService.edit(financialDoc);
 

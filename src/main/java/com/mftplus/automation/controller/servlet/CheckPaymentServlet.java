@@ -47,6 +47,7 @@ public class CheckPaymentServlet extends HttpServlet {
                     .amount(amount)
                     .financialTransaction(financialTransactionService.findByTrackingCode(Integer.parseInt(req.getParameter("financialTransaction"))).get())
                     .faDateTime(LocalDateTime.parse(faDateTime2))
+                    .deleted(false)
                     .build();
 
             checkPaymentService.save(checkPayment);
@@ -75,6 +76,7 @@ public class CheckPaymentServlet extends HttpServlet {
                     .amount(amount)
                     .financialTransaction(financialTransactionService.findByTrackingCode(Integer.parseInt(req.getParameter("financialTransaction"))).get())
                     .faDateTime(LocalDateTime.parse(faDateTime2))
+                    .deleted(false)
                     .build();
 
             checkPaymentService.edit(checkPayment);

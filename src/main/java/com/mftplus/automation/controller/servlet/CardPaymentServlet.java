@@ -45,6 +45,7 @@ public class CardPaymentServlet extends HttpServlet {
                     .amount(amount)
                     .faDateTime(LocalDateTime.parse(faDateTime2))
                     .financialTransaction(financialTransactionService.findById(Long.valueOf(req.getParameter("financialTransaction"))).get())
+                    .deleted(false)
                     .build();
 
             cardPaymentService.save(cardPayment);
@@ -72,6 +73,7 @@ public class CardPaymentServlet extends HttpServlet {
                     .amount(amount)
                     .faDateTime(LocalDateTime.parse(faDateTime2))
                     .financialTransaction(financialTransactionService.findById(Long.valueOf(req.getParameter("financial"))).get())
+                    .deleted(false)
                     .build();
 
             cardPaymentService.edit(cardPayment);

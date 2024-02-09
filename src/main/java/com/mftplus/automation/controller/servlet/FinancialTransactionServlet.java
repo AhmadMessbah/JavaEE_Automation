@@ -51,6 +51,7 @@ public class FinancialTransactionServlet extends HttpServlet {
                     .trackingCode(trackingCode)
                     .transactionType(FinancialTransactionType.valueOf(transactionType))
                     .faDateTime(LocalDateTime.parse(faDateTime))
+                    .deleted(false)
                     .build();
 
             financialTransactionService.save(financialTransaction);
@@ -81,6 +82,7 @@ public class FinancialTransactionServlet extends HttpServlet {
                     .trackingCode(trackingCode)
                     .transactionType(FinancialTransactionType.valueOf(transactionType))
                     .faDateTime(LocalDateTime.parse(faDateTime))
+                    .deleted(false)
                     .build();
 
             financialTransactionService.edit(financialTransaction);

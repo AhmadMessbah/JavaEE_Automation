@@ -36,6 +36,7 @@ public class CashDeskServlet extends HttpServlet {
                     .name(name)
                     .cashDeskNumber(cashDeskNumber)
                     .cashier(userService.findByUsername(req.getParameter("cashier")).get())
+                    .deleted(false)
                     .build();
 
             cashDeskService.save(cashDesk);
@@ -59,6 +60,7 @@ public class CashDeskServlet extends HttpServlet {
                     .name(name)
                     .cashDeskNumber(cashDeskNumber)
                     .cashier(userService.findByUsername(req.getParameter("cashier")).get())
+                    .deleted(false)
                     .build();
 
             cashDeskService.edit(cashDesk);
