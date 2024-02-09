@@ -90,10 +90,8 @@ public class BankServlet extends HttpServlet {
         try {
             req.getSession().setAttribute("bankList", bankService.findAll());
             req.getRequestDispatcher("/jsp/bank.jsp").forward(req, resp);
-            bankService.findAll();
         } catch (Exception e) {
             log.info(e.getMessage());
-            throw new RuntimeException(e);
         }
     }
 

@@ -94,7 +94,6 @@ public class CheckPaymentServlet extends HttpServlet {
         try {
             req.getSession().setAttribute("checkPaymentList", checkPaymentService.findAll());
             req.getRequestDispatcher("/jsp/checkPayment.jsp").forward(req, resp);
-            checkPaymentService.findAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

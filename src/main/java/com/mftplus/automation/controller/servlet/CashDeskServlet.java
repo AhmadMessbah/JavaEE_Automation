@@ -78,7 +78,6 @@ public class CashDeskServlet extends HttpServlet {
         try {
             req.getSession().setAttribute("cashDeskList", cashDeskService.findAll());
             req.getRequestDispatcher("/jsp/cashDesk.jsp").forward(req, resp);
-            cashDeskService.findAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

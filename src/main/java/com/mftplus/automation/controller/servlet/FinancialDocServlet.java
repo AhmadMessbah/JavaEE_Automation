@@ -83,7 +83,6 @@ public class FinancialDocServlet extends HttpServlet {
         try {
             req.getSession().setAttribute("financialDocList", financialDocService.findAll());
             req.getRequestDispatcher("/jsp/financialDoc.jsp").forward(req, resp);
-            financialDocService.findAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

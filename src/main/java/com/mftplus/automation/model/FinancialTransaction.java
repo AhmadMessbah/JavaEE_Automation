@@ -30,7 +30,7 @@ public class FinancialTransaction extends Base{
     private Long id;
 
     @Column(name ="financialTransaction_dateTime")
-    @PastOrPresent(message = "Invalid Date")
+//    @PastOrPresent(message = "Invalid Date")
     private LocalDateTime dateTime; //تاریخ
 
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -42,11 +42,11 @@ public class FinancialTransaction extends Base{
     @Enumerated(EnumType.ORDINAL)
     private PaymentType paymentType;
 
-    @Pattern(regexp = "^{1,15}$",message = "Invalid Amount")
+//    @Pattern(regexp = "^{1,15}$",message = "Invalid Amount")
     @Column(name ="financialTransaction_amount" ,length =15)
     private Long amount; // مقدار پول معامله شده
 
-    @Pattern(regexp = "^{1,20}$",message = "Invalid Tracking Code")
+//    @Pattern(regexp = "^{1,20}$",message = "Invalid Tracking Code")
     @Column(name = "financialTransaction_trackingCode",length = 20,unique = true)
     private int trackingCode; // کد تراکنش
 

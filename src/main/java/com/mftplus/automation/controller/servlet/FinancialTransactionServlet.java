@@ -100,7 +100,6 @@ public class FinancialTransactionServlet extends HttpServlet {
         try {
             req.getSession().setAttribute("financialTransactionList", financialTransactionService.findAll());
             req.getRequestDispatcher("/jsp/financialTransaction.jsp").forward(req, resp);
-            financialTransactionService.findAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

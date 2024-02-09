@@ -91,7 +91,6 @@ public class CardPaymentServlet extends HttpServlet {
         try {
             req.getSession().setAttribute("cardPaymentList", cardPaymentService.findAll());
             req.getRequestDispatcher("/jsp/cardPayment.jsp").forward(req, resp);
-            cardPaymentService.findAll();
         } catch (Exception e) {
             log.info(e.getMessage());
             throw new RuntimeException(e);
