@@ -11,60 +11,64 @@
     <link rel="stylesheet" href="../assets/css/financialDoc.css">
 </head>
 <body>
+<div class="container-fluid">
+    <div id="fdoc-form">
+        <form action="financialDoc.do" method="post" enctype="multipart/form-data">
+            <div class="row mb-4">
+                <label class="col form-label" for="docNumber">Doc Number</label>
+                <input id="docNumber" class="col form-control" type="text" name="docNumber">
+            </div>
+            <div class="row mb-4">
+                <label class="col form-label" for="faDateTime">Fa Date Time</label>
+                <input id="faDateTime" class="col form-control" type="text" name="faDateTime">
+            </div>
+            <div class="row mb-4">
+                <label class="col form-label" for="description">description</label>
+                <input id="description" class="col form-control" type="text" name="description">
+            </div>
+            <div class="row mb-4">
+                <label class="col form-label" for="financialTransaction">Financial Transaction</label>
+                <input id="financialTransaction" class="col form-control" type="text" name="financialTransaction">
+            </div>
+            <div class="row mb-4">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </form>
+    </div>
 
-<select name="docType" id="">
-    <c:forEach var="docType" items="docTypes">
-        <option value="${docType}"></option>
-    </c:forEach>
-</select>
-
-<form action="financialDoc.do" method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="docNumber">Doc Number</label>
-        <input id="docNumber" type="text" name="docNumber">
+    <div id="fdoc-table">
+        <table class="table table-hover table-primary">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>docNumber</th>
+                <th>faDateTime</th>
+                <th>description</th>
+                <th>financialTransaction</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="financialDoc" items="${sessionScope.financialDocList}">
+                <tr>
+                    <td>${financialDoc.id}</td>
+                    <td>${financialDoc.docNumber}</td>
+                    <td>${financialDoc.faDateTime}</td>
+                    <td>${financialDoc.description}</td>
+                    <td>${financialDoc.financialTransaction}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="edit(${financialDoc.id})"><i class="fa fa-edit"></i>
+                            Edit
+                        </button>
+                        <button class="btn btn-danger" onclick="remove(${financialDoc.id})"><i class="fa fa-remove"></i>Remove
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
-    <div class="mb-3">
-        <label for="faDateTime">Fa Date Time</label>
-        <input id="faDateTime" type="text" name="faDateTime">
-    </div>
-    <div class="mb-3">
-        <label for="description">description</label>
-        <input id="description" type="text" name="description">
-    </div>
-    <div class="mb-3">
-        <label for="financialTransaction">Financial Transaction</label>
-        <input id="financialTransaction" type="text" name="financialTransaction">
-    </div>
-    <input type="submit" value="Save">
-</form>
-
-<table class="table table-hover table-dark">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>docNumber</th>
-        <th>faDateTime</th>
-        <th>description</th>
-        <th>financialTransaction</th>
-        <th>operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="financialDoc" items="${requestScope.financialDocList}">
-        <tr>
-            <td>${financialDoc.id}</td>
-            <td>${financialDoc.docNumber}</td>
-            <td>${financialDoc.faDateTime}</td>
-            <td>${financialDoc.description}</td>
-            <td>${financialDoc.financialTransaction}</td>
-            <td>
-                <button onclick="edit(id)"><i class="fa fa-edit"></i> Edit</button>
-                <button onclick="remove(id)"><i class="fa fa-delete"></i>Remove</button>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+</div>
 
 <jsp:include page="js-import.jsp"></jsp:include>
 <script src="../assets/js/financialDoc.js"></script>

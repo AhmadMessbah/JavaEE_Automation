@@ -4,6 +4,8 @@ import com.mftplus.automation.model.*;
 import com.mftplus.automation.model.enums.FinancialTransactionType;
 import com.mftplus.automation.model.enums.PaymentType;
 import com.mftplus.automation.service.impl.FinancialTransactionServiceImpl;
+import com.mftplus.automation.service.impl.SectionServiceImpl;
+import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,63 +24,74 @@ public class FinancialTransactionServlet extends HttpServlet {
     private FinancialTransactionServiceImpl financialTransactionService;
 
     @Inject
-    private User user;
+    private UserServiceImpl userService;
 
     @Inject
     private FinancialTransaction financialTransaction;
 
     @Inject
-    private Section section;
+    private SectionServiceImpl sectionService;
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String username = req.getParameter("username");
-            String password = req.getParameter("password");
-            String paymentType = req.getParameter("paymentType");
-            String transactionType = req.getParameter("transactionType");
-
-            user = User
-                    .builder()
-                    .username(username)
-                    .password(password)
-                    .build();
-
-            String title = req.getParameter("title");
-            String duty = req.getParameter("duty");
-            String phoneNumber = req.getParameter("phoneNumber");
-
-            section = Section
-                    .builder()
-                    .duty(duty)
-                    .title(title)
-                    .phoneNumber(phoneNumber)
-                    .build();
-
             String faDateTime = req.getParameter("faDateTime");
             Long amount = Long.valueOf(req.getParameter("amount"));
             int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
 
             financialTransaction = FinancialTransaction
                     .builder()
-                    .user(user)
-                    .referringSection(section)
+                    .user(userService.findByUsername(req.getParameter("cashier")).get())
+                    .referringSection(sectionService.findByTitle(req.getParameter("section")).get())
                     .paymentType(PaymentType.valueOf(paymentType))
                     .amount(amount)
                     .trackingCode(trackingCode)
                     .transactionType(FinancialTransactionType.valueOf(transactionType))
                     .faDateTime(LocalDateTime.parse(faDateTime))
+                    .deleted(false)
                     .build();
 
             financialTransactionService.save(financialTransaction);
 
             log.info("FinancialTransactionServlet - FinancialTransaction Saved");
-            req.getRequestDispatcher("/jsp/financialTransaction.jsp").forward(req, resp);
+            resp.sendRedirect("/financialTransaction.do");
         } catch (Exception e) {
-            log.info("FinancialTransactionServlet - Error Save FinancialTransaction");
-            req.getSession().setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/jsp/financialTransaction.jsp").forward(req, resp);
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String faDateTime = req.getParameter("faDateTime");
+            Long amount = Long.valueOf(req.getParameter("amount"));
+            int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
+            String paymentType = req.getParameter("paymentType");
+            String transactionType = req.getParameter("transactionType");
+
+            financialTransaction = FinancialTransaction
+                    .builder()
+                    .user(userService.findByUsername(req.getParameter("cashier")).get())
+                    .referringSection(sectionService.findByTitle(req.getParameter("section")).get())
+                    .paymentType(PaymentType.valueOf(paymentType))
+                    .amount(amount)
+                    .trackingCode(trackingCode)
+                    .transactionType(FinancialTransactionType.valueOf(transactionType))
+                    .faDateTime(LocalDateTime.parse(faDateTime))
+                    .deleted(false)
+                    .build();
+
+            financialTransactionService.edit(financialTransaction);
+
+            log.info("FinancialTransactionServlet - FinancialTransaction Edited");
+            resp.sendRedirect("/financialTransaction.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -89,6 +102,20 @@ public class FinancialTransactionServlet extends HttpServlet {
             req.getRequestDispatcher("/jsp/financialTransaction.jsp").forward(req, resp);
             financialTransactionService.findAll();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            long id= Long.parseLong(req.getParameter("id"));
+            financialTransactionService.removeById(id);
+
+            log.info("FinancialTransactionServlet - FinancialTransaction Removed");
+            resp.sendRedirect("/financialTransaction.do");
+        } catch (Exception e) {
+            log.info(e.getMessage());
             throw new RuntimeException(e);
         }
     }
