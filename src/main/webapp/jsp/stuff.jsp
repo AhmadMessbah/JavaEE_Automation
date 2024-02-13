@@ -21,7 +21,7 @@
 <body>
 <div class="container-fluid">
     <div id="org-form">
-    <form id="stuff-form" action="stuff.do" method="post" enctype="multipart/form-data">
+    <form id="stuff-form" action="/stuff.do" method="post" enctype="multipart/form-data">
         <div class="row mb-3">
             <label for="section">Section Name</label>
             <select name="section" id="section">

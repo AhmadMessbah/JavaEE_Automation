@@ -3,8 +3,6 @@ package com.mftplus.automation.controller.api;
 import com.mftplus.automation.model.Attach;
 import com.mftplus.automation.service.impl.AttachServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

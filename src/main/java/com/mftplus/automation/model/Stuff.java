@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import java.io.Serializable;
+
 
 @NoArgsConstructor
 @Getter
@@ -18,10 +18,11 @@ import java.io.Serializable;
 @Entity(name = "stuffEntity")
 @Table(name = "stuff_tbl")
 @RequestScoped
-public class Stuff implements Serializable {
+public class Stuff extends Base {
     @Id
     @SequenceGenerator(name = "stuffSeq", sequenceName = "stuff_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stuffSeq")
+    @Column(name = "id",nullable = false)
     private Long id;
 
     @Column(name = "stuff_name", length = 20)
@@ -41,16 +42,16 @@ public class Stuff implements Serializable {
     private String status;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Section section;
 
+    @ManyToOne
+    private User users;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
 
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Attach attach;
+
 }
 
 

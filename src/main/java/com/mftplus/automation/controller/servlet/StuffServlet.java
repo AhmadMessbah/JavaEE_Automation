@@ -3,26 +3,25 @@ package com.mftplus.automation.controller.servlet;
 import com.mftplus.automation.model.Stuff;
 import com.mftplus.automation.service.impl.SectionServiceImpl;
 import com.mftplus.automation.service.impl.StuffServiceImpl;
+import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-
-import jakarta.servlet.http.Part;
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @WebServlet(name = "stuff", urlPatterns = "/stuff.do")
+@Slf4j
 public class StuffServlet extends HttpServlet {
     @Inject
     private StuffServiceImpl stuffService;
+
     @Inject
-    private Stuff stuff;
+    private UserServiceImpl userService;
 
     @Inject
     private SectionServiceImpl sectionService;
@@ -43,10 +42,12 @@ public class StuffServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String brand = req.getParameter("brand");
-        String model = req.getParameter("model");
-        String price = req.getParameter("price");
+        try {
+            String name = req.getParameter("name");
+            String brand = req.getParameter("brand");
+            String model = req.getParameter("model");
+            String price = req.getParameter("price");
+            String status = req.getParameter("status");
 
 
 //        String fileName = null;
@@ -58,19 +59,20 @@ public class StuffServlet extends HttpServlet {
 //            }
 //            resp.getWriter().print("The file uploaded successfully.");
 //        }
-        try {
             Stuff stuff = Stuff
                     .builder()
+                    .section(sectionService.findByTitle(req.getParameter("section")).get())
                     .name(name)
                     .brand(brand)
-                    .model(model)
                     .price(price)
-                    .section(sectionService.findByTitle(req.getParameter("section")).get())
+                    .model(model)
+                    .status(status)
+                    .users(userService.findByUsername(req.getParameter("username")).get())
+                    .deleted(false)
                     .build();
-            System.out.println("Stuff Post");
             stuffService.save(stuff);
             log.info("StuffServlet - Stuff Saved");
-            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
+            resp.sendRedirect("/stuff.do");
         } catch (Exception e) {
             log.info("StuffServlet - Error Save Stuff : " + e.getMessage());
             req.getSession().setAttribute("error", e.getMessage());
