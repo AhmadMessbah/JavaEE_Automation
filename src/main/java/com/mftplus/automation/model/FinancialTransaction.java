@@ -42,7 +42,7 @@ public class FinancialTransaction extends Base{
     @Enumerated(EnumType.ORDINAL)
     private PaymentType paymentType;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private CardPayment cardPayment;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

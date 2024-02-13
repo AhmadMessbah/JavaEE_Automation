@@ -28,9 +28,6 @@ public class CardPaymentServlet extends HttpServlet {
     @Inject
     private BankServiceImpl bankService;
 
-    @Inject
-    private FinancialTransactionServiceImpl financialTransactionService;
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

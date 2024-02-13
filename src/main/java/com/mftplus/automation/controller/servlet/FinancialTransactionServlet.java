@@ -3,9 +3,7 @@ package com.mftplus.automation.controller.servlet;
 import com.mftplus.automation.model.*;
 import com.mftplus.automation.model.enums.FinancialTransactionType;
 import com.mftplus.automation.model.enums.PaymentType;
-import com.mftplus.automation.service.impl.FinancialTransactionServiceImpl;
-import com.mftplus.automation.service.impl.SectionServiceImpl;
-import com.mftplus.automation.service.impl.UserServiceImpl;
+import com.mftplus.automation.service.impl.*;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -27,6 +25,18 @@ public class FinancialTransactionServlet extends HttpServlet {
     private UserServiceImpl userService;
 
     @Inject
+    private CardPayment cardPayment;
+
+    @Inject
+    private BankServiceImpl bankService;
+
+    @Inject
+    private CheckPayment checkPayment;
+
+    @Inject
+    private CashDeskServiceImp cashDeskService;
+
+    @Inject
     private FinancialTransaction financialTransaction;
 
     @Inject
@@ -36,16 +46,36 @@ public class FinancialTransactionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            CardPayment cardPayment = CardPayment.builder()
-                    .depositCode(req.getParameter("cardNumber")).build();
+            String checkNumber=req.getParameter("checkNumber");
+            String faCheckDueDate=req.getParameter("faCheckDueDate");
+            long amount3= Long.parseLong((req.getParameter("amount")));
+            String faDateTime3=req.getParameter("faDateTime");
 
-            CheckPayment checkPayment = CheckPayment.builder().checkNumber(
-                    req.getParameter("checkNumber")
-            ).build();
+            checkPayment = CheckPayment
+                    .builder()
+                    .checkNumber(checkNumber)
+                    .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
+                    .cashDesk(cashDeskService.findByCashDeskNumber(Integer.parseInt(req.getParameter("cashDesk"))).get())
+                    .amount(amount3)
+                    .faDateTime(LocalDateTime.parse(faDateTime3))
+                    .deleted(false)
+                    .build();
 
+            String depositCode=req.getParameter("depositCode");
+            long amount2= Long.parseLong((req.getParameter("amount")));
+            String faDateTime2=req.getParameter("faDateTime");
 
-            String faDateTime = req.getParameter("faDateTime");
-            Long amount = Long.valueOf(req.getParameter("amount"));
+            cardPayment = CardPayment
+                    .builder()
+                    .depositCode(depositCode)
+                    .bankInvolved(bankService.findByAccountNumber(req.getParameter("bank")).get())
+                    .amount(amount2)
+                    .faDateTime(LocalDateTime.parse(faDateTime2))
+                    .deleted(false)
+                    .build();
+
+            String faDateTime1 = req.getParameter("faDateTime");
+            Long amount1 = Long.valueOf(req.getParameter("amount"));
             int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
             String paymentType = req.getParameter("paymentType");
             String transactionType = req.getParameter("transactionType");
@@ -57,10 +87,10 @@ public class FinancialTransactionServlet extends HttpServlet {
                     .paymentType(PaymentType.valueOf(paymentType))
                     .cardPayment(cardPayment)
                     .checkPayment(checkPayment)
-                    .amount(amount)
+                    .amount(amount1)
                     .trackingCode(trackingCode)
                     .transactionType(FinancialTransactionType.valueOf(transactionType))
-                    .faDateTime(LocalDateTime.parse(faDateTime))
+                    .faDateTime(LocalDateTime.parse(faDateTime1))
                     .deleted(false)
                     .build();
 
@@ -77,21 +107,51 @@ public class FinancialTransactionServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String faDateTime = req.getParameter("faDateTime");
-            Long amount = Long.valueOf(req.getParameter("amount"));
+            String checkNumber=req.getParameter("checkNumber");
+            String faCheckDueDate=req.getParameter("faCheckDueDate");
+            long amount3= Long.parseLong((req.getParameter("amount")));
+            String faDateTime3=req.getParameter("faDateTime");
+
+            checkPayment = CheckPayment
+                    .builder()
+                    .checkNumber(checkNumber)
+                    .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
+                    .cashDesk(cashDeskService.findByCashDeskNumber(Integer.parseInt(req.getParameter("cashDesk"))).get())
+                    .amount(amount3)
+                    .faDateTime(LocalDateTime.parse(faDateTime3))
+                    .deleted(false)
+                    .build();
+
+            String depositCode=req.getParameter("depositCode");
+            long amount2= Long.parseLong((req.getParameter("amount")));
+            String faDateTime2=req.getParameter("faDateTime");
+
+            cardPayment = CardPayment
+                    .builder()
+                    .depositCode(depositCode)
+                    .bankInvolved(bankService.findByAccountNumber(req.getParameter("bank")).get())
+                    .amount(amount2)
+                    .faDateTime(LocalDateTime.parse(faDateTime2))
+                    .deleted(false)
+                    .build();
+
+            String faDateTime1 = req.getParameter("faDateTime");
+            Long amount1 = Long.valueOf(req.getParameter("amount"));
             int trackingCode = Integer.parseInt(req.getParameter("trackingCode"));
             String paymentType = req.getParameter("paymentType");
             String transactionType = req.getParameter("transactionType");
 
             financialTransaction = FinancialTransaction
                     .builder()
+                    .faDateTime(LocalDateTime.parse(faDateTime1))
                     .user(userService.findByUsername(req.getParameter("cashier")).get())
                     .referringSection(sectionService.findByTitle(req.getParameter("section")).get())
                     .paymentType(PaymentType.valueOf(paymentType))
-                    .amount(amount)
+                    .cardPayment(cardPayment)
+                    .checkPayment(checkPayment)
+                    .amount(amount1)
                     .trackingCode(trackingCode)
                     .transactionType(FinancialTransactionType.valueOf(transactionType))
-                    .faDateTime(LocalDateTime.parse(faDateTime))
                     .deleted(false)
                     .build();
 

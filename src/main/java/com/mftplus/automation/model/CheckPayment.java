@@ -40,9 +40,6 @@ public class CheckPayment extends Payment{
     @ManyToOne(cascade = CascadeType.PERSIST)
     private CashDesk cashDesk;// صندوق
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private  FinancialTransaction financialTransaction;
-
     @Transient
     private LocalDateTime faCheckDueDate;
 

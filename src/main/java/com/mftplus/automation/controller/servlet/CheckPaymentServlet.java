@@ -45,7 +45,6 @@ public class CheckPaymentServlet extends HttpServlet {
                     .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
                     .cashDesk(cashDeskService.findByCashDeskNumber(Integer.parseInt(req.getParameter("cashDesk"))).get())
                     .amount(amount)
-                    .financialTransaction(financialTransactionService.findByTrackingCode(Integer.parseInt(req.getParameter("financialTransaction"))).get())
                     .faDateTime(LocalDateTime.parse(faDateTime2))
                     .deleted(false)
                     .build();
@@ -74,7 +73,6 @@ public class CheckPaymentServlet extends HttpServlet {
                     .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
                     .cashDesk(cashDeskService.findByCashDeskNumber(Integer.parseInt(req.getParameter("cashDesk"))).get())
                     .amount(amount)
-                    .financialTransaction(financialTransactionService.findByTrackingCode(Integer.parseInt(req.getParameter("financialTransaction"))).get())
                     .faDateTime(LocalDateTime.parse(faDateTime2))
                     .deleted(false)
                     .build();

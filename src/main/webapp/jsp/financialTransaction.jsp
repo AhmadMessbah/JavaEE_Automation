@@ -46,6 +46,22 @@
                 <input id="transactionType" class="col form-control" type="text" name="transactionType">
             </div>
             <div class="row mb-4">
+                <label class="col form-label" for="depositCode">Deposit Code</label>
+                <input id="depositCode" class="col form-control" type="text" name="depositCode">
+            </div>
+            <div class="row mb-4">
+                <label class="col form-label" for="bankInvolved">Bank Involved</label>
+                <input id="bankInvolved" class="col form-control" type="text" name="bankInvolved">
+            </div>
+            <div class="row mb-4">
+                <label class="col form-label" for="amount">Amount</label>
+                <input id="amount2" class="col form-control" type="text" name="amount">
+            </div>
+            <div class="row mb-4">
+                <label class="col form-label" for="financialTransaction">Financial Transaction</label>
+                <input id="financialTransaction" class="col form-control" type="text" name="financialTransaction">
+            </div>
+            <div class="row mb-4">
                 <input type="submit" class="btn btn-primary" value="Save">
             </div>
         </form>
@@ -63,6 +79,8 @@
                 <th>amount</th>
                 <th>trackingCode</th>
                 <th>transactionType</th>
+                <th>depositCode</th>
+                <th>bankInvolved</th>
                 <th>operation</th>
             </tr>
             </thead>
