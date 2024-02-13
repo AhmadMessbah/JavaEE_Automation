@@ -2,6 +2,7 @@ package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.*;
 import com.mftplus.automation.model.enums.FinancialTransactionType;
+import com.mftplus.automation.model.enums.LetterType;
 import com.mftplus.automation.model.enums.PaymentType;
 import com.mftplus.automation.service.impl.*;
 import jakarta.inject.Inject;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Slf4j
 @WebServlet(name = "/financialTransactionServlet", urlPatterns = "/FinancialTransaction.do")
@@ -168,6 +170,8 @@ public class FinancialTransactionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            req.getSession().setAttribute("paymentTypes", Arrays.asList(PaymentType.values()));
+            req.getSession().setAttribute("transactionTypes",Arrays.asList(FinancialTransactionType.values()));
             req.getSession().setAttribute("financialTransactionList", financialTransactionService.findAll());
             req.getRequestDispatcher("/jsp/financialTransaction.jsp").forward(req, resp);
         } catch (Exception e) {
