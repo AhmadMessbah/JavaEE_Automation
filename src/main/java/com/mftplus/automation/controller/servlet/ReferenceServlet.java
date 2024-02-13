@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Slf4j
@@ -29,10 +30,14 @@ public class ReferenceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("ReferenceServlet - GET");
+
         try {
+            req.getSession().setAttribute("refTypes", Arrays.asList(ReferenceType.values()));
+            req.getSession().setAttribute("priorities", Arrays.asList(ReferencePriority.values()));
             req.getSession().setAttribute("referenceList", referenceService.findAll());
+            req.getSession().setAttribute("letterIdRef",req.getParameter("letterIdRef"));
             req.getRequestDispatcher("/jsp/reference.jsp").forward(req, resp);
-            referenceService.findAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -42,40 +47,39 @@ public class ReferenceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("ReferenceServlet - Post");
         try {
-                String letterId = req.getParameter("letterId");
-                String refType = req.getParameter("refType");
-                String faExpiration = req.getParameter("faExpiration");
+                String letterId = req.getParameter("letterIdRef");
+                String refType = req.getParameter("r_refType");
+                String priority = req.getParameter("priority");
+                String faExpiration = req.getParameter("r_expiration");
                 String paraph = req.getParameter("paraph");
                 String explanation = req.getParameter("explanation");
                 String status = req.getParameter("status");
                 String validate = req.getParameter("validate");
-                String priority = req.getParameter("priority");
-
-                //todo referenceSenderId and referenceReceiverId
 
             if (letterId != null){
 
                 Optional<Letter> letter = letterService.findById(Long.valueOf(letterId));
 
                 if (letter.isPresent()){
-                    LocalDateTime localDateTime = LocalDateTime.now();
                     Reference reference =
                             Reference
                                     .builder()
-                                    .letter(letter.get())
-                                    .refType(ReferenceType.valueOf(refType))
-                                    .refDateAndTime(localDateTime)
+                                    .letterId(letter.get())
+                                    .refDateAndTime(LocalDateTime.now())
                                     .paraph(paraph)
                                     .explanation(explanation)
                                     .status(Boolean.parseBoolean(status))
                                     .validate(Boolean.parseBoolean(validate))
                                     .priority(ReferencePriority.valueOf(priority))
+                                    .refType(ReferenceType.valueOf(refType))
+                                    .faExpiration(faExpiration)
                                     .deleted(false)
                                     .build();
+                    reference.setFaExpiration(faExpiration);
                     referenceService.save(reference);
                     log.info("ReferenceServlet - Reference Saved");
+                resp.sendRedirect("/reference.do");
                 }
-
             }
 
         } catch (Exception e) {
@@ -84,3 +88,7 @@ public class ReferenceServlet extends HttpServlet {
         }
     }
 }
+//todo letterId
+//todo referenceSenderId
+//todo referenceReceiverId
+//todo status and validate

@@ -4,7 +4,6 @@ import com.github.mfathi91.time.PersianDate;
 import com.mftplus.automation.model.enums.LetterAccessLevel;
 import com.mftplus.automation.model.enums.LetterType;
 import com.mftplus.automation.model.enums.TransferMethod;
-import jakarta.enterprise.context.RequestScoped;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,8 +25,8 @@ import java.util.List;
 
 @Entity (name = "letterEntity")
 @Table (name = "letter_tbl")
-@RequestScoped
-public class Letter extends Base {
+
+public class Letter extends Base implements Serializable {
     @Id
     @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterSeq")
@@ -77,6 +76,7 @@ public class Letter extends Base {
 
   //todo rethink
     @ManyToMany (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    @ToString.Exclude
     private List<User> carbonCopies;
 
     @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
@@ -110,6 +110,7 @@ public class Letter extends Base {
 //    }
 //
     @ManyToMany (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    @ToString.Exclude
     private List<User> refReceivers;
 
 }

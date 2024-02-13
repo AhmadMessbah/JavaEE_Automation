@@ -18,6 +18,44 @@ public class LetterApi {
     @Inject
     private LetterServiceImpl letterService;
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response save(Letter letter) throws Exception{
+        try {
+            letterService.save(letter);
+            return Response.ok().entity(letter).build();
+        } catch (Exception e) {
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response edit(Letter letter) throws Exception{
+        try {
+            letterService.edit(letter);
+            return Response.ok().entity(letter).build();
+        } catch (Exception e) {
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeById(@PathParam("id") Long id) throws Exception{
+        log.info("Letter Delete api : " + id);
+        try {
+            letterService.removeById(id);
+            return Response.ok().entity(id).build();
+        } catch (Exception e) {
+            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
+
+
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -174,41 +212,5 @@ public class LetterApi {
         }
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response save(Letter letter) throws Exception{
-        try {
-            letterService.save(letter);
-            return Response.ok().entity(letter).build();
-        } catch (Exception e) {
-            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
-        }
-    }
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(Letter letter) throws Exception{
-        try {
-            letterService.edit(letter);
-            return Response.ok().entity(letter).build();
-        } catch (Exception e) {
-            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
-        }
-    }
-
-    @DELETE
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response removeById(@PathParam("id") Long id) throws Exception{
-        log.info("Letter Delete api : " + id);
-        try {
-            letterService.removeById(id);
-            return Response.ok().entity(id).build();
-        } catch (Exception e) {
-            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
-        }
-    }
 
 }
