@@ -3,7 +3,6 @@ package com.mftplus.automation.controller.servlet;
 import com.mftplus.automation.model.*;
 import com.mftplus.automation.service.impl.CashDeskServiceImp;
 import com.mftplus.automation.service.impl.CheckPaymentServiceImp;
-import com.mftplus.automation.service.impl.FinancialTransactionServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Slf4j
 @WebServlet(name = "/checkPaymentServlet", urlPatterns = "/checkPayment.do")
@@ -26,9 +26,6 @@ public class CheckPaymentServlet extends HttpServlet {
     private CashDeskServiceImp cashDeskService;
 
     @Inject
-    private FinancialTransactionServiceImpl financialTransactionService;
-
-    @Inject
     private CheckPayment checkPayment;
 
     @Override
@@ -38,21 +35,27 @@ public class CheckPaymentServlet extends HttpServlet {
             String faCheckDueDate=req.getParameter("faCheckDueDate");
             long amount= Long.parseLong((req.getParameter("amount")));
             String faDateTime2=req.getParameter("faDateTime");
+            Optional<CashDesk> cashDesk=cashDeskService.findByCashDeskNumber(Integer.parseInt(req.getParameter("cashDeskNumber")));
 
-            checkPayment = CheckPayment
-                    .builder()
-                    .checkNumber(checkNumber)
-                    .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
-                    .cashDesk(cashDeskService.findByCashDeskNumber(Integer.parseInt(req.getParameter("cashDesk"))).get())
-                    .amount(amount)
-                    .faDateTime(LocalDateTime.parse(faDateTime2))
-                    .deleted(false)
-                    .build();
+            if(cashDesk.isPresent()) {
+                checkPayment = CheckPayment
+                        .builder()
+                        .checkNumber(checkNumber)
+                        .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
+                        .cashDesk(cashDesk.get())
+                        .amount(amount)
+                        .faDateTime(LocalDateTime.parse(faDateTime2))
+                        .deleted(false)
+                        .build();
 
-            checkPaymentService.save(checkPayment);
-
-            log.info("CheckPaymentServlet - CheckPayment Save");
-            resp.sendRedirect("/checkPayment.do");
+                checkPaymentService.save(checkPayment);
+                log.info("CheckPaymentServlet - CheckPayment Save");
+                resp.sendRedirect("/checkPayment.do");
+            }
+            else {
+                log.info("Invalid CashDesk");
+                resp.sendRedirect("/checkPayment.do");
+            }
         } catch (Exception e) {
             log.info(e.getMessage());
             throw new RuntimeException(e);
@@ -66,21 +69,27 @@ public class CheckPaymentServlet extends HttpServlet {
             String faCheckDueDate=req.getParameter("faCheckDueDate");
             long amount= Long.parseLong((req.getParameter("amount")));
             String faDateTime2=req.getParameter("faDateTime");
+            Optional<CashDesk> cashDesk=cashDeskService.findByCashDeskNumber(Integer.parseInt(req.getParameter("cashDeskNumber")));
 
-            checkPayment = CheckPayment
-                    .builder()
-                    .checkNumber(checkNumber)
-                    .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
-                    .cashDesk(cashDeskService.findByCashDeskNumber(Integer.parseInt(req.getParameter("cashDesk"))).get())
-                    .amount(amount)
-                    .faDateTime(LocalDateTime.parse(faDateTime2))
-                    .deleted(false)
-                    .build();
+            if(cashDesk.isPresent()) {
+                checkPayment = CheckPayment
+                        .builder()
+                        .checkNumber(checkNumber)
+                        .faCheckDueDate(LocalDateTime.parse(faCheckDueDate))
+                        .cashDesk(cashDesk.get())
+                        .amount(amount)
+                        .faDateTime(LocalDateTime.parse(faDateTime2))
+                        .deleted(false)
+                        .build();
 
-            checkPaymentService.edit(checkPayment);
-
-            log.info("CheckPaymentServlet - CheckPayment Edited");
-            resp.sendRedirect("/checkPayment.do");
+                checkPaymentService.save(checkPayment);
+                log.info("CheckPaymentServlet - CheckPayment Save");
+                resp.sendRedirect("/checkPayment.do");
+            }
+            else {
+                log.info("Invalid CashDesk");
+                resp.sendRedirect("/checkPayment.do");
+            }
         } catch (Exception e) {
             log.info(e.getMessage());
             throw new RuntimeException(e);

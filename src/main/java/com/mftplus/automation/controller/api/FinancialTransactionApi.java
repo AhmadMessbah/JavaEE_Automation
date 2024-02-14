@@ -108,14 +108,14 @@ public class FinancialTransactionApi {
     }
 
     @GET
-    @Path("/{titel}")
+    @Path("/{title}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findBySection(@PathParam("titel") String titel) {
+    public Response findBySection(@PathParam("title") String title) {
         try {
             log.info("FindBySectionFinancialTransaction");
             return Response
                     .ok()
-                    .entity(financialTransactionService.findBySection(titel))
+                    .entity(financialTransactionService.findBySection(title))
                     .build();
         } catch (Exception e) {
             return Response

@@ -27,29 +27,32 @@ public class CashDeskServlet extends HttpServlet {
     @Inject
     private CashDesk cashDesk;
 
-
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String name = req.getParameter("name");
             int cashDeskNumber = Integer.parseInt(req.getParameter("cashDeskNumber"));
             Long cashBalance = Long.valueOf(req.getParameter("cashBalance"));
-            Optional<User> optionalUser = userService.findByUsername(req.getParameter("cashier"));
-            if (optionalUser.isPresent()) {
+            Optional<User> user = userService.findByUsername(req.getParameter("username"));
+
+            if (user.isPresent()) {
                 cashDesk = CashDesk
                         .builder()
                         .name(name)
                         .cashDeskNumber(cashDeskNumber)
                         .cashBalance(cashBalance)
+                        .cashier(user.get())
                         .deleted(false)
-                        .cashier(optionalUser.get())
                         .build();
-            } else {
-                log.info("Invalid Cashier");
-            }
-            cashDeskService.save(cashDesk);
 
-            log.info("CashDeskServlet - CashDesk Saved");
-            resp.sendRedirect("/cashDesk.do");
+                cashDeskService.save(cashDesk);
+                log.info("CashDeskServlet - CashDesk Saved");
+                resp.sendRedirect("/cashDesk.do");
+            }
+            else {
+                log.info("Invalid Cashier");
+                resp.sendRedirect("/cashDesk.do");
+            }
         } catch (Exception e) {
             log.info(e.getMessage());
             throw new RuntimeException(e);
@@ -62,24 +65,25 @@ public class CashDeskServlet extends HttpServlet {
             String name = req.getParameter("name");
             int cashDeskNumber = Integer.parseInt(req.getParameter("cashDeskNumber"));
             Long cashBalance = Long.valueOf(req.getParameter("cashBalance"));
-            Optional<User> optionalUser = userService.findByUsername(req.getParameter("cashier"));
-            if (optionalUser.isPresent()) {
+            Optional<User> user = userService.findByUsername(req.getParameter("username"));
+
+            if (user.isPresent()) {
                 cashDesk = CashDesk
                         .builder()
                         .name(name)
                         .cashDeskNumber(cashDeskNumber)
                         .cashBalance(cashBalance)
+                        .cashier(user.get())
                         .deleted(false)
-                        .cashier(optionalUser.get())
                         .build();
+
+                cashDeskService.edit(cashDesk);
+                log.info("CashDeskServlet - CashDesk Edited");
+                resp.sendRedirect("/cashDesk.do");
             } else {
                 log.info("Invalid Cashier");
+                resp.sendRedirect("/cashDesk.do");
             }
-
-            cashDeskService.edit(cashDesk);
-
-            log.info("CashDeskServlet - CashDesk Edited");
-            resp.sendRedirect("/cashDesk.do");
         } catch (Exception e) {
             log.info(e.getMessage());
             throw new RuntimeException(e);

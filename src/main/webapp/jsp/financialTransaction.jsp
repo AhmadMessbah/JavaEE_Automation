@@ -117,10 +117,20 @@
                 <th>referringSection</th>
                 <th>paymentType</th>
                 <th>amount</th>
+
                 <th>trackingCode</th>
                 <th>transactionType</th>
                 <th>depositCode</th>
                 <th>bankInvolved</th>
+                <th>amount2</th>
+                <th>faDateTime2</th>
+
+                <th>checkNumber</th>
+                <th>faCheckDueDate</th>
+                <th>cashDesk</th>
+                <th>amount3</th>
+                <th>faDateTime3</th>
+
                 <th>operation</th>
             </tr>
             </thead>
@@ -135,13 +145,23 @@
                     <td>${financialTransaction.amount}</td>
                     <td>${financialTransaction.trackingCode}</td>
                     <td>${financialTransaction.operation}</td>
+
+                    <td>${financialTransaction.cardPayment.id}</td>
+                    <td>${financialTransaction.cardPayment.depositCode}</td>
+                    <td>${financialTransaction.cardPayment.bankInvolved}</td>
+                    <td>${financialTransaction.cardPayment.amount}</td>
+                    <td>${financialTransaction.cardPayment.faDateTime}</td>
+
+                    <td>${financialTransaction.checkPayment.id}</td>
+                    <td>${financialTransaction.checkPayment.checkNumber}</td>
+                    <td>${financialTransaction.checkPayment.faCheckDueDate}</td>
+                    <td>${financialTransaction.checkPayment.cashDesk}</td>
+                    <td>${financialTransaction.checkPayment.amount}</td>
+                    <td>${financialTransaction.checkPayment.faDateTime}</td>
+
                     <td>
-                        <button class="btn btn-warning" onclick="edit(${financialTransaction.id})"><i
-                                class="fa fa-edit"></i> Edit
-                        </button>
-                        <button class="btn btn-danger" onclick="remove(${financialTransaction.id})"><i
-                                class="fa fa-remove"></i>Remove
-                        </button>
+                        <button class="btn btn-warning" onclick="edit(${financialTransaction.id})"><i class="fa fa-edit"></i>Edit</button>
+                        <button class="btn btn-danger" onclick="remove(${financialTransaction.id})"><i class="fa fa-remove"></i>Remove</button>
                     </td>
                 </tr>
             </c:forEach>
