@@ -22,14 +22,14 @@
 <div class="container-fluid">
     <div id="org-form">
     <form  action="stuff.do" method="post" >
-<%--        <div class="row mb-4">--%>
-<%--            <label for="section">Section Name</label>--%>
-<%--            <select name="section" id="section">--%>
-<%--                <c:forEach var="section" items="${sessionScope.sectionList}">--%>
-<%--                    <option value="${section.title}">${section.title}</option>--%>
-<%--                </c:forEach>--%>
-<%--            </select>--%>
-<%--        </div>--%>
+        <div class="row mb-4">
+            <label for="section">Section Name</label>
+            <select name="section" id="section">
+                <c:forEach var="section" items="${sessionScope.sectionList}">
+                    <option value="${section.title}">${section.title}</option>
+                </c:forEach>
+            </select>
+        </div>
 
         <div class="row mb-4">
             <label for="name">Stuff Name</label>
@@ -72,6 +72,7 @@
                 <th>price</th>
                 <th>model</th>
                 <th>status</th>
+                <th>section</th>
             </tr>
             </thead>
             <tbody>
@@ -84,6 +85,7 @@
                     <td>${stuff.price}</td>
                     <td>${stuff.model}</td>
                     <td>${stuff.status}</td>
+                    <td>${stuff.section}</td>
                     <td>
                         <button class="btn btn-warning" onclick="edit(${stuff.id})"><i class="fa fa-edit"></i>
                             Edit

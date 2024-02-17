@@ -51,12 +51,8 @@ public class StuffServlet extends HttpServlet {
         String model = req.getParameter("model");
         String price = req.getParameter("price");
         String status = req.getParameter("status");
-
         req.getRequestDispatcher("jsp/stuff.jsp");
         try {
-
-
-
 //        String fileName = null;
 //        Part filePart = req.getPart("file");
 //        if (filePart.getSize()>0) {
@@ -69,14 +65,13 @@ public class StuffServlet extends HttpServlet {
 
              stuff = Stuff
                     .builder()
-//                    .section(sectionService.findByTitle(req.getParameter("section")).get())
-                    .deleted(false)
+                    .section(sectionService.findByTitle(req.getParameter("section")).get())
                     .name(name)
                     .brand(brand)
                     .price(price)
                     .model(model)
                     .status(status)
-//                    .users(userService.findByUsername(req.getParameter("username")).get())
+                    .deleted(false)
                     .build();
             stuffService.save(stuff);
             System.out.println(stuff);
