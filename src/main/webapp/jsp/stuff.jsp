@@ -22,7 +22,7 @@
 <div class="container-fluid">
     <div id="org-form">
     <form  action="stuff.do" method="post" >
-<%--        <div class="row mb-3">--%>
+<%--        <div class="row mb-4">--%>
 <%--            <label for="section">Section Name</label>--%>
 <%--            <select name="section" id="section">--%>
 <%--                <c:forEach var="section" items="${sessionScope.sectionList}">--%>
@@ -31,23 +31,23 @@
 <%--            </select>--%>
 <%--        </div>--%>
 
-        <div class="row mb-3">
+        <div class="row mb-4">
             <label for="name">Stuff Name</label>
             <input type="text" id="name" class="col form-control" name="name" placeholder="StuffName">
         </div>
-        <div class="row mb-3">
+        <div class="row mb-4">
             <label for="brand">Stuff Brand</label>
             <input type="text" id="brand"  class="col form-control" name="brand" placeholder="StuffBrand">
         </div>
-        <div class="row mb-3">
+        <div class="row mb-4">
             <label for="price">Stuff Price</label>
             <input type="text" id="price"  class="col form-control" name="price" placeholder="StuffPrice">
         </div>
-        <div class="row mb-3">
+        <div class="row mb-4">
             <label for="model">Stuff Model</label>
             <input type="text" id="model"  class="col form-control" name="model" placeholder="StuffModel">
         </div>
-        <div class="row mb-3">
+        <div class="row mb-4">
             <label for="status">Stuff Status</label>
             <input type="text" id="status"  class="col form-control" name="status" placeholder="StuffStatus">
         </div>
@@ -57,48 +57,48 @@
 <%--            <div id="file-msg error">${sessionScope.error}</div>--%>
 <%--        </div>--%>
         <br><br>
-        <div class="row mb-3">
+        <div class="row mb-4">
             <input type="submit" class="btn btn-primary" value="Save">
         </div>
     </form>
 </div>
-
-<div id="org-table">
-    <table class="table table-hover table-primary">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>brand</th>
-            <th>price</th>
-            <th>model</th>
-            <th>status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="stuff" items="${sessionScope.stuffList}">
-
+    <div id="org-table">
+        <table class="table table-hover table-primary">
+            <thead>
             <tr>
-                <td>${stuff.id}</td>
-                <td>${stuff.name}</td>
-                <td>${stuff.brand}</td>
-                <td>${stuff.price}</td>
-                <td>${stuff.model}</td>
-                <td>${stuff.status}</td>
-                <td>
-                    <button class="btn btn-warning" onclick="edit(${stuff.id})"><i class="fa fa-edit"></i>
-                        Edit
-                    </button>
-                    <button class="btn btn-danger" onclick="remove(${stuff.id})"><i class="fa fa-remove"></i>
-                        Remove
-                    </button>
-                </td>
+                <th>id</th>
+                <th>name</th>
+                <th>brand</th>
+                <th>price</th>
+                <th>model</th>
+                <th>status</th>
             </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="stuff" items="${sessionScope.StuffList}">
 
-        </c:forEach>
+                <tr>
+                    <td>${stuff.id}</td>
+                    <td>${stuff.name}</td>
+                    <td>${stuff.brand}</td>
+                    <td>${stuff.price}</td>
+                    <td>${stuff.model}</td>
+                    <td>${stuff.status}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="edit(${stuff.id})"><i class="fa fa-edit"></i>
+                            Edit
+                        </button>
+                        <button class="btn btn-danger" onclick="remove(${stuff.id})"><i class="fa fa-remove"></i>
+                            Remove
+                        </button>
+                    </td>
+                </tr>
 
-        </tbody>
-    </table>
+            </c:forEach>
+
+            </tbody>
+        </table>
+    </div>
 </div>
 <jsp:include page="js-import.jsp"></jsp:include>
 <script src="../assets/js/stuff.js"></script>
