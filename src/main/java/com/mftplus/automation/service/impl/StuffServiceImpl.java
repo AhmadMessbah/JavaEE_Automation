@@ -19,6 +19,7 @@ public class StuffServiceImpl implements StuffService, Serializable {
     @Transactional
     @Override
     public void save(Stuff stuff) throws Exception {
+        System.out.println(stuff);
         entityManager.persist(stuff);
 
     }
@@ -60,8 +61,9 @@ public class StuffServiceImpl implements StuffService, Serializable {
     public Optional<Stuff> findByName(String name) throws Exception{
         TypedQuery<Stuff>query=(TypedQuery<Stuff>) entityManager.createQuery("select oo from stuffEntity  oo where oo.name=:name");
         query.setParameter("name",name);
-        List<Stuff>result=query.getResultList();
-        return Optional.ofNullable((result.isEmpty()) ? null: result.get(0));
+//        List<Stuff>result=query.getResultList();
+        Optional<Stuff>result= Optional.ofNullable(query.getSingleResult());
+        return Optional.ofNullable((result.isEmpty()) ? null: result.get());
     }
 
     public Optional<Stuff> findByModel(String model) throws Exception{

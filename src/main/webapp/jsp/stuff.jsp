@@ -21,35 +21,35 @@
 <body>
 <div class="container-fluid">
     <div id="org-form">
-    <form id="stuff-form" action="/stuff.do" method="post" enctype="multipart/form-data">
-        <div class="row mb-3">
-            <label for="section">Section Name</label>
-            <select name="section" id="section">
-                <c:forEach var="section" items="${sessionScope.sectionList}">
-                    <option value="${section.title}">${section.title}</option>
-                </c:forEach>
-            </select>
-        </div>
+    <form  action="stuff.do" method="post" >
+<%--        <div class="row mb-3">--%>
+<%--            <label for="section">Section Name</label>--%>
+<%--            <select name="section" id="section">--%>
+<%--                <c:forEach var="section" items="${sessionScope.sectionList}">--%>
+<%--                    <option value="${section.title}">${section.title}</option>--%>
+<%--                </c:forEach>--%>
+<%--            </select>--%>
+<%--        </div>--%>
 
         <div class="row mb-3">
             <label for="name">Stuff Name</label>
-            <input type="text" id="name" name="name" placeholder="StuffName">
+            <input type="text" id="name" class="col form-control" name="name" placeholder="StuffName">
         </div>
         <div class="row mb-3">
             <label for="brand">Stuff Brand</label>
-            <input type="text" id="brand" name="brand" placeholder="StuffBrand">
+            <input type="text" id="brand"  class="col form-control" name="brand" placeholder="StuffBrand">
         </div>
         <div class="row mb-3">
             <label for="price">Stuff Price</label>
-            <input type="text" id="price" name="price" placeholder="StuffPrice">
+            <input type="text" id="price"  class="col form-control" name="price" placeholder="StuffPrice">
         </div>
         <div class="row mb-3">
             <label for="model">Stuff Model</label>
-            <input type="text" id="model" name="model" placeholder="StuffModel">
+            <input type="text" id="model"  class="col form-control" name="model" placeholder="StuffModel">
         </div>
         <div class="row mb-3">
             <label for="status">Stuff Status</label>
-            <input type="text" id="status" name="status" placeholder="StuffStatus">
+            <input type="text" id="status"  class="col form-control" name="status" placeholder="StuffStatus">
         </div>
 <%--        <div class="row md-3">--%>
 <%--            <label class="form-label" for="file">File</label>--%>

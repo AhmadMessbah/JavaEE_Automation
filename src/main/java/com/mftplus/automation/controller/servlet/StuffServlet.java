@@ -25,6 +25,9 @@ public class StuffServlet extends HttpServlet {
 
     @Inject
     private SectionServiceImpl sectionService;
+    
+    @Inject
+    private Stuff stuff;
 
 
     @Override
@@ -42,12 +45,16 @@ public class StuffServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String name = req.getParameter("name");
+        String brand = req.getParameter("brand");
+        String model = req.getParameter("model");
+        String price = req.getParameter("price");
+        String status = req.getParameter("status");
+
+        req.getRequestDispatcher("jsp/stuff.jsp");
         try {
-            String name = req.getParameter("name");
-            String brand = req.getParameter("brand");
-            String model = req.getParameter("model");
-            String price = req.getParameter("price");
-            String status = req.getParameter("status");
+
 
 
 //        String fileName = null;
@@ -59,18 +66,20 @@ public class StuffServlet extends HttpServlet {
 //            }
 //            resp.getWriter().print("The file uploaded successfully.");
 //        }
-            Stuff stuff = Stuff
+
+             stuff = Stuff
                     .builder()
-                    .section(sectionService.findByTitle(req.getParameter("section")).get())
+//                    .section(sectionService.findByTitle(req.getParameter("section")).get())
+                    .deleted(false)
                     .name(name)
                     .brand(brand)
                     .price(price)
                     .model(model)
                     .status(status)
-                    .users(userService.findByUsername(req.getParameter("username")).get())
-                    .deleted(false)
+//                    .users(userService.findByUsername(req.getParameter("username")).get())
                     .build();
             stuffService.save(stuff);
+            System.out.println(stuff);
             log.info("StuffServlet - Stuff Saved");
             resp.sendRedirect("/stuff.do");
         } catch (Exception e) {
@@ -81,29 +90,7 @@ public class StuffServlet extends HttpServlet {
     }
 
 
-//    @Override
-//    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String stuffId=req.getParameter("id");
-//        int id=Integer.parseInt(stuffId);
-//        try {
-//
-//            stuffService.findById((long) id);
-//             stuffService.edit(Stuff
-//                    .builder()
-//                    .name(req.getParameter("name"))
-//                    .brand(req.getParameter("brand"))
-//                    .model(req.getParameter("model"))
-//                    .price(Long.valueOf(req.getParameter("price")))
-//                    .build());
-//            stuffService.edit(stuff);
-//            log.info("StuffServlet - Stuff Edit");
-//            req.getRequestDispatcher("/stuff.jsp").forward(req, resp);
-//
-//            log.info("StuffServlet - Put");
-//        } catch (Exception e) {
-//            log.error(e.getMessage());
-//        }
-//    }
+
 
 
     @Override

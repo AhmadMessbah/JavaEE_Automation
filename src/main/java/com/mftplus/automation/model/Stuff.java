@@ -42,15 +42,15 @@ public class Stuff extends Base {
     private String status;
 
 
-    @ManyToOne
-    private Section section;
+//    @ManyToOne
+//    private Section section;
+//
+//    @ManyToOne
+//    private User users;
 
-    @ManyToOne
-    private User users;
 
-
-    @OneToOne
-    private Attach attach;
+//    @OneToOne
+//    private Attach attach;
 
 }
 
