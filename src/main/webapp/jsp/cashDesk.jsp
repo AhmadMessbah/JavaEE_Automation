@@ -27,9 +27,10 @@
                 <input id="cashBalance" class="col form-control" type="number" name="cashBalance">
             </div>
             <div class="row mb-4">
-                <label class="col form-label" for="cashier">Cashier</label>
-                <input id="cashier" class="col form-control" type="text" name="cashier">
+                <label class="col form-label" for="username">Cashier</label>
+                <input id="username" class="col form-control" type="text" name="username" onkeyup="showFind()">
             </div>
+
             <div class="row mb-4">
                 <input type="submit" class="btn btn-primary" value="Save">
             </div>
@@ -56,8 +57,10 @@
                     <td>${cashDesk.cashBalance}</td>
                     <td>${cashDesk.cashier}</td>
                     <td>
-                        <button class="btn btn-warning" onclick="edit(${cashDesk.id})"><i class="fa fa-edit"></i> Edit</button>
-                        <button class="btn btn-danger" onclick="remove(${cashDesk.id})"><i class="fa fa-remove"></i>Remove</button>
+                        <button class="btn btn-warning" onclick="edit(${cashDesk.id})"><i class="fa fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-danger" onclick="remove(${cashDesk.id})"><i class="fa fa-remove"></i>Remove
+                        </button>
                     </td>
                 </tr>
             </c:forEach>
@@ -69,4 +72,15 @@
 <jsp:include page="js-import.jsp"></jsp:include>
 <script src="../assets/js/cashDesk.js"></script>
 </body>
+<script>
+    async function showFind() {
+        username_txt = document.getElementById("username");
+        username = username_txt.value;
+        const response = await fetch("/api/user/findByUsername/" + username, {
+            method: "GET"
+        });
+        const data = await response.json();
+        console.log(data);
+    }
+</script>
 </html>

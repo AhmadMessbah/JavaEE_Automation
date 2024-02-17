@@ -4,6 +4,7 @@ import com.github.mfathi91.time.PersianDateTime;
 import com.google.gson.Gson;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -33,14 +34,11 @@ public class CheckPayment extends Payment{
     private String checkNumber;// شماره چک
 
     @Column(name ="checkPayment_checkDueDate")
-    @PastOrPresent(message = "Invalid Date")
+    @FutureOrPresent(message = "Invalid Date")
     private LocalDateTime checkDueDate;//تاریخ سررسید چک
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private CashDesk cashDesk;// صندوق
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private  FinancialTransaction financialTransaction;
 
     @Transient
     private LocalDateTime faCheckDueDate;

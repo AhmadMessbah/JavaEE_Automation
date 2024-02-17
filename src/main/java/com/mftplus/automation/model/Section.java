@@ -34,7 +34,7 @@ public class Section {
     private Boolean deleted;
 
     @Column(name = "s_title", length = 40, unique = true)
-    @Pattern(regexp = "^[a-zA-Z\\s]{0,40}$", message = "Invalid Role")
+//    @Pattern(regexp = "^[a-zA-Z\\s]{0,40}$", message = "Invalid Role")
     private String title;
 
     @ManyToOne

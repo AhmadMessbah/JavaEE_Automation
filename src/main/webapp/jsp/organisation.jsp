@@ -80,7 +80,6 @@
             </tbody>
         </table>
     </div>
-    `
 </div>
 
 <jsp:include page="js-import.jsp"></jsp:include>

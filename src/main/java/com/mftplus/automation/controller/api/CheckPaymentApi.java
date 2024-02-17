@@ -21,7 +21,7 @@ public class CheckPaymentApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            log.info("Find All Check Paymen");
+            log.info("Find All Check Payment");
             return Response
                     .ok()
                     .entity(checkPaymentService.findAll())
@@ -39,7 +39,7 @@ public class CheckPaymentApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") Long id) {
         try {
-            log.info("Find By Id Check Paymen");
+            log.info("Find By Id Check Payment");
             return Response
                     .ok()
                     .entity(checkPaymentService.findById(id))
@@ -57,7 +57,7 @@ public class CheckPaymentApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response save(CheckPayment checkPayment) {
         try {
-            log.info("Save Check Paymen");
+            log.info("Save Check Payment");
             checkPaymentService.save(checkPayment);
             return Response
                     .ok()
@@ -76,7 +76,7 @@ public class CheckPaymentApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response edit(CheckPayment checkPayment) {
         try {
-            log.info("Edit Check Paymen");
+            log.info("Edit Check Payment");
             checkPaymentService.edit(checkPayment);
             return Response
                     .ok()
@@ -94,7 +94,7 @@ public class CheckPaymentApi {
     @Path("/{id}")
     public Response removeById(@PathParam("id") Long id) {
         try {
-            log.info("Remove By Id Check Paymen");
+            log.info("Remove By Id Check Payment");
             checkPaymentService.removeById(id);
             return Response
                     .ok()
@@ -112,7 +112,7 @@ public class CheckPaymentApi {
     @Path("/{checkNumber}")
     public Response removeByCheckNumber(@PathParam("checkNumber") String checkNumber) {
         try {
-            log.info("Remove By CheckNumber Check Paymen");
+            log.info("Remove By CheckNumber Check Payment");
             checkPaymentService.removeByCheckNumber(checkNumber);
             return Response
                     .ok()
@@ -131,7 +131,7 @@ public class CheckPaymentApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByCheckNumber(@PathParam("checkNumber") String checkNumber) {
         try {
-            log.info("Find By Check Number Check Paymen");
+            log.info("Find By Check Number Check Payment");
             return Response
                     .ok()
                     .entity(checkPaymentService.findByCheckNumber(checkNumber))
@@ -150,7 +150,7 @@ public class CheckPaymentApi {
     public Response findByCheckDueDate(@PathParam("checkDueDate") String checkDueDate) {
         try {
             LocalDateTime dateTimePars = LocalDateTime.parse(checkDueDate);
-            log.info("Find By CheckDueDate Check Paymen");
+            log.info("Find By CheckDueDate Check Payment");
             return Response
                     .ok()
                     .entity(checkPaymentService.findByCheckDueDate(dateTimePars))
@@ -168,7 +168,7 @@ public class CheckPaymentApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByCashDeskNumber(@PathParam("cashDeskNumber") int cashDeskNumber) {
         try {
-            log.info("Find By CashDeskNumber Check Paymen");
+            log.info("Find By CashDeskNumber Check Payment");
             return Response
                     .ok()
                     .entity(checkPaymentService.findByCashDeskNumber(cashDeskNumber))

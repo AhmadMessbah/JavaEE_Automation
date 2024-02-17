@@ -17,6 +17,43 @@ public class ReferenceApi {
     @Inject
     private ReferenceServiceImpl referenceService;
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response save(Reference reference) throws Exception{
+        try {
+            referenceService.save(reference);
+            return Response.ok().entity(reference).build();
+        } catch (Exception e) {
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response edit(Reference reference) throws Exception{
+        try {
+            referenceService.edit(reference);
+            return Response.ok().entity(reference).build();
+        } catch (Exception e) {
+            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeById(@PathParam("id") Long id) throws Exception{
+        log.info("Reference Delete api : " + id);
+        try {
+            referenceService.removeById(id);
+            return Response.ok().entity(id).build();
+        } catch (Exception e) {
+            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
+
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -177,43 +214,6 @@ public class ReferenceApi {
                     .serverError()
                     .entity(e.getMessage())
                     .build();
-        }
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response save(Reference reference) throws Exception{
-        try {
-            referenceService.save(reference);
-            return Response.ok().entity(reference).build();
-        } catch (Exception e) {
-            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
-        }
-    }
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(Reference reference) throws Exception{
-        try {
-            referenceService.edit(reference);
-            return Response.ok().entity(reference).build();
-        } catch (Exception e) {
-            return Response.status(500).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
-        }
-    }
-
-    @DELETE
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response removeById(@PathParam("id") Long id) throws Exception{
-        log.info("Reference Delete api : " + id);
-        try {
-            referenceService.removeById(id);
-            return Response.ok().entity(id).build();
-        } catch (Exception e) {
-            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }
     }
 

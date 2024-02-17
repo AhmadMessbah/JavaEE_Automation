@@ -14,7 +14,7 @@
 <br><br>
 <a href="cardPayment.do">CardPayment</a>
 <br><br>
-<a href="CashDesk.do">CashDesk</a>
+<a href="cashDesk.do">CashDesk</a>
 <br><br>
 <a href="checkPayment.do">CheckPayment</a>
 <br><br>

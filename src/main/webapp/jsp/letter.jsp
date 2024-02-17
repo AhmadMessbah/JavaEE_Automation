@@ -16,6 +16,7 @@
 <div class="container-fluid">
     <div id="org-form">
     <form id="letter_form" method="post" action="letter.do" enctype="multipart/form-data">
+        <br><br>
         <div class="row  mb-4">
             <label class="col form-label" for="l_title">Title</label>
             <input id="l_title" class="col form-control" type="text" name="l_title">
@@ -26,9 +27,15 @@
             <input id="l_letter_number" class="col form-control" type="text" name="l_letter_number">
         </div>
 
+<%--        <div class="row  mb-4">--%>
+<%--            <label class="col form-label" for="l_context">Context</label>--%>
+<%--            <input id="l_context" class="col form-control" type="text" name="l_context">--%>
+<%--        </div>--%>
         <div class="row  mb-4">
-            <label class="col form-label" for="l_context">Context</label>
-            <input id="l_context" class="col form-control" type="text" name="l_context">
+            <p>context</p>
+            <label class="col form-label" for="l_context">
+                <textarea id="l_context" class="col form-control" name="l_context"></textarea>
+            </label>
         </div>
 
         <div class="row  mb-4">
@@ -56,36 +63,48 @@
             <input class="form-control" id="file" type="file" name="file">
             <div id="file-msg error">${sessionScope.error}</div>
         </div>
+        <br><br><br>
+        <div class="row  mb-4">
+            <label for="accessLevel">Select AccessLevel: </label>
+            <select name="accessLevel" id="accessLevel">
+                <c:forEach var="accessLevel" items="${sessionScope.accessLevels}">
+                    <option value="${accessLevel}">${accessLevel}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="row  mb-4">
+            <label for="transferMethod">Select Transfer Method: </label>
+            <select name="transferMethod" id="transferMethod">
+                <c:forEach var="transferMethod" items="${sessionScope.transferMethods}">
+                    <option value="${transferMethod}">${transferMethod}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="row  mb-4">
+            <label for="letterType">Select Letter Type: </label>
+            <select name="letterType" id="letterType">
+                <c:forEach var="letterType" items="${sessionScope.letterTypes}">
+                    <option value="${letterType}">${letterType}</option>
+                </c:forEach>
+            </select>
+        </div>
 
-        <br><br><br>
-        <label for="accessLevel">Select AccessLevel: </label>
-        <select name="accessLevel" id="accessLevel">
-            <c:forEach var="accessLevel" items="${sessionScope.accessLevels}">
-                <option value="${accessLevel}">${accessLevel}</option>
-            </c:forEach>
-        </select>
-        <br><br><br>
-        <label for="transferMethod">Select Transfer Method: </label>
-        <select name="transferMethod" id="transferMethod">
-            <c:forEach var="transferMethod" items="${sessionScope.transferMethods}">
-                <option value="${transferMethod}">${transferMethod}</option>
-            </c:forEach>
-        </select>
-        <br><br><br>
-        <label for="letterType">Select Letter Type: </label>
-        <select name="letterType" id="letterType">
-            <c:forEach var="letterType" items="${sessionScope.letterTypes}">
-                <option value="${letterType}">${letterType}</option>
-            </c:forEach>
-        </select>
-        <br><br><br>
+        <div class="row  mb-4">
+            <label for="l_date">Date : </label>
+            <input type="text" id="l_date" name="l_date">
+        </div>
+<%--        <label for="user">bbbb</label><input type="text" name="user" id="user">--%>
+<%--        <input type="text" name="user" id="user">--%>
+<%--        <input type="text" name="user" id="user">--%>
 
-        <label for="l_date">Date : </label>
-        <input type="text" id="l_date" name="l_date" placeholder="Date">
-        <br><br><br>
         <div class="row mb-4">
             <input type="submit" class="btn btn-primary" value="Save">
         </div>
+
+        <div class="row mb-4">
+        <a href="reference.do?letterIdRef=${param.selectedLetter}">Reference</a>
+        </div>
+
     </form>
     </div>
 
@@ -101,6 +120,9 @@
                 <th>senderName</th>
                 <th>senderTitle</th>
                 <th>context</th>
+                <th>AccessLevel</th>
+                <th>Letter Type</th>
+                <th>Transfer Method</th>
                 <th>file</th>
         <%--        <th>user</th>--%>
                 <th>operation</th>
@@ -117,6 +139,9 @@
             <td>${letter.senderName}</td>
             <td>${letter.senderTitle}</td>
             <td>${letter.context}</td>
+            <td>${letter.accessLevel}</td>
+            <td>${letter.letterType}</td>
+            <td>${letter.transferMethod}</td>
             <td>${letter.image}</td>
 <%--            <td>${letter.user}</td>--%>
             <td>
@@ -135,7 +160,7 @@
 </div>
 <jsp:include page="js-import.jsp"></jsp:include>
 
-    <script src="../assets/js/letter.js"></script>
+<script src="../assets/js/letter.js"></script>
 
 <script src="../assets/js/jquery-3.7.1.min.js"></script>
 <script src="../assets/js/kamadatepicker.holidays.js"></script>

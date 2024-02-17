@@ -1,5 +1,6 @@
 package com.mftplus.automation.controller.servlet;
 
+
 import com.mftplus.automation.model.Letter;
 import com.mftplus.automation.model.enums.LetterAccessLevel;
 import com.mftplus.automation.model.enums.LetterType;
@@ -17,10 +18,11 @@ import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @Slf4j
-@WebServlet (urlPatterns = "/letter.do")
+@WebServlet(urlPatterns = "/letter.do")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024, // 1 MB
         maxFileSize = 1024 * 1024 * 10,      // 10 MB
@@ -33,25 +35,18 @@ public class LetterServlet extends HttpServlet {
     @Inject
     private UserServiceImpl userService;
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("LetterServlet - GET");
 
-//        for select box
         try {
+
             req.getSession().setAttribute("accessLevels", Arrays.asList(LetterAccessLevel.values()));
             req.getSession().setAttribute("transferMethods", Arrays.asList(TransferMethod.values()));
             req.getSession().setAttribute("letterTypes", Arrays.asList(LetterType.values()));
-            req.getRequestDispatcher("/jsp/letter.jsp").forward(req,resp);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-
-        try {
-           req.getSession().setAttribute("letterList", letterService.findAll());
+            req.getSession().setAttribute("letterList", letterService.findAll());
             req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
-            System.out.println(letterService.findAll());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -74,54 +69,59 @@ public class LetterServlet extends HttpServlet {
             String accessLevel = req.getParameter("accessLevel");
             String transferMethod = req.getParameter("transferMethod");
             String letterType = req.getParameter("letterType");
+            String[] user = req.getParameterValues("user");
+            System.out.println(Arrays.toString(user));
 
             //getting username from session
 //            String username = req.getSession().getAttribute("username").toString();
 
             //for uploading letter image
             String fileName = null;
-            Part filePart = req.getPart("file");
+                Part filePart = req.getPart("file");
             if (filePart.getSize()>0) {
                 fileName = filePart.getSubmittedFileName();
                 for (Part part : req.getParts()) {
-                    part.write(fileName);
+                    part.write(fileName); //todo set server path
                 }
                 resp.getWriter().print("The file uploaded successfully.");
             }
-
             //verify
 //            if (context != null){
-                //using username session to find user
+            //using username session to find user
 //                Optional<User> user = userService.findByUsername(username);
 //                if (user.isPresent()) {
 
-                    //for register time
+            //for register time
 //                    LocalDateTime localDateTime = LocalDateTime.now();
 
-            Letter letter =
-                            Letter
-                                    .builder()
-                                    .title(title)
-                                    .letterNumber(letterNumber)
-                                    .context(context)
-                                    .receiverName(receiverName)
-                                    .receiverTitle(receiverTitle)
-                                    .senderName(senderName)
-                                    .senderTitle(senderTitle)
-                                    .image(fileName)
-                                    .deleted(false)
-                                    .faDate(faDate)
-                                    .accessLevel(LetterAccessLevel.valueOf(accessLevel))
-                                    .transferMethod(TransferMethod.valueOf(transferMethod))
-                                    .letterType(LetterType.valueOf(letterType))
-                                    .build();
+             Letter letter =
+                    Letter
+                            .builder()
+                            .title(title)
+                            .letterNumber(letterNumber)
+                            .context(context)
+                            .receiverName(receiverName)
+                            .receiverTitle(receiverTitle)
+                            .senderName(senderName)
+                            .senderTitle(senderTitle)
+                            .image(fileName)
+                            .deleted(false)
+                            .faDate(faDate)
+                            .accessLevel(LetterAccessLevel.valueOf(accessLevel))
+                            .transferMethod(TransferMethod.valueOf(transferMethod))
+                            .letterType(LetterType.valueOf(letterType))
+                            .registerDateAndTime(LocalDateTime.now())
+                            .build();
             letter.setFaDate(faDate);
-                    letterService.save(letter);
-                    log.info("LetterServlet - Letter Saved");
+            letterService.save(letter);
+            log.info("LetterServlet - Letter Saved");
+            req.getSession().setAttribute("letterId",letter.getId());
+            resp.sendRedirect("/letter.do?selectedLetter="+letter.getId());
+
 //                }
 //            }
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }

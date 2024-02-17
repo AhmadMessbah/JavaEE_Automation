@@ -24,15 +24,15 @@ public class CashDesk extends Base{
     @Column(name = "cashDesk_id",length = 20)
     private Long id;
 
-    @Pattern(regexp = "^[a-zA-Z\\s]{3,20}$",message = "Invalid Name")
+//    @Pattern(regexp = "^[a-zA-Z\\s]{3,20}$",message = "Invalid Name")
     @Column(name ="cashDesk_name" ,length =20 )
     private String name;// نام صندوق
 
-    @Pattern(regexp = "^{1,2}$",message = "Invalid Cash Desk Number")
+//    @Pattern(regexp = "^{1,2}$",message = "Invalid Cash Desk Number")
     @Column(name ="cashDesk_cashDeskNumber",length = 2,unique = true)
     private int cashDeskNumber;// شماره صندوق
 
-    @Pattern(regexp = "^{1,15}$",message = "Invalid Cash Balance")
+//    @Pattern(regexp = "^{1,15}$",message = "Invalid Cash Balance")
     @Column(name ="cashDesk_cashBalance" ,length =15)
     private Long cashBalance;//  موجودی صندوق
 
