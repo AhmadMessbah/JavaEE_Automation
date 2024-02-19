@@ -99,8 +99,9 @@ public class StuffApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response edit(Stuff stuff) {
         try {
-            log.info("Edit Stuff");
+            stuffService.findById(stuff.getId());
             stuffService.edit(stuff);
+            log.info("Edit Stuff");
             return Response
                     .ok()
                     .entity(stuff)
