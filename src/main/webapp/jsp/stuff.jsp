@@ -22,14 +22,14 @@
 <div class="container-fluid">
     <div id="org-form">
     <form  action="stuff.do" method="post" >
-        <div class="row mb-4">
-            <label for="section">Section Name</label>
-            <select name="section" id="section">
-                <c:forEach var="section" items="${sessionScope.sectionList}">
-                    <option value="${section.title}">${section.title}</option>
-                </c:forEach>
-            </select>
-        </div>
+<%--        <div class="row mb-4">--%>
+<%--            <label for="section">Section Name</label>--%>
+<%--            <select name="section" id="section">--%>
+<%--                <c:forEach var="section" items="${sessionScope.sectionList}">--%>
+<%--                    <option value="${section.title}">${section.title}</option>--%>
+<%--                </c:forEach>--%>
+<%--            </select>--%>
+<%--        </div>--%>
 
         <div class="row mb-4">
             <label for="name">Stuff Name</label>
@@ -78,6 +78,7 @@
             <tbody>
             <c:forEach var="stuff" items="${sessionScope.StuffList}">
 
+
                 <tr>
                     <td>${stuff.id}</td>
                     <td>${stuff.name}</td>
@@ -85,7 +86,7 @@
                     <td>${stuff.price}</td>
                     <td>${stuff.model}</td>
                     <td>${stuff.status}</td>
-                    <td>${stuff.section}</td>
+                        <%--                    <td>${stuff.section}</td>--%>
                     <td>
                         <button class="btn btn-warning" onclick="edit(${stuff.id})"><i class="fa fa-edit"></i>
                             Edit
@@ -95,6 +96,7 @@
                         </button>
                     </td>
                 </tr>
+
 
             </c:forEach>
 

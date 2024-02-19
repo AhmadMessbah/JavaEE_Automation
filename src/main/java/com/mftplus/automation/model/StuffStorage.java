@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "stuffStorage_tbl")
 @RequestScoped
 
-public class StuffStorage {
+public class StuffStorage extends Base {
     @Id
     @SequenceGenerator(name = "stuffStorageSeq", sequenceName = "stuffStorage_seq")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,10 +25,10 @@ public class StuffStorage {
     private int id;
 
 
-    @Column(name = "ss_name", length = 20, nullable = false)
+    @Column(name = "ss_name", length = 20 )
     private String name;
 
-    @Column(name = "ss_count", length = 20, nullable = false)
+    @Column(name = "ss_count", length = 20)
     private int count;
     
 

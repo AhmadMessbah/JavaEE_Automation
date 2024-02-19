@@ -9,6 +9,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -42,8 +43,9 @@ public class Stuff extends Base {
     private String status;
 
 
-    @ManyToOne
-    private Section section;
+//    @ManyToOne
+//    private Section section;
+
 
 
 

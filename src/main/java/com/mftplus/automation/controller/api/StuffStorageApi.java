@@ -2,15 +2,13 @@ package com.mftplus.automation.controller.api;
 import com.mftplus.automation.model.StuffStorage;
 import com.mftplus.automation.service.impl.StuffStorageServiceImpl;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Path("stuffstorage")
+@Path("/stuffStorage")
 public class StuffStorageApi {
 
     @Inject
@@ -73,18 +71,19 @@ public class StuffStorageApi {
     }
 
     @DELETE
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response remove(StuffStorage stuffStorage) {
-        log.info("Remove stuffStorage");
+    public Response removeById(@PathParam("id")long id) {
         try {
-            stuffStorageService.remove(stuffStorage);
+            log.info("Remove stuffStorage");
+            stuffStorageService.removeById(id);
             return Response
                     .ok()
-                    .entity(stuffStorage)
+                    .entity(removeById(id))
                     .build();
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("Error Remove StuffStorage");
             return Response
                     .status(200)
                     .entity(e.getMessage())

@@ -25,7 +25,7 @@ public class StuffServlet extends HttpServlet {
 
     @Inject
     private SectionServiceImpl sectionService;
-    
+
     @Inject
     private Stuff stuff;
 
@@ -63,9 +63,9 @@ public class StuffServlet extends HttpServlet {
 //            resp.getWriter().print("The file uploaded successfully.");
 //        }
 
-             stuff = Stuff
+            stuff = Stuff
                     .builder()
-                    .section(sectionService.findByTitle(req.getParameter("section")).get())
+//                    .section(sectionService.findByTitle(req.getParameter("section")).get())
                     .name(name)
                     .brand(brand)
                     .price(price)

@@ -85,8 +85,9 @@ public class StuffApi {
                     .entity(removeById(id))
                     .build();
         } catch (Exception e) {
-            log.info("Error Remove Stuff");
-            return Response.status(200)
+            log.error("Error Remove Stuff");
+            return Response
+                    .status(200)
                     .entity(e.getMessage())
                     .build();
         }

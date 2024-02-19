@@ -17,19 +17,27 @@ public class StuffStorageServlet extends HttpServlet {
     @Inject
     private StuffStorageServiceImpl stuffStorageService;
 
+    @Inject
+    private StuffStorage stuffStorage;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name=req.getParameter("name");
+        int count= Integer.parseInt(req.getParameter("count"));
+        req.getRequestDispatcher("jsp/stuffStorage.jsp");
         try {
-            StuffStorage stuffStorage = StuffStorage
+             stuffStorage = StuffStorage
                     .builder()
-                    .name(req.getParameter("name"))
-                    .count(Integer.parseInt(req.getParameter("count")))
+                    .name(name)
+                    .count(count)
+                    .deleted(false)
                     .build();
             stuffStorageService.save(stuffStorage);
+            System.out.println(stuffStorage);
             log.info("Stuff Storage Servlet - Post");
-            req.getRequestDispatcher("/jsp/stuffStorage.jsp").forward(req, resp);
+            resp.sendRedirect("/stuffStorage.do");
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("Stuff Storage Servlet - Post-error");
         }
     }
 
@@ -46,7 +54,7 @@ public class StuffStorageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            req.getSession().setAttribute("StuffStorage",stuffStorageService.findAll());
+            req.getSession().setAttribute("StuffStorageList",stuffStorageService.findAll());
             req.getRequestDispatcher("/jsp/stuffStorage.jsp").forward(req, resp);
             log.info("Stuff Storage - Servlet - Get");
         } catch (Exception e) {

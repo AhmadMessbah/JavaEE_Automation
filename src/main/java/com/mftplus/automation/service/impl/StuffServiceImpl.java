@@ -49,7 +49,8 @@ public class StuffServiceImpl implements StuffService, Serializable {
 
     @Override
     public List<Stuff> findAll() throws Exception {
-        TypedQuery<Stuff> query = entityManager.createQuery("select p from stuffEntity p where p.deleted=false ", Stuff.class);
+        TypedQuery<Stuff> query = entityManager.createQuery(
+                "select p from stuffEntity p where p.deleted=false ", Stuff.class);
         return query.getResultList();
     }
 
