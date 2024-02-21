@@ -13,6 +13,8 @@ public class StuffApi {
 
     @Inject
     private StuffServiceImpl stuffService;
+
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
@@ -99,6 +101,7 @@ public class StuffApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response edit(Stuff stuff) {
         try {
+            System.out.println("masoooooooooooood");
             stuffService.findById(stuff.getId());
             stuffService.edit(stuff);
             log.info("Edit Stuff");
