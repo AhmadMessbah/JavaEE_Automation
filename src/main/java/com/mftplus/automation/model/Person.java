@@ -21,16 +21,16 @@ import lombok.experimental.SuperBuilder;
 @RequestScoped
 public class Person extends Base{
     @Id
-    @SequenceGenerator(name = "personSeq", sequenceName = "person_seq")
+    @SequenceGenerator(name = "personSeq", sequenceName = "person_seq",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personSeq")
-    @Column(name = "id", nullable = false)
+    @Column(name = "p_id", nullable = false)
     private Long id;
 
-    @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$", message = "Invalid Name")
+//    @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$", message = "Invalid Name")
     @Column(name = "p_name", length = 30)
     private String name;
 
-    @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$", message = "Invalid Family")
+//    @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$", message = "Invalid Family")
     @Column(name = "p_family", length = 30)
     private String family;
 
@@ -40,7 +40,7 @@ public class Person extends Base{
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
 
-    @OneToOne(mappedBy = "person")
-    private User user;
+//    @OneToOne(mappedBy = "person")
+//    private User user;
 
 }
