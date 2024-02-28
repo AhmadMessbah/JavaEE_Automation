@@ -39,6 +39,7 @@
 <a href="user.do">Users</a>
 <br><br>
 <a href="person.do">Persons</a>
-<br>
+<br><br>
+<a href="login.do">Login Page</a>
 </body>
 </html>
