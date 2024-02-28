@@ -25,8 +25,8 @@
 <a href="letter.do">Letter</a>
 <br><br>
 <a href="organisation.do">Organisation</a>
-<%--<br><br>--%>
-<%--<a href="reference.do">reference</a>--%> todo :
+<br><br>
+<a href="reference.do">reference</a>
 <br><br>
 <a href="section.do">Sections</a>
 <br><br>
