@@ -29,15 +29,15 @@
     <a href="letter.do">Letter</a>
     <a href="reference.do">Reference</a>
 
-    <a href="#">Attach</a>
-    <a href="#">Bank</a>
-    <a href="#">CardPayment</a>
-    <a href="#">CashDesk</a>
-    <a href="#">CheckPayment</a>
-    <a href="#">FinancialDoc</a>
-    <a href="#">FinancialTransaction</a>
-    <a href="#">Stuff</a>
-    <a href="#">StuffStorage</a>
-    <a href="#">StuffTransaction</a>
+    <a href="attach.do">Attach</a>
+    <a href="bank.do">Bank</a>
+    <a href="cardPayment.do">CardPayment</a>
+    <a href="cashDesk.do">CashDesk</a>
+    <a href="checkPayment.do">CheckPayment</a>
+    <a href="financialDoc.do">FinancialDoc</a>
+    <a href="FinancialTransaction.do">FinancialTransaction</a>
+    <a href="stuff.do">Stuff</a>
+    <a href="stuffStorage.do">StuffStorage</a>
+    <a href="stuffTransaction.do">StuffTransaction</a>
 </div>
 
