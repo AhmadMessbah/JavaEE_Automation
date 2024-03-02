@@ -1,7 +1,6 @@
 package com.mftplus.automation.model;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -10,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,19 +22,15 @@ import java.util.List;
 @Entity(name = "sectionEntity")
 @Table(name = "section_tbl")
 @RequestScoped
-public class Section {
+public class Section extends Base implements Serializable {
     @Id
     @SequenceGenerator(name = "sectionSeq", sequenceName = "section_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sectionSeq")
-    @Column(name = "id", nullable = false)
+    @Column(name = "s_id")
     private Long id;
 
-    @Column(length = 1)
-    @JsonbTransient
-    private Boolean deleted;
-
     @Column(name = "s_title", length = 40, unique = true)
-//    @Pattern(regexp = "^[a-zA-Z\\s]{0,40}$", message = "Invalid Role")
+    @Pattern(regexp = "^[a-zA-Z\\s]{0,40}$", message = "Invalid Role")
     private String title;
 
     @ManyToOne

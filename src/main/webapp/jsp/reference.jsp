@@ -10,13 +10,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <jsp:include page="css-import.jsp"></jsp:include>
     <link rel="stylesheet" href="../assets/css/reference.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/all.css">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
 </head>
 <body>
+<jsp:include page="../jsp/navbar.jsp"></jsp:include>
 
-<div class="container-fluid">
+<div class="content">
     <div id="org-form">
         <form id="reference_form" method="post" action="reference.do">
-            <br><br>
+            <h1>Reference</h1>
+            <br>
             <div class="row  mb-4">
             <label for="letterIdRef">Letter Id</label>
             <input type="text" id="letterIdRef" name="letterIdRef" value="${sessionScope.letterIdRef}">
@@ -56,7 +61,7 @@
 
             <div>
                 <label for="validate">Validation : </label>
-                <input type="checkbox" id="validate" name="validate" value="false" onchange="this.checked ?this.value=true:this.value=false">
+                <input type="checkbox" id="validate" name="validate">
             </div>
             <br><br>
 

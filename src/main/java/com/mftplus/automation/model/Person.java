@@ -3,27 +3,29 @@ package com.mftplus.automation.model;
 import com.mftplus.automation.model.enums.Gender;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-@NoArgsConstructor
+import java.io.Serializable;
+
 @Getter
 @Setter
+@NoArgsConstructor
 @SuperBuilder
 @ToString
 
 @Entity(name = "personEntity")
 @Table(name = "person_tbl")
 @RequestScoped
-public class Person extends Base{
+public class Person extends Base implements Serializable {
     @Id
-    @SequenceGenerator(name = "personSeq", sequenceName = "person_seq",allocationSize = 1)
+    //allocation size for fixing a bug
+    @SequenceGenerator(name = "personSeq", sequenceName = "person_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personSeq")
-    @Column(name = "p_id", nullable = false)
+    @Column(name = "p_id")
     private Long id;
 
 //    @Pattern(regexp = "^[a-zA-Z\\s]{3,30}$", message = "Invalid Name")
@@ -39,8 +41,5 @@ public class Person extends Base{
 
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
-
-//    @OneToOne(mappedBy = "person")
-//    private User user;
 
 }

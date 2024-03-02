@@ -1,6 +1,5 @@
 package com.mftplus.automation.service;
 
-
 import com.mftplus.automation.model.Letter;
 
 import java.time.LocalDate;

@@ -1,0 +1,21 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#data-form{
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+#submit, input, .form-control{
+    width: 30%;
+    margin: 20px auto;
+}
+
+
+.data-table{
+    width:80%;
+    margin: auto;
+}

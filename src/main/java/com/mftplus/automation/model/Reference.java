@@ -3,13 +3,13 @@ package com.mftplus.automation.model;
 import com.github.mfathi91.time.PersianDateTime;
 import com.mftplus.automation.model.enums.ReferencePriority;
 import com.mftplus.automation.model.enums.ReferenceType;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Reference extends Base implements Serializable {
     @Id
-    @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq")
+    @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterSeq")
     @Column (name = "r_Id")
     private long id;

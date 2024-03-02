@@ -54,7 +54,7 @@ public class ReferenceServlet extends HttpServlet {
                 String paraph = req.getParameter("paraph");
                 String explanation = req.getParameter("explanation");
                 String status = req.getParameter("status");
-                String validate = req.getParameter("validate");
+                boolean validate = req.getParameter("validate") != null && req.getParameter("validate").equals("on");
 
             if (letterId != null){
 
@@ -69,7 +69,7 @@ public class ReferenceServlet extends HttpServlet {
                                     .paraph(paraph)
                                     .explanation(explanation)
                                     .status(Boolean.parseBoolean(status))
-                                    .validate(Boolean.parseBoolean(validate))
+                                    .validate(validate)
                                     .priority(ReferencePriority.valueOf(priority))
                                     .refType(ReferenceType.valueOf(refType))
                                     .faExpiration(faExpiration)

@@ -1,4 +1,5 @@
 package com.mftplus.automation.controller.api;
+
 import com.mftplus.automation.model.Person;
 import com.mftplus.automation.service.impl.PersonServiceImpl;
 import jakarta.inject.Inject;

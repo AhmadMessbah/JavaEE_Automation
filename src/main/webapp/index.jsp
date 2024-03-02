@@ -4,42 +4,26 @@
 <html>
 <head>
   <title>Home</title>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/all.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/sidebar.css">
 </head>
 <body>
-<h1>Home Page</h1>
+<jsp:include page="./jsp/navbar.jsp"></jsp:include>
+
+<!-- Page content -->
+<div class="content">
+  <h2>Main Content</h2>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci dicta fuga, maxime nisi officiis placeat quia quidem, repellat repellendus sapiente soluta vel velit. Aspernatur culpa est nesciunt quidem voluptatem!
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci dicta fuga, maxime nisi officiis placeat quia quidem, repellat repellendus sapiente soluta vel velit. Aspernatur culpa est nesciunt quidem voluptatem!
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci dicta fuga, maxime nisi officiis placeat quia quidem, repellat repellendus sapiente soluta vel velit. Aspernatur culpa est nesciunt quidem voluptatem!
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci dicta fuga, maxime nisi officiis placeat quia quidem, repellat repellendus sapiente soluta vel velit. Aspernatur culpa est nesciunt quidem voluptatem!
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci dicta fuga, maxime nisi officiis placeat quia quidem, repellat repellendus sapiente soluta vel velit. Aspernatur culpa est nesciunt quidem voluptatem!
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci dicta fuga, maxime nisi officiis placeat quia quidem, repellat repellendus sapiente soluta vel velit. Aspernatur culpa est nesciunt quidem voluptatem!
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci dicta fuga, maxime nisi officiis placeat quia quidem, repellat repellendus sapiente soluta vel velit. Aspernatur culpa est nesciunt quidem voluptatem!
+</div>
+
 <br>
-<a href="attach.do">Attach</a>
-<br><br>
-<a href="bank.do">Bank</a>
-<br><br>
-<a href="cardPayment.do">CardPayment</a>
-<br><br>
-<a href="cashDesk.do">CashDesk</a>
-<br><br>
-<a href="checkPayment.do">CheckPayment</a>
-<br><br>
-<a href="financialDoc.do">FinancialDoc</a>
-<br><br>
-<a href="FinancialTransaction.do">FinancialTransaction</a>
-<br><br>
-<a href="letter.do">Letter</a>
-<br><br>
-<a href="organisation.do">Organisation</a>
-<br><br>
-<a href="reference.do">reference</a>
-<br><br>
-<a href="section.do">Sections</a>
-<br><br>
-<a href="stuff.do">Stuff</a>
-<br><br>
-<a href="stuffStorage.do">StuffStorage</a>
-<br><br>
-<a href="stuffTransaction.do">StuffTransaction</a>
-<br><br>
-<a href="user.do">Users</a>
-<br><br>
-<a href="person.do">Persons</a>
-<br><br>
-<a href="login.do">Login Page</a>
 </body>
 </html>

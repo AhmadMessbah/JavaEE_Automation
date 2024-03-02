@@ -1,4 +1,5 @@
 package com.mftplus.automation.controller.servlet;
+
 import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.Role;
 import com.mftplus.automation.service.impl.UserServiceImpl;
@@ -24,6 +25,17 @@ public class UserServlet extends HttpServlet {
     private User user;
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getSession().setAttribute("roles", Arrays.asList(Role.values()));
+            req.getSession().setAttribute("userList", userService.findAll());
+            req.getRequestDispatcher("/jsp/user.jsp").forward(req, resp);
+        } catch (Exception e) {
+            log.info("User - Get : " + e.getMessage());
+        }
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String username = req.getParameter("username");
@@ -37,45 +49,36 @@ public class UserServlet extends HttpServlet {
                    .role(Role.valueOf(role))
                    .deleted(false)
                    .build();
-
-
-            userService.save(user);
-            log.info("User Saved");
-            resp.sendRedirect("/user.do");
-        }catch (Exception e){
+           if (userService.findByUsername(username).isEmpty()){
+               userService.save(user);
+               log.info("User Saved");
+               resp.sendRedirect("/login.do");
+               req.getSession().removeAttribute("duplicateUsername");
+           }else {
+               resp.sendRedirect("/user.do");
+               String e = "Duplicate Username";
+               req.getSession().setAttribute("duplicateUsername",e);
+//               throw new DuplicateUsernameException("Duplicate Username");
+           }
+        }
+        catch (Exception e){
             log.info("User - POST : " + e.getMessage());
         }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            req.getSession().setAttribute("roles", Arrays.asList(Role.values()));
-            req.getSession().setAttribute("userList", userService.findAll());
-            req.getRequestDispatcher("/jsp/user.jsp").forward(req, resp);
-        } catch (Exception e) {
-            log.info("User - Get : " + e.getMessage());
-        }
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userId = req.getParameter("id");
-        int id = Integer.parseInt(userId);
-
-         try{
-             userService.removeById((long) id);
-         }catch (Exception e){
-             System.out.println(e.getMessage());
-             log.info("UserServlet - Error Delete User By Id");
-             req.getSession().setAttribute("error", e.getMessage());
-             req.getRequestDispatcher("/jsp/user.jsp").forward(req, resp);
-         }
-
-    }
+//    @Override
+//    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String userId = req.getParameter("id");
+//        int id = Integer.parseInt(userId);
+//
+//         try{
+//             userService.removeById((long) id);
+//         }catch (Exception e){
+//             System.out.println(e.getMessage());
+//             log.info("UserServlet - Error Delete User By Id");
+//             req.getSession().setAttribute("error", e.getMessage());
+//             req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
+//         }
+//
+//    }
 }

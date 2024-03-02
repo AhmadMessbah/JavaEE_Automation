@@ -1,7 +1,7 @@
 package com.mftplus.automation.controller.servlet;
 
-
 import com.mftplus.automation.model.Letter;
+import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.LetterAccessLevel;
 import com.mftplus.automation.model.enums.LetterType;
 import com.mftplus.automation.model.enums.TransferMethod;
@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Slf4j
 @WebServlet(urlPatterns = "/letter.do")
@@ -41,12 +42,11 @@ public class LetterServlet extends HttpServlet {
         log.info("LetterServlet - GET");
 
         try {
-
-            req.getSession().setAttribute("accessLevels", Arrays.asList(LetterAccessLevel.values()));
-            req.getSession().setAttribute("transferMethods", Arrays.asList(TransferMethod.values()));
-            req.getSession().setAttribute("letterTypes", Arrays.asList(LetterType.values()));
-            req.getSession().setAttribute("letterList", letterService.findAll());
-            req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
+                req.getSession().setAttribute("accessLevels", Arrays.asList(LetterAccessLevel.values()));
+                req.getSession().setAttribute("transferMethods", Arrays.asList(TransferMethod.values()));
+                req.getSession().setAttribute("letterTypes", Arrays.asList(LetterType.values()));
+                req.getSession().setAttribute("letterList", letterService.findAll());
+                req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -69,11 +69,9 @@ public class LetterServlet extends HttpServlet {
             String accessLevel = req.getParameter("accessLevel");
             String transferMethod = req.getParameter("transferMethod");
             String letterType = req.getParameter("letterType");
-            String[] user = req.getParameterValues("user");
-            System.out.println(Arrays.toString(user));
 
             //getting username from session
-//            String username = req.getSession().getAttribute("username").toString();
+            String username = req.getSession().getAttribute("username").toString();
 
             //for uploading letter image
             String fileName = null;
@@ -87,16 +85,14 @@ public class LetterServlet extends HttpServlet {
             }
             //verify
 //            if (context != null){
-            //using username session to find user
-//                Optional<User> user = userService.findByUsername(username);
-//                if (user.isPresent()) {
-
-            //for register time
-//                    LocalDateTime localDateTime = LocalDateTime.now();
+//            using username session to find user
+                Optional<User> user = userService.findByUsername(username);
+                if (user.isPresent()) {
 
              Letter letter =
                     Letter
                             .builder()
+                            .user(user.get())
                             .title(title)
                             .letterNumber(letterNumber)
                             .context(context)
@@ -117,16 +113,13 @@ public class LetterServlet extends HttpServlet {
             log.info("LetterServlet - Letter Saved");
             req.getSession().setAttribute("letterId",letter.getId());
             resp.sendRedirect("/letter.do?selectedLetter="+letter.getId());
-
-//                }
+                }
 //            }
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
-
-
 }
 
 //todo indicator code

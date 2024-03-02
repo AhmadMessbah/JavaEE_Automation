@@ -1,6 +1,5 @@
 package com.mftplus.automation.service.impl;
 
-import com.mftplus.automation.model.Letter;
 import com.mftplus.automation.model.Reference;
 import com.mftplus.automation.model.enums.ReferencePriority;
 import com.mftplus.automation.service.ReferenceService;
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -77,7 +75,7 @@ public class ReferenceServiceImpl implements ReferenceService, Serializable {
 
     @Override
     public List<Reference> findByLetterId(Long letterId) throws Exception {
-        TypedQuery<Reference> query = entityManager.createQuery("select oo from referenceEntity oo where oo.letter.id=:letterId", Reference.class);
+        TypedQuery<Reference> query = entityManager.createQuery("select oo from referenceEntity oo where oo.letterId.id=:letterId", Reference.class);
         query.setParameter(String.valueOf(letterId),"letterId");
         return query.getResultList();
     }

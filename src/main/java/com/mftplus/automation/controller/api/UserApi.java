@@ -39,17 +39,17 @@ public class UserApi {
         }
     }
 
-    @GET
-    @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findById(@PathParam("id") Long id) throws Exception {
-        try {
-            return Response.ok().entity(userService.findById(id)).build();
-        } catch (Exception e) {
-            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
-        }
-    }
+//    @GET
+//    @Path("/{id}")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response findById(@PathParam("id") Long id) throws Exception {
+//        try {
+//            return Response.ok().entity(userService.findById(id)).build();
+//        } catch (Exception e) {
+//            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
+//        }
+//    }
 
     @GET
     @Path("/findByUsername/{username}")
@@ -76,12 +76,12 @@ public class UserApi {
     }
 
     @DELETE
-    @Path("/{id}")
-    public Response remove(@PathParam("id") Long id) {
-        log.info("User Delete api : " + id);
+    @Path("/{username}")
+    public Response remove(@PathParam("username") String username) {
+        log.info("User Delete api : " + username);
         try {
-            userService.removeById(id);
-            return Response.ok().entity(id).build();
+            userService.removeByUsername(username);
+            return Response.ok().entity(username).build();
         } catch (Exception e) {
             return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
         }

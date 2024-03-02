@@ -9,13 +9,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <jsp:include page="css-import.jsp"></jsp:include>
     <link rel="stylesheet" href="../assets/css/organisation.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/all.css">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
 
 </head>
 <body>
+<jsp:include page="../jsp/navbar.jsp"></jsp:include>
 
-<div class="container-fluid">
+<div class="content">
     <div id="org-form">
         <form action="organisation.do" method="post">
+            <h1>Create Organization</h1>
+            <br>
             <div class="row  mb-4">
                 <label class="col form-label" for="name">Name</label>
                 <input id="name" class="col form-control" type="text" name="name">
@@ -80,6 +86,7 @@
             </tbody>
         </table>
     </div>
+    `
 </div>
 
 <jsp:include page="js-import.jsp"></jsp:include>

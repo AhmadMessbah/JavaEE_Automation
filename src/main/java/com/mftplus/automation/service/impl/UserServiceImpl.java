@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService, Serializable {
     @Transactional
     @Override
     public void save(User user) throws Exception {
+        log.info("User Saved");
         user.setActive(true);
         entityManager.persist(user);
     }
@@ -37,15 +38,15 @@ public class UserServiceImpl implements UserService, Serializable {
     @Transactional
     @Override
     public void remove(User user) throws Exception {
-        user = entityManager.find(User.class, user.getId());
+        user = entityManager.find(User.class, user.getUsername());
         user.setDeleted(true);
         entityManager.merge(user);
     }
 
     @Transactional
     @Override
-    public void removeById(Long id) throws Exception {
-        User user = entityManager.find(User.class, id);
+    public void removeByUsername(String username) throws Exception {
+        User user = entityManager.find(User.class, username);
         user.setDeleted(true);
         entityManager.merge(user);
     }
@@ -59,17 +60,17 @@ public class UserServiceImpl implements UserService, Serializable {
 
     @Transactional
     @Override
-    public Optional<User> findById(Long id) throws Exception {
-        return Optional.ofNullable(entityManager.find(User.class, id));
+    public Optional<User> findByUsername(String username) throws Exception {
+        return Optional.ofNullable(entityManager.find(User.class, username));
     }
 
-    @Transactional
-    @Override
-    public Optional<User> findByUsername(String username) throws Exception {
-        TypedQuery<User> query = entityManager.createQuery("select u from userEntity u where u.username like :username", User.class);
-        query.setParameter("username", username+"%");
-        return Optional.ofNullable(query.getSingleResult());
-    }
+//    @Transactional
+//    @Override
+//    public Optional<User> findByUsername(String username) throws Exception {
+//        TypedQuery<User> query = entityManager.createQuery("select u from userEntity u where u.username=:username", User.class);
+//        query.setParameter("username", username);
+//        return Optional.ofNullable(entityManager.find(User.class, username));
+//    }
 
     //todo
     @Transactional
@@ -102,6 +103,4 @@ public class UserServiceImpl implements UserService, Serializable {
         TypedQuery<User> query = entityManager.createQuery("select u from userEntity u", User.class);
         return query.getResultList();
     }
-
-
 }

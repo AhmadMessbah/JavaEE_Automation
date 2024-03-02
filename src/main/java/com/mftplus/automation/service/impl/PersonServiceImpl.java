@@ -22,6 +22,7 @@ public class PersonServiceImpl implements PersonService, Serializable {
     @Transactional
     @Override
     public void save(Person person) throws Exception {
+        log.info("Person Saved");
         entityManager.persist(person);
     }
 

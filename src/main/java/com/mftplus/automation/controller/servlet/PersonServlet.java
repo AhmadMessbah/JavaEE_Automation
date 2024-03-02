@@ -1,17 +1,16 @@
 package com.mftplus.automation.controller.servlet;
+
 import com.mftplus.automation.model.Person;
 import com.mftplus.automation.model.enums.Gender;
-import com.mftplus.automation.model.enums.Role;
 import com.mftplus.automation.service.impl.PersonServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -28,6 +27,17 @@ public class PersonServlet extends HttpServlet {
 
     @Inject
     private Person person;
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getSession().setAttribute("genders", Arrays.asList(Gender.values()));
+            req.getSession().setAttribute("personList", personService.findAll());
+            req.getRequestDispatcher("/jsp/person.jsp").forward(req, resp);
+        } catch (Exception e) {
+            log.info("Person - GET : " + e.getMessage());
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -54,26 +64,10 @@ public class PersonServlet extends HttpServlet {
 
             personService.save(person);
             log.info("Person Saved");
-            resp.sendRedirect("person.do");
+            resp.sendRedirect("/user.do");
         } catch (Exception e) {
             log.info("Person - POST : " + e.getMessage());
         }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            req.getSession().setAttribute("genders", Arrays.asList(Gender.values()));
-            req.getSession().setAttribute("personList", personService.findAll());
-            req.getRequestDispatcher("/jsp/person.jsp").forward(req, resp);
-        } catch (Exception e) {
-            log.info("Person - GET : " + e.getMessage());
-        }
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
     }
 
     @Override

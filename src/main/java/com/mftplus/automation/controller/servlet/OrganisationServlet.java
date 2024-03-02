@@ -22,6 +22,17 @@ public class OrganisationServlet extends HttpServlet {
     private Organisation organisation;
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.getSession().setAttribute("organisationList", service.findAll());
+            req.getRequestDispatcher("/jsp/organisation.jsp").forward(req, resp);
+            service.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String title = req.getParameter("title");
@@ -42,22 +53,12 @@ public class OrganisationServlet extends HttpServlet {
 
             service.save(organisation);
             log.info("Organisation Save");
-            resp.sendRedirect("/organisation.do");
+            resp.sendRedirect("/person.do");
         } catch (Exception e) {
             log.info(e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            req.getSession().setAttribute("organisationList", service.findAll());
-            req.getRequestDispatcher("/jsp/organisation.jsp").forward(req, resp);
-            service.findAll();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
 

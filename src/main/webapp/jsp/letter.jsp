@@ -10,14 +10,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <jsp:include page="css-import.jsp"></jsp:include>
     <link rel="stylesheet" href="../assets/css/letter.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/all.css">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
 </head>
 <body>
+<jsp:include page="../jsp/navbar.jsp"></jsp:include>
 
-<div class="container-fluid">
+<div class="content">
     <div id="org-form">
     <form id="letter_form" method="post" action="letter.do" enctype="multipart/form-data">
-        <br><br>
-        <div class="row  mb-4">
+        <h1>Write Letter</h1>
+        <br>
+        <div class="row  mb-4 w-100">
             <label class="col form-label" for="l_title">Title</label>
             <input id="l_title" class="col form-control" type="text" name="l_title">
         </div>
@@ -27,10 +32,6 @@
             <input id="l_letter_number" class="col form-control" type="text" name="l_letter_number">
         </div>
 
-<%--        <div class="row  mb-4">--%>
-<%--            <label class="col form-label" for="l_context">Context</label>--%>
-<%--            <input id="l_context" class="col form-control" type="text" name="l_context">--%>
-<%--        </div>--%>
         <div class="row  mb-4">
             <p>context</p>
             <label class="col form-label" for="l_context">
@@ -58,7 +59,7 @@
             <input id="l_sender_title" class="col form-control" type="text" name="l_sender_title">
         </div>
 
-        <div class="mb-3">
+        <div>
             <label class="form-label" for="file">File</label>
             <input class="form-control" id="file" type="file" name="file">
             <div id="file-msg error">${sessionScope.error}</div>
@@ -91,11 +92,8 @@
 
         <div class="row  mb-4">
             <label for="l_date">Date : </label>
-            <input type="text" id="l_date" name="l_date">
+            <input type="text" id="l_date" name="l_date" required>
         </div>
-<%--        <label for="user">bbbb</label><input type="text" name="user" id="user">--%>
-<%--        <input type="text" name="user" id="user">--%>
-<%--        <input type="text" name="user" id="user">--%>
 
         <div class="row mb-4">
             <input type="submit" class="btn btn-primary" value="Save">
@@ -124,7 +122,7 @@
                 <th>Letter Type</th>
                 <th>Transfer Method</th>
                 <th>file</th>
-        <%--        <th>user</th>--%>
+                <th>user</th>
                 <th>operation</th>
             </tr>
         </thead>
@@ -143,7 +141,7 @@
             <td>${letter.letterType}</td>
             <td>${letter.transferMethod}</td>
             <td>${letter.image}</td>
-<%--            <td>${letter.user}</td>--%>
+            <td>${letter.user.username}</td>
             <td>
                 <button class="btn btn-warning" onclick="edit(${letter.id})"><i class="fa fa-edit"></i>
                     Edit
@@ -151,6 +149,7 @@
                 <button class="btn btn-danger" onclick="remove(${letter.id})"><i class="fa fa-remove"></i>
                     Remove
                 </button>
+
             </td>
         </tr>
     </c:forEach>
@@ -166,6 +165,9 @@
 <script src="../assets/js/kamadatepicker.holidays.js"></script>
 <script src="../assets/js/kamadatepicker.min.js"></script>
 <script>
+    function edit(id) {
+        document.location.replace("/letterEdit.do?id=" + id);
+    }
     let myElement = document.querySelector('#l_date');
     kamaDatepicker(myElement);
 

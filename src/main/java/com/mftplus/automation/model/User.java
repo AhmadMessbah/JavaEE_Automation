@@ -9,32 +9,29 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
 
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @SuperBuilder
 @ToString
 
 @Entity(name = "userEntity")
 @Table(name = "user_tbl")
 @RequestScoped
-public class User extends Base{
+public class User extends Base implements Serializable {
+    //id is set as username because username must be unique like id
     @Id
-    @SequenceGenerator(name = "userSeq", sequenceName = "users_seq", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
-    @Column(name = "id", nullable = false)
-    private long id;
-
 //    @Pattern(regexp = "^[a-zA-Z\\s]{5,15}$", message = "Invalid Username")
-    @Column(name = "u_name", length = 15)
+    @Column(name = "u_username")
     private String username;
 
 //    @Pattern(regexp = "^[a-zA-Z\\s]{8,20}$", message = "Invalid Password")
     @Column(name = "u_pass", length = 20)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Person person;
 
     @ManyToOne

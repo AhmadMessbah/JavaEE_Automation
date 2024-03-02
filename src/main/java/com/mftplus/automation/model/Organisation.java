@@ -1,6 +1,5 @@
 package com.mftplus.automation.model;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +21,11 @@ import java.util.List;
 @Entity(name = "organisationEntity")
 @Table(name = "organisation_tbl")
 @RequestScoped
-public class Organisation extends Base {
+public class Organisation extends Base implements Serializable {
     @Id
     @SequenceGenerator(name = "organisationSeq", sequenceName = "organisation_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organisationSeq")
-    @Column(name = "id", nullable = false)
+    @Column(name = "O_id")
     private Long id;
 
 
@@ -50,7 +50,7 @@ public class Organisation extends Base {
 
 
     @OneToMany
-    private List<Section>sectionList;
+    private List<Section> sectionList;
 
     public void addSection(Section section){
         if (sectionList==null){

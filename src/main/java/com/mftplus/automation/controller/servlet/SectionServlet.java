@@ -23,7 +23,6 @@ public class SectionServlet extends HttpServlet {
     @Inject
     private Section section;
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
