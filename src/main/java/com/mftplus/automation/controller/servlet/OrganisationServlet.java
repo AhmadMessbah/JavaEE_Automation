@@ -51,7 +51,8 @@ public class OrganisationServlet extends HttpServlet {
                     .deleted(false)
                     .build();
 
-            service.save(organisation);
+                service.save(organisation);
+
             log.info("Organisation Save");
             resp.sendRedirect("/person.do");
         } catch (Exception e) {

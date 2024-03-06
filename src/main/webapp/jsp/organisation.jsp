@@ -24,7 +24,7 @@
             <br>
             <div class="row  mb-4">
                 <label class="col form-label" for="name">Name</label>
-                <input id="name" class="col form-control" type="text" name="name">
+                <input id="name" class="col form-control" type="text" name="name" required>
             </div>
 
             <div class="row mb-4">
@@ -34,7 +34,7 @@
 
             <div class="row mb-4">
                 <label class="col form-label" for="address">Address</label>
-                <input id="address" class="col form-control" type="text" name="address">
+                <input id="address" class="col form-control" type="text" name="address" required>
             </div>
 
             <div class="row mb-4">
