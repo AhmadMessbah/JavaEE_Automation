@@ -42,12 +42,17 @@ public class LetterServlet extends HttpServlet {
         log.info("LetterServlet - GET");
 
         try {
+            if (req.getParameter("username") == null) {
+                resp.sendRedirect("/login.do");
+            }else {
                 req.getSession().setAttribute("accessLevels", Arrays.asList(LetterAccessLevel.values()));
                 req.getSession().setAttribute("transferMethods", Arrays.asList(TransferMethod.values()));
                 req.getSession().setAttribute("letterTypes", Arrays.asList(LetterType.values()));
                 req.getSession().setAttribute("letterList", letterService.findAll());
                 req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
+            }
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -84,7 +89,7 @@ public class LetterServlet extends HttpServlet {
                 resp.getWriter().print("The file uploaded successfully.");
             }
             //verify
-//            if (context != null){
+//            if (username != null){
 //            using username session to find user
                 Optional<User> user = userService.findByUsername(username);
                 if (user.isPresent()) {
