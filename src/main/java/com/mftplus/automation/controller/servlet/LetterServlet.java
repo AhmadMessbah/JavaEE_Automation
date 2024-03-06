@@ -44,7 +44,6 @@ public class LetterServlet extends HttpServlet {
         try {
 //            String username = req.getSession().getAttribute("username").toString();
             if (req.getSession(false).getAttribute("username").toString().isEmpty()) {
-                System.out.println("jigh");
                 resp.sendRedirect("/login.do");
             }else {
                 req.getSession().setAttribute("accessLevels", Arrays.asList(LetterAccessLevel.values()));
