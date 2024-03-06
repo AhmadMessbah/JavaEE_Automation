@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
             if (userService.findByUsernameAndPassword(username, password).isPresent()){
                 log.info("User Logged in");
                 req.getSession().setAttribute("username", username);
-                resp.sendRedirect("/letter.do");
+                resp.sendRedirect("/");
                 req.getSession().removeAttribute("wrongUser");
             }else{
                 resp.sendRedirect("/login.do");

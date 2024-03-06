@@ -13,8 +13,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @SessionScoped
+@Slf4j
 public class AttachServiceImpl implements AttachService, Serializable {
     @PersistenceContext(unitName = "automation")
     private EntityManager entityManager;
@@ -22,6 +22,7 @@ public class AttachServiceImpl implements AttachService, Serializable {
     @Transactional
     @Override
     public void save(Attach attach) throws Exception {
+        log.info("Attach saved");
         entityManager.persist(attach);
     }
 
@@ -34,26 +35,37 @@ public class AttachServiceImpl implements AttachService, Serializable {
     @Transactional
     @Override
     public void remove(Attach attach) throws Exception {
-        entityManager.remove(attach);
+        attach = entityManager.find(Attach.class, attach.getId());
+        attach.setDeleted(true);
+        entityManager.merge(attach);
     }
 
     @Transactional
     @Override
     public void removeById(Long id) throws Exception {
         Attach attach = entityManager.find(Attach.class, id);
-        entityManager.remove(attach);
-    }
-
-    @Transactional
-    @Override
-    public List<Attach> findAll() throws Exception {
-        TypedQuery<Attach> query = entityManager.createQuery("select p from attachEntity p", Attach.class);
-        return query.getResultList();
+        attach.setDeleted(true);
+        entityManager.merge(attach);
     }
 
     @Transactional
     @Override
     public Optional<Attach> findById(Long id) throws Exception {
         return Optional.ofNullable(entityManager.find(Attach.class, id));
+    }
+
+    @Transactional
+    @Override
+    public List<Attach> findAll() throws Exception {
+        TypedQuery<Attach> query = entityManager.createQuery("select oo from attachEntity oo where oo.deleted=false", Attach.class);
+        return query.getResultList();
+    }
+
+    @Transactional
+    @Override
+    public List<Attach> findByTitle(String title) throws Exception {
+        TypedQuery<Attach> query = entityManager.createQuery("select oo from attachEntity oo where oo.title=:title", Attach.class);
+        query.setParameter(title,"title");
+        return query.getResultList();
     }
 }

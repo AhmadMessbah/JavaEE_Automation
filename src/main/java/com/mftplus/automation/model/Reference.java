@@ -21,12 +21,12 @@ import java.time.format.DateTimeFormatter;
 @ToString
 
 @Entity(name = "referenceEntity")
-@Table(name = "refrence_tbl")
+@Table(name = "reference_tbl")
 
 public class Reference extends Base implements Serializable {
     @Id
-    @SequenceGenerator(name = "letterSeq", sequenceName = "letter_seq",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterSeq")
+    @SequenceGenerator(name = "referenceSeq", sequenceName = "reference_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "referenceSeq")
     @Column (name = "r_Id")
     private long id;
 
