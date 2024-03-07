@@ -1,30 +1,32 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: sabin
+  Date: 3/7/2024
+  Time: 10:21 AM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Section</title>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>edit organisation</title>
     <jsp:include page="css-import.jsp"></jsp:include>
     <link rel="stylesheet" href="../assets/css/organisation.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/all.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
-
 </head>
 <body>
 <jsp:include page="../jsp/navbar.jsp"></jsp:include>
 
 <div class="content">
     <div id="org-form">
-        <form action="organisation.do" method="post">
-            <h1>Create Organization</h1>
+        <form id="myForm" >
+            <h1>Edit Organization</h1>
             <br>
             <div class="row  mb-4">
                 <label class="col form-label" for="name">Name</label>
-                <input id="name" class="col form-control" type="text" name="name" required>
+                <input id="name" class="col form-control" type="text" name="name" value="${sessionScope.organisation.title}">
             </div>
 
             <div class="row mb-4">
@@ -34,20 +36,20 @@
 
             <div class="row mb-4">
                 <label class="col form-label" for="address">Address</label>
-                <input id="address" class="col form-control" type="text" name="address" required>
+                <input id="address" class="col form-control" type="text" name="address"  value="${sessionScope.organisation.address}">
             </div>
 
             <div class="row mb-4">
                 <label class="col form-label" for="phoneNumber">PhoneNumber</label>
-                <input id="phoneNumber" class="col form-control" type="text" name="phoneNumber">
+                <input id="phoneNumber" class="col form-control" type="text" name="phoneNumber"  value="${sessionScope.organisation.phoneNumber}">
             </div>
 
             <div class="row mb-4">
                 <label class="col form-label" for="description">Description</label>
-                <input id="description" class="col form-control" type="text" name="description">
+                <input id="description" class="col form-control" type="text" name="description" value="${sessionScope.organisation.description}" >
             </div>
             <div class="row mb-4">
-                <input type="submit" class="btn btn-primary" value="Save">
+                <button id="submit" class="btn btn-warning" onclick="edit()"><i class="fa fa-edit"></i> Edit</button>
             </div>
         </form>
     </div>
@@ -75,9 +77,6 @@
                     <td>${organisation.phoneNumber}</td>
                     <td>${organisation.description}</td>
                     <td>
-                        <button class="btn btn-warning" onclick="edit(${organisation.id})"><i class="fa fa-edit"></i>
-                            Edit
-                        </button>
                         <button class="btn btn-danger" onclick="remove(${organisation.id})"><i class="fa fa-remove"></i>Remove
                         </button>
                     </td>
@@ -86,19 +85,22 @@
             </tbody>
         </table>
     </div>
-    `
+
 </div>
 
 <jsp:include page="js-import.jsp"></jsp:include>
 <script src="../assets/js/organisation.js"></script>
 <script>
-    function edit(id) {
-        document.location.replace("/organisation-edit.do?id=" + id);
+    function edit() {
+        const myForm = document.getElementById("myForm");
+        const queryString = new URLSearchParams(new FormData(myForm)).toString();
+        fetch("/organisation-edit.do?" + queryString, {
+            method: "PUT"
+        }).then(() => {
+            document.location.replace("/organisation.do");
+        });
     }
-    let myElement = document.querySelector('#l_date');
-    kamaDatepicker(myElement);
-
-    kamaDatepicker('l_date', { buttonsColor: "red", forceFarsiDigits: true });
 </script>
+
 </body>
 </html>
