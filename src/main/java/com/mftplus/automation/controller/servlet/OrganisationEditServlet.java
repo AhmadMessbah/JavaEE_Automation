@@ -48,7 +48,7 @@ public class OrganisationEditServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("LetterEditServlet - put");
+
         try {
 
             String title = req.getParameter("title");
