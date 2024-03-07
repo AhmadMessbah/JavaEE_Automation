@@ -50,7 +50,7 @@ public class OrganisationEditServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-
+            long id = Integer.parseInt(req.getParameter("id"));
             String title = req.getParameter("title");
             String name = req.getParameter("name");
             String address = req.getParameter("address");
@@ -59,6 +59,7 @@ public class OrganisationEditServlet extends HttpServlet {
 
             organisation = Organisation
                     .builder()
+                    .id(id)
                     .name(name)
                     .title(title)
                     .address(address)
