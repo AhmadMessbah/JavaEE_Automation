@@ -20,18 +20,14 @@
 div class="content">
 <div id="org-form">
     <form id="myForm" >
-        <h1>Edit Person</h1>
-        <br>
-        <input class="form-control" type="text" name="id" value="${sessionScope.user.id}" hidden="hidden">
-        <input class="form-control" type="text" placeholder="ID" value="${sessionScope.user.id}" disabled>
-        <br><br>
+        <h1>Edit User</h1>
         <div class="row  mb-4">
             <label class="col form-label" for="username">Person Username</label>
             <input id="username" class="col form-control" type="text" name="username" value="${sessionScope.user.username}">
         </div>
 
         <div class="row  mb-4">
-            <label class="col form-label" for="password">Person Family</label>
+            <label class="col form-label" for="password">Person Password</label>
             <input id="password" class="col form-control" type="password" name="password" value="${sessionScope.user.password}">
         </div>
 

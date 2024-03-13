@@ -52,7 +52,6 @@ public class UserEditServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("UserEditServlet - Put");
         try {
-            long id = Integer.parseInt(req.getParameter("id"));
             String username = req.getParameter("username");
             String password = req.getParameter("password");
             String role = req.getParameter("role");
