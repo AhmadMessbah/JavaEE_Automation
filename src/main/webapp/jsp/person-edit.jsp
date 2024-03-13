@@ -9,7 +9,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <jsp:include page="css-import.jsp"></jsp:include>
-    <link rel="stylesheet" href="../assets/css/letter.css">
+    <link rel="stylesheet" href="../assets/css/user.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/all.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
@@ -36,10 +36,8 @@
             </div>
 
             <div class="row  mb-4">
-                <p>context</p>
-                <label class="col form-label" for="nationalCode">
-                    <textarea id="nationalCode" class="col form-control" name="nationalCode"></textarea>
-                </label>
+                <label class="col form-label" for="nationalCode">Person NationalCode</label>
+                <input id="nationalCode" class="col form-control" type="text" name="nationalCode" value="${sessionScope.person.nationalCode}">
             </div>
 
             <div class="row  mb-4">

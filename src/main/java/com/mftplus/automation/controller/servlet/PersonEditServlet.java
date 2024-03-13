@@ -39,7 +39,7 @@ public class PersonEditServlet extends HttpServlet {
                 }
 
                 req.getSession().setAttribute("gender", Arrays.asList(Gender.values()));
-                req.getRequestDispatcher("/jsp/personEdit.jsp").forward(req,resp);
+                req.getRequestDispatcher("/jsp/person-edit.jsp").forward(req,resp);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
