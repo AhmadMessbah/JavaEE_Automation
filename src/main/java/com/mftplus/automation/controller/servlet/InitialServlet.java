@@ -43,6 +43,7 @@ public class InitialServlet extends HttpServlet {
                             .builder()
                             .username("admin")
                             .password("admin123")
+                            .deleted(false)
                             .build();
             if (userService.findByUsername("admin").isEmpty()){
             userService.save(user);
@@ -58,6 +59,7 @@ public class InitialServlet extends HttpServlet {
                     Roles
                             .builder()
                             .compositeKey(compositeKey)
+                            .deleted(false)
                             .build();
             if (rolesService.findById(compositeKey).isEmpty()){
                rolesService.save(role);
@@ -69,6 +71,7 @@ public class InitialServlet extends HttpServlet {
                             .builder()
                             .username("user")
                             .password("user123")
+                            .deleted(false)
                             .build();
             if (userService.findByUsername("user").isEmpty()){
                 userService.save(user1);
@@ -84,6 +87,7 @@ public class InitialServlet extends HttpServlet {
                     Roles
                             .builder()
                             .compositeKey(compositeKey1)
+                            .deleted(false)
                             .build();
             if (rolesService.findById(compositeKey1).isEmpty()){
                 rolesService.save(role1);
