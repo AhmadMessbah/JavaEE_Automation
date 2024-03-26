@@ -36,28 +36,22 @@ public class LetterServlet extends HttpServlet {
     @Inject
     private UserServiceImpl userService;
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("LetterServlet - GET");
 
         try {
-//            String username = req.getSession().getAttribute("username").toString();
-            if (req.getSession(false).getAttribute("username").toString().isEmpty()) {
-                resp.sendRedirect("/login.do");
-            }else {
                 req.getSession().setAttribute("accessLevels", Arrays.asList(LetterAccessLevel.values()));
                 req.getSession().setAttribute("transferMethods", Arrays.asList(TransferMethod.values()));
                 req.getSession().setAttribute("letterTypes", Arrays.asList(LetterType.values()));
                 req.getSession().setAttribute("letterList", letterService.findAll());
+                req.getSession().setAttribute("user",req.getUserPrincipal().getName());
                 req.getRequestDispatcher("/jsp/letter.jsp").forward(req, resp);
-            }
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -76,8 +70,7 @@ public class LetterServlet extends HttpServlet {
             String transferMethod = req.getParameter("transferMethod");
             String letterType = req.getParameter("letterType");
 
-            //getting username from session
-            String username = req.getSession().getAttribute("username").toString();
+            String username = req.getUserPrincipal().getName();
 
             //for uploading letter image
             String fileName = null;
@@ -89,12 +82,10 @@ public class LetterServlet extends HttpServlet {
                 }
                 resp.getWriter().print("The file uploaded successfully.");
             }
-            //verify
-//            if (username != null){
-//            using username session to find user
+//            verify
+            if (username != null){
                 Optional<User> user = userService.findByUsername(username);
                 if (user.isPresent()) {
-
              Letter letter =
                     Letter
                             .builder()
@@ -120,7 +111,7 @@ public class LetterServlet extends HttpServlet {
             req.getSession().setAttribute("letterId",letter.getId());
             resp.sendRedirect("/letter.do?selectedLetter="+letter.getId());
                 }
-//            }
+            }
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);

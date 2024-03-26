@@ -2,10 +2,12 @@ package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.Letter;
 import com.mftplus.automation.model.Reference;
+import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.ReferencePriority;
 import com.mftplus.automation.model.enums.ReferenceType;
 import com.mftplus.automation.service.impl.LetterServiceImpl;
 import com.mftplus.automation.service.impl.ReferenceServiceImpl;
+import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,19 +28,23 @@ public class ReferenceServlet extends HttpServlet {
     private ReferenceServiceImpl referenceService;
 
     @Inject
+    private UserServiceImpl userService;
+
+    @Inject
     private LetterServiceImpl letterService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("ReferenceServlet - GET");
-
+        log.info("ReferenceServlet - Get");
         try {
             req.getSession().setAttribute("refTypes", Arrays.asList(ReferenceType.values()));
             req.getSession().setAttribute("priorities", Arrays.asList(ReferencePriority.values()));
             req.getSession().setAttribute("referenceList", referenceService.findAll());
             req.getSession().setAttribute("letterIdRef",req.getParameter("letterIdRef"));
+            req.getSession().setAttribute("user",req.getUserPrincipal().getName());
             req.getRequestDispatcher("/jsp/reference.jsp").forward(req, resp);
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -54,17 +60,23 @@ public class ReferenceServlet extends HttpServlet {
                 String paraph = req.getParameter("paraph");
                 String explanation = req.getParameter("explanation");
                 String status = req.getParameter("status");
+                String referenceReceiver = req.getParameter("referenceReceiver");
                 boolean validate = req.getParameter("validate") != null && req.getParameter("validate").equals("on");
 
-            if (letterId != null){
+                String username = req.getUserPrincipal().getName();
+
+            if (letterId != null && username != null){
 
                 Optional<Letter> letter = letterService.findById(Long.valueOf(letterId));
+                Optional<User> user = userService.findByUsername(username);
+                Optional<User> referenceReceiverId = userService.findByUsername(referenceReceiver);
 
-                if (letter.isPresent()){
+                if (letter.isPresent() && user.isPresent() && referenceReceiverId.isPresent()){
                     Reference reference =
                             Reference
                                     .builder()
                                     .letterId(letter.get())
+                                    .referenceSenderId(user.get())
                                     .refDateAndTime(LocalDateTime.now())
                                     .paraph(paraph)
                                     .explanation(explanation)
@@ -74,6 +86,7 @@ public class ReferenceServlet extends HttpServlet {
                                     .refType(ReferenceType.valueOf(refType))
                                     .faExpiration(faExpiration)
                                     .deleted(false)
+                                    .referenceReceiverId(referenceReceiverId.get())
                                     .build();
                     reference.setFaExpiration(faExpiration);
                     referenceService.save(reference);
@@ -81,9 +94,12 @@ public class ReferenceServlet extends HttpServlet {
                 resp.sendRedirect("/reference.do");
                 }
             }
-
+//            else  {
+//                resp.sendRedirect("/letter.do"); //todo not working
+//                throw new LetterIdIsRequired();
+//            }
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }

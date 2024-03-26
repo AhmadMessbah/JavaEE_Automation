@@ -1,8 +1,10 @@
 package com.mftplus.automation.controller.servlet;
 
 import com.mftplus.automation.model.Person;
+import com.mftplus.automation.model.User;
 import com.mftplus.automation.model.enums.Gender;
 import com.mftplus.automation.service.impl.PersonServiceImpl;
+import com.mftplus.automation.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Slf4j
 @WebServlet(urlPatterns = "/person.do")
@@ -26,21 +29,27 @@ public class PersonServlet extends HttpServlet {
     private PersonServiceImpl personService;
 
     @Inject
+    private UserServiceImpl userService;
+
+    @Inject
     private Person person;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("PersonServlet - Get");
         try {
             req.getSession().setAttribute("genders", Arrays.asList(Gender.values()));
             req.getSession().setAttribute("personList", personService.findAll());
             req.getRequestDispatcher("/jsp/person.jsp").forward(req, resp);
         } catch (Exception e) {
-            log.info("Person - GET : " + e.getMessage());
+            log.error("Person - GET : " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("PersonServlet - post");
 //        Part filePart = req.getPart("file");
 //        String fileName = filePart.getSubmittedFileName();  // todo : attach_id
 //        for (Part part : req.getParts()) {
@@ -53,20 +62,29 @@ public class PersonServlet extends HttpServlet {
             String nationalCode = req.getParameter("nationalCode");
             String gender = req.getParameter("gender");
 
-            person = Person
-                    .builder()
-                    .name(name)
-                    .family(family)
-                    .nationalCode(nationalCode)
-                    .gender(Gender.valueOf(gender))
-                    .deleted(false)
-                    .build();
+            String username = req.getUserPrincipal().getName();
 
-            personService.save(person);
-            log.info("Person Saved");
-            resp.sendRedirect("/user.do");
+            if (username != null) {
+                Optional<User> user = userService.findByUsername(username);
+                if (user.isPresent()) {
+                    person = Person
+                            .builder()
+                            .name(name)
+                            .family(family)
+                            .nationalCode(nationalCode)
+                            .gender(Gender.valueOf(gender))
+                            .user(user.get())
+                            .deleted(false)
+                            .build();
+
+                    personService.save(person);
+                    log.info("Person Saved");
+                    resp.sendRedirect("/user.do");
+                }
+            }
         } catch (Exception e) {
-            log.info("Person - POST : " + e.getMessage());
+            log.error("Person - POST : " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

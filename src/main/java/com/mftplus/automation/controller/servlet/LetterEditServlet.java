@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -77,48 +78,48 @@ public class LetterEditServlet extends HttpServlet {
             String transferMethod = req.getParameter("transferMethod");
             String letterType = req.getParameter("letterType");
 
-            //getting username from session
-            String username = req.getSession().getAttribute("username").toString();
+            String username = req.getUserPrincipal().getName();
 
             //for uploading letter image
-//            String fileName = null;
-//            Part filePart = req.getPart("file");
-//            if (filePart.getSize()>0) {
-//                fileName = filePart.getSubmittedFileName();
-//                for (Part part : req.getParts()) {
-//                    part.write(fileName); //todo set server path
-//                }
-//                resp.getWriter().print("The file uploaded successfully.");
-//            }
+            String fileName = null;
+            Part filePart = req.getPart("file");
+            if (filePart.getSize()>0) {
+                fileName = filePart.getSubmittedFileName();
+                for (Part part : req.getParts()) {
+                    part.write(fileName); //todo set server path
+                }
+                resp.getWriter().print("The file uploaded successfully.");
+            }
 
-
-            //using username session to find user
-            Optional<User> user = userService.findByUsername(username);
-            if (user.isPresent()) {
-                Letter letter =
-                        Letter
-                                .builder()
-                                .id(id)
-                                .user(user.get())
-                                .title(title)
-                                .letterNumber(letterNumber)
-                                .context(context)
-                                .receiverName(receiverName)
-                                .receiverTitle(receiverTitle)
-                                .senderName(senderName)
-                                .senderTitle(senderTitle)
-//                                .image(fileName)
-                                .deleted(false)
-                                .faDate(faDate)
-                                .accessLevel(LetterAccessLevel.valueOf(accessLevel))
-                                .transferMethod(TransferMethod.valueOf(transferMethod))
-                                .letterType(LetterType.valueOf(letterType))
-                                .registerDateAndTime(LocalDateTime.now())
-                                .build();
-                letter.setFaDate(faDate);
-                letterService.edit(letter);
-                log.info("LetterEditServlet - Letter Edited");
-                resp.sendRedirect("/letter.do");
+//            verify
+            if (username != null) {
+                Optional<User> user = userService.findByUsername(username);
+                if (user.isPresent()) {
+                    Letter letter =
+                            Letter
+                                    .builder()
+                                    .id(id)
+                                    .user(user.get())
+                                    .title(title)
+                                    .letterNumber(letterNumber)
+                                    .context(context)
+                                    .receiverName(receiverName)
+                                    .receiverTitle(receiverTitle)
+                                    .senderName(senderName)
+                                    .senderTitle(senderTitle)
+                                    .image(fileName)
+                                    .deleted(false)
+                                    .faDate(faDate)
+                                    .accessLevel(LetterAccessLevel.valueOf(accessLevel))
+                                    .transferMethod(TransferMethod.valueOf(transferMethod))
+                                    .letterType(LetterType.valueOf(letterType))
+                                    .registerDateAndTime(LocalDateTime.now())
+                                    .build();
+                    letter.setFaDate(faDate);
+                    letterService.edit(letter);
+                    log.info("LetterEditServlet - Letter Edited");
+                    resp.sendRedirect("/letter.do");
+                }
             }
         } catch (Exception e) {
             log.error(e.getMessage());
