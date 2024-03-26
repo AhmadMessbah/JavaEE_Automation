@@ -10,9 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <jsp:include page="css-import.jsp"></jsp:include>
     <link rel="stylesheet" href="../assets/css/letter.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/all.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
+
 </head>
 <body>
 <jsp:include page="../jsp/navbar.jsp"></jsp:include>
@@ -22,6 +20,11 @@
     <form id="letter_form" method="post" action="letter.do" enctype="multipart/form-data">
         <h1>Write Letter</h1>
         <br>
+        <div class="row  mb-4 w-100">
+            <label class="col form-label" for="username">username</label>
+            <input id="username" class="col form-control" type="text" name="username" value="${sessionScope.user}" readonly required>
+        </div>
+
         <div class="row  mb-4 w-100">
             <label class="col form-label" for="l_title">Title</label>
             <input id="l_title" class="col form-control" type="text" name="l_title">
@@ -65,7 +68,7 @@
             <div id="file-msg error">${sessionScope.error}</div>
         </div>
         <br><br><br>
-        <div class="row  mb-4">
+        <div class="row  mb-3">
             <label for="accessLevel">Select AccessLevel: </label>
             <select name="accessLevel" id="accessLevel">
                 <c:forEach var="accessLevel" items="${sessionScope.accessLevels}">
@@ -73,7 +76,7 @@
                 </c:forEach>
             </select>
         </div>
-        <div class="row  mb-4">
+        <div class="row  mb-3">
             <label for="transferMethod">Select Transfer Method: </label>
             <select name="transferMethod" id="transferMethod">
                 <c:forEach var="transferMethod" items="${sessionScope.transferMethods}">
@@ -81,7 +84,7 @@
                 </c:forEach>
             </select>
         </div>
-        <div class="row  mb-4">
+        <div class="row  mb-3">
             <label for="letterType">Select Letter Type: </label>
             <select name="letterType" id="letterType">
                 <c:forEach var="letterType" items="${sessionScope.letterTypes}">
@@ -95,13 +98,16 @@
             <input type="text" id="l_date" name="l_date" required>
         </div>
 
-        <div class="row mb-4">
+        <div class="row mb-3">
             <input type="submit" class="btn btn-primary" value="Save">
         </div>
+
+<%--        <a href="attach.do">File Upload</a>--%>
 
         <div class="row mb-4">
         <a href="reference.do?letterIdRef=${param.selectedLetter}">Reference</a>
         </div>
+        <a href="letterFind.do">find</a>
 
     </form>
     </div>
@@ -123,6 +129,7 @@
                 <th>Transfer Method</th>
                 <th>file</th>
                 <th>user</th>
+<%--                <th>attach</th>--%>
                 <th>operation</th>
             </tr>
         </thead>
@@ -142,6 +149,7 @@
             <td>${letter.transferMethod}</td>
             <td>${letter.image}</td>
             <td>${letter.user.username}</td>
+<%--            <td>${letter.attach.letter}</td>--%>
             <td>
                 <button class="btn btn-warning" onclick="edit(${letter.id})"><i class="fa fa-edit"></i>
                     Edit

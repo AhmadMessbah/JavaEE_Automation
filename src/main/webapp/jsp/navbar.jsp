@@ -9,13 +9,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="../index.jsp">Home</a>
+                    <a class="nav-link" href="../">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.do">Login</a>
+                    <a class="nav-link" href="../">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../index.jsp">About Us</a>
+                    <a class="nav-link" href="../logout.jsp">Log Out</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="roles.do">Roles</a>
                 </li>
             </ul>
         </div>
@@ -39,5 +42,10 @@
     <a href="stuff.do">Stuff</a>
     <a href="stuffStorage.do">StuffStorage</a>
     <a href="stuffTransaction.do">StuffTransaction</a>
+</div>
+
+<%--footer--%>
+<div class="footer">
+    <p>About Us</p>
 </div>
 

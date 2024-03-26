@@ -10,9 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <jsp:include page="css-import.jsp"></jsp:include>
     <link rel="stylesheet" href="../assets/css/reference.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/all.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
 </head>
 <body>
 <jsp:include page="../jsp/navbar.jsp"></jsp:include>
@@ -22,9 +19,13 @@
         <form id="reference_form" method="post" action="reference.do">
             <h1>Reference</h1>
             <br>
+            <div class="row  mb-4 w-100">
+                <label class="col form-label" for="username">username</label>
+                <input id="username" class="col form-control" type="text" name="username" value="${sessionScope.user}" required readonly>
+            </div>
             <div class="row  mb-4">
             <label for="letterIdRef">Letter Id</label>
-            <input type="text" id="letterIdRef" name="letterIdRef" value="${sessionScope.letterIdRef}">
+            <input type="text" id="letterIdRef" name="letterIdRef" value="${sessionScope.letterIdRef}" required readonly>
             </div>
 
             <div class="row  mb-4">
@@ -76,9 +77,33 @@
                 <input type="text" id="r_expiration" name="r_expiration">
             </div>
             <br><br>
+
+<%--            RefReceivers--%>
+<%--            <div class=" row ">--%>
+<%--                <label>references: </label>--%>
+<%--                <div class="position-relative">--%>
+<%--                    <div class="col-12 position-relative">--%>
+<%--                        <input class="col-12" oninput="getReferences()" type="text"/>--%>
+<%--                        <div   id="person-ref-list" class="border col-12" style="position: absolute;">--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div id="selected-list" class="col-5 row ">--%>
+<%--                </div>--%>
+<%--            </div>--%>
+
+
+            <div class="row  mb-4">
+                <label class="col form-label" for="referenceReceiver">Reference Receiver</label>
+                <input id="referenceReceiver" class="col form-control" type="text" name="referenceReceiver" required>
+            </div>
+
             <div class="row mb-4">
                 <input type="submit" class="btn btn-primary" value="Save">
             </div>
+
+            <br><br>
+            <a href="<c:url value="/letter.do"/>">Add new Letter</a>
 
         </form>
     </div>
@@ -87,6 +112,7 @@
             <thead>
             <tr>
                 <th>id</th>
+                <th>reference sender</th>
                 <th>letter</th>
                 <th>refType</th>
                 <th>priority</th>
@@ -95,6 +121,7 @@
                 <th>explanation</th>
                 <th>status</th>
                 <th>validate</th>
+                <th>reference receiver</th>
                 <th>operation</th>
             </tr>
             </thead>
@@ -102,6 +129,7 @@
             <c:forEach var="reference" items="${sessionScope.referenceList}">
                 <tr>
                     <td>${reference.id}</td>
+                    <td>${reference.referenceSenderId.username}</td>
                     <td>${reference.letterId.id}</td>
                     <td>${reference.refType}</td>
                     <td>${reference.priority}</td>
@@ -110,6 +138,7 @@
                     <td>${reference.explanation}</td>
                     <td>${reference.status}</td>
                     <td>${reference.validate}</td>
+                    <td>${reference.referenceReceiverId.username}</td>
                     <td>
                         <button class="btn btn-warning" onclick="edit(${reference.id})"><i class="fa fa-edit"></i>
                             Edit
@@ -128,6 +157,7 @@
 <jsp:include page="js-import.jsp"></jsp:include>
 
 <script src="../assets/js/reference.js"></script>
+<script src="../assets/js/referenceInput.js"></script>
 
 <script src="../assets/js/jquery-3.2.1.min.js"></script>
 <script src="../assets/js/persian-date.min.js"></script>

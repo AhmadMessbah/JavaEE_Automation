@@ -10,16 +10,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <jsp:include page="css-import.jsp"></jsp:include>
     <link rel="stylesheet" href="../assets/css/letter.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/all.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
 </head>
 <body>
 <jsp:include page="../jsp/navbar.jsp"></jsp:include>
 
 <div class="content">
     <div id="org-form">
-        <form id="myForm" >
+        <form id="myForm" enctype="multipart/form-data">
             <h1>Edit Letter</h1>
             <br>
             <input class="form-control" type="text" name="id" value="${sessionScope.letter.id}" hidden="hidden">
@@ -62,11 +59,13 @@
                 <input id="l_sender_title" class="col form-control" type="text" name="l_sender_title"  value="${sessionScope.letter.senderTitle}">
             </div>
 
-<%--            <div>--%>
-<%--                <label class="form-label" for="file">File</label>--%>
-<%--                <input class="form-control" id="file" type="file" name="file" value="${sessionScope.letter.image}">--%>
-<%--                <div id="file-msg error">${sessionScope.error}</div>--%>
-<%--            </div>--%>
+            <div>
+                <label class="form-label" for="file">File</label>
+                <p>Previous File Name : ${sessionScope.letter.image}</p>
+                <input class="form-control" id="file" type="file" name="file">
+                <div id="file-msg error">${sessionScope.error}</div>
+            </div>
+
             <br><br><br>
             <div class="row  mb-4">
                 <label for="accessLevel">Select AccessLevel: </label>

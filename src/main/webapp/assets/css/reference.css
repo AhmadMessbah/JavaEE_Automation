@@ -1,10 +1,18 @@
 #org-form{
-    width: 20%;
-    margin: auto;
-    margin-bottom: 50px;
+    width: 25%;
+    margin: auto auto 50px;
 }
 
 #org-table{
-    width: 60%;
+    width: 100%;
     margin: auto;
+}
+.person-ref:hover{
+    background-color: #ababab;
+
+}
+#person-ref-list{
+    max-height:200px;
+    overflow: hidden;
+    overflow-y: scroll;
 }
