@@ -74,7 +74,7 @@
 
             <div class="row  mb-4">
                 <label for="r_expiration">Expiration Date : </label>
-                <input type="text" id="r_expiration" name="r_expiration">
+                <input type="text" id="r_expiration" name="r_expiration" required>
             </div>
             <br><br>
 
@@ -95,7 +95,7 @@
 
             <div class="row  mb-4">
                 <label class="col form-label" for="referenceReceiver">Reference Receiver</label>
-                <input id="referenceReceiver" class="col form-control" type="text" name="referenceReceiver" required>
+                <input id="referenceReceiver" class="col form-control" type="text" name="referenceReceiver">
             </div>
 
             <div class="row mb-4">
@@ -157,7 +157,7 @@
 <jsp:include page="js-import.jsp"></jsp:include>
 
 <script src="../assets/js/reference.js"></script>
-<script src="../assets/js/referenceInput.js"></script>
+<%--<script src="../assets/js/referenceInput.js"></script>--%>
 
 <script src="../assets/js/jquery-3.2.1.min.js"></script>
 <script src="../assets/js/persian-date.min.js"></script>
