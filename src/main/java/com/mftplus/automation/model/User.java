@@ -10,6 +10,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,15 +25,12 @@ public class User extends Base implements Serializable {
     //id is set as username because username must be unique like id
     @Id
 //    @Pattern(regexp = "^[a-zA-Z\\s]{5,15}$", message = "Invalid Username")
-    @Column(name = "u_username")
+    @Column(name = "u_username", length = 15)
     private String username;
 
 //    @Pattern(regexp = "^[a-zA-Z\\s]{8,20}$", message = "Invalid Password")
-    @Column(name = "u_pass", length = 20)
+    @Column(name = "u_password", length = 20)
     private String password;
-
-    @OneToOne
-    private Person person;
 
     @ManyToOne
     private Section section;
@@ -42,4 +40,12 @@ public class User extends Base implements Serializable {
 
     @Enumerated(EnumType.ORDINAL)
     private Role role;
+
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ToString.Exclude
+    private List<Roles> roles;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Person person;
+
 }

@@ -39,10 +39,12 @@ public class Reference extends Base implements Serializable {
     @Enumerated (EnumType.ORDINAL)
     private ReferencePriority priority;
 
-    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    @ManyToOne
+    @JoinColumn(name = "reference_sender",nullable = false)
     private User referenceSenderId;
 
-    @ManyToOne (cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    @ManyToOne
+    @JoinColumn(name = "reference_receiver",nullable = false)
     private User referenceReceiverId;
 
     @Column (name = "r_date_and_time")

@@ -1,7 +1,6 @@
 package com.mftplus.automation.model;
 
 import jakarta.json.bind.annotation.JsonbTransient;
-import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +15,9 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class Base {
-    @Version
-    @JsonbTransient
-    private Long versionId;
+//    @Version
+//    @JsonbTransient
+//    private Long versionId;
 
     @JsonbTransient
     private Boolean deleted;

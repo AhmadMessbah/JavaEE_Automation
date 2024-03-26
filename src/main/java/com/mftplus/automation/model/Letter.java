@@ -1,7 +1,6 @@
 package com.mftplus.automation.model;
 
 import com.github.mfathi91.time.PersianDate;
-
 import com.mftplus.automation.model.enums.LetterAccessLevel;
 import com.mftplus.automation.model.enums.LetterType;
 import com.mftplus.automation.model.enums.TransferMethod;

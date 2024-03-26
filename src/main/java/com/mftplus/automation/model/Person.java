@@ -42,4 +42,9 @@ public class Person extends Base implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
 
+    @ToString.Exclude
+    @OneToOne(optional = false, orphanRemoval = true)
+    @JoinColumn(name = "user_username", nullable = false, unique = true)
+    private User user;
+
 }
