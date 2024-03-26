@@ -58,19 +58,19 @@ public class UserServiceImpl implements UserService, Serializable {
         return query.getResultList();
     }
 
-    @Transactional
-    @Override
-    public Optional<User> findByUsername(String username) throws Exception {
-        return Optional.ofNullable(entityManager.find(User.class, username));
-    }
-
 //    @Transactional
 //    @Override
 //    public Optional<User> findByUsername(String username) throws Exception {
-//        TypedQuery<User> query = entityManager.createQuery("select u from userEntity u where u.username=:username", User.class);
-//        query.setParameter("username", username);
 //        return Optional.ofNullable(entityManager.find(User.class, username));
 //    }
+
+    @Transactional
+    @Override
+    public Optional<User> findByUsername(String username) throws Exception {
+        TypedQuery<User> query = entityManager.createQuery("select u from userEntity u where u.username=:username", User.class);
+        query.setParameter("username", username);
+        return Optional.ofNullable(entityManager.find(User.class, username));
+    }
 
     //todo
     @Transactional
@@ -101,6 +101,14 @@ public class UserServiceImpl implements UserService, Serializable {
     @Override
     public List<User> findByActive(Boolean section) throws Exception {
         TypedQuery<User> query = entityManager.createQuery("select u from userEntity u", User.class);
+        return query.getResultList();
+    }
+
+    @Transactional
+    @Override
+    public List<User> findUserByIds(List<String> userList) throws Exception {
+        TypedQuery<User> query = entityManager.createQuery("select oo from userEntity oo where oo.username in (:userList)", User.class);
+        query.setParameter(userList.toString(),"userList");
         return query.getResultList();
     }
 }

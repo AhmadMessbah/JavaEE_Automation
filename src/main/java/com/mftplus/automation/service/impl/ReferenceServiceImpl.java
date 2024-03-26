@@ -24,7 +24,6 @@ public class ReferenceServiceImpl implements ReferenceService, Serializable {
     @Transactional
     @Override
     public void save(Reference reference) throws Exception {
-        System.out.println(reference);
         entityManager.persist(reference);
     }
 

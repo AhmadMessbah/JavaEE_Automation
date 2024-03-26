@@ -22,7 +22,9 @@ public class PersonServiceImpl implements PersonService, Serializable {
     @Transactional
     @Override
     public void save(Person person) throws Exception {
-        log.info("Person Saved");
+//        if (findByUsername(person.getUser().getUsername().toString()).isPresent()){
+//            throw new PersonalInfoAlreadyExists();
+//        }
         entityManager.persist(person);
     }
 
@@ -63,6 +65,14 @@ public class PersonServiceImpl implements PersonService, Serializable {
 
     @Transactional
     @Override
+    public Optional<Person> findByUsername(String username) throws Exception {
+        TypedQuery<Person> query = entityManager.createQuery("select p from personEntity p where p.user=:username", Person.class);
+        query.setParameter("username", username);
+        return Optional.ofNullable(entityManager.find(Person.class, username));
+    }
+
+    @Transactional
+    @Override
     public List<Person> findByName(String name) throws Exception {
         TypedQuery<Person> query = entityManager.createQuery("select p from personEntity p where p.name=:name", Person.class);
         return query.getResultList();
@@ -72,6 +82,15 @@ public class PersonServiceImpl implements PersonService, Serializable {
     @Override
     public List<Person> findByFamily(String family) throws Exception {
         TypedQuery<Person> query = entityManager.createQuery("select p from personEntity p where p.family=:family", Person.class);
+        return query.getResultList();
+    }
+
+    @Transactional
+    @Override
+    public List<Person> findByNameAndFamily(String name, String family) throws Exception {
+        TypedQuery<Person> query = entityManager.createQuery("select oo from personEntity oo where oo.name=:name and oo.family=:family", Person.class);
+        query.setParameter(name,"name");
+        query.setParameter(family,"family");
         return query.getResultList();
     }
 

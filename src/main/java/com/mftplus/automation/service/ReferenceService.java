@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-
 public interface ReferenceService {
     void save(Reference reference) throws Exception;
     void edit(Reference reference) throws Exception;
