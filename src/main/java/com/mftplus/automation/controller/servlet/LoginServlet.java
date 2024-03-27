@@ -1,7 +1,5 @@
 package com.mftplus.automation.controller.servlet;
 
-import com.mftplus.automation.service.impl.UserServiceImpl;
-import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
