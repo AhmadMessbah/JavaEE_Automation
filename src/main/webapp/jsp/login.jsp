@@ -7,12 +7,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <jsp:include page="jsp/css-import.jsp"></jsp:include>
-    <link rel="stylesheet" href="assets/css/user.css">
+    <jsp:include page="css-import.jsp"></jsp:include>
+    <link rel="stylesheet" href="../assets/css/user.css">
 </head>
 
 <body>
-<jsp:include page="jsp/navbar.jsp"></jsp:include>
+<jsp:include page="navbar.jsp"></jsp:include>
 
 <div class="content">
     <div id="org-form">
@@ -42,7 +42,7 @@
 </form>
 </div>
 
-<jsp:include page="jsp/js-import.jsp"></jsp:include>
-    <script src="assets/js/user.js"></script>
+<jsp:include page="js-import.jsp"></jsp:include>
+    <script src="../assets/js/user.js"></script>
 </body>
 </html>

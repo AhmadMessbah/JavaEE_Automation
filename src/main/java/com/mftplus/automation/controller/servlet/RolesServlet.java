@@ -31,7 +31,7 @@ public class RolesServlet extends HttpServlet {
             //todo
 //            req.getSession().setAttribute("roleTypes", Arrays.asList(Role.values()));
             req.getSession().setAttribute("rolesList", rolesService.findAll());
-            req.getRequestDispatcher("/roles.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/roles.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);

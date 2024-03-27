@@ -25,7 +25,7 @@ public class InitialServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             log.info("InitialServlet - Get");
-            req.getRequestDispatcher("/index.jsp").forward(req,resp);
+            req.getRequestDispatcher("/jsp/index.jsp").forward(req,resp);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);
@@ -36,7 +36,8 @@ public class InitialServlet extends HttpServlet {
     public void init() throws ServletException {
         log.info("InitialServlet - Init");
         super.init();
-//creating admin-admin123 and user-user123
+
+        //creating admin-admin123 and user-user123
         try {
             User user =
                     User
@@ -47,7 +48,7 @@ public class InitialServlet extends HttpServlet {
                             .build();
             if (userService.findByUsername("admin").isEmpty()){
             userService.save(user);
-            log.info("admin user saved");
+            log.info("admin username saved");
             }
             CompositeKey compositeKey =
                     CompositeKey
@@ -75,7 +76,7 @@ public class InitialServlet extends HttpServlet {
                             .build();
             if (userService.findByUsername("user").isEmpty()){
                 userService.save(user1);
-                log.info("user saved");
+                log.info("user username saved");
             }
             CompositeKey compositeKey1 =
                     CompositeKey

@@ -8,14 +8,14 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <jsp:include page="jsp/css-import.jsp"></jsp:include>
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/all.css">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/sidebar.css">
+  <jsp:include page="css-import.jsp"></jsp:include>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/all.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/sidebar.css">
 </head>
 <body>
-<jsp:include page="jsp/navbar.jsp"></jsp:include>
+<jsp:include page="navbar.jsp"></jsp:include>
 
 <!-- Page content -->
 <div class="content">
