@@ -1,6 +1,5 @@
 package com.mftplus.controller.servlet;
 
-import com.mftplus.controller.exception.IdIsRequiredException;
 import com.mftplus.controller.validation.BeanValidator;
 import com.mftplus.model.Bank;
 import com.mftplus.model.enums.AccountType;
@@ -23,20 +22,22 @@ public class BankEditServlet extends HttpServlet {
     @Inject
     private BankServiceImpl bankService;
 
+    @Inject
+    private Bank bank;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("BankEditServlet - Get");
         try {
-            if (req.getParameter("id") == null) {
-                throw new IdIsRequiredException("Please set bank id !");
-            } else {
-                req.getSession().setAttribute("accountType", Arrays.asList(AccountType.values()));
-                Long id = Long.valueOf(req.getParameter("id"));
-                Optional<Bank> bank = bankService.findById(id);
-                bank.ifPresent(value -> req.getSession().setAttribute("bank", value));
-
-                req.getSession().setAttribute("accountType", Arrays.asList(AccountType.values()));
-                req.getRequestDispatcher("/jsp/form/edit/editBank.jsp").forward(req, resp);
+            if(req.getParameter("id")==null){
+                resp.sendRedirect("/bank.do");
+            }else {
+                req.getSession().setAttribute("accessTypes", Arrays.asList(AccountType.values()));
+                Long id= Long.valueOf(req.getParameter("id"));
+                Optional<Bank> bank=bankService.findById(id);
+                if (bank.isPresent()) {
+                    req.getSession().setAttribute("bankEdit", bank.get());
+                }
+                req.getRequestDispatcher("/jsp/editBank.jsp").forward(req,resp);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -46,9 +47,8 @@ public class BankEditServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("BankEditServlet - put");
         try {
-            Long id = Long.valueOf(req.getParameter("id"));
+            Long id= Long.valueOf(req.getParameter("id"));
             String name = req.getParameter("name");
             String accountNumber = req.getParameter("accountNumber");
             int branchCode = Integer.parseInt(req.getParameter("branchCode"));
@@ -56,23 +56,22 @@ public class BankEditServlet extends HttpServlet {
             String accountType = req.getParameter("accountType");
             long accountBalance = Long.parseLong(req.getParameter("accountBalance"));
 
-            Bank bank =
-                    Bank
-                            .builder()
-                            .id(id)
-                            .name(name)
-                            .accountNumber(accountNumber)
-                            .branchCode(branchCode)
-                            .branchName(branchName)
-                            .accountType(AccountType.valueOf(accountType))
-                            .accountBalance(accountBalance)
-                            .deleted(false)
-                            .build();
+            bank = Bank
+                    .builder()
+                    .id(id)
+                    .name(name)
+                    .accountNumber(accountNumber)
+                    .branchCode(branchCode)
+                    .branchName(branchName)
+                    .accountType(AccountType.valueOf(accountType))
+                    .accountBalance(accountBalance)
+                    .deleted(false)
+                    .build();
 
             //validate
             BeanValidator<Bank> validator = new BeanValidator<>();
 
-            if (validator.validate(bank) != null) {
+            if (validator.validate(bank) != null){
                 resp.setStatus(500);
                 resp.getWriter().write(validator.validate(bank).toString());
             }
@@ -81,11 +80,10 @@ public class BankEditServlet extends HttpServlet {
             log.info("BankEditServlet - Bank Edited");
             resp.sendRedirect("/bank.do");
             resp.setStatus(200);
-            String msg = "تغییرات با موفقیت ثبت شد !";
-            req.getSession().setAttribute("ok",msg);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
+
 }
