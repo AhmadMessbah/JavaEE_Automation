@@ -6,12 +6,17 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/dashboard.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/editFinancialTransaction.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/form/display/bank.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/form/display" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/form/display/cashDesk.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/form/display" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/form/edit/editBank.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/form/edit" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/form/edit/editCashDesk.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/form/edit" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/form/save/bank-form.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/form/save" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/form/save/cashDesk-form.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/form/save" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/form/save/letter-form.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/form/save" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/table/bank-box.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/table" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/table/bank.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/table" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/table/cashDesk-box.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/table" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/person.xhtml" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>
   </component>

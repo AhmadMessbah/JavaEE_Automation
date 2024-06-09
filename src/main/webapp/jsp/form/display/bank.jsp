@@ -26,45 +26,38 @@
 
                 <div>
                     <label for="name" class="formbold-form-label"> نام بانک : </label>
-                    <input type="text" name="name" id="name" class="formbold-form-input"
-                           value="${sessionScope.bank.name}"/>
+                    <input type="text" name="name" id="name" class="formbold-form-input" value="${sessionScope.bank.name}"/>
                 </div>
 
                 <div>
                     <label for="accountNumber" class="formbold-form-label"> شماره حساب : </label>
-                    <input type="text" name="accountNumber" id="accountNumber" class="formbold-form-input"
-                           value="${sessionScope.bank.accountNumber}"/>
+                    <input type="text" name="accountNumber" id="accountNumber" class="formbold-form-input" value="${sessionScope.bank.accountNumber}"/>
                 </div>
             </div>
 
             <div class="formbold-input-flex">
                 <div>
                     <label for="branchCode" class="formbold-form-label"> شماره شعبه : </label>
-                    <input type="text" name="branchCode" id="branchCode" class="formbold-form-input"
-                           value="${sessionScope.bank.branchCode}"/>
+                    <input type="text" name="branchCode" id="branchCode" class="formbold-form-input" value="${sessionScope.bank.branchCode}"/>
                 </div>
 
                 <div>
                     <label for="branchName" class="formbold-form-label"> نام شعبه : </label>
-                    <input type="text" name="branchName" id="branchName" class="formbold-form-input"
-                           value="${sessionScope.bank.branchName}"/>
+                    <input type="text" name="branchName" id="branchName" class="formbold-form-input" value="${sessionScope.bank.branchName}"/>
                 </div>
             </div>
 
             <div class="formbold-input-flex">
                 <div>
                     <label for="accountType" class="formbold-form-label"> نوع حساب : </label>
-                    <input type="text" name="accountType" id="accountType" class="formbold-form-input"
-                           value="${sessionScope.bank.accountType.title}"/>
+                    <input type="text" name="accountType" id="accountType" class="formbold-form-input" value="${sessionScope.bank.accountType.title}"/>
                 </div>
 
                 <div>
                     <label for="accountBalance" class="formbold-form-label"> موجودی حساب : </label>
-                    <input type="text" name="accountBalance" id="accountBalance" class="formbold-form-input"
-                           value="${sessionScope.bank.accountBalance}"/>
+                    <input type="text" name="accountBalance" id="accountBalance" class="formbold-form-input" value="${sessionScope.bank.accountBalance}"/>
                 </div>
             </div>
-
         </form>
     </div>
 </div>

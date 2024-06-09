@@ -16,6 +16,7 @@ public class CashDeskApi {
     private CashDeskServiceImp cashDeskService;
 
     @GET
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
@@ -34,6 +35,7 @@ public class CashDeskApi {
 
     @GET
     @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") Long id) {
         try {
@@ -69,25 +71,6 @@ public class CashDeskApi {
         }
     }
 
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(CashDesk cashDesk) {
-        try {
-            log.info("Edit CashDesk");
-            cashDeskService.edit(cashDesk);
-            return Response
-                    .ok()
-                    .entity(cashDesk)
-                    .build();
-        } catch (Exception e) {
-            return Response
-                    .serverError()
-                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
-                    .build();
-        }
-    }
-
     @DELETE
     @Path("/{id}")
     public Response removeById(@PathParam("id") Long id) {
@@ -97,24 +80,6 @@ public class CashDeskApi {
             return Response
                     .ok()
                     .entity(id)
-                    .build();
-        } catch (Exception e) {
-            return Response
-                    .serverError()
-                    .entity("{\"message\": \"" + e.getMessage() + "\"}")
-                    .build();
-        }
-    }
-
-    @DELETE
-    @Path("/{cashDeskNumber}")
-    public Response removeByCashDeskNumber(@PathParam("cashDeskNumber") int cashDeskNumber) {
-        try {
-            log.info("Remove By Cash Desk Number Cash Desk");
-            cashDeskService.removeByCashDeskNumber(cashDeskNumber);
-            return Response
-                    .ok()
-                    .entity(cashDeskNumber)
                     .build();
         } catch (Exception e) {
             return Response

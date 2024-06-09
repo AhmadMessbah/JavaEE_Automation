@@ -44,7 +44,7 @@ public class Bank extends Base implements Serializable {
     @Column(name = "bank_branchCode", length = 3)
     @Min(value = 1, message = "Branch code must be at least 1")
     @Max(value = 999, message = "Branch code must be at most 999")
-    private int branchCode;// کد شعبه
+    private Long branchCode;// کد شعبه
 
     @Column(name = "bank_branchName",columnDefinition = "NVARCHAR2(20)")
     @Pattern(regexp = "^[a-zA-Zآ-ی\\s]{3,20}$", message = "Invalid Branch Name")

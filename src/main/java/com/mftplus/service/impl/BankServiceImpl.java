@@ -55,11 +55,6 @@ public class BankServiceImpl implements BankService, Serializable {
         entityManager.merge(bank);
     }
 
-    @Override
-    public void removeByAccountNumber(String accountNumber) throws Exception {
-
-    }
-
     @Transactional
     @Override
     public List<Bank> findAll() throws Exception {
@@ -71,35 +66,21 @@ public class BankServiceImpl implements BankService, Serializable {
     @Override
     public List<Bank> findByName(String name) throws Exception {
         TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.name = :name AND oo.deleted=false", Bank.class);
-        return query.getResultList();
-    }
-
-    @Transactional
-    @Override
-    public List<Bank> findByNameAndDeletedFalse(String name) throws Exception {
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.name = :name AND oo.deleted=false", Bank.class);
         query.setParameter("name",name);
         return query.getResultList();
     }
 
     @Transactional
     @Override
-    public List<Bank> findByBranchCode(int branchCode) throws Exception {
+    public List<Bank> findByBranchCode(Long branchCode) {
         TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.branchCode=:branchCode AND oo.deleted=false ", Bank.class);
         return query.getResultList();
     }
 
     @Transactional
     @Override
-    public List<Bank> findByBranchName(String branchName) throws Exception {
+    public List<Bank> findByBranchName(String branchName) {
         TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.branchName=:branchName AND oo.deleted=false", Bank.class);
-        return query.getResultList();
-    }
-
-    @Transactional
-    @Override
-    public List<Bank> findByAccountType(String accountType) throws Exception {
-        TypedQuery<Bank> query = entityManager.createQuery("SELECT oo FROM bankEntity oo WHERE oo.accountType=:accountType AND oo.deleted=false", Bank.class);
         return query.getResultList();
     }
 
@@ -116,7 +97,7 @@ public class BankServiceImpl implements BankService, Serializable {
 
     @Transactional
     @Override
-    public Optional<Bank> findByAccountNumber(String accountNumber) throws Exception {
+    public Optional<Bank> findByAccountNumber(String accountNumber) {
         return Optional.ofNullable(entityManager.find(Bank.class, accountNumber));
     }
 }

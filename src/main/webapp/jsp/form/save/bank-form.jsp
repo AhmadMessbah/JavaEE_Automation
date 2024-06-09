@@ -4,7 +4,6 @@
 <head>
     <title>بانک</title>
     <jsp:include page="../../css-import.jsp"></jsp:include>
-    <link rel="stylesheet" href="../../../assets/css/kamadatepicker.min.css">
     <link rel="stylesheet" href="../../../assets/css/form.css">
     <meta charset="UTF-8" lang="fa">
     <meta name="viewport"
@@ -67,11 +66,8 @@
 
         </form>
         <!--end form-->
-        <h1>${sessionScope.bankList}</h1>
     </div>
 </div>
 <script src="../../../assets/js/jquery-3.7.1.min.js"></script>
-<script src="../../../assets/js/kamadatepicker.holidays.js"></script>
-<script src="../../../assets/js/kamadatepicker.min.js"></script>
 </body>
 </html>

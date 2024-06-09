@@ -14,10 +14,10 @@
     <div class="formbold-form-wrapper">
         <p class="success">${sessionScope.ok}</p>
         <!--img-->
-<%--        <img src="../../../assets/image/lettering.jpg" alt="">--%>
+        <%--        <img src="../../../assets/image/lettering.jpg" alt="">--%>
 
         <div class="formbold-form-title">
-<%--            <h2 class="">نامه</h2>--%>
+            <%--            <h2 class="">نامه</h2>--%>
             <a class="formbold-btn primary" href="#" onclick="reference(${sessionScope.letter.id})">ارجاع</a>
             <a class="formbold-btn warning" href="#" onclick="showEditLetter(${sessionScope.letter.id})">ویرایش</a>
             <a class="formbold-btn danger" href="#" onclick="removeLetter(${sessionScope.letter.id})">حذف</a>
@@ -30,55 +30,65 @@
 
                 <div>
                     <label for="l_title" class="formbold-form-label"> عنوان : </label>
-                    <input type="text" name="l_title" id="l_title" class="formbold-form-input" value="${sessionScope.letter.title}"/>
+                    <input type="text" name="l_title" id="l_title" class="formbold-form-input"
+                           value="${sessionScope.letter.title}"/>
                 </div>
                 <div>
                     <label for="l_letter_number" class="formbold-form-label"> شماره نامه : </label>
-                    <input type="text" name="l_letter_number" id="l_letter_number" class="formbold-form-input" value="${sessionScope.letter.letterNumber}"/>
+                    <input type="text" name="l_letter_number" id="l_letter_number" class="formbold-form-input"
+                           value="${sessionScope.letter.letterNumber}"/>
                 </div>
             </div>
 
             <div class="formbold-input-flex">
                 <div>
                     <label for="l_sender_name" class="formbold-form-label"> نام فرستنده نامه : </label>
-                    <input type="text" name="l_sender_name" id="l_sender_name" class="formbold-form-input" value="${sessionScope.letter.senderName}"/>
+                    <input type="text" name="l_sender_name" id="l_sender_name" class="formbold-form-input"
+                           value="${sessionScope.letter.senderName}"/>
                 </div>
                 <div>
                     <label for="l_sender_title" class="formbold-form-label"> عنوان فرستنده نامه : </label>
-                    <input type="text" name="l_sender_title" id="l_sender_title" class="formbold-form-input" value="${sessionScope.letter.senderTitle}"/>
+                    <input type="text" name="l_sender_title" id="l_sender_title" class="formbold-form-input"
+                           value="${sessionScope.letter.senderTitle}"/>
                 </div>
             </div>
 
             <div class="formbold-input-flex">
                 <div>
                     <label for="l_receiver_name" class="formbold-form-label"> نام گیرنده نامه : </label>
-                    <input type="text" name="l_receiver_name" id="l_receiver_name" class="formbold-form-input" value="${sessionScope.letter.receiverName}"/>
+                    <input type="text" name="l_receiver_name" id="l_receiver_name" class="formbold-form-input"
+                           value="${sessionScope.letter.receiverName}"/>
                 </div>
                 <div>
                     <label for="l_receiver_title" class="formbold-form-label"> عنوان گیرنده نامه : </label>
-                    <input type="text" name="l_receiver_title" id="l_receiver_title" class="formbold-form-input" value="${sessionScope.letter.receiverTitle}"/>
+                    <input type="text" name="l_receiver_title" id="l_receiver_title" class="formbold-form-input"
+                           value="${sessionScope.letter.receiverTitle}"/>
                 </div>
             </div>
 
             <div class="formbold-input-flex">
                 <div>
                     <label for="user" class="formbold-form-label"> کاربر سیستم : </label>
-                    <input type="text" name="user" id="user" class="formbold-form-input" value="${sessionScope.letter.user.username}"/>
+                    <input type="text" name="user" id="user" class="formbold-form-input"
+                           value="${sessionScope.letter.user.username}"/>
                 </div>
                 <div>
                     <label for="accessLevel" class="formbold-form-label"> سطح دسترسی نامه : </label>
-                    <input type="text" name="accessLevel" id="accessLevel" class="formbold-form-input" value="${sessionScope.letter.accessLevel.title}"/>
+                    <input type="text" name="accessLevel" id="accessLevel" class="formbold-form-input"
+                           value="${sessionScope.letter.accessLevel.title}"/>
                 </div>
             </div>
 
             <div class="formbold-input-flex">
                 <div>
                     <label for="transferMethod" class="formbold-form-label"> روش فرستادن نامه : </label>
-                    <input type="text" name="transferMethod" id="transferMethod" class="formbold-form-input" value="${sessionScope.letter.transferMethod.title}"/>
+                    <input type="text" name="transferMethod" id="transferMethod" class="formbold-form-input"
+                           value="${sessionScope.letter.transferMethod.title}"/>
                 </div>
                 <div>
                     <label for="letterType" class="formbold-form-label"> نوع نامه : </label>
-                    <input type="text" name="letterType" id="letterType" class="formbold-form-input" value="${sessionScope.letter.letterType.title}"/>
+                    <input type="text" name="letterType" id="letterType" class="formbold-form-input"
+                           value="${sessionScope.letter.letterType.title}"/>
                 </div>
             </div>
 
@@ -87,7 +97,7 @@
                     ارجاع گیرندگان نامه :
                 </label>
 
-<%--                todo : does not work properly--%>
+                <%--                todo : does not work properly--%>
                 <select class="formbold-form-select" name="refReceivers" id="refReceivers">
                     <c:forEach var="refReceivers" items="${sessionScope.letter.userList}">
                         <option>${refReceivers.username}</option>
@@ -111,11 +121,13 @@
             <div class="formbold-input-flex">
                 <div>
                     <label for="l_date" class="formbold-form-label"> تاریخ : </label>
-                    <input type="text" name="l_date" id="l_date" class="formbold-form-input" value="${sessionScope.letter.getFaDate()}"/>
+                    <input type="text" name="l_date" id="l_date" class="formbold-form-input"
+                           value="${sessionScope.letter.getFaDate()}"/>
                 </div>
                 <div>
                     <label for="file" class="formbold-form-label"> نام ضمیمه نامه : </label>
-                    <input type="text" name="file" id="file" class="formbold-form-input" value="${sessionScope.letter.image}"/>
+                    <input type="text" name="file" id="file" class="formbold-form-input"
+                           value="${sessionScope.letter.image}"/>
                 </div>
             </div>
         </form>

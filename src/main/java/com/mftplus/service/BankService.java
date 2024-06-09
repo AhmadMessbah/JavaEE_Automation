@@ -9,13 +9,11 @@ import java.util.Optional;
 public interface BankService {
     void save(Bank bank) throws Exception;
 
-    void edit(Bank bank) throws Exception;
+    void edit(Bank bank) throws NoContentException;
 
     void remove(Bank bank) throws Exception;
 
     void removeById(Long id) throws Exception;
-
-    void removeByAccountNumber(String accountNumber) throws Exception;
 
     Optional<Bank> findById(Long id) throws NoContentException;
 
@@ -23,13 +21,9 @@ public interface BankService {
 
     List<Bank> findByName(String name) throws Exception;
 
-    List<Bank> findByNameAndDeletedFalse(String name) throws Exception;
-
-    List<Bank> findByBranchCode(int branchCode) throws Exception;
+    List<Bank> findByBranchCode(Long branchCode) throws Exception;
 
     List<Bank> findByBranchName(String branchName) throws Exception;
 
-    List<Bank> findByAccountType(String accountType) throws Exception;
-
-    Optional<Bank>  findByAccountNumber(String accountNumber) throws Exception;
+    Optional<Bank> findByAccountNumber(String accountNumber) throws Exception;
 }

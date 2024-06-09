@@ -18,7 +18,7 @@
 <div class="formbold-main-wrapper">
     <div class="formbold-form-wrapper">
         <!--img-->
-<%--        <img src="../../assets/image/lettering.jpg" alt="">--%>
+        <%--        <img src="../../assets/image/lettering.jpg" alt="">--%>
         <div class="formbold-form-title">
             <h2>ایجاد نامه جدید</h2>
         </div>
@@ -28,43 +28,50 @@
 
             <div class="formbold-input-group">
                 <label for="title" class="formbold-form-label"> عنوان </label>
-                <input type="text" name="title" id="title" placeholder="عنوان نامه را وارد کنید" class="formbold-form-input"/>
-<%--                <c:if test="${not empty sessionScope.errorMassage}">--%>
-<%--                    <span>${sessionScope.errorMassage}</span>--%>
-<%--                </c:if>--%>
+                <input type="text" name="title" id="title" placeholder="عنوان نامه را وارد کنید"
+                       class="formbold-form-input"/>
+                <%--                <c:if test="${not empty sessionScope.errorMassage}">--%>
+                <%--                    <span>${sessionScope.errorMassage}</span>--%>
+                <%--                </c:if>--%>
             </div>
 
             <div class="formbold-input-group">
                 <label for="letter_number" class="formbold-form-label"> شماره نامه </label>
-                <input type="text" name="letter_number" id="letter_number" placeholder="شماره نامه را وارد کنید" class="formbold-form-input"/>
+                <input type="text" name="letter_number" id="letter_number" placeholder="شماره نامه را وارد کنید"
+                       class="formbold-form-input"/>
             </div>
 
             <div class="formbold-input-group">
                 <label for="sender_name" class="formbold-form-label"> نام فرستنده نامه </label>
-                <input type="text" name="sender_name" id="sender_name" placeholder="نام فرستنده نامه را وارد کنید" class="formbold-form-input"/>
+                <input type="text" name="sender_name" id="sender_name" placeholder="نام فرستنده نامه را وارد کنید"
+                       class="formbold-form-input"/>
             </div>
 
             <div class="formbold-input-group">
                 <label for="sender_title" class="formbold-form-label"> عنوان فرستنده نامه </label>
-                <input type="text" name="sender_title" id="sender_title" placeholder="عنوان فرستنده نامه را وارد کنید" class="formbold-form-input"/>
+                <input type="text" name="sender_title" id="sender_title" placeholder="عنوان فرستنده نامه را وارد کنید"
+                       class="formbold-form-input"/>
             </div>
 
             <div class="formbold-input-group">
                 <label for="receiver_name" class="formbold-form-label"> نام گیرنده نامه </label>
-                <input type="text" name="receiver_name" id="receiver_name" placeholder="نام گیرنده نامه را وارد کنید" class="formbold-form-input"/>
+                <input type="text" name="receiver_name" id="receiver_name" placeholder="نام گیرنده نامه را وارد کنید"
+                       class="formbold-form-input"/>
             </div>
 
             <div class="formbold-input-group">
                 <label for="receiver_title" class="formbold-form-label"> عنوان گیرنده نامه </label>
-                <input type="text" name="receiver_title" id="receiver_title" placeholder="عنوان گیرنده نامه را وارد کنید" class="formbold-form-input"/>
+                <input type="text" name="receiver_title" id="receiver_title"
+                       placeholder="عنوان گیرنده نامه را وارد کنید" class="formbold-form-input"/>
             </div>
 
             <div class=" row formbold-input-group">
                 <label class="formbold-form-label"> ارجاع گیرندکان نامه </label>
                 <div class="position-relative">
                     <div class="col-12 position-relative">
-                        <input class="col-12 formbold-form-input" oninput="getReferences(event)" type="text" placeholder="ارجاع گیرندگان نامه را وارد کنید"/>
-                        <div   id="person-ref-list" class="border col-12">
+                        <input class="col-12 formbold-form-input" oninput="getReferences(event)" type="text"
+                               placeholder="ارجاع گیرندگان نامه را وارد کنید"/>
+                        <div id="person-ref-list" class="border col-12">
                         </div>
                     </div>
                 </div>
@@ -123,7 +130,8 @@
 
             <div class="formbold-input-group">
                 <label for="date" class="formbold-form-label"> تاریخ </label>
-                <input type="text" name="date" id="date" placeholder="تاریخ نامه را وارد کنید" class="formbold-form-input" required/>
+                <input type="text" name="date" id="date" placeholder="تاریخ نامه را وارد کنید"
+                       class="formbold-form-input" required/>
             </div>
 
             <div class="formbold-form-file-flex">
@@ -155,7 +163,7 @@
     let myElement = document.querySelector('#date');
     kamaDatepicker(myElement);
 
-    kamaDatepicker('date', { buttonsColor: "red", forceFarsiDigits: true });
+    kamaDatepicker('date', {buttonsColor: "red", forceFarsiDigits: true});
 </script>
 </body>
 </html>

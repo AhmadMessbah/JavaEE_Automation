@@ -1,5 +1,6 @@
 package com.mftplus.service.impl;
 
+import com.mftplus.controller.exception.NoContentException;
 import com.mftplus.model.CashDesk;
 import com.mftplus.service.CashDeskService;
 import jakarta.enterprise.context.SessionScoped;
@@ -22,18 +23,26 @@ public class CashDeskServiceImp implements CashDeskService, Serializable {
     @Transactional
     @Override
     public void save(CashDesk cashDesk) throws Exception {
+        log.info("CashDeskService - save");
         entityManager.persist(cashDesk);
     }
 
     @Transactional
     @Override
-    public void edit(CashDesk cashDesk) throws Exception {
-        entityManager.merge(cashDesk);
+    public void edit(CashDesk cashDesk) throws NoContentException {
+        Optional<CashDesk> optionalCashDesk = Optional.ofNullable(entityManager.find(CashDesk.class, cashDesk.getId()));
+
+        if (optionalCashDesk.isPresent()) {
+            entityManager.merge(cashDesk);
+        } else {
+            throw new NoContentException("Cash Desk with id : " + cashDesk.getId() + " not found !");
+        }
     }
 
     @Transactional
     @Override
     public void remove(CashDesk cashDesk) throws Exception {
+        cashDesk = entityManager.find(CashDesk.class, cashDesk.getId());
         cashDesk.setDeleted(true);
         entityManager.merge(cashDesk);
     }
@@ -46,12 +55,9 @@ public class CashDeskServiceImp implements CashDeskService, Serializable {
         entityManager.merge(cashDesk);
     }
 
-    @Transactional
     @Override
     public void removeByCashDeskNumber(int cashDeskNumber) throws Exception {
-        CashDesk cashDesk = entityManager.find(CashDesk.class, cashDeskNumber);
-        cashDesk.setDeleted(true);
-        entityManager.merge(cashDesk);
+
     }
 
     @Transactional
@@ -65,6 +71,7 @@ public class CashDeskServiceImp implements CashDeskService, Serializable {
     @Override
     public List<CashDesk> findByName(String name) throws Exception {
         TypedQuery<CashDesk> query = entityManager.createQuery("SELECT oo FROM cashDeskEntity oo WHERE oo.name=:name AND oo.deleted=false ", CashDesk.class);
+        query.setParameter("name",name);
         return query.getResultList();
     }
 
@@ -82,7 +89,12 @@ public class CashDeskServiceImp implements CashDeskService, Serializable {
 
     @Transactional
     @Override
-    public Optional<CashDesk> findById(Long id) throws Exception {
-        return Optional.ofNullable(entityManager.find(CashDesk.class, id));
+    public Optional<CashDesk> findById(Long id) throws NoContentException {
+        Optional<CashDesk> optional = Optional.ofNullable(entityManager.find(CashDesk.class, id));
+        if (optional.isPresent()) {
+            return optional;
+        } else {
+            throw new NoContentException("Cash Desk with id : " + id + "not found !");
+        }
     }
 }

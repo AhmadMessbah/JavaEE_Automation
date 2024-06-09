@@ -1,9 +1,8 @@
 package com.mftplus.controller.servlet;
 
 import com.mftplus.controller.exception.IdIsRequiredException;
-import com.mftplus.model.Bank;
-import com.mftplus.model.enums.AccountType;
-import com.mftplus.service.impl.BankServiceImpl;
+import com.mftplus.model.CashDesk;
+import com.mftplus.service.impl.CashDeskServiceImp;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,28 +12,26 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Optional;
 
 @Slf4j
-@WebServlet(urlPatterns = "/bankDisplay.do")
-public class BankDisplayServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/cashDeskDisplay.do")
+public class CashDeskDisplayServlet extends HttpServlet {
     @Inject
-    private BankServiceImpl bankService;
+    private CashDeskServiceImp cashDeskService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("BankDisplayServlet - Get");
+        log.info("CashDeskDisplayServlet - Get");
         try {
             if (req.getParameter("id") == null) {
-                throw new IdIsRequiredException("Please set bank id !");
+                throw new IdIsRequiredException("Please set Cash Desk id !");
             } else {
-                Long id = Long.valueOf(req.getParameter("id"));
-                Optional<Bank> bank = bankService.findById(id);
-                bank.ifPresent(value -> req.getSession().setAttribute("bank", value));
+                long id = Integer.parseInt(req.getParameter("id"));
+                Optional<CashDesk> cashDesk = cashDeskService.findById(id);
+                cashDesk.ifPresent(value -> req.getSession().setAttribute("cashDesk", value));
 
-                req.getSession().setAttribute("accountType", Arrays.asList(AccountType.values()));
-                req.getRequestDispatcher("/jsp/form/display/bank.jsp").forward(req,resp);
+                req.getRequestDispatcher("/jsp/form/display/cashDesk.jsp").forward(req,resp);
                 req.getSession().removeAttribute("ok");
             }
         } catch (Exception e) {

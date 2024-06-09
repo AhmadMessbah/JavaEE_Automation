@@ -29,7 +29,7 @@ import java.time.LocalDate;
 public class FinancialTransaction extends Base {
 
     @Id
-    @SequenceGenerator(name = "financialTransactionSeq", sequenceName = "financial_transaction_seq")
+    @SequenceGenerator(name = "financialTransactionSeq", sequenceName = "financial_transaction_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "financialTransactionSeq")
     @Column(name = "fT_id", length = 20)
     private Long id;
@@ -43,7 +43,7 @@ public class FinancialTransaction extends Base {
     private User user; // پرداخت کننده یا دریافت کننده
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dept_id")
+    @JoinColumn(name = "department_id")
     private Department referringDepartment; // واحد ارجاع کننده
 
     @Enumerated(EnumType.ORDINAL)

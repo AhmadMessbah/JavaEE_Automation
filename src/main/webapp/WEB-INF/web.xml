@@ -99,6 +99,10 @@
 
             <!--security for finance pages-->
             <url-pattern>/bank.do</url-pattern>
+            <url-pattern>/bankBox.do</url-pattern>
+            <url-pattern>/bankDisplay.do</url-pattern>
+            <url-pattern>/bankEdit.do</url-pattern>
+            <url-pattern>/bankTable.do</url-pattern>
             <url-pattern>/cashDesk.do</url-pattern>
             <url-pattern>/financialTransaction.do</url-pattern>
             <url-pattern>/financialDoc.do</url-pattern>
@@ -141,6 +145,10 @@
 
             <!--security for finance pages-->
             <url-pattern>/bank.do</url-pattern>
+            <url-pattern>/bankBox.do</url-pattern>
+            <url-pattern>/bankDisplay.do</url-pattern>
+            <url-pattern>/bankEdit.do</url-pattern>
+            <url-pattern>/bankTable.do</url-pattern>
             <url-pattern>/cashDesk.do</url-pattern>
             <url-pattern>/financialTransaction.do</url-pattern>
             <url-pattern>/financialDoc.do</url-pattern>
@@ -184,6 +192,10 @@
 
             <!--security for finance pages-->
             <url-pattern>/bank.do</url-pattern>
+            <url-pattern>/bankBox.do</url-pattern>
+            <url-pattern>/bankDisplay.do</url-pattern>
+            <url-pattern>/bankEdit.do</url-pattern>
+            <url-pattern>/bankTable.do</url-pattern>
             <url-pattern>/cashDesk.do</url-pattern>
             <url-pattern>/financialTransaction.do</url-pattern>
             <url-pattern>/financialDoc.do</url-pattern>

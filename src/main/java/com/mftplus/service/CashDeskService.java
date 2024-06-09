@@ -1,5 +1,6 @@
 package com.mftplus.service;
 
+import com.mftplus.controller.exception.NoContentException;
 import com.mftplus.model.CashDesk;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Optional;
 public interface CashDeskService {
     void save(CashDesk cashDesk) throws Exception;
 
-    void edit(CashDesk cashDesk) throws Exception;
+    void edit(CashDesk cashDesk) throws NoContentException;
 
     void remove(CashDesk cashDesk) throws Exception;
 
@@ -24,5 +25,5 @@ public interface CashDeskService {
 
     Optional<CashDesk> findByCashier(String username) throws Exception;
 
-    Optional<CashDesk> findById(Long id) throws Exception;
+    Optional<CashDesk> findById(Long id) throws NoContentException;
 }

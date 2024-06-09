@@ -2,11 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>ویرایش صندوق</title>
+    <title>صندوق</title>
     <jsp:include page="../../css-import.jsp"></jsp:include>
-    <link rel="stylesheet" href="../../../assets/css/form.css">
     <link rel="stylesheet" href="../../../assets/css/kamadatepicker.min.css">
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../assets/css/form.css">
+    <meta charset="UTF-8" lang="fa">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -18,35 +18,32 @@
 <div class="formbold-main-wrapper">
     <div class="formbold-form-wrapper">
         <div class="formbold-form-title">
-            <h2>ویرایش صندوق</h2>
+            <h2>ایجاد صندوق جدید</h2>
         </div>
 
         <!--start form-->
-        <form id="CashDeskEditForm" enctype="multipart/form-data">
+        <form action="cashDesk.do" method="post">
 
-            <input class="form-control" type="text" name="id" value="${sessionScope.cashDeskEdit.id}" hidden="hidden">
-
-            <div class="formbold-input-group">
-                <label for="name" class="formbold-form-label"> نام صندوق </label>
-                <input type="text" name="name" id="name" value="${sessionScope.cashDesk.name}"
-                       class="formbold-form-input"/>
+            <div class="formbold-form-label">
+                <label class="formbold-form-label" for="name">نام صندوق</label>
+                <input id="name" class="formbold-form-input" placeholder="نام صندوق را وارد کنید" type="text"
+                       name="name">
             </div>
 
             <div class="formbold-input-group">
                 <label for="cashDeskNumber" class="formbold-form-label"> شماره صندوق </label>
-                <input type="number" name="cashDeskNumber" id="cashDeskNumber"
-                       value="${sessionScope.cashDesk.cashDeskNumber}"
+                <input type="text" name="cashDeskNumber" id="cashDeskNumber" placeholder="شماره صندوق را وارد کنید"
                        class="formbold-form-input"/>
             </div>
 
             <div class="formbold-input-group">
                 <label for="cashBalance" class="formbold-form-label"> موجودی صندوق </label>
-                <input type="number" name="cashBalance" id="cashBalance" value="${sessionScope.cashDesk.cashBalance}"
+                <input type="text" name="cashBalance" id="cashBalance" placeholder="موجودی صندوق را وارد کنید"
                        class="formbold-form-input"/>
             </div>
 
             <div class="formbold-input-group">
-                <label for="user" class="formbold-form-label">نام صندوقدار</label>
+                <label for="user">صندوقدار </label>
                 <select name="username" id="user">
                     <c:forEach items="${sessionScope.user.userList}" var="user">
                         <option>${user.username}</option>
@@ -54,18 +51,18 @@
                 </select>
             </div>
 
+            <button class="a-btn">ثبت</button>
+            <c:if test="${not empty param.selectedCashDesk}">
+                <a class="a-btn" href="cashDesk.do?cashDeskIdRef=${param.selectedCashDesk}">صندوق ثبت شده</a>
+            </c:if>
 
-            <button id="submit" class="a-btn" onclick="editCashDesk(event)">ویرایش</button>
         </form>
         <!--end form-->
+        <h1>${sessionScope.cashDeskList}</h1>
     </div>
 </div>
-
 <script src="../../../assets/js/jquery-3.7.1.min.js"></script>
 <script src="../../../assets/js/kamadatepicker.holidays.js"></script>
 <script src="../../../assets/js/kamadatepicker.min.js"></script>
-<script src="../../../assets/js/referenceInput.js"></script>
-<script src="../../../assets/js/cashDesk.js"></script>
-
 </body>
 </html>

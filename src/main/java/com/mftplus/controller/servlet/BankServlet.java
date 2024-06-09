@@ -31,10 +31,10 @@ public class BankServlet extends HttpServlet {
             req.setCharacterEncoding("utf-8");
             String name = req.getParameter("name");
             String accountNumber = req.getParameter("accountNumber");
-            int branchCode = Integer.parseInt(req.getParameter("branchCode"));
+            Long branchCode = Long.valueOf(req.getParameter("branchCode"));
             String branchName = req.getParameter("branchName");
             String accountType = req.getParameter("accountType");
-            long accountBalance = Long.parseLong(req.getParameter("accountBalance"));
+            Long accountBalance = Long.valueOf(req.getParameter("accountBalance"));
             Bank bank =
                     Bank
                             .builder()
