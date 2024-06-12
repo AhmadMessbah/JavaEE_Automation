@@ -27,9 +27,9 @@ import java.util.List;
 @RequestScoped
 public class User extends Base implements Serializable {
     @Id
-    @Column(name = "u_username", columnDefinition = "NVARCHAR2(15)", nullable = false)
-    @Pattern(regexp = "^[a-zA-Z\\s]{4,15}$", message = "Invalid Username")
-    @Size(min = 4, max = 15, message = "Username must be between 4 and 15 characters")
+    @Column(name = "u_username",columnDefinition = "NVARCHAR2(20)")
+    @Pattern(regexp = "^[a-zA-Zآ-ی\\s]{3,20}$", message = "Invalid Name")
+    @Size(min = 3, max = 20, message = "Name must be between 3 and 20 characters")
     @NotBlank(message = "Should Not Be Null")
     private String username;
 

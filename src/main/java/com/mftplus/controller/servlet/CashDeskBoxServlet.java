@@ -23,12 +23,15 @@ public class CashDeskBoxServlet extends HttpServlet {
 
         try {
             String name = req.getUserPrincipal().getName();
+            log.info("Fetching cash desks for user: {}", name);
+
             req.getSession().setAttribute("cashDeskListByName", cashDeskService.findByName(name));
+            log.info("Cash desks fetched successfully for user: {}", name);
 
             req.getRequestDispatcher("/jsp/table/cashDesk-box.jsp").forward(req, resp);
         } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Error in CashDeskBoxServlet: {}", e.getMessage());
+            throw new ServletException(e);
         }
     }
 }

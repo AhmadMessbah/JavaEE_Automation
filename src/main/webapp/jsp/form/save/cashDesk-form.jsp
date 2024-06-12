@@ -4,7 +4,6 @@
 <head>
     <title>صندوق</title>
     <jsp:include page="../../css-import.jsp"></jsp:include>
-    <link rel="stylesheet" href="../../../assets/css/kamadatepicker.min.css">
     <link rel="stylesheet" href="../../../assets/css/form.css">
     <meta charset="UTF-8" lang="fa">
     <meta name="viewport"
@@ -26,14 +25,12 @@
 
             <div class="formbold-form-label">
                 <label class="formbold-form-label" for="name">نام صندوق</label>
-                <input id="name" class="formbold-form-input" placeholder="نام صندوق را وارد کنید" type="text"
-                       name="name">
+                <input id="name" class="formbold-form-input" placeholder="نام صندوق را وارد کنید" type="text" name="name">
             </div>
 
             <div class="formbold-input-group">
                 <label for="cashDeskNumber" class="formbold-form-label"> شماره صندوق </label>
-                <input type="text" name="cashDeskNumber" id="cashDeskNumber" placeholder="شماره صندوق را وارد کنید"
-                       class="formbold-form-input"/>
+                <input type="text" name="cashDeskNumber" id="cashDeskNumber" placeholder="شماره صندوق را وارد کنید" class="formbold-form-input"/>
             </div>
 
             <div class="formbold-input-group">
@@ -43,9 +40,9 @@
             </div>
 
             <div class="formbold-input-group">
-                <label for="user">صندوقدار </label>
-                <select name="username" id="user">
-                    <c:forEach items="${sessionScope.user.userList}" var="user">
+                <label for="user" class="formbold-form-label">صندوقدار </label>
+                <select name="username" id="user" class="formbold-form-input">
+                    <c:forEach items="${sessionScope.userList}" var="user">
                         <option>${user.username}</option>
                     </c:forEach>
                 </select>
@@ -58,11 +55,8 @@
 
         </form>
         <!--end form-->
-        <h1>${sessionScope.cashDeskList}</h1>
     </div>
 </div>
 <script src="../../../assets/js/jquery-3.7.1.min.js"></script>
-<script src="../../../assets/js/kamadatepicker.holidays.js"></script>
-<script src="../../../assets/js/kamadatepicker.min.js"></script>
 </body>
 </html>

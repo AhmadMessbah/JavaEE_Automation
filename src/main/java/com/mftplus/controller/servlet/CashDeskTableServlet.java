@@ -13,19 +13,20 @@ import java.io.IOException;
 
 @Slf4j
 @WebServlet(urlPatterns = "/cashDeskTable.do")
-public class CashDeskTable extends HttpServlet {
+public class CashDeskTableServlet extends HttpServlet {
     @Inject
     private CashDeskServiceImp cashDeskService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("LetterTableServlet - Get");
+        log.info("CashDeskTableServlet - Get");
         try {
             req.getSession().setAttribute("cashDeskList", cashDeskService.findAll());
             req.getRequestDispatcher("/jsp/table/cashDesk.jsp").forward(req, resp);
         } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Error in CashDeskTableServlet GET: {}", e.getMessage(), e);
+            req.setAttribute("errorMessage", "An unexpected error occurred: " + e.getMessage());
+            req.getRequestDispatcher("/jsp/error.jsp").forward(req, resp);
         }
     }
 }

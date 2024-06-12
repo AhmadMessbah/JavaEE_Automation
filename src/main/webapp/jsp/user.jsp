@@ -24,7 +24,7 @@
             <div class="row  mb-4">
                 <label class="col form-label" for="username">Username: </label>
                 <input id="username" class="col form-label" type="text" name="username" required>
-                <p style="color: red">${sessionScope.duplicateUsername}</p>
+                <p style="color: red">${sessionScope.username}</p>
             </div>
 
             <div class="row  mb-4">

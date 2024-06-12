@@ -28,8 +28,8 @@ public class Person extends Base implements Serializable {
 
     //todo : for all entities validation msg is in eng, we need to decide for the persian msg
     @Id
-    @SequenceGenerator(name = "personSeq", sequenceName = "person_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personSeq")
+    @SequenceGenerator(name = "person_seq", sequenceName = "PERSON_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
     @Column(name = "p_id")
     private Long id;
 

@@ -15,7 +15,7 @@ public interface CashDeskService {
 
     void removeById(Long id) throws Exception;
 
-    void removeByCashDeskNumber(int cashDeskNumber) throws Exception;
+    Optional<CashDesk> findById(Long id) throws NoContentException;
 
     List<CashDesk> findAll() throws Exception;
 
@@ -24,6 +24,4 @@ public interface CashDeskService {
     Optional<CashDesk> findByCashDeskNumber(int cashDeskNumber) throws Exception;
 
     Optional<CashDesk> findByCashier(String username) throws Exception;
-
-    Optional<CashDesk> findById(Long id) throws NoContentException;
 }

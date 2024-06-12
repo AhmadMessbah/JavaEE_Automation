@@ -4,7 +4,7 @@ import com.mftplus.controller.exception.NoContentException;
 import com.mftplus.controller.validation.BeanValidator;
 import com.mftplus.model.CashDesk;
 import com.mftplus.model.User;
-import com.mftplus.service.impl.CashDeskServiceImp;
+import com.mftplus.service.CashDeskService;
 import com.mftplus.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
@@ -12,7 +12,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -23,25 +22,35 @@ import java.util.Optional;
 public class CashDeskServlet extends HttpServlet {
 
     @Inject
-    private CashDeskServiceImp cashDeskService;
+    private CashDeskService cashDeskService;
 
     @Inject
     private UserServiceImpl userService;
 
-    @Valid
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("CashDeskServlet - Post");
         try {
+            req.setCharacterEncoding("utf-8");
             String name = req.getParameter("name");
-            int cashDeskNumber = Integer.parseInt(req.getParameter("cashDeskNumber"));
-            Long cashBalance = Long.valueOf(req.getParameter("cashBalance"));
+            String cashDeskNumberStr = req.getParameter("cashDeskNumber");
+            String cashBalanceStr = req.getParameter("cashBalance");
             String username = req.getParameter("username");
-            System.out.println(username);
-            log.info(username);
             Optional<User> userOptional = userService.findByUsername(username);
-            System.out.println(userOptional);
-            log.info(String.valueOf(userOptional));
+            System.out.println("User : " + userOptional.get());
+
+            log.info("Received parameters: name={}, cashDeskNumber={}, cashBalance={}, username={}",
+                    name, cashDeskNumberStr, cashBalanceStr, username);
+
+            if (name == null || username.isEmpty() || cashDeskNumberStr == null || cashBalanceStr == null) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write("All fields are required.");
+            }
+
+            Long cashDeskNumber = Long.valueOf(cashDeskNumberStr);
+            Long cashBalance = Long.valueOf(cashBalanceStr);
+
+            log.info("User found: {}", username);
 
             if (userOptional.isPresent()) {
                 CashDesk cashDesk =
@@ -53,26 +62,30 @@ public class CashDeskServlet extends HttpServlet {
                                 .cashier(userOptional.get())
                                 .deleted(false)
                                 .build();
-
-                //validate
+                // Validate the CashDesk entity
                 BeanValidator<CashDesk> validator = new BeanValidator<>();
-                if (validator.validate(cashDesk) != null) {
-                    resp.setStatus(500);
-                    resp.getWriter().write(validator.validate(cashDesk).toString());
+                String validationErrors = validator.validate(cashDesk).toString();
+                if (!validationErrors.isEmpty()) {
+                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    resp.getWriter().write(validationErrors);
                 }
+                System.out.println("CashDesk: " + cashDesk);
 
                 cashDeskService.save(cashDesk);
-                log.info("CashDeskServlet - CashDesk Saved");
+                log.info("CashDesk saved successfully with ID: {}", cashDesk.getId());
+
                 req.getSession().setAttribute("cashDeskId", cashDesk.getId());
                 resp.sendRedirect("/cashDeskDisplay.do?id=" + cashDesk.getId());
-                String msg = "صندوق با موفقیت ثبت شد !";
-                req.getSession().setAttribute("ok", msg);
+                req.getSession().setAttribute("ok", "صندوق با موفقیت ثبت شد !");
             } else {
-                throw new NoContentException("The required user does not exist !");
+                throw new NoContentException("The required user does not exist!");
             }
         } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Error in CashDeskServlet POST: {}", e.getMessage(), e);
+            System.out.println("Error : " +e.getMessage());
+            e.printStackTrace();
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("An unexpected error occurred: " + e.getMessage());
         }
     }
 
@@ -84,8 +97,9 @@ public class CashDeskServlet extends HttpServlet {
             req.getSession().setAttribute("userList", userService.findAll());
             req.getRequestDispatcher("/jsp/form/save/cashDesk-form.jsp").forward(req, resp);
         } catch (Exception e) {
-            log.info(e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Error in CashDeskServlet GET: {}", e.getMessage(), e);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("An unexpected error occurred: " + e.getMessage());
         }
     }
 }

@@ -12,11 +12,13 @@
 
 <div class="formbold-main-wrapper">
     <div class="formbold-form-wrapper">
-        <p class="success">${sessionScope.ok}</p>
+        <c:if test="${not empty sessionScope.ok}">
+            <p class="success">${sessionScope.ok}</p>
+        </c:if>
 
         <div class="formbold-form-title">
-            <a class="formbold-btn warning" href="#" onclick="showEditLetter(${sessionScope.cashDesk.id})">ویرایش</a>
-            <a class="formbold-btn danger" href="#" onclick="removeLetter(${sessionScope.cashDesk.id})">حذف</a>
+            <a class="formbold-btn warning" href="#" onclick="showEditCashDesk(${sessionScope.cashDesk.id})">ویرایش</a>
+            <a class="formbold-btn danger" href="#" onclick="removeCashDesk(${sessionScope.cashDesk.id})">حذف</a>
         </div>
 
         <!--start form-->
@@ -26,33 +28,28 @@
 
                 <div>
                     <label class="formbold-form-label" for="name">نام صندوق:</label>
-                    <input id="name" class="formbold-form-input" type="text" name="name"
-                           value="${sessionScope.cashDesk.name}">
+                    <input id="name" class="formbold-form-input" type="text" name="name" value="${sessionScope.cashDesk.name}" readonly>
                 </div>
 
                 <div>
                     <label class="formbold-form-label" for="cashDeskNumber">شماره صندوق:</label>
-                    <input id="cashDeskNumber" class="formbold-form-input" type="number" name="cashDeskNumber"
-                           value="${sessionScope.cashDesk.cashDeskNumber}">
+                    <input id="cashDeskNumber" class="formbold-form-input" type="number" name="cashDeskNumber" value="${sessionScope.cashDesk.cashDeskNumber}" readonly>
                 </div>
+            </div>
 
+            <div class="formbold-input-flex">
                 <div>
                     <label class="formbold-form-label" for="cashBalance">موجودی صندوق:</label>
-                    <input id="cashBalance" class="formbold-form-input" type="number" name="cashBalance"
-                           value="${sessionScope.cashDesk.cashBalance}">
+                    <input id="cashBalance" class="formbold-form-input" type="number" name="cashBalance" value="${sessionScope.cashDesk.cashBalance}" readonly>
                 </div>
 
                 <div class="row mb-4">
-                    <label class="formbold-form-label" for="user">صندوقدار را انتخاب کنبد:</label>
-                    <select name="username" id="user">
-                        <c:forEach items="${sessionScope.user.userList}" var="user">
-                            <option>${user.username}</option>
+                    <label class="formbold-form-label" for="user">صندوقدار :</label>
+                    <select name="username" id="user" disabled>
+                        <c:forEach items="${sessionScope.userList}" var="user">
+                            <option value="${user.username}" ${user.username == sessionScope.cashDesk.cashier.username ? 'selected' : ''}>${user.username}</option>
                         </c:forEach>
                     </select>
-                </div>
-
-                <div class="row mb-4">
-                    <input type="submit" class="btn btn-primary" value="Save">
                 </div>
             </div>
         </form>
@@ -60,6 +57,5 @@
 </div>
 
 <script src="../../../assets/js/cashDesk.js"></script>
-
 </body>
 </html>

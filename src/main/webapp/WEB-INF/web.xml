@@ -3,6 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+    <security-role>
+        <role-name>manager</role-name>
+    </security-role>
 <!--    <servlet>-->
 <!--        <servlet-name>Faces Servlet</servlet-name>-->
 <!--        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>-->
@@ -83,7 +92,6 @@
             <!--security for person and user pages-->
             <url-pattern>/person.do</url-pattern>
             <url-pattern>/personTable.do</url-pattern>
-            <url-pattern>/user.do</url-pattern>
             <!--end security for person pages-->
 
             <!--security for reference pages-->
@@ -104,6 +112,10 @@
             <url-pattern>/bankEdit.do</url-pattern>
             <url-pattern>/bankTable.do</url-pattern>
             <url-pattern>/cashDesk.do</url-pattern>
+            <url-pattern>/cashDeskBox.do</url-pattern>
+            <url-pattern>/cashDeskDisplay.do</url-pattern>
+            <url-pattern>/cashDeskEdit.do</url-pattern>
+            <url-pattern>/cashDeskTable.do</url-pattern>
             <url-pattern>/financialTransaction.do</url-pattern>
             <url-pattern>/financialDoc.do</url-pattern>
             <!--end security for finance pages-->
@@ -112,6 +124,10 @@
             <http-method>POST</http-method>
             <http-method>PUT</http-method>
             <http-method>DELETE</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>CONNECT</http-method> <!-- اضافه کردن متد CONNECT -->
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
@@ -150,6 +166,10 @@
             <url-pattern>/bankEdit.do</url-pattern>
             <url-pattern>/bankTable.do</url-pattern>
             <url-pattern>/cashDesk.do</url-pattern>
+            <url-pattern>/cashDeskBox.do</url-pattern>
+            <url-pattern>/cashDeskDisplay.do</url-pattern>
+            <url-pattern>/cashDeskEdit.do</url-pattern>
+            <url-pattern>/cashDeskTable.do</url-pattern>
             <url-pattern>/financialTransaction.do</url-pattern>
             <url-pattern>/financialDoc.do</url-pattern>
             <!--end security for finance pages-->
@@ -158,6 +178,9 @@
             <http-method>POST</http-method>
             <http-method>PUT</http-method>
             <http-method>DELETE</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
         </web-resource-collection>
         <auth-constraint>
             <role-name>manager</role-name>
@@ -197,6 +220,10 @@
             <url-pattern>/bankEdit.do</url-pattern>
             <url-pattern>/bankTable.do</url-pattern>
             <url-pattern>/cashDesk.do</url-pattern>
+            <url-pattern>/cashDeskBox.do</url-pattern>
+            <url-pattern>/cashDeskDisplay.do</url-pattern>
+            <url-pattern>/cashDeskEdit.do</url-pattern>
+            <url-pattern>/cashDeskTable.do</url-pattern>
             <url-pattern>/financialTransaction.do</url-pattern>
             <url-pattern>/financialDoc.do</url-pattern>
             <!--end security for finance pages-->
@@ -207,6 +234,9 @@
             <http-method>POST</http-method>
             <http-method>PUT</http-method>
             <http-method>DELETE</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
         </web-resource-collection>
         <auth-constraint>
             <role-name>user</role-name>

@@ -1,5 +1,7 @@
 package com.mftplus.service.impl;
 
+import com.mftplus.controller.exception.NoContentException;
+import com.mftplus.model.CashDesk;
 import com.mftplus.model.Department;
 import com.mftplus.model.User;
 import com.mftplus.model.enums.Role;
@@ -111,5 +113,15 @@ public class UserServiceImpl implements UserService, Serializable {
         query.setParameter("userList", userList);
         System.out.println(query);
         return query.getResultList();
+    }
+
+    @Override
+    public Optional<User> findById(long id) throws NoContentException {
+        Optional<User> optional = Optional.ofNullable(entityManager.find(User.class, id));
+        if (optional.isPresent()) {
+            return optional;
+        } else {
+            throw new NoContentException("User with id : " + id + "not found !");
+        }
     }
 }

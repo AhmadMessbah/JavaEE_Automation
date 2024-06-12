@@ -55,11 +55,6 @@ public class CashDeskServiceImp implements CashDeskService, Serializable {
         entityManager.merge(cashDesk);
     }
 
-    @Override
-    public void removeByCashDeskNumber(int cashDeskNumber) throws Exception {
-
-    }
-
     @Transactional
     @Override
     public List<CashDesk> findAll() throws Exception {
@@ -77,13 +72,13 @@ public class CashDeskServiceImp implements CashDeskService, Serializable {
 
     @Transactional
     @Override
-    public Optional<CashDesk> findByCashDeskNumber(int cashDeskNumber) throws Exception {
+    public Optional<CashDesk> findByCashDeskNumber(int cashDeskNumber){
         return Optional.ofNullable(entityManager.find(CashDesk.class, cashDeskNumber));
     }
 
     @Transactional
     @Override
-    public Optional<CashDesk> findByCashier(String username) throws Exception {
+    public Optional<CashDesk> findByCashier(String username){
         return Optional.ofNullable(entityManager.find(CashDesk.class, username));
     }
 

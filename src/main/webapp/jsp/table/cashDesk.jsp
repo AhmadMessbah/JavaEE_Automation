@@ -30,7 +30,7 @@
                 <td>${cashDesk.name}</td>
                 <td>${cashDesk.cashDeskNumber}</td>
                 <td>${cashDesk.cashBalance}</td>
-                <td>${cashDesk.cashier.username}</td>
+                <td>${cashDesk.user.username}</td>
                 <td>
                     <a href="#" onclick="selectCashDesk(${cashDesk.id})"><i class="fas fa-eye show"></i></a>
                     <a href="#" onclick="showEditCashDesk(${cashDesk.id})"><i class="fa fa-edit edit"></i></a>

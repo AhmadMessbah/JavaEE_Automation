@@ -22,4 +22,6 @@ public interface UserService {
     List<User> findByDepartment(Department department) throws Exception;
     List<User> findByActive(Boolean active) throws Exception;
     List<User> findUserByUsernames(List<String> userList) throws Exception;
+
+    Optional<User> findById(long id) throws Exception;
 }
