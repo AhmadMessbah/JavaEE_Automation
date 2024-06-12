@@ -43,14 +43,18 @@
                     <input id="cashBalance" class="formbold-form-input" type="number" name="cashBalance" value="${sessionScope.cashDesk.cashBalance}" readonly>
                 </div>
 
-                <div class="row mb-4">
-                    <label class="formbold-form-label" for="user">صندوقدار :</label>
-                    <select name="username" id="user" disabled>
-                        <c:forEach items="${sessionScope.userList}" var="user">
-                            <option value="${user.username}" ${user.username == sessionScope.cashDesk.cashier.username ? 'selected' : ''}>${user.username}</option>
-                        </c:forEach>
-                    </select>
+                <div>
+                    <label for="username" class="formbold-form-label"> صندوقدار: </label>
+                    <input type="text" name="username" id="username" class="formbold-form-input" value="${sessionScope.cashDesk.cashier.username}" readonly>
                 </div>
+<%--                <div class="row mb-4">--%>
+<%--                    <label class="formbold-form-label" for="user">صندوقدار :</label>--%>
+<%--                    <select name="username" id="user" disabled>--%>
+<%--                        <c:forEach items="${sessionScope.userList}" var="user">--%>
+<%--                            <option value="${user.username}" ${user.username == sessionScope.cashDesk.cashier.username ? 'selected' : ''}>${user.username}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
             </div>
         </form>
     </div>
