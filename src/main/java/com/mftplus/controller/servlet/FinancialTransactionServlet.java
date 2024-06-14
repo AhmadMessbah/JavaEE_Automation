@@ -153,11 +153,12 @@ public class FinancialTransactionServlet extends HttpServlet {
 //                Long bankAmount = Long.valueOf(req.getParameter("bankAmount"));
 //                Long cashAmount = Long.valueOf(req.getParameter("cashAmount"));
 
+                PaymentType.valueOf(paymentType);
                 financialTransaction = FinancialTransaction
                         .builder()
                         .user(userOptional.get())
                         .referringDepartment(departmentOptional.get())
-                        .paymentType(PaymentType.valueOf(paymentType).checkPayment)
+                        .paymentType(PaymentType.checkPayment)
                         .trackingCode(trackingCode)
                         .transactionType(FinancialTransactionType.valueOf(transactionType))
                         .faDate(faDate)
@@ -195,11 +196,12 @@ public class FinancialTransactionServlet extends HttpServlet {
                 Long bankAmount = Long.valueOf(req.getParameter("bankAmount"));
                 Long cashAmount = Long.valueOf(req.getParameter("cashAmount"));
 
+                PaymentType.valueOf(paymentType);
                 financialTransaction = FinancialTransaction
                         .builder()
                         .user(userOptional.get())
                         .referringDepartment(departmentOptional.get())
-                        .paymentType(PaymentType.valueOf(paymentType).cardAndCash)
+                        .paymentType(PaymentType.cardAndCash)
                         .trackingCode(trackingCode)
                         .transactionType(FinancialTransactionType.valueOf(transactionType))
                         .faDate(faDate)
@@ -237,11 +239,12 @@ public class FinancialTransactionServlet extends HttpServlet {
                 Long bankAmount = Long.valueOf(req.getParameter("bankAmount"));
 //                Long cashAmount = Long.valueOf(req.getParameter("cashAmount"));
 
+                PaymentType.valueOf(paymentType);
                 financialTransaction = FinancialTransaction
                         .builder()
                         .user(userOptional.get())
                         .referringDepartment(departmentOptional.get())
-                        .paymentType(PaymentType.valueOf(paymentType).cardAndCheck)
+                        .paymentType(PaymentType.cardAndCheck)
                         .trackingCode(trackingCode)
                         .transactionType(FinancialTransactionType.valueOf(transactionType))
                         .faDate(faDate)
@@ -279,11 +282,12 @@ public class FinancialTransactionServlet extends HttpServlet {
 //                Long bankAmount = Long.valueOf(req.getParameter("bankAmount"));
                 Long cashAmount = Long.valueOf(req.getParameter("cashAmount"));
 
+                PaymentType.valueOf(paymentType);
                 financialTransaction = FinancialTransaction
                         .builder()
                         .user(userOptional.get())
                         .referringDepartment(departmentOptional.get())
-                        .paymentType(PaymentType.valueOf(paymentType).cashAndCheck)
+                        .paymentType(PaymentType.cashAndCheck)
                         .trackingCode(trackingCode)
                         .transactionType(FinancialTransactionType.valueOf(transactionType))
                         .faDate(faDate)
@@ -321,11 +325,12 @@ public class FinancialTransactionServlet extends HttpServlet {
                 Long bankAmount = Long.valueOf(req.getParameter("bankAmount"));
                 Long cashAmount = Long.valueOf(req.getParameter("cashAmount"));
 
+                PaymentType.valueOf(paymentType);
                 financialTransaction = FinancialTransaction
                         .builder()
                         .user(userOptional.get())
                         .referringDepartment(departmentOptional.get())
-                        .paymentType(PaymentType.valueOf(paymentType).cardAndCashAndCheck)
+                        .paymentType(PaymentType.cardAndCashAndCheck)
                         .trackingCode(trackingCode)
                         .transactionType(FinancialTransactionType.valueOf(transactionType))
                         .faDate(faDate)

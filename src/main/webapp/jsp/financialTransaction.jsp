@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Financial Transaction</title>
-    <link rel="stylesheet" href="../assets/css/kamadatepicker.min.css">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -13,7 +12,7 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/all.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../assets/css/">
 </head>
 <body>
 <div class="content">
@@ -163,11 +162,8 @@
     </div>
 </div>
 
-<%--<jsp:include page="js-import.jsp"></jsp:include>--%>
 <script src="../assets/js/financialTransaction.js"></script>
 <script src="../assets/js/jquery-3.7.1.min.js"></script>
-<script src="../assets/js/kamadatepicker.holidays.js"></script>
-<script src="../assets/js/kamadatepicker.min.js"></script>
 <script>
     let myElement = document.querySelector('#date');
     kamaDatepicker(myElement);

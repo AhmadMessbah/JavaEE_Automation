@@ -117,6 +117,10 @@
             <url-pattern>/cashDeskEdit.do</url-pattern>
             <url-pattern>/cashDeskTable.do</url-pattern>
             <url-pattern>/financialTransaction.do</url-pattern>
+            <url-pattern>/financialTransactionBox.do</url-pattern>
+            <url-pattern>/financialTransactionDisplay.do</url-pattern>
+            <url-pattern>/financialTransactionEdit.do</url-pattern>
+            <url-pattern>/financialTransactionTable.do</url-pattern>
             <url-pattern>/financialDoc.do</url-pattern>
             <!--end security for finance pages-->
 
@@ -172,6 +176,10 @@
             <url-pattern>/cashDeskEdit.do</url-pattern>
             <url-pattern>/cashDeskTable.do</url-pattern>
             <url-pattern>/financialTransaction.do</url-pattern>
+            <url-pattern>/financialTransactionBox.do</url-pattern>
+            <url-pattern>/financialTransactionDisplay.do</url-pattern>
+            <url-pattern>/financialTransactionEdit.do</url-pattern>
+            <url-pattern>/financialTransactionTable.do</url-pattern>
             <url-pattern>/financialDoc.do</url-pattern>
             <!--end security for finance pages-->
 
@@ -226,6 +234,10 @@
             <url-pattern>/cashDeskEdit.do</url-pattern>
             <url-pattern>/cashDeskTable.do</url-pattern>
             <url-pattern>/financialTransaction.do</url-pattern>
+            <url-pattern>/financialTransactionBox.do</url-pattern>
+            <url-pattern>/financialTransactionDisplay.do</url-pattern>
+            <url-pattern>/financialTransactionEdit.do</url-pattern>
+            <url-pattern>/financialTransactionTable.do</url-pattern>
             <url-pattern>/financialDoc.do</url-pattern>
             <!--end security for finance pages-->
 
