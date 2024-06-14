@@ -127,7 +127,8 @@
             <http-method>HEAD</http-method>
             <http-method>OPTIONS</http-method>
             <http-method>TRACE</http-method>
-            <http-method>CONNECT</http-method> <!-- اضافه کردن متد CONNECT -->
+<!--            <http-method>PATCH</http-method>-->
+            <http-method>CONNECT</http-method>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>

@@ -1,6 +1,5 @@
 package com.mftplus.controller.servlet;
 
-import com.mftplus.controller.exception.NoContentException;
 import com.mftplus.controller.validation.BeanValidator;
 import com.mftplus.model.CashDesk;
 import com.mftplus.model.User;
@@ -20,7 +19,6 @@ import java.util.Optional;
 @Slf4j
 @WebServlet(urlPatterns = "/cashDesk.do")
 public class CashDeskServlet extends HttpServlet {
-
     @Inject
     private CashDeskService cashDeskService;
 
@@ -52,34 +50,30 @@ public class CashDeskServlet extends HttpServlet {
 
             log.info("User found: {}", username);
 
-            if (userOptional.isPresent()) {
-                CashDesk cashDesk =
-                        CashDesk
-                                .builder()
-                                .name(name)
-                                .cashDeskNumber(cashDeskNumber)
-                                .cashBalance(cashBalance)
-                                .cashier(userOptional.get())
-                                .deleted(false)
-                                .build();
-                // Validate the CashDesk entity
-                BeanValidator<CashDesk> validator = new BeanValidator<>();
-                String validationErrors = validator.validate(cashDesk).toString();
-                if (!validationErrors.isEmpty()) {
-                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    resp.getWriter().write(validationErrors);
-                }
-                System.out.println("CashDesk: " + cashDesk);
-
-                cashDeskService.save(cashDesk);
-                log.info("CashDesk saved successfully with ID: {}", cashDesk.getId());
-
-                req.getSession().setAttribute("cashDeskId", cashDesk.getId());
-                resp.sendRedirect("/cashDeskDisplay.do?id=" + cashDesk.getId());
-                req.getSession().setAttribute("ok", "صندوق با موفقیت ثبت شد !");
-            } else {
-                throw new NoContentException("The required user does not exist!");
+            CashDesk cashDesk =
+                    CashDesk
+                            .builder()
+                            .name(name)
+                            .cashDeskNumber(cashDeskNumber)
+                            .cashBalance(cashBalance)
+                            .cashier(userOptional.get())
+                            .deleted(false)
+                            .build();
+            // Validate the CashDesk entity
+            BeanValidator<CashDesk> validator = new BeanValidator<>();
+            String validationErrors = validator.validate(cashDesk).toString();
+            if (!validationErrors.isEmpty()) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write(validationErrors);
             }
+            System.out.println("CashDesk: " + cashDesk);
+
+            cashDeskService.save(cashDesk);
+            log.info("CashDesk saved successfully with ID: {}", cashDesk.getId());
+
+            req.getSession().setAttribute("cashDeskId", cashDesk.getId());
+            resp.sendRedirect("/cashDeskDisplay.do?id=" + cashDesk.getId());
+            req.getSession().setAttribute("ok", "صندوق با موفقیت ثبت شد !");
         } catch (Exception e) {
             log.error("Error in CashDeskServlet POST: {}", e.getMessage(), e);
             System.out.println("Error : " +e.getMessage());

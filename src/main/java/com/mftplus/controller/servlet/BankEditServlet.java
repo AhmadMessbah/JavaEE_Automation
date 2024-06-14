@@ -71,16 +71,18 @@ public class BankEditServlet extends HttpServlet {
             Long accountBalance = Long.parseLong(accountBalanceStr);
 
             // Construct Bank object
-            Bank bank = Bank.builder()
-                    .id(id)
-                    .name(name)
-                    .accountNumber(accountNumber)
-                    .branchCode(branchCode)
-                    .branchName(branchName)
-                    .accountType(AccountType.valueOf(accountType))
-                    .accountBalance(accountBalance)
-                    .deleted(false)
-                    .build();
+            Bank bank =
+                    Bank
+                            .builder()
+                            .id(id)
+                            .name(name)
+                            .accountNumber(accountNumber)
+                            .branchCode(branchCode)
+                            .branchName(branchName)
+                            .accountType(AccountType.valueOf(accountType))
+                            .accountBalance(accountBalance)
+                            .deleted(false)
+                            .build();
 
             // Perform validation
             BeanValidator<Bank> validator = new BeanValidator<>();

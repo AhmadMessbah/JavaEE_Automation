@@ -8,6 +8,7 @@ async function removeBank(id) {
             method: "DELETE"
         });
         if (response.ok) {
+            alert("بانک با موفقیت حذف شد");
             document.location.replace("/bankBox.do");
         } else {
             alert("حذف بانک با خطا مواجه شد");
@@ -42,9 +43,11 @@ async function editBank(event) {
     });
 
     if (response.ok) {
+        alert("تغییرات با موفقیت ثبت شد");
         document.location.replace("/bankDisplay.do?id=" + id);
     } else {
         console.error("Failed to update the bank");
+        alert("خطایی رخ داد. لطفاً دوباره امتحان کنید.");
     }
 }
 

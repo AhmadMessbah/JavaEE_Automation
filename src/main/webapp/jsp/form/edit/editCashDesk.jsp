@@ -1,15 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="fa">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ویرایش صندوق</title>
     <jsp:include page="../../css-import.jsp"></jsp:include>
     <link rel="stylesheet" href="../../../assets/css/form.css">
-    <link rel="stylesheet" href="../../../assets/css/kamadatepicker.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
 <!--nav bar-->
@@ -22,9 +21,9 @@
         </div>
 
         <!--start form-->
-        <form id="CashDeskEditForm" enctype="multipart/form-data">
+        <form id="CashDeskEditForm" >
 
-            <input class="form-control" type="text" name="id" value="${sessionScope.cashDeskEdit.id}" hidden="hidden">
+            <input class="form-control" type="text" name="id" value="${sessionScope.cashDesk.id}" hidden="hidden">
 
             <div class="formbold-input-group">
                 <label for="name" class="formbold-form-label"> نام صندوق </label>
@@ -45,15 +44,16 @@
                        class="formbold-form-input"/>
             </div>
 
-            <div class="formbold-input-group">
-                <label for="user" class="formbold-form-label">نام صندوقدار</label>
-                <select name="username" id="user">
-                    <c:forEach items="${sessionScope.user.userList}" var="user">
-                        <option>${user.username}</option>
+            <div style="text-align: right;">
+                <label for="cashier" class="formbold-form-label">صندوقدار:</label>
+                <select name="username" id="cashier" class="formbold-form-input">
+                    <c:forEach var="user" items="${sessionScope.userList}">
+                        <option value="${user.username}" <c:if test="${user.username == sessionScope.cashDesk.cashier.username}">selected</c:if>>
+                                ${user.username}
+                        </option>
                     </c:forEach>
                 </select>
             </div>
-
 
             <button id="submit" class="a-btn" onclick="editCashDesk(event)">ویرایش</button>
         </form>
@@ -61,11 +61,8 @@
     </div>
 </div>
 
-<script src="../../../assets/js/jquery-3.7.1.min.js"></script>
-<script src="../../../assets/js/kamadatepicker.holidays.js"></script>
-<script src="../../../assets/js/kamadatepicker.min.js"></script>
-<script src="../../../assets/js/referenceInput.js"></script>
-<script src="../../../assets/js/cashDesk.js"></script>
+<script src="../../../assets/js/jquery-3.7.1.min.js" defer></script>
+<script src="../../../assets/js/cashDesk.js" defer></script>
 
 </body>
 </html>

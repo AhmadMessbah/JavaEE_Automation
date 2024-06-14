@@ -1,11 +1,10 @@
 package com.mftplus.controller.servlet;
 
 import com.mftplus.controller.exception.IdIsRequiredException;
-import com.mftplus.controller.exception.NoContentException;
 import com.mftplus.controller.validation.BeanValidator;
 import com.mftplus.model.CashDesk;
 import com.mftplus.model.User;
-import com.mftplus.service.impl.CashDeskServiceImp;
+import com.mftplus.service.CashDeskService;
 import com.mftplus.service.impl.UserServiceImpl;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
@@ -21,9 +20,8 @@ import java.util.Optional;
 @Slf4j
 @WebServlet(urlPatterns = "/cashDeskEdit.do")
 public class CashDeskEditServlet extends HttpServlet {
-
     @Inject
-    private CashDeskServiceImp cashDeskService;
+    private CashDeskService cashDeskService;
 
     @Inject
     private UserServiceImpl userService;
@@ -32,25 +30,18 @@ public class CashDeskEditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("CashDeskEditServlet - Get");
         try {
-            String idParam = req.getParameter("id");
-            if (idParam == null) {
+            if (req.getParameter("id") == null) {
                 throw new IdIsRequiredException("Please set Cash Desk id!");
-            }
-            Long id = Long.valueOf(idParam);
-            log.info("Fetching CashDesk with id: {}", id);
-
-            Optional<CashDesk> cashDesk = cashDeskService.findById(id);
-            if (cashDesk.isPresent()) {
-                req.getSession().setAttribute("cashDeskEdit", cashDesk.get());
-                log.info("CashDesk found: {}", cashDesk.get());
             } else {
-                log.warn("No CashDesk found with id: {}", id);
-            }
+                Long id = Long.valueOf(req.getParameter("id"));
+                Optional<CashDesk> cashDesk = cashDeskService.findById(id);
+                cashDesk.ifPresent(value -> req.getSession().setAttribute("cashDesk", value));
 
-            req.getSession().setAttribute("userList", userService.findAll());
-            req.getRequestDispatcher("/jsp/form/edit/editCashDesk.jsp").forward(req, resp);
+                req.getSession().setAttribute("userList", userService.findAll());
+                req.getRequestDispatcher("/jsp/form/edit/editCashDesk.jsp").forward(req, resp);
+            }
         } catch (Exception e) {
-            log.error("Error in CashDeskEditServlet: {}", e.getMessage());
+            log.error(e.getMessage());
             throw new ServletException(e);
         }
     }
@@ -78,24 +69,25 @@ public class CashDeskEditServlet extends HttpServlet {
 
                 // Validate the cash desk
                 BeanValidator<CashDesk> validator = new BeanValidator<>();
-                var validationErrors = validator.validate(cashDesk);
-                if (validationErrors != null) {
+                String validationResult = String.valueOf(validator.validate(cashDesk));
+                if (validationResult != null && !validationResult.isEmpty()) {
+                    log.error("Validation failed: {}", validationResult);
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    resp.getWriter().write(validationErrors.toString());
-                    return;
+                    resp.getWriter().write(validationResult);
+                    return;  // Stop further execution if there are validation errors
                 }
 
                 cashDeskService.edit(cashDesk);
-                log.info("CashDesk edited successfully: {}", cashDesk);
+                log.info("CashDesk edited successfully with ID: {}", cashDesk.getId());
                 resp.setStatus(HttpServletResponse.SC_OK);
-                String msg = "تغییرات با موفقیت ثبت شد!";
-                req.getSession().setAttribute("ok", msg);
             } else {
-                throw new NoContentException("The required user does not exist!");
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write("User not found.");
             }
         } catch (Exception e) {
-            log.error("Error in CashDeskEditServlet: {}", e.getMessage());
-            throw new ServletException(e);
+            log.error(e.getMessage(), e);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("An unexpected error occurred: " + e.getMessage());
         }
     }
 }
