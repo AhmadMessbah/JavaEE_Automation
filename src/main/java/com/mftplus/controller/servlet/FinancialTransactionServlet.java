@@ -1,5 +1,6 @@
 package com.mftplus.controller.servlet;
 
+import com.mftplus.controller.validation.BeanValidator;
 import com.mftplus.model.*;
 import com.mftplus.model.enums.FinancialTransactionType;
 import com.mftplus.model.enums.PaymentType;
@@ -10,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -40,10 +42,12 @@ public class FinancialTransactionServlet extends HttpServlet {
     @Inject
     private CheckPaymentServiceImp checkPaymentService;
 
+    @Valid
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("FinancialTransactionServlet - Post");
         try {
-
+            req.setCharacterEncoding("utf-8");
             String username = req.getParameter("username");
             Optional<User> userOptional = userService.findByUsername(username);
             Long id = Long.valueOf(req.getParameter("dId"));
@@ -82,8 +86,19 @@ public class FinancialTransactionServlet extends HttpServlet {
                         .build();
                 financialTransaction.setFaDate(faDate);
 
+                //validate
+                BeanValidator<FinancialTransaction> validator = new BeanValidator<>();
+
+                if (validator.validate(financialTransaction) != null) {
+                    resp.setStatus(500);
+                    resp.getWriter().write(validator.validate(financialTransaction).toString());
+                }
+
                 financialTransactionService.save(financialTransaction);
                 log.info("FinancialTransactionServlet - FinancialTransaction Saved");
+                req.getSession().setAttribute("financialTransactionId", financialTransaction.getId());
+                String msg = "بانک با موفقیت ثبت شد !";
+                req.getSession().setAttribute("ok", msg);
             }
 
             //Cash Payment Save
@@ -113,8 +128,19 @@ public class FinancialTransactionServlet extends HttpServlet {
                         .build();
                 financialTransaction.setFaDate(faDate);
 
+                //validate
+                BeanValidator<FinancialTransaction> validator = new BeanValidator<>();
+
+                if (validator.validate(financialTransaction) != null) {
+                    resp.setStatus(500);
+                    resp.getWriter().write(validator.validate(financialTransaction).toString());
+                }
+
                 financialTransactionService.save(financialTransaction);
                 log.info("FinancialTransactionServlet - FinancialTransaction Saved");
+                req.getSession().setAttribute("financialTransactionId", financialTransaction.getId());
+                String msg = "بانک با موفقیت ثبت شد !";
+                req.getSession().setAttribute("ok", msg);
             }
 
             //Check Payment Save
@@ -144,8 +170,19 @@ public class FinancialTransactionServlet extends HttpServlet {
                         .build();
                 financialTransaction.setFaDate(faDate);
 
+                //validate
+                BeanValidator<FinancialTransaction> validator = new BeanValidator<>();
+
+                if (validator.validate(financialTransaction) != null) {
+                    resp.setStatus(500);
+                    resp.getWriter().write(validator.validate(financialTransaction).toString());
+                }
+
                 financialTransactionService.save(financialTransaction);
                 log.info("FinancialTransactionServlet - FinancialTransaction Saved");
+                req.getSession().setAttribute("financialTransactionId", financialTransaction.getId());
+                String msg = "بانک با موفقیت ثبت شد !";
+                req.getSession().setAttribute("ok", msg);
             }
 
             //Card And Cash Save
@@ -175,8 +212,19 @@ public class FinancialTransactionServlet extends HttpServlet {
                         .build();
                 financialTransaction.setFaDate(faDate);
 
+                //validate
+                BeanValidator<FinancialTransaction> validator = new BeanValidator<>();
+
+                if (validator.validate(financialTransaction) != null) {
+                    resp.setStatus(500);
+                    resp.getWriter().write(validator.validate(financialTransaction).toString());
+                }
+
                 financialTransactionService.save(financialTransaction);
                 log.info("FinancialTransactionServlet - FinancialTransaction Saved");
+                req.getSession().setAttribute("financialTransactionId", financialTransaction.getId());
+                String msg = "بانک با موفقیت ثبت شد !";
+                req.getSession().setAttribute("ok", msg);
             }
 
             //Card And Check Save
@@ -206,8 +254,19 @@ public class FinancialTransactionServlet extends HttpServlet {
                         .build();
                 financialTransaction.setFaDate(faDate);
 
+                //validate
+                BeanValidator<FinancialTransaction> validator = new BeanValidator<>();
+
+                if (validator.validate(financialTransaction) != null) {
+                    resp.setStatus(500);
+                    resp.getWriter().write(validator.validate(financialTransaction).toString());
+                }
+
                 financialTransactionService.save(financialTransaction);
                 log.info("FinancialTransactionServlet - FinancialTransaction Saved");
+                req.getSession().setAttribute("financialTransactionId", financialTransaction.getId());
+                String msg = "بانک با موفقیت ثبت شد !";
+                req.getSession().setAttribute("ok", msg);
             }
 
             //Cash And Check
@@ -237,8 +296,19 @@ public class FinancialTransactionServlet extends HttpServlet {
                         .build();
                 financialTransaction.setFaDate(faDate);
 
+                //validate
+                BeanValidator<FinancialTransaction> validator = new BeanValidator<>();
+
+                if (validator.validate(financialTransaction) != null) {
+                    resp.setStatus(500);
+                    resp.getWriter().write(validator.validate(financialTransaction).toString());
+                }
+
                 financialTransactionService.save(financialTransaction);
                 log.info("FinancialTransactionServlet - FinancialTransaction Saved");
+                req.getSession().setAttribute("financialTransactionId", financialTransaction.getId());
+                String msg = "بانک با موفقیت ثبت شد !";
+                req.getSession().setAttribute("ok", msg);
             }
 
             //Card And Cash And Check
@@ -268,12 +338,23 @@ public class FinancialTransactionServlet extends HttpServlet {
                         .build();
                 financialTransaction.setFaDate(faDate);
 
+                //validate
+                BeanValidator<FinancialTransaction> validator = new BeanValidator<>();
+
+                if (validator.validate(financialTransaction) != null) {
+                    resp.setStatus(500);
+                    resp.getWriter().write(validator.validate(financialTransaction).toString());
+                }
+
                 financialTransactionService.save(financialTransaction);
                 log.info("FinancialTransactionServlet - FinancialTransaction Saved");
+                req.getSession().setAttribute("financialTransactionId", financialTransaction.getId());
+                String msg = "بانک با موفقیت ثبت شد !";
+                req.getSession().setAttribute("ok", msg);
             } else {
                 log.info("Invalid Information");
             }
-            resp.sendRedirect("/financialTransaction.do");
+            resp.sendRedirect("/financialTransactionDisplay.do?id=" + financialTransaction.getId());
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);
