@@ -1,7 +1,7 @@
 package com.mftplus.controller.servlet;
 
 import com.mftplus.service.impl.CashDeskServiceImp;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
