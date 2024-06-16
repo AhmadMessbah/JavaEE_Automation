@@ -377,7 +377,7 @@ public class FinancialTransactionServlet extends HttpServlet {
             req.getSession().setAttribute("cashDeskList", cashDeskService.findAll());
             req.getSession().setAttribute("checkPaymentList", checkPaymentService.findAll());
             req.getSession().setAttribute("financialTransactionList", financialTransactionService.findAll());
-            req.getRequestDispatcher("/jsp/financialTransaction.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/form/save/financialTransaction-form.jsp").forward(req, resp);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
