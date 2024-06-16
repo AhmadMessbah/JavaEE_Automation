@@ -61,7 +61,7 @@ public class FinancialTransactionEditServlet extends HttpServlet {
                 req.getSession().setAttribute("departmentList", departmentService.findAll());
                 req.getSession().setAttribute("bankList",bankService.findAll());
                 req.getSession().setAttribute("cashDeskList",cashDeskService.findAll());
-                req.getRequestDispatcher("/jsp/form/edit/editfinancialTransaction.jsp").forward(req, resp);
+                req.getRequestDispatcher("/jsp/form/edit/editFinancialTransaction.jsp").forward(req, resp);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
