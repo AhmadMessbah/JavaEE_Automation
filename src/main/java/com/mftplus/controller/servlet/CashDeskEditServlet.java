@@ -74,7 +74,6 @@ public class CashDeskEditServlet extends HttpServlet {
                     log.error("Validation failed: {}", validationResult);
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     resp.getWriter().write(validationResult);
-                    return;  // Stop further execution if there are validation errors
                 }
 
                 cashDeskService.edit(cashDesk);
