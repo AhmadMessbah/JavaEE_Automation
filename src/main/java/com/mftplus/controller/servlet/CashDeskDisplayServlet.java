@@ -27,6 +27,7 @@ public class CashDeskDisplayServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("CashDeskDisplayServlet - Get");
+//        System.out.println("CashDeskDisplayServlet - Get");
 
         try {
             String idParam = req.getParameter("id");
@@ -38,6 +39,7 @@ public class CashDeskDisplayServlet extends HttpServlet {
 
                 Optional<CashDesk> cashDesk = cashDeskService.findById(id);
                 if (cashDesk.isPresent()) {
+//                    System.out.println("CASH DESK DISPLAY CASH DESK " + cashDesk);
                     req.getSession().setAttribute("cashDesk", cashDesk.get());
                     log.info("CashDesk found: {}", cashDesk.get());
                 } else {

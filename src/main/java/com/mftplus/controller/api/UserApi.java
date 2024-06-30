@@ -38,17 +38,17 @@ public class UserApi {
         }
     }
 
-//    @GET
-//    @Path("/{id}")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response findById(@PathParam("id") Long id) throws Exception {
-//        try {
-//            return Response.ok().entity(userService.findById(id)).build();
-//        } catch (Exception e) {
-//            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
-//        }
-//    }
+    @GET
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findById(@PathParam("id") Long id) throws Exception {
+        try {
+            return Response.ok().entity(userService.findById(id)).build();
+        } catch (Exception e) {
+            return Response.status(204).entity("{\"message\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
 
     @GET
     @Path("/findByUsername/{username}")
@@ -86,4 +86,3 @@ public class UserApi {
         }
     }
 }
-

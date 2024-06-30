@@ -20,47 +20,41 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-@ToString
+@ToString(exclude = {"roleList", "department"})
 
 @Entity(name = "userEntity")
 @Table(name = "user_tbl")
 @RequestScoped
 public class User extends Base implements Serializable {
     @Id
-    @Column(name = "u_username",columnDefinition = "NVARCHAR2(20)")
+    @Column(name = "u_username", columnDefinition = "NVARCHAR2(20)")
     @Pattern(regexp = "^[a-zA-Zآ-ی\\s]{3,20}$", message = "Invalid Name")
     @Size(min = 3, max = 20, message = "Name must be between 3 and 20 characters")
     @NotBlank(message = "Should Not Be Null")
     private String username;
 
-//    @JsonbTransient
+    @JsonbTransient
     @Column(name = "u_password", columnDefinition = "NVARCHAR2(20)", nullable = false)
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,20}$",message = "Minimum five characters, at least one letter and one number!")
-    @Size(min = 5, max = 20, message = "Password must be between 3 and 20 characters")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,20}$", message = "Minimum five characters, at least one letter and one number!")
+    @Size(min = 5, max = 20, message = "Password must be between 5 and 20 characters")
     @NotBlank(message = "Should Not Be Null")
     private String password;
 
-    @Column(name="u_active")
+    @Column(name = "u_active")
     private boolean active;
 
-    //realm roles
-//    @JsonbTransient
+    @JsonbTransient
     @OneToMany(fetch = FetchType.EAGER)
     private List<Roles> roleList;
 
-    public void addRole(Roles role){
-        if (roleList==null){
-            roleList=new ArrayList<>();
+    public void addRole(Roles role) {
+        if (roleList == null) {
+            roleList = new ArrayList<>();
         }
         roleList.add(role);
     }
 
-//    @JsonbTransient
-//    @OneToOne(mappedBy = "user")
-//    @JoinColumn(name = "person_id")
-//    private Person person;
-
+    @JsonbTransient
     @ManyToOne
-//    @JoinColumn(name = "department_id")
     private Department department;
 }

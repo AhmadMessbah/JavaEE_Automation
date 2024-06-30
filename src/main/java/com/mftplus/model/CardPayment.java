@@ -13,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @RequestScoped
+
 @Entity(name = "cardPaymentEntity")
 @Table(name = "card_payment_tbl")
 public class CardPayment extends Payment{

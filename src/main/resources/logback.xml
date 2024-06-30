@@ -6,11 +6,11 @@
         </encoder>
     </appender>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="com.mftplus" level="debug" additivity="false">
+    <logger name="com.mftplus" level="info" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 

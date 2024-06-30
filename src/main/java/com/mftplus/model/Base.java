@@ -1,5 +1,6 @@
 package com.mftplus.model;
 
+import com.google.gson.Gson;
 import jakarta.json.bind.annotation.JsonbTransient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,9 @@ public class Base {
 
     @JsonbTransient
     private Boolean deleted;
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

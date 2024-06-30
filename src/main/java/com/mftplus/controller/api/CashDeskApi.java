@@ -40,6 +40,7 @@ public class CashDeskApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response edit(CashDesk cashDesk) throws Exception {
         try {
+            System.out.println("API - EDIT - " + cashDesk);
             cashDeskService.edit(cashDesk);
             return Response
                     .ok()

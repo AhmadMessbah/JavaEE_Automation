@@ -1,7 +1,6 @@
 package com.mftplus.model;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,6 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
-@ToString
 
 @Entity(name = "organisationEntity")
 @Table(name = "organisation_tbl")
@@ -47,13 +45,13 @@ public class Organisation extends Base implements Serializable {
     @Column(name = "o_description")
     private String description;
 
-//    @OneToMany(mappedBy = "organisation", fetch = FetchType.EAGER)
-//    private List<Department> departmentList;
-//
-//    public void addDepartment(Department department){
-//        if (departmentList == null){
-//            departmentList = new ArrayList<>();
-//        }
-//        departmentList.add(department);
-//    }
+    @OneToMany(mappedBy = "organisation", fetch = FetchType.EAGER)
+    private List<Department> departmentList;
+
+        public void addDepartment(Department department){
+        if (departmentList == null){
+            departmentList = new ArrayList<>();
+        }
+        departmentList.add(department);
+    }
 }

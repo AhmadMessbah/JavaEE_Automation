@@ -61,6 +61,8 @@ public class LoginServlet extends HttpServlet {
                             .deleted(false)
                             .build();
             organisationService.save(organisation);
+            System.out.println(organisation);
+
 
             Department department1 =
                     Department
@@ -71,6 +73,10 @@ public class LoginServlet extends HttpServlet {
                             .deleted(false)
                             .build();
 
+            departmentService.save(department1);
+            System.out.println(department1);
+
+
             Department department2 =
                     Department
                             .builder()
@@ -79,9 +85,9 @@ public class LoginServlet extends HttpServlet {
                             .organisation(organisation)
                             .deleted(false)
                             .build();
-            departmentService.save(department1);
+
+
             departmentService.save(department2);
-            System.out.println(department1);
             System.out.println(department2);
 
 //            organisation.addDepartment(department1);
@@ -96,6 +102,7 @@ public class LoginServlet extends HttpServlet {
                             .department(department1)
                             .deleted(false)
                             .build();
+
             userService.save(admin);
             System.out.println(admin);
 
@@ -107,24 +114,29 @@ public class LoginServlet extends HttpServlet {
                             .department(department2)
                             .deleted(false)
                             .build();
+
             userService.save(user);
             System.out.println(user);
 
             Roles adminRole =
                     Roles
                             .builder()
-                            .role("admin").user(admin)
+                            .role("admin")
+                            .user(admin)
                             .deleted(false)
                             .build();
+
             rolesService.save(adminRole);
             System.out.println(adminRole);
 
             Roles userRole =
                     Roles
                             .builder()
-                            .role("user").user(user)
+                            .role("user")
+                            .user(user)
                             .deleted(false)
                             .build();
+
             rolesService.save(userRole);
             System.out.println(userRole);
 
@@ -146,6 +158,9 @@ public class LoginServlet extends HttpServlet {
                             .deleted(false)
                             .build();
 
+            personService.save(person1);
+            System.out.println(person1);
+
             Person person2 =
                     Person
                             .builder()
@@ -158,8 +173,8 @@ public class LoginServlet extends HttpServlet {
                             .deleted(false)
                             .build();
 
-            personService.save(person1);
             personService.save(person2);
+            System.out.println(person2);
 
 
         } catch (Exception e) {

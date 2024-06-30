@@ -19,7 +19,6 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-@ToString
 
 @Entity(name = "personEntity")
 @Table(name = "person_tbl")
@@ -28,8 +27,8 @@ public class Person extends Base implements Serializable {
 
     //todo : for all entities validation msg is in eng, we need to decide for the persian msg
     @Id
-    @SequenceGenerator(name = "person_seq", sequenceName = "PERSON_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
+    @SequenceGenerator(name = "personSeq", sequenceName = "PERSON_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personSeq")
     @Column(name = "p_id")
     private Long id;
 

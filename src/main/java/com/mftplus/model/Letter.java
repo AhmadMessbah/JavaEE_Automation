@@ -23,7 +23,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-@ToString
 
 @Entity (name = "letterEntity")
 @Table (name = "letter_tbl")

@@ -58,14 +58,16 @@ public class CashDeskEditServlet extends HttpServlet {
             Optional<User> user = userService.findByUsername(username);
 
             if (user.isPresent()) {
-                CashDesk cashDesk = CashDesk.builder()
-                        .id(id)
-                        .name(name)
-                        .cashDeskNumber(cashDeskNumber)
-                        .cashBalance(cashBalance)
-                        .cashier(user.get())
-                        .deleted(false)
-                        .build();
+                CashDesk cashDesk =
+                        CashDesk
+                                .builder()
+                                .id(id)
+                                .name(name)
+                                .cashDeskNumber(cashDeskNumber)
+                                .cashBalance(cashBalance)
+                                .cashier(user.get())
+                                .deleted(false)
+                                .build();
 
                 // Validate the cash desk
                 BeanValidator<CashDesk> validator = new BeanValidator<>();

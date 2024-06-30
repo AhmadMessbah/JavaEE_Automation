@@ -21,7 +21,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SuperBuilder
-@ToString
 
 @Entity(name = "financialTransactionEntity")
 @Table(name = "f_transaction_tbl")

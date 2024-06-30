@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @SuperBuilder
-@ToString
 
 @Entity(name = "bankEntity")
 @Table(name = "bank_tbl")

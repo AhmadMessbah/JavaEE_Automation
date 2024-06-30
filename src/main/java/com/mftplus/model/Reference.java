@@ -22,7 +22,6 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-@ToString
 
 @Entity(name = "referenceEntity")
 @Table(name = "reference_tbl")

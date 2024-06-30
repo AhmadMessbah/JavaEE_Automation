@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class CashDeskServlet extends HttpServlet {
     @Inject
     private UserServiceImpl userService;
 
+    @Valid
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("CashDeskServlet - Post");
@@ -45,7 +47,9 @@ public class CashDeskServlet extends HttpServlet {
                 resp.getWriter().write("All fields are required.");
             }
 
+            assert cashDeskNumberStr != null;
             Long cashDeskNumber = Long.valueOf(cashDeskNumberStr);
+            assert cashBalanceStr != null;
             Long cashBalance = Long.valueOf(cashBalanceStr);
 
             log.info("User found: {}", username);
@@ -76,7 +80,7 @@ public class CashDeskServlet extends HttpServlet {
             req.getSession().setAttribute("ok", "صندوق با موفقیت ثبت شد !");
         } catch (Exception e) {
             log.error("Error in CashDeskServlet POST: {}", e.getMessage(), e);
-            System.out.println("Error : " +e.getMessage());
+            System.out.println("Error : " + e.getMessage());
             e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resp.getWriter().write("An unexpected error occurred: " + e.getMessage());

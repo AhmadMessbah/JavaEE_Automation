@@ -44,7 +44,7 @@
                        class="formbold-form-input"/>
             </div>
 
-            <div style="text-align: right;">
+            <div class="formbold-input-group">
                 <label for="cashier" class="formbold-form-label">صندوقدار:</label>
                 <select name="username" id="cashier" class="formbold-form-input">
                     <c:forEach var="user" items="${sessionScope.userList}">

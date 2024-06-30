@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-@ToString
 
 @Entity(name = "rolesEntity")
 @Table(name = "roles_tbl", uniqueConstraints = {@UniqueConstraint(columnNames = {"u_username","role_name"})})
@@ -37,5 +36,4 @@ public class Roles extends Base implements Serializable {
     @Size(min = 4, max = 10, message = "RoleName must be between 4 and 10 characters")
     @NotBlank(message = "Should Not Be Null")
     private String role;
-
 }

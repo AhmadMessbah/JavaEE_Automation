@@ -275,7 +275,7 @@
               <span class="navlink_icon">
                 <i class="bx bx-cog"></i>
               </span>
-                    <span class="navlink">سند مالی ها</span>
+                    <span class="navlink">سندهای مالی</span>
                 </a>
             </li>
         </ul>
