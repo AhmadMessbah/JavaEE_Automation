@@ -31,7 +31,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- in matn jadid ast-->
+        <!-- in matn ghadmi ast  .... -->
         <!--        <dependency>-->
         <!--            <groupId>org.apache.tomee</groupId>-->
         <!--            <artifactId>cdi-tomee</artifactId>-->
